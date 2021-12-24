@@ -1,0 +1,8 @@
+namespace GameConfig;
+
+struct FP {
+    raw:long;
+}
+
+file_identifier "CONF";
+file_extension "game_config";

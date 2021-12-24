@@ -1,0 +1,20 @@
+include "FP.fbs";
+
+namespace GameConfig;
+
+table DTUIWindow {
+    Id:uint;
+    UIName:string;
+    UIGroupName:string;
+    AllowMultiInstance:uint;
+    PauseCoveredUIForm:uint;
+    AssetPath:string;
+    LuaFile:string;
+}
+
+table DTUIWindowList {
+    data:[DTUIWindow];
+}
+
+file_identifier "CONF";
+file_extension "game_config";
