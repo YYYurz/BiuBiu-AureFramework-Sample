@@ -1,0 +1,94 @@
+local flatbuffers = require('3rd/flatbuffers')
+local luaHelper =  LuaHelper
+local language = "_cn"
+local multiLanguage = { "word", "errorcode" }
+local tolower = string.lower
+
+local function GetWord(word)
+	local s = word and string.gsub(word, "\\n", "\n") or ""
+	return s
+end
+
+---@class reader
+local m = {
+	tbs = {},
+	pps = {},
+}
+
+local function GetTableLoadInfo(tbName)
+	local lowTbName = tolower(tbName)
+	local bytesFileName
+	if table.hasValue(multiLanguage, lowTbName) then
+		bytesFileName = "table/".. lowTbName ..language
+	else
+		bytesFileName = "table/".. lowTbName
+	end
+
+	local className
+	local index = string.find(tbName, "_")
+	if index == nil then
+		className = tbName .. "List"
+	else
+		className = string.sub(tbName, 1, index - 1) .. "List"
+	end
+	return className, bytesFileName
+end
+
+local function LoadTable(tbName)
+	local tb_data = m.tbs[tbName]
+	if tb_data ~= nil then
+		return tb_data
+	end
+
+	local className, bytesFileName = GetTableLoadInfo(tbName)
+	local tb_list = require("GameConfig/".. className)
+	local fun_name = "GetRootAs".. className
+	local fun = tb_list[fun_name]
+	if fun == nil then
+		Log.Error("Can not found function:"..fun_name)
+		return nil
+	end
+	tb_data = {}
+
+	local data = luaHelper.ReadTableData(bytesFileName)
+	local buf = flatbuffers.binaryArray.New(data)
+	local data_list = fun(buf, 0)
+	local pps_action = m.pps[tbName]
+	local len = data_list:DataLength()
+	for i = 1, len do
+		local data_item = data_list:Data(i)
+		if data_item then
+			local id = data_item:Id()
+			tb_data[id] = data_item
+			if pps_action then
+				pps_action(id, data_item)
+			end
+		end
+	end
+	m.tbs[tbName] = tb_data
+	return tb_data
+end
+
+function m.RegisterPostProcessAction(tb_name, action)
+	if m.pps[tb_name] ~= nil then
+		Log.Error("Register Same PostProcessAction:" .. tb_name)
+		return
+	end
+	m.pps[tb_name] = action
+end
+
+function m.GetInfo(tb_name, key)
+	local tb = LoadTable(tb_name)
+	if tb == nil then
+		return nil
+	end
+	return tb[key]
+end
+
+function m.GetTable(tb_name)
+	return LoadTable(tb_name)
+end
+
+m.GetWord = GetWord
+m.LoadTable = LoadTable
+return m

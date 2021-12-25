@@ -1,0 +1,12 @@
+--- 全局公共组件都在这里添加
+
+------------------------- C# --------------------------
+UIUtils = CS.BB.UIUtils
+-------------------------------------------------------
+
+------------------------- Lua -------------------------
+Utils = require "Common.util"
+UIFormID = require "Data.BBConstantUIFormID"
+CF = require "Common.CommonFunction"
+UIEventID = require "Common.EventID"
+-------------------------------------------------------
