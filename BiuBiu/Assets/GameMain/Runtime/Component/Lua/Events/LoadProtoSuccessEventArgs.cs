@@ -1,6 +1,6 @@
 ﻿ 
 
-using GameFramework.Event;
+using AureFramework.Event;
 
 /// <summary>
 /// 加载Proto成功事件

@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
-using GameFramework.Resource;
+using AureFramework.Resource;
 using System.Collections;
 using UnityEngine;
 #if UNITY_5_4_OR_NEWER
@@ -14,7 +14,7 @@ using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityGameFramework.Runtime;
 
-namespace BB
+namespace BiuBiu
 {
     /// <summary>
     /// 默认资源辅助器。

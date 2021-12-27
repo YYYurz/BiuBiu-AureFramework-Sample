@@ -1,7 +1,7 @@
 ﻿ 
 
 using System;
-using GameFramework.Event;
+using AureFramework.Event;
 
 /// <summary>
 /// 加载Lua列表文件失败事件

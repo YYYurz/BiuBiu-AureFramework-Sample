@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
-namespace BB
+namespace BiuBiu
 {
     public class DataTableAssets
     {

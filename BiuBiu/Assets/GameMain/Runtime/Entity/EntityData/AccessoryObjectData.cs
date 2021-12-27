@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace BB
+namespace BiuBiu
 {
     [Serializable]
     public abstract class AccessoryObjectData : EntityData

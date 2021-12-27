@@ -1,11 +1,8 @@
-﻿using GameConfig;
-using GameFramework.Event;
-using UnityEngine;
-using GameFramework.Fsm;
-using GameFramework.Procedure;
-using UnityGameFramework.Runtime;
+﻿using UnityEngine;
+using AureFramework.Event;
+using AureFramework.Procedure;
 
-namespace BB
+namespace BiuBiu
 {
     public class ProcedurePreload : ProcedureBase
     {
@@ -13,55 +10,50 @@ namespace BB
             
         private bool allAssetLoadedComplete;
         
-        protected override void OnEnter(IFsm<IProcedureManager> procedureOwner)
+        public override void OnEnter(params object[] args)
         {
-            base.OnEnter(procedureOwner);
-            Log.Debug("ProcedurePreload OnEnter");
+            base.OnEnter(args);
 
-            var uiRoot = GameEntry.UI.transform;
+            var uiRoot = GameMain.UI.transform;
             var startWindow = StartWindow.CreateStartWindow(uiRoot);
             startWindowScript = startWindow.GetComponent<StartWindow>();
             
-            GameEntry.Event.Subscribe(LoadLuaFilesConfigSuccessEventArgs.EventId, OnLoadLuaFilesConfigSuccess);
-            GameEntry.Event.Subscribe(PreloadProgressCompleteEventArgs.EventId, OnAllAssetsLoadedComplete);
-            GameEntry.Event.Subscribe(OpenUIFormFailureEventArgs.EventId, OnOpenUIFormFailure);
-            GameEntry.Event.Subscribe(PreloadProgressLoadingEventArgs.EventId, OnPreloadProgress);
+            GameMain.Event.Subscribe(LoadLuaFilesConfigSuccessEventArgs.EventId, OnLoadLuaFilesConfigSuccess);
+            GameMain.Event.Subscribe(PreloadProgressCompleteEventArgs.EventId, OnAllAssetsLoadedComplete);
+            GameMain.Event.Subscribe(PreloadProgressLoadingEventArgs.EventId, OnPreloadProgress);
             
             allAssetLoadedComplete = false;
-            GameEntry.Lua.LoadLuaFilesConfig();
+            GameMain.Lua.LoadLuaFilesConfig();
         }
 
-        protected override void OnLeave(IFsm<IProcedureManager> procedureOwner, bool isShutdown)
+        public override void OnExit()
         {
-            base.OnLeave(procedureOwner, isShutdown);
-            GameEntry.Event.Unsubscribe(LoadLuaFilesConfigSuccessEventArgs.EventId, OnLoadLuaFilesConfigSuccess);
-            GameEntry.Event.Unsubscribe(PreloadProgressCompleteEventArgs.EventId, OnAllAssetsLoadedComplete);
-            GameEntry.Event.Unsubscribe(OpenUIFormFailureEventArgs.EventId, OnOpenUIFormFailure);
-            GameEntry.Event.Unsubscribe(PreloadProgressLoadingEventArgs.EventId, OnPreloadProgress);
+            base.OnExit();
+            GameMain.Event.Unsubscribe(LoadLuaFilesConfigSuccessEventArgs.EventId, OnLoadLuaFilesConfigSuccess);
+            GameMain.Event.Unsubscribe(PreloadProgressCompleteEventArgs.EventId, OnAllAssetsLoadedComplete);
+            GameMain.Event.Unsubscribe(PreloadProgressLoadingEventArgs.EventId, OnPreloadProgress);
 
             startWindowScript.DestroySelf();
             startWindowScript = null;
         }
 
-        protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
+        public override void OnUpdate()
         {
-            base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
+            base.OnUpdate();
             
             if (!allAssetLoadedComplete)
             {
                 return;
             }
 
-            // procedureOwner.SetData<VarInt>(Constant.ProcedureData.NextSceneId, (int)GameEnum.SCENE_TYPE.MainLobby);
-            procedureOwner.SetData<VarInt32>(Constant.ProcedureData.NextSceneId, (int)GameEnum.SCENE_TYPE.HomeLand);
-            ChangeState<ProcedureChangeScene>(procedureOwner);
+            ChangeState<ProcedureChangeScene>();
         }
 
-        private void OnLoadLuaFilesConfigSuccess(object sender, GameEventArgs e)
+        private void OnLoadLuaFilesConfigSuccess(object sender, AureEventArgs e)
         {
             var assetLuaFileInfo = new PreloadLuaFileList();
-            assetLuaFileInfo.SetLuaFileInfo(GameEntry.Lua.LuaFileInfos);
-            GameEntry.AssetPreload.AddAssetPreloadList(assetLuaFileInfo);
+            assetLuaFileInfo.SetLuaFileInfo(GameMain.Lua.LuaFileInfos);
+            GameMain.AssetPreload.AddAssetPreloadList(assetLuaFileInfo);
             
             var assetDataTableInfo = new PreloadDataTableList();
             assetDataTableInfo.AddOneAssetInfo(typeof(DTGameConfigTableReader));
@@ -70,34 +62,27 @@ namespace BB
             assetDataTableInfo.AddOneAssetInfo(typeof(DTSceneTableReader));
             assetDataTableInfo.AddOneAssetInfo(typeof(DTEntityTableReader));
             assetDataTableInfo.AddOneAssetInfo(typeof(DTVocationTableReader));
-            GameEntry.AssetPreload.AddAssetPreloadList(assetDataTableInfo);
+            GameMain.AssetPreload.AddAssetPreloadList(assetDataTableInfo);
 
-            GameEntry.AssetPreload.StartPreloadAsset();
+            GameMain.AssetPreload.StartPreloadAsset();
         }
         
-        private void OnAllAssetsLoadedComplete(object sender, GameEventArgs e)
+        private void OnAllAssetsLoadedComplete(object sender, AureEventArgs e)
         {
-            Log.Debug("ProcedurePreload : All Assets Preload Over");
-            GameEntry.Lua.InitLuaEnvExternalInterface();
-            GameEntry.Lua.InitLuaCommonScript();
-            GameEntry.Lua.StartRunLuaLogic();
+            GameMain.Lua.InitLuaEnvExternalInterface();
+            GameMain.Lua.InitLuaCommonScript();
+            GameMain.Lua.StartRunLuaLogic();
             allAssetLoadedComplete = true;
         }
 
-        private void OnPreloadProgress(object sender, GameEventArgs e)
+        private void OnPreloadProgress(object sender, AureEventArgs e)
         {
             if (!(e is PreloadProgressLoadingEventArgs args))
             {
-                Log.Error("ProcedurePreload : PreloadProgressLoadingEventArgs is null");
+                Debug.LogError("ProcedurePreload : PreloadProgressLoadingEventArgs is null");
                 return;
             }
             startWindowScript.SetSliderProgress((float)args.LoadedAssetsCount / args.TotalAssetsCount);
-        }
-
-        private void OnOpenUIFormFailure(object sender, GameEventArgs e)
-        {
-            var args = (OpenUIFormFailureEventArgs) e;
-            Debug.Log("Open Failed" + args.ErrorMessage);
         }
     }
 }

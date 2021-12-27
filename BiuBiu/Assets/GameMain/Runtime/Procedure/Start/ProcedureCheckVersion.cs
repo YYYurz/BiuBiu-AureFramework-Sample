@@ -1,28 +1,22 @@
-﻿using UnityEngine;
-using UnityGameFramework.Runtime;
-using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
+﻿
+using AureFramework.Procedure;
 
-namespace BB
+namespace BiuBiu
 {
     public class ProcedureCheckVersion : ProcedureBase
     {
 
-        protected override void OnEnter(ProcedureOwner procedureOwner)
+        public override void OnEnter(params object[] args)
         {
-            base.OnEnter(procedureOwner);
-            // GameEntry.Resource.InitResources(OnInitResourcesComplete);
-        }
-        
-        protected override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
-        {
-            base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
+            base.OnEnter(args);
             
-            ChangeState<ProcedurePreload>(procedureOwner);
         }
         
-        private void OnInitResourcesComplete()
+        public override void OnUpdate()
         {
-            Log.Info("Init resources complete.");
+            base.OnUpdate();
+            
+            ChangeState<ProcedurePreload>();
         }
     }
 }

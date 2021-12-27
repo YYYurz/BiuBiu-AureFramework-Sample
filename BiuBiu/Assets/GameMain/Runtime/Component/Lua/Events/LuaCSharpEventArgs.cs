@@ -1,6 +1,6 @@
 ﻿ 
 
-using GameFramework.Event;
+using AureFramework.Event;
 using System;
 using XLua;
 using System.Collections.Generic;

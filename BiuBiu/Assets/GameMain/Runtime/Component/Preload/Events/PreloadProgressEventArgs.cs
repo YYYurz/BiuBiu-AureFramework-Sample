@@ -1,42 +1,35 @@
-﻿using GameFramework;
-using GameFramework.Event;
-using System.Collections;
+﻿using AureFramework.Event;
 using System.Collections.Generic;
-using UnityEngine;
 using XLua;
 using System;
 
-
-
-namespace BB
+namespace BiuBiu
 {
-    public sealed class PreloadProgressLoadingEventArgs : GameEventArgs
+    public sealed class PreloadProgressLoadingEventArgs : AureEventArgs
     {
         /// <summary>
         /// 资源更新改变事件编号。
         /// </summary>
         public static readonly int EventId = typeof(PreloadProgressLoadingEventArgs).GetHashCode();
 
-        public override int Id
-        {
-            get
-            {
-                return EventId;
-            }
-        }
-
         /// <summary>
         /// 已经加载的资源数量
         /// </summary>
-        public int LoadedAssetsCount { get; set; } = 0;
+        public int LoadedAssetsCount { 
+            get; 
+            set;
+        }
 
         /// <summary>
         /// 所有资源数量
         /// </summary>
-        public int TotalAssetsCount { get; set; } = 0;
-
-        public PreloadProgressLoadingEventArgs()
+        public int TotalAssetsCount
         {
+            get;
+            set;
+        }
+
+        public PreloadProgressLoadingEventArgs() {
         }
 
 
@@ -129,7 +122,7 @@ public static class PreloadProgressLoadingEventArgsExporter
     [LuaCallCSharp]
     public static List<Type> LuaCallCSharp = new List<Type>()
         {
-            typeof(BB.PreloadProgressLoadingEventArgs),
+            typeof(BiuBiu.PreloadProgressLoadingEventArgs),
         };
 }
 #endif

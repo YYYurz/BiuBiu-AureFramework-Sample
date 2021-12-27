@@ -1,9 +1,9 @@
-﻿using GameFramework.Event;
+﻿using AureFramework.Event;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
-namespace BB
+namespace BiuBiu
 {
     [DisallowMultipleComponent]
     public class PreloadComponent : GameFrameworkComponent
@@ -42,19 +42,19 @@ namespace BB
             {
                 if (mUnloadResourceSteps == 0)
                 {
-                    mCacheAssetExpireTime = GameEntry.Resource.AssetExpireTime;
-                    GameEntry.Resource.AssetExpireTime = 0.0001f;
-                    GameEntry.Resource.AssetExpireTime = mCacheAssetExpireTime;
+                    mCacheAssetExpireTime = GameMain.Resource.AssetExpireTime;
+                    GameMain.Resource.AssetExpireTime = 0.0001f;
+                    GameMain.Resource.AssetExpireTime = mCacheAssetExpireTime;
                 }
                 else if (mUnloadResourceSteps == 1)
                 {
-                    mCacheResourceExpireTime = GameEntry.Resource.ResourceExpireTime;
-                    GameEntry.Resource.ResourceExpireTime = 0.0001f;
-                    GameEntry.Resource.ResourceExpireTime = mCacheResourceExpireTime;
+                    mCacheResourceExpireTime = GameMain.Resource.ResourceExpireTime;
+                    GameMain.Resource.ResourceExpireTime = 0.0001f;
+                    GameMain.Resource.ResourceExpireTime = mCacheResourceExpireTime;
                     mStartUnloadResource = false;
 
-                    Log.Info("UnloadResource Finished! AssetCount:{0} ResourceCount:{1}", GameEntry.Resource.AssetCount, GameEntry.Resource.ResourceCount);
-                    GameEntry.Event.Fire(this, UnloadResourceFinishEventArgs.Create());
+                    Log.Info("UnloadResource Finished! AssetCount:{0} ResourceCount:{1}", GameMain.Resource.AssetCount, GameMain.Resource.ResourceCount);
+                    GameMain.Event.Fire(this, UnloadResourceFinishEventArgs.Create());
                 }
                 ++mUnloadResourceSteps;
             }
@@ -85,18 +85,18 @@ namespace BB
         {
             AddEvent();
             allNeedLoadAssetCount = mDicLoadingAssetInfo.Count;
-            GameEntry.Event.Fire(this, PreloadProgressLoadingEventArgs.Create(0, allNeedLoadAssetCount));
+            GameMain.Event.Fire(this, PreloadProgressLoadingEventArgs.Create(0, allNeedLoadAssetCount));
 
             foreach (var iteAssetInfo in mDicLoadingAssetInfo)
             {
                 switch (iteAssetInfo.Value.AssetPreloadType)
                 {
                     case GameEnum.GAME_ASSET_TYPE.LuaFile:
-                        GameEntry.Lua.LoadLuaFile((string)iteAssetInfo.Value.UserData, iteAssetInfo.Value.AssetPath);
+                        GameMain.Lua.LoadLuaFile((string)iteAssetInfo.Value.UserData, iteAssetInfo.Value.AssetPath);
                         break;
                     case GameEnum.GAME_ASSET_TYPE.Scriptable:
                     case GameEnum.GAME_ASSET_TYPE.DataTable:
-                        GameEntry.TableData.LoadCustomData(iteAssetInfo.Value.AssetPath, iteAssetInfo.Value.UserData);
+                        GameMain.TableData.LoadCustomData(iteAssetInfo.Value.AssetPath, iteAssetInfo.Value.UserData);
                         break;
                     // case GameEnum.GAMEASSET_TYPE.PAT_CONFIGTXT:
                     //     {
@@ -122,19 +122,19 @@ namespace BB
 
         private void AddEvent()
         {
-            GameEntry.Event.Subscribe(LoadConfigSuccessEventArgs.EventId, OnLoadConfigSuccess);
-            GameEntry.Event.Subscribe(LoadDictionarySuccessEventArgs.EventId, OnLoadDictionarySuccess);
-            GameEntry.Event.Subscribe(LoadLuaSuccessEventArgs.EventId, OnLoadLuaSuccess);
-            GameEntry.Event.Subscribe(LoadCustomDataSuccessEventArgs.EventId, OnLoadCustomDataSuccess);
+            GameMain.Event.Subscribe(LoadConfigSuccessEventArgs.EventId, OnLoadConfigSuccess);
+            GameMain.Event.Subscribe(LoadDictionarySuccessEventArgs.EventId, OnLoadDictionarySuccess);
+            GameMain.Event.Subscribe(LoadLuaSuccessEventArgs.EventId, OnLoadLuaSuccess);
+            GameMain.Event.Subscribe(LoadCustomDataSuccessEventArgs.EventId, OnLoadCustomDataSuccess);
 
         }
 
         private void RemoveEvent()
         {
-            GameEntry.Event.Unsubscribe(LoadConfigSuccessEventArgs.EventId, OnLoadConfigSuccess);
-            GameEntry.Event.Unsubscribe(LoadDictionarySuccessEventArgs.EventId, OnLoadDictionarySuccess);
-            GameEntry.Event.Unsubscribe(LoadLuaSuccessEventArgs.EventId, OnLoadLuaSuccess);
-            GameEntry.Event.Unsubscribe(LoadCustomDataSuccessEventArgs.EventId, OnLoadCustomDataSuccess);
+            GameMain.Event.Unsubscribe(LoadConfigSuccessEventArgs.EventId, OnLoadConfigSuccess);
+            GameMain.Event.Unsubscribe(LoadDictionarySuccessEventArgs.EventId, OnLoadDictionarySuccess);
+            GameMain.Event.Unsubscribe(LoadLuaSuccessEventArgs.EventId, OnLoadLuaSuccess);
+            GameMain.Event.Unsubscribe(LoadCustomDataSuccessEventArgs.EventId, OnLoadCustomDataSuccess);
         }
 
         private void OneAssetLoadSuccess(string strAssetName)
@@ -208,15 +208,15 @@ namespace BB
         private void OnLoadAssetComplete()
         {
             Log.Debug("PreloadComponent LoadAssetProgress load asset complete!");
-            GameEntry.Event.Fire(this, PreloadProgressCompleteEventArgs.Create());
-            GameEntry.Event.Fire(this, PreloadProgressLoadingEventArgs.Create(mDicLoadingAssetInfo.Count, allNeedLoadAssetCount));
+            GameMain.Event.Fire(this, PreloadProgressCompleteEventArgs.Create());
+            GameMain.Event.Fire(this, PreloadProgressLoadingEventArgs.Create(mDicLoadingAssetInfo.Count, allNeedLoadAssetCount));
             RemoveEvent();
             ResetAssetPreloadInfo();
         }
 
         private void OnLoadAssetProgress()
         {
-            GameEntry.Event.Fire(this, PreloadProgressLoadingEventArgs.Create(loadedAssetCount, allNeedLoadAssetCount));
+            GameMain.Event.Fire(this, PreloadProgressLoadingEventArgs.Create(loadedAssetCount, allNeedLoadAssetCount));
         }
 
         private bool CheckAllAssetsLoaded()

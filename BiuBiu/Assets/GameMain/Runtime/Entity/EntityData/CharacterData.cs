@@ -1,7 +1,7 @@
 ﻿using GameConfig;
 using UnityEngine;
 
-namespace BB
+namespace BiuBiu
 {
     public class CharacterData : TargetableObjectData
     {
@@ -17,7 +17,7 @@ namespace BB
         public CharacterData(int entityId, int typeId)
             : base(entityId, typeId)
         {
-            var vocationInfo = GameEntry.TableData.DataTableInfo.GetDataTableReader<DTVocationTableReader>().GetInfo((uint) typeId);
+            var vocationInfo = GameMain.TableData.DataTableInfo.GetDataTableReader<DTVocationTableReader>().GetInfo((uint) typeId);
             maxHealth = vocationInfo.MaxHealth;
             moveSpeed = vocationInfo.MoveSpeed;
         }

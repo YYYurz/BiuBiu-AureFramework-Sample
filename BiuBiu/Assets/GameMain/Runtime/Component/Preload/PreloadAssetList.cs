@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityGameFramework.Runtime;
 
-namespace BB
+namespace BiuBiu
 {
     public abstract class PreloadAssetList
     {

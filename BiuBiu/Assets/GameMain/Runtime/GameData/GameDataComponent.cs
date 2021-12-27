@@ -1,6 +1,6 @@
 ﻿using UnityGameFramework.Runtime;
 
-namespace BB
+namespace BiuBiu
 {
     public class GameDataComponent : GameFrameworkComponent
     {

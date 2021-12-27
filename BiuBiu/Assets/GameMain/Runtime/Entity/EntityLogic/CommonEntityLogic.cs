@@ -9,7 +9,7 @@ using GameFramework;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
-namespace BB
+namespace BiuBiu
 {
     public class CommonEntityLogic : Entity
     {
@@ -37,7 +37,7 @@ namespace BB
                 fDelayTimeCount -= elapseSeconds;
                 if (fDelayTimeCount <= 0)
                 {
-                    GameEntry.Entity.HideEntity(Entity.Id);
+                    GameMain.Entity.HideEntity(Entity.Id);
                 }
             }
         }

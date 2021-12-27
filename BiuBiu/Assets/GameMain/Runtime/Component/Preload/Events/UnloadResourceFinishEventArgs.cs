@@ -1,10 +1,10 @@
 ﻿using GameFramework;
-using GameFramework.Event;
+using AureFramework.Event;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BB
+namespace BiuBiu
 {
 
     public sealed class UnloadResourceFinishEventArgs : GameEventArgs

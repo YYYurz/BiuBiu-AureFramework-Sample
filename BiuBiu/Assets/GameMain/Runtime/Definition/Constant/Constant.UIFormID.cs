@@ -2,7 +2,7 @@
 /// <summary>
 /// 界面编号。
 /// </summary>
-namespace BB
+namespace BiuBiu
 {
     public static partial class Constant
     {

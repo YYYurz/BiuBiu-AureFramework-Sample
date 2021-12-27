@@ -1,7 +1,7 @@
 ﻿ 
 
 using GameFramework;
-using GameFramework.Resource;
+using AureFramework.Resource;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +11,7 @@ using XLua;
 /// <summary>
 /// Lua组件game
 /// </summary>
-namespace BB
+namespace BiuBiu
 {
     public class LuaComponent : GameFrameworkComponent
     {
@@ -365,7 +365,7 @@ namespace BB
              {
                  return null;
              }
-             if (GameEntry.Lua.CacheLuaDict.TryGetValue(strLuaName, out var strLuaContent))
+             if (GameMain.Lua.CacheLuaDict.TryGetValue(strLuaName, out var strLuaContent))
              {
                  return Utility.Converter.GetBytes(strLuaContent);
              }

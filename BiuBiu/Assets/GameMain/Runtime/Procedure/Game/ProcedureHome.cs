@@ -1,29 +1,22 @@
-﻿using GameFramework.Fsm;
-using GameFramework.Procedure;
-using UnityEngine;
-using UnityGameFramework.Runtime;
+﻿using AureFramework.Procedure;
 
-namespace BB
+namespace BiuBiu
 {
     // ReSharper disable once UnusedType.Global
     public class ProcedureHome : ProcedureBase
     {
-        protected override void OnEnter(IFsm<IProcedureManager> procedureOwner)
-        {
-            Log.Debug("ProcedureHome OnEnter");
+        public override void OnEnter(params object[] args) {
+            base.OnEnter(args);
 
-            GameEntry.UI.OpenUI(Constant.UIFormID.LoginWindow);
-            GameEntry.Entity.ShowSoldier();
         }
 
-        protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
-        {
+        public override void OnUpdate() {
+            base.OnUpdate();
             
         }
 
-        protected override void OnLeave(IFsm<IProcedureManager> procedureOwner, bool isShutdown)
-        {
-            base.OnLeave(procedureOwner, isShutdown);
+        public override void OnExit() {
+            base.OnExit();
         }
     }
 }

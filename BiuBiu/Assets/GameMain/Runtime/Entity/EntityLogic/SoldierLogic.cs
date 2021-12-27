@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace  BB
+namespace  BiuBiu
 {
     public class SoldierLogic : CharacterLogic
     {

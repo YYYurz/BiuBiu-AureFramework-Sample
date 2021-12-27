@@ -1,5 +1,5 @@
 ﻿
-namespace BB
+namespace BiuBiu
 {
     public class GameDataModel
     {

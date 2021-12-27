@@ -1,10 +1,7 @@
-﻿using GameFramework;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using AureFramework;
+using AureFramework.ReferencePool;
 
-namespace BB
+namespace BiuBiu
 {
     public class UIFormOpenDataInfo : IReference
     {
@@ -20,7 +17,7 @@ namespace BB
 
         public static UIFormOpenDataInfo Create(int id, string strLuaFile, object userData)
         {
-            var uiFormOpenInfo = ReferencePool.Acquire<UIFormOpenDataInfo>();
+            var uiFormOpenInfo = Aure.GetModule<IReferencePoolModule>().Acquire<UIFormOpenDataInfo>();
             uiFormOpenInfo.FormID = id;
             uiFormOpenInfo.LuaFile = strLuaFile;
             uiFormOpenInfo.UserData = userData;
@@ -28,8 +25,7 @@ namespace BB
             return uiFormOpenInfo;
         }
 
-        public virtual void Clear()
-        {
+        public void Clear() {
             FormID = Constant.UIFormID.Undefined;
             LuaFile = string.Empty;
             UserData = null;

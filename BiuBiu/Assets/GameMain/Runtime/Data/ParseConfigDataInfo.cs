@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BB
+namespace BiuBiu
 {
     public class ParseConfigDataInfo
     {

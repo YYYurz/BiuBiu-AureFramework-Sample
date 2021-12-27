@@ -1,91 +1,62 @@
-﻿using UnityGameFramework.Runtime;
+﻿//------------------------------------------------------------
+// AureFramework
+// Developed By ZhiRui Yu.
+// GitHub: https://github.com/YYYurz
+// Gitee: https://gitee.com/yyyurz
+// Email: 1228396352@qq.com
+//------------------------------------------------------------
+
+using AureFramework.UI;
 using XLua;
 
-/// <summary>
-/// Lua界面
-/// </summary>
-namespace BB
-{
-    public class LuaForm : UGuiForm
-    {
-        private string uiName;
-        private LuaTable luaScriptTable;
-        private UIFormOpenDataInfo formDataInfo { get; set; }
+namespace BiuBiu {
+	/// <summary>
+	/// Lua界面
+	/// </summary>
+	public sealed class LuaForm : UIFormBase {
+		private string uiName;
 
-        protected override void OnInit(object userData)
-        {
-            base.OnInit(userData);
-            formDataInfo = userData as UIFormOpenDataInfo;
-            if (formDataInfo == null)
-            {
-                Log.Error("LuaForm Open Error! invalid userData!");
-                return;
-            }
-            
-            Name = Name.Replace("(Clone)", "");
+		private LuaTable luaScriptTable;
+		// private UIFormOpenDataInfo formDataInfo { get; set; }
 
-            var luaScript = GameEntry.Lua.DoStringCustom(formDataInfo.LuaFile);
-            luaScriptTable = GameEntry.Lua.CallLuaFunctionCustom(luaScript, "New", luaScript);
-            
-            // ReSharper disable once InvertIf
-            if (luaScriptTable != null)
-            {
-                luaScriptTable.Set("uiFormID", formDataInfo.FormID);
-                luaScriptTable.Set("transform", transform);
-                luaScriptTable.Set("gameObject", gameObject);
-                GameEntry.Lua.CallLuaFunction(luaScriptTable, "OnCreate", luaScriptTable);
-            }
-        }
+		public override void OnInit(object userData) {
+			base.OnInit(userData);
+			// formDataInfo = userData as UIFormOpenDataInfo;
+			// if (formDataInfo == null)
+			// {
+			//     Debug.LogError("LuaForm Open Error! invalid userData!");
+			//     return;
+			// }
 
-        protected override void OnOpen(object userData)
-        {
-            base.OnOpen(userData);
+			luaScriptTable = (LuaTable) GameMain.Lua.CallLuaFunction("", "New", new[] {typeof(LuaTable)})[0];
 
-            formDataInfo = userData as UIFormOpenDataInfo;
-            if (formDataInfo == null)
-            {
-                Log.Error("LuaForm Open Error! invalid userData!");
-                return;
-            }
-            if (formDataInfo.UserData as string == "Preload")
-            {
-                return;
-            }
+			if (luaScriptTable != null) {
+				luaScriptTable.Set("transform", transform);
+				luaScriptTable.Set("gameObject", gameObject);
+				GameMain.Lua.CallLuaFunction(luaScriptTable, "OnCreate", luaScriptTable);
+			}
+		}
 
-            if (luaScriptTable != null)
-            {
-                GameEntry.Lua.CallLuaFunction(luaScriptTable, "OnOpen", luaScriptTable, formDataInfo.UserData);
-            }
-        }
+		public override void OnOpen(object userData) {
+			base.OnOpen(userData);
+			if (luaScriptTable != null) {
+				GameMain.Lua.CallLuaFunction(luaScriptTable, "OnOpen", luaScriptTable);
+			}
+		}
 
-        protected override void OnClose(bool isShutdown, object userData)
-        {
-            if (luaScriptTable != null)
-            {
-                GameEntry.Lua.CallLuaFunction(luaScriptTable, "OnClose", luaScriptTable);
-            }
+		public override void OnClose() {
+			if (luaScriptTable != null) {
+				GameMain.Lua.CallLuaFunction(luaScriptTable, "OnClose", luaScriptTable);
+			}
 
-            base.OnClose(isShutdown, userData);
-        }
+			base.OnClose();
+		}
 
-        //protected override void OnOpenComplete()
-        //{
-        //    base.OnOpenComplete();
-
-        //    if (m_FormManagerLuaTable != null)
-        //    {
-        //        GameManager.Lua.CallLuaFunction(m_FormManagerLuaTable, "OnOpenComplete", m_FormName);
-        //    }
-        //}
-
-        public void OnDestroy()
-        {
-            if (luaScriptTable == null) return;
-            GameEntry.Lua.CallLuaFunction(luaScriptTable, "OnDestroy", luaScriptTable);
-            luaScriptTable.Dispose();
-            luaScriptTable = null;
-        }
-
-
-    }
+		public override void OnDestroy() {
+			if (luaScriptTable == null) return;
+			GameMain.Lua.CallLuaFunction(luaScriptTable, "OnDestroy", luaScriptTable);
+			luaScriptTable.Dispose();
+			luaScriptTable = null;
+		}
+	}
 }

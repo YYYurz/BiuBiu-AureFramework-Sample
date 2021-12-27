@@ -2,7 +2,7 @@
 using GameConfig;
 using UnityGameFramework.Runtime;
 
-namespace BB
+namespace BiuBiu
 {
     public static class EntityExtension
     {
@@ -50,7 +50,7 @@ namespace BB
                 Log.Warning("Data is invalid.");
                 return;
             }
-            DTEntity? entityInfo = GameEntry.TableData.DataTableInfo.GetDataTableReader<DTEntityTableReader>().GetInfo((uint)data.TypeId);
+            DTEntity? entityInfo = GameMain.TableData.DataTableInfo.GetDataTableReader<DTEntityTableReader>().GetInfo((uint)data.TypeId);
             entityComponent.ShowEntity(data.Id, logicType, AssetUtils.GetEntityAsset(entityInfo.Value.AssetName), entityGroup, priority, data);
         }
 

@@ -6,7 +6,7 @@ using UnityEditor;
 /// <summary>
 /// XLua静态Wrap配置类
 /// </summary>
-namespace BB.Editor
+namespace BiuBiu.Editor
 {
     public static class XLuaStaticConfig
     {

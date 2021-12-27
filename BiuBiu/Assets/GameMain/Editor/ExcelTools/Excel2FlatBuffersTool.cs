@@ -5,7 +5,7 @@ using System.IO;
 using UnityEditor;
 using System.Diagnostics;
 
-namespace BB.Editor
+namespace BiuBiu.Editor
 {
     public class Excel2FlatBuffersTool : EditorWindow
     {

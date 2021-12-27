@@ -2,12 +2,12 @@
 
 using UnityEngine;
 
-namespace BB
+namespace BiuBiu
 {
     /// <summary>
     /// 游戏入口。
     /// </summary>
-    public partial class GameEntry : MonoBehaviour
+    public partial class GameMain : MonoBehaviour
     {
         private void Start()
         {

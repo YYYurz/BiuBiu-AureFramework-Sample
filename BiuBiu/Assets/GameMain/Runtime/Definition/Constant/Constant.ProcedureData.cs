@@ -1,4 +1,4 @@
-﻿namespace BB
+﻿namespace BiuBiu
 {
     public static partial class Constant
     {

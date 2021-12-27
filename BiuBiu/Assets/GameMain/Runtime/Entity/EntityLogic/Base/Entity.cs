@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
-namespace BB
+namespace BiuBiu
 {
     public abstract class Entity : EntityLogic
     {

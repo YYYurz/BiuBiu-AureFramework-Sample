@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityGameFramework.Runtime;
 
-namespace BB
+namespace BiuBiu
 {
     /// <summary>
     /// 可作为目标的实体类。

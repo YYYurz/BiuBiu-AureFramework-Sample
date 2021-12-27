@@ -6,9 +6,9 @@
 //------------------------------------------------------------
 
 using GameFramework;
-using GameFramework.Event;
+using AureFramework.Event;
 
-namespace BB
+namespace BiuBiu
 {
     /// <summary>
     /// 加载配置失败事件。

@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using UnityGameFramework.Runtime;
-using GameFramework.Event;
+using AureFramework.Event;
 
-namespace BB
+namespace BiuBiu
 {
     public abstract class CharacterLogic : TargetableObject
     {
@@ -30,7 +30,7 @@ namespace BB
             animator = GetComponent<Animator>();
             GetComponent<CameraLogic>().OnStartFollowing();
 
-            GameEntry.Event.Subscribe(InputEventArgs.EventId, OnInputEvent);
+            GameMain.Event.Subscribe(InputEventArgs.EventId, OnInputEvent);
             animator.Update(1);
         }
 
@@ -38,7 +38,7 @@ namespace BB
         {
             base.OnHide(isShutdown, userData);
             
-            GameEntry.Event.Unsubscribe(InputEventArgs.EventId, OnInputEvent);
+            GameMain.Event.Unsubscribe(InputEventArgs.EventId, OnInputEvent);
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)

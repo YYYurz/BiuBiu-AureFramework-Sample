@@ -1,9 +1,9 @@
 ﻿using FlatBuffers;
-using GameFramework.Resource;
+using AureFramework.Resource;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
-namespace BB
+namespace BiuBiu
 {
     [DisallowMultipleComponent]
     public class TableDataComponent : GameFrameworkComponent
@@ -24,7 +24,7 @@ namespace BB
 
         public void LoadCustomData(string strAssetPath, object userData)
         {
-            GameEntry.Resource.LoadAsset(strAssetPath, loadAssetCallbacks, userData);
+            GameMain.Resource.LoadAsset(strAssetPath, loadAssetCallbacks, userData);
         }
         
         private void OnLoadDataFileFailure(string assetName, LoadResourceStatus status, string errorMessage, object userData)
@@ -49,10 +49,10 @@ namespace BB
                     break;
             }
             // 发送预加载成功事件
-            GameEntry.Event.Fire(this, LoadCustomDataSuccessEventArgs.Create(assetName, duration, userData));
+            GameMain.Event.Fire(this, LoadCustomDataSuccessEventArgs.Create(assetName, duration, userData));
 
             ///卸载
-            GameEntry.Resource.UnloadAsset(asset);
+            GameMain.Resource.UnloadAsset(asset);
         }
 
         #endregion

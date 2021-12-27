@@ -1,9 +1,9 @@
-﻿using GameFramework.Event;
+﻿using AureFramework.Event;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 using UnityEngine;
 
-namespace BB
+namespace BiuBiu
 {
     public class ProcedureChangeScene : ProcedureBase
     {
@@ -23,40 +23,40 @@ namespace BB
             isChangeSceneComplete = false;
             m_SceneObj = null;
 
-            GameEntry.Event.Subscribe(LoadSceneSuccessEventArgs.EventId, OnLoadSceneSuccess);
-            GameEntry.Event.Subscribe(LoadSceneFailureEventArgs.EventId, OnLoadSceneFailure);
-            GameEntry.Event.Subscribe(LoadSceneUpdateEventArgs.EventId, OnLoadSceneUpdate);
-            GameEntry.Event.Subscribe(LoadSceneDependencyAssetEventArgs.EventId, OnLoadSceneDependencyAsset);
+            GameMain.Event.Subscribe(LoadSceneSuccessEventArgs.EventId, OnLoadSceneSuccess);
+            GameMain.Event.Subscribe(LoadSceneFailureEventArgs.EventId, OnLoadSceneFailure);
+            GameMain.Event.Subscribe(LoadSceneUpdateEventArgs.EventId, OnLoadSceneUpdate);
+            GameMain.Event.Subscribe(LoadSceneDependencyAssetEventArgs.EventId, OnLoadSceneDependencyAsset);
 
             // 停止所有声音
-            GameEntry.Sound.StopAllLoadingSounds();
-            GameEntry.Sound.StopAllLoadedSounds();
+            GameMain.Sound.StopAllLoadingSounds();
+            GameMain.Sound.StopAllLoadedSounds();
 
             // 隐藏所有实体
-            GameEntry.Entity.HideAllLoadingEntities();
-            GameEntry.Entity.HideAllLoadedEntities();
+            GameMain.Entity.HideAllLoadingEntities();
+            GameMain.Entity.HideAllLoadedEntities();
 
             // 卸载所有场景
-            var loadedSceneAssetNames = GameEntry.Scene.GetLoadedSceneAssetNames();
+            var loadedSceneAssetNames = GameMain.Scene.GetLoadedSceneAssetNames();
             foreach (var loadedScene in loadedSceneAssetNames)
             {
-                GameEntry.Scene.UnloadScene(loadedScene);
+                GameMain.Scene.UnloadScene(loadedScene);
             }
 
             // 还原游戏速度
             // GameEntry.Base.ResetNormalGameSpeed();
 
             _sceneId = procedureOwner.GetData<VarInt32>(Constant.ProcedureData.NextSceneId).Value;
-            var sceneData = GameEntry.TableData.DataTableInfo.GetDataTableReader<DTSceneTableReader>().GetInfo((uint)_sceneId);
-            GameEntry.Scene.LoadScene(AssetUtils.GetSceneAsset(sceneData.AssetName), Constant.AssetPriority.SceneAsset, this);
+            var sceneData = GameMain.TableData.DataTableInfo.GetDataTableReader<DTSceneTableReader>().GetInfo((uint)_sceneId);
+            GameMain.Scene.LoadScene(AssetUtils.GetSceneAsset(sceneData.AssetName), Constant.AssetPriority.SceneAsset, this);
         }
 
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
         {
-            GameEntry.Event.Unsubscribe(LoadSceneSuccessEventArgs.EventId, OnLoadSceneSuccess);
-            GameEntry.Event.Unsubscribe(LoadSceneFailureEventArgs.EventId, OnLoadSceneFailure);
-            GameEntry.Event.Unsubscribe(LoadSceneUpdateEventArgs.EventId, OnLoadSceneUpdate);
-            GameEntry.Event.Unsubscribe(LoadSceneDependencyAssetEventArgs.EventId, OnLoadSceneDependencyAsset);
+            GameMain.Event.Unsubscribe(LoadSceneSuccessEventArgs.EventId, OnLoadSceneSuccess);
+            GameMain.Event.Unsubscribe(LoadSceneFailureEventArgs.EventId, OnLoadSceneFailure);
+            GameMain.Event.Unsubscribe(LoadSceneUpdateEventArgs.EventId, OnLoadSceneUpdate);
+            GameMain.Event.Unsubscribe(LoadSceneDependencyAssetEventArgs.EventId, OnLoadSceneDependencyAsset);
 
             base.OnLeave(procedureOwner, isShutdown);
         }

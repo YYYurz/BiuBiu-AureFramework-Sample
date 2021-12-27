@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
-namespace BB
+namespace BiuBiu
 {
     public class InputComponent : GameFrameworkComponent
     {
@@ -28,12 +28,12 @@ namespace BB
 
             if (!h.Equals(0f) || !v.Equals(0f))
             {
-                GameEntry.Event.Fire(this, InputEventArgs.Create(GameEnum.INPUT_TYPE.Move, h, v));
+                GameMain.Event.Fire(this, InputEventArgs.Create(GameEnum.INPUT_TYPE.Move, h, v));
                 inputStatus = true;
             }
             else if (inputStatus)
             {
-                GameEntry.Event.Fire(this, InputEventArgs.Create(GameEnum.INPUT_TYPE.Move, 0f, 0f));
+                GameMain.Event.Fire(this, InputEventArgs.Create(GameEnum.INPUT_TYPE.Move, 0f, 0f));
                 inputStatus = false;
             }
         }
@@ -42,7 +42,7 @@ namespace BB
         {
             if (Input.GetKeyDown(KeyCode.J))
             {
-                GameEntry.Event.Fire(this, InputEventArgs.Create(GameEnum.INPUT_TYPE.Dance));
+                GameMain.Event.Fire(this, InputEventArgs.Create(GameEnum.INPUT_TYPE.Dance));
             }
         }
 

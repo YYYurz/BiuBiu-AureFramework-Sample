@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityGameFramework.Runtime;
 using GameFramework;
-using GameFramework.Resource;
+using AureFramework.Resource;
 using UnityEngine.U2D;
 using System;
 
