@@ -1,4 +1,11 @@
-﻿
+﻿//------------------------------------------------------------
+// AureFramework
+// Developed By ZhiRui Yu.
+// GitHub: https://github.com/YYYurz
+// Gitee: https://gitee.com/yyyurz
+// Email: 1228396352@qq.com
+//------------------------------------------------------------
+
 using AureFramework.Procedure;
 
 namespace BiuBiu
@@ -10,6 +17,9 @@ namespace BiuBiu
         {
             base.OnEnter(args);
             
+            // var uiRoot = GameMain.UI.transform;
+            // var startWindow = StartWindow.CreateStartWindow(uiRoot);
+            // startWindowScript = startWindow.GetComponent<StartWindow>();
         }
         
         public override void OnUpdate()

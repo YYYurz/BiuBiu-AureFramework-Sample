@@ -9,15 +9,12 @@ namespace BiuBiu.Editor
 {
     public class Excel2FlatBuffersTool : EditorWindow
     {
-        Vector2 scrollPos;
-
-        private string SelectFolderPath = "";
-
-        List<string> filesName;
-
+        private Vector2 scrollPos;
+        private string selectFolderPath = "";
+        private List<string> filesName;
         private string helpMessage = "选择Excel文件生成二进制文件与读表类";
 
-        private bool[] isSelect = new bool[30];
+        private readonly bool[] isSelect = new bool[30];
 
         [MenuItem("BoxBox/Excel2FlatBuffersTool", false, 120)]
         private static void Open()
@@ -26,23 +23,23 @@ namespace BiuBiu.Editor
             window.minSize = window.maxSize = new Vector2(500f, 500f);
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
             for (int i = 0; i < isSelect.Length; i++)
             {
                 isSelect[i] = true;
             }
 
-            SelectFolderPath = Directory.GetParent(Directory.GetCurrentDirectory()).FullName +
+            selectFolderPath = Directory.GetParent(Directory.GetCurrentDirectory()).FullName +
                                "\\Excel2FlatBuffers\\ExcelTable";
         }
 
-        void OnGUI()
+        private void OnGUI()
         {
             EditorGUILayout.BeginHorizontal();
             {
                 EditorGUILayout.LabelField("目标文件夹：", GUILayout.Width(100f));
-                SelectFolderPath = EditorGUILayout.TextField(SelectFolderPath);
+                selectFolderPath = EditorGUILayout.TextField(selectFolderPath);
                 if (GUILayout.Button("选择其他目录", GUILayout.Width(100f)))
                 {
                     BrowseOutputDirectory();
@@ -57,12 +54,12 @@ namespace BiuBiu.Editor
                 EditorGUILayout.LabelField("勾选Excel文件：", GUILayout.Width(120));
                 if (GUILayout.Button("打开当前目录", GUILayout.Width(150)))
                 {
-                    OpenDirectory(SelectFolderPath);
+                    OpenDirectory(selectFolderPath);
                 }
 
                 if (GUILayout.Button("全选", GUILayout.Width(50f)))
                 {
-                    for (int i = 0; i < isSelect.Length; i++)
+                    for (var i = 0; i < isSelect.Length; i++)
                     {
                         isSelect[i] = true;
                     }
@@ -70,7 +67,7 @@ namespace BiuBiu.Editor
 
                 if (GUILayout.Button("全不选", GUILayout.Width(50f)))
                 {
-                    for (int i = 0; i < isSelect.Length; i++)
+                    for (var i = 0; i < isSelect.Length; i++)
                     {
                         isSelect[i] = false;
                     }
@@ -81,12 +78,12 @@ namespace BiuBiu.Editor
             scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUILayout.Width(500f), GUILayout.Height(385f));
             {
                 EditorGUILayout.BeginVertical("box", GUILayout.Width(500f), GUILayout.Height(440f));
-                if (Directory.Exists(SelectFolderPath))
+                if (Directory.Exists(selectFolderPath))
                 {
-                    DirectoryInfo folder = new DirectoryInfo(SelectFolderPath);
+                    var folder = new DirectoryInfo(selectFolderPath);
                     var files = folder.GetFiles("DT*.xlsx");
                     filesName = new List<string>();
-                    for (int i = 0; i < files.Length; i++)
+                    for (var i = 0; i < files.Length; i++)
                     {
                         isSelect[i] = EditorGUILayout.ToggleLeft(files[i].Name, isSelect[i]);
                         if (isSelect[i])
@@ -112,10 +109,10 @@ namespace BiuBiu.Editor
         // 选择文件夹
         private void BrowseOutputDirectory()
         {
-            string directory = EditorUtility.OpenFolderPanel("选择文件夹", SelectFolderPath, string.Empty);
+            string directory = EditorUtility.OpenFolderPanel("选择文件夹", selectFolderPath, string.Empty);
             if (!string.IsNullOrEmpty(directory))
             {
-                SelectFolderPath = directory;
+                selectFolderPath = directory;
             }
         }
 
@@ -130,14 +127,14 @@ namespace BiuBiu.Editor
                 return;
             }
 
-            System.Diagnostics.Process.Start("explorer.exe", path);
+            Process.Start("explorer.exe", path);
         }
 
         // 生成
         private void Generate()
         {
-            bool isTrue = false;
-            for (int i = 0; i < isSelect.Length; i++)
+            var isTrue = false;
+            for (var i = 0; i < isSelect.Length; i++)
             {
                 if (isSelect[i] == true)
                 {
@@ -152,9 +149,9 @@ namespace BiuBiu.Editor
                 return;
             }
 
-            System.IO.File.WriteAllText(Path.GetFullPath("..") + "\\Excel2FlatBuffers\\ChooseExcel.txt", string.Empty);
-            StreamWriter sw = new StreamWriter(Path.GetFullPath("..") + "\\Excel2FlatBuffers\\ChooseExcel.txt");
-            for (int i = 0; i < filesName.Count; i++)
+            File.WriteAllText(Path.GetFullPath("..") + "\\Excel2FlatBuffers\\ChooseExcel.txt", string.Empty);
+            var sw = new StreamWriter(Path.GetFullPath("..") + "\\Excel2FlatBuffers\\ChooseExcel.txt");
+            for (var i = 0; i < filesName.Count; i++)
             {
                 sw.WriteLine(filesName[i]);
             }
@@ -166,11 +163,11 @@ namespace BiuBiu.Editor
 
         private void Run()
         {
-            ProcessStartInfo startInfo = new ProcessStartInfo("python");
-            string WorkingPath = Path.GetFullPath("..") + "\\Excel2FlatBuffers";
-            startInfo.WorkingDirectory = WorkingPath;
+            var startInfo = new ProcessStartInfo("python");
+            startInfo.WorkingDirectory = Path.GetFullPath("..") + "\\Excel2FlatBuffers";
             startInfo.Arguments = "一键生成.py";
             Process.Start(startInfo);
+            
             helpMessage = "选择Excel文件生成二进制文件与读表类";
         }
     }

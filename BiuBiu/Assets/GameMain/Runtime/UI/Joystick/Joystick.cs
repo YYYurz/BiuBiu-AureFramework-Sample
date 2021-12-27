@@ -1,4 +1,3 @@
-using BiuBiu;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -60,11 +59,11 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
 		var offset = direction * 100f;
 		
 		dragHandleRectTransform.anchoredPosition = offset + originPos;
-		InputComponent.OnRefreshMoveDirectionVector(direction);
+		// InputComponent.OnRefreshMoveDirectionVector(direction);
 	}
 
 	private void ResetHandle() {
 		dragHandleRectTransform.anchoredPosition = originPos;
-		InputComponent.OnRefreshMoveDirectionVector(Vector2.zero);
+		// InputComponent.OnRefreshMoveDirectionVector(Vector2.zero);
 	}
 }

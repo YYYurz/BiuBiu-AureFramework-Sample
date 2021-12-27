@@ -11,8 +11,6 @@ namespace BiuBiu.Editor
     public static class XLuaStaticConfig
     {
         // lua中要使用到C#库的配置，比如C#标准库，或者Unity API，第三方库等。
-
-
         [LuaCallCSharp] public static List<Type> LuaCallCSharp = new List<Type>()
         {
             #region // lua中要使用到C#库的配置，比如C#标准库，或者Unity API，第三方库等。
@@ -134,16 +132,9 @@ namespace BiuBiu.Editor
 
             #region system
 
-            typeof(EventHandler<GameFramework.Event.GameEventArgs>),
             typeof(Action<int, byte[]>),
             typeof(Action<int>),
             typeof(Action<float, float>),
-
-            #endregion
-
-            #region framework
-
-            typeof(GameFramework.GameFrameworkAction<object>),
 
             #endregion
         };
