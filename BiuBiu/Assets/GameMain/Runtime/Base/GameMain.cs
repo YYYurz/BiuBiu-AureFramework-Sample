@@ -11,8 +11,8 @@ namespace BiuBiu
     {
         private void Start()
         {
-            InitBuiltinComponents();
-            InitCustomComponents();
+            InitBuiltinModules();
+            InitCustomModules();
         }
     }
 }
