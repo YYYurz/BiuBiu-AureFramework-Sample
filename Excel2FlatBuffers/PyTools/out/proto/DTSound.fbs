@@ -1,0 +1,20 @@
+include "FP.fbs";
+
+namespace GameConfig;
+
+table DTSound {
+    Id:uint;
+    SoundName:string;
+    SoundGroupName:string;
+    SoundPriority:uint;
+    Loop:uint;
+    SoundVolume:float;
+    AssetPath:string;
+}
+
+table DTSoundList {
+    data:[DTSound];
+}
+
+file_identifier "CONF";
+file_extension "game_config";

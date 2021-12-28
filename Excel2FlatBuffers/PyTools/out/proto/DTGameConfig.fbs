@@ -1,0 +1,18 @@
+include "FP.fbs";
+
+namespace GameConfig;
+
+table DTGameConfig {
+    id:uint;
+    GlobalConfigParam:uint;
+    GlobalConfigParamB:[uint];
+    GlobalConfigParamCK:[uint];
+    GlobalConfigParamCV:[uint];
+}
+
+table DTGameConfigList {
+    data:[DTGameConfig];
+}
+
+file_identifier "CONF";
+file_extension "game_config";

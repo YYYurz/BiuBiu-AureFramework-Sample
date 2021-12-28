@@ -1,0 +1,15 @@
+include "FP.fbs";
+
+namespace GameConfig;
+
+table DTScene {
+    Id:uint;
+    AssetName:string;
+}
+
+table DTSceneList {
+    data:[DTScene];
+}
+
+file_identifier "CONF";
+file_extension "game_config";

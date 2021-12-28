@@ -25,8 +25,8 @@ for root, dirs, files in os.walk("./out/lua/GameConfig"):
                 fp.write(strbuf)
                 fp.close()
 
-            if os.path.exists(os.path.join(root, file + ".txt")):
-                os.remove(os.path.join(root, file + ".txt"))
-
-            os.rename(os.path.join(root, file),
-                      os.path.join(root, file + ".txt"))
+            # if os.path.exists(os.path.join(root, file + ".txt")):
+            #     os.remove(os.path.join(root, file + ".txt"))
+            # 
+            # os.rename(os.path.join(root, file),
+            #           os.path.join(root, file + ".txt"))

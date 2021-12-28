@@ -1,1 +1,6 @@
+DTEntity
+DTGameConfig
+DTScene
+DTSound
 DTUIWindow
+DTVocation

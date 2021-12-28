@@ -82,10 +82,10 @@ class CopyFileUtil:
 
 if __name__ == "__main__":
     CopyFileUtil.CopyTreeFromToWithFileType(
-        ["bytes"], "./out/bytes", "../BoxBoxPro/Assets/GameAssets/DataTables/bytes")
+        ["bytes"], "./out/bytes", "../BiuBiu/Assets/GameAssets/DataTables/bytes")
 
     CopyFileUtil.CopyTreeFromToWithFileType(
-        ["txt"], "./out/lua/GameConfig", "../BoxBoxPro/Assets/GameAssets/LuaScripts/GameConfig")
+        ["lua"], "./out/lua/GameConfig", "../BiuBiu/Assets/GameAssets/LuaScripts/DataTables")
 
     CopyFileUtil.CopyTreeFromToWithFileType(
-        ["cs"], "./out/cs", "../BoxBoxPro/Assets/GameMain/Runtime/Data/DataTable/FlatBuffers")
+        ["cs"], "./out/cs", "../BiuBiu/Assets/GameMain/Runtime/Data/DataTable/FlatBuffers")

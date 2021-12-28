@@ -13,17 +13,13 @@ namespace BiuBiu.Editor
         // lua中要使用到C#库的配置，比如C#标准库，或者Unity API，第三方库等。
         [LuaCallCSharp] public static List<Type> LuaCallCSharp = new List<Type>()
         {
-            #region // lua中要使用到C#库的配置，比如C#标准库，或者Unity API，第三方库等。
-
-            #region //system
 
             typeof(Object),
             typeof(List<int>),
             typeof(Action<string>),
 
-            #endregion
 
-            #region //Unity
+            #region Unity
 
             typeof(UnityEngine.Object),
             typeof(UnityEngine.Quaternion),
@@ -84,7 +80,7 @@ namespace BiuBiu.Editor
 
             #endregion
 
-            #region //dotween
+            #region Dotween
 
             typeof(DG.Tweening.Ease),
             typeof(DG.Tweening.LoopType),
@@ -112,8 +108,6 @@ namespace BiuBiu.Editor
             //typeof(Light),            
             //typeof(Mathf),
             //typeof(UnityEngine.UI.Graphic),
-
-            #endregion
         };
 
         [CSharpCallLua] public static List<Type> CSharpCallLua = new List<Type>()
