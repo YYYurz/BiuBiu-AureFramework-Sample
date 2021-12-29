@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: b1b9b5ed4641d06408a32161babdfa4c
+  m_SerializeEntries:
+  - m_GUID: 613929ddeff0aeb489caa7f2b3be906a
+    m_Address: LobbyScene
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 16cec7b2f39e860419a3b92a2d8148d9
+    m_Address: Assets/GameAssets/DataTables/bytes/DTEntity.bytes
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3721a4501404fe949b8a42a0eb044508
+    m_Address: Assets/GameAssets/DataTables/bytes/DTGameConfig.bytes
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0d945e3533330484ca439313efec87a5
+    m_Address: Assets/GameAssets/DataTables/bytes/DTScene.bytes
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9f0f972d44c828b46a6f500d1fbe42a2
+    m_Address: Assets/GameAssets/DataTables/bytes/DTSound.bytes
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 1dbd426f725830546b431f693deeb665
+    m_Address: Assets/GameAssets/DataTables/bytes/DTUIWindow.bytes
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e7c8440873290a84d82d0a4465bc4825
+    m_Address: Assets/GameAssets/DataTables/bytes/DTVocation.bytes
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 6798ea86944d6bb4a90f734a49dfafdb, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 4bc764585ab91d6469333a4b574ee0c0, type: 2}
+    - {fileID: 11400000, guid: c039c177f2d14594c9d6c9e312cc5b92, type: 2}

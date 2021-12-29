@@ -2,7 +2,7 @@ using FlatBuffers;
 using GameConfig;
 
 
-public class DTEntityTableReader : TableReader<DTEntity, DTEntityList, DTEntityTableReader>
+public class DTEntityTableReader : TableReader<DTEntity, DTEntityList>
 {
     public override string TablePath => "Assets/GameAssets/DataTables/bytes/DTEntity.bytes";   
     protected override DTEntity? GetData(DTEntityList dataList, int i)
@@ -23,7 +23,7 @@ public class DTEntityTableReader : TableReader<DTEntity, DTEntityList, DTEntityT
     }
 }
 
-public class DTGameConfigTableReader : TableReader<DTGameConfig, DTGameConfigList, DTGameConfigTableReader>
+public class DTGameConfigTableReader : TableReader<DTGameConfig, DTGameConfigList>
 {
     public override string TablePath => "Assets/GameAssets/DataTables/bytes/DTGameConfig.bytes";   
     protected override DTGameConfig? GetData(DTGameConfigList dataList, int i)
@@ -44,7 +44,7 @@ public class DTGameConfigTableReader : TableReader<DTGameConfig, DTGameConfigLis
     }
 }
 
-public class DTSceneTableReader : TableReader<DTScene, DTSceneList, DTSceneTableReader>
+public class DTSceneTableReader : TableReader<DTScene, DTSceneList>
 {
     public override string TablePath => "Assets/GameAssets/DataTables/bytes/DTScene.bytes";   
     protected override DTScene? GetData(DTSceneList dataList, int i)
@@ -65,7 +65,7 @@ public class DTSceneTableReader : TableReader<DTScene, DTSceneList, DTSceneTable
     }
 }
 
-public class DTSoundTableReader : TableReader<DTSound, DTSoundList, DTSoundTableReader>
+public class DTSoundTableReader : TableReader<DTSound, DTSoundList>
 {
     public override string TablePath => "Assets/GameAssets/DataTables/bytes/DTSound.bytes";   
     protected override DTSound? GetData(DTSoundList dataList, int i)
@@ -86,7 +86,7 @@ public class DTSoundTableReader : TableReader<DTSound, DTSoundList, DTSoundTable
     }
 }
 
-public class DTUIWindowTableReader : TableReader<DTUIWindow, DTUIWindowList, DTUIWindowTableReader>
+public class DTUIWindowTableReader : TableReader<DTUIWindow, DTUIWindowList>
 {
     public override string TablePath => "Assets/GameAssets/DataTables/bytes/DTUIWindow.bytes";   
     protected override DTUIWindow? GetData(DTUIWindowList dataList, int i)
@@ -107,7 +107,7 @@ public class DTUIWindowTableReader : TableReader<DTUIWindow, DTUIWindowList, DTU
     }
 }
 
-public class DTVocationTableReader : TableReader<DTVocation, DTVocationList, DTVocationTableReader>
+public class DTVocationTableReader : TableReader<DTVocation, DTVocationList>
 {
     public override string TablePath => "Assets/GameAssets/DataTables/bytes/DTVocation.bytes";   
     protected override DTVocation? GetData(DTVocationList dataList, int i)

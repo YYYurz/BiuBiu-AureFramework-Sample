@@ -6,7 +6,7 @@ tmp_str = '''using FlatBuffers;
 using GameConfig;
 {# datalist( itemName, filename ) #}
 {% for member in datalist %}
-public class {{ member[0] }}TableReader : TableReader<{{ member[0] }}, {{ member[0] }}List, {{ member[0] }}TableReader>
+public class {{ member[0] }}TableReader : TableReader<{{ member[0] }}, {{ member[0] }}List>
 {
     public override string TablePath => "Assets/GameAssets/DataTables/bytes/{{ member[1] }}.bytes";   
     protected override {{ member[0] }}? GetData({{ member[0] }}List dataList, int i)

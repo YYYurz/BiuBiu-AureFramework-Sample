@@ -26,12 +26,12 @@ namespace BiuBiu
         {
             base.OnUpdate();
             
-            if (!allAssetLoadedComplete)
-            {
-                return;
-            }
+            // if (!allAssetLoadedComplete)
+            // {
+            //     return;
+            // }
 
-            ChangeState<ProcedureChangeScene>();
+            ChangeState<ProcedureChangeScene>("LobbyScene");
         }
 
         /// <summary>

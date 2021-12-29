@@ -8,40 +8,32 @@ namespace BiuBiu
     /// </summary>
     public partial class GameMain : MonoBehaviour
     {
-        // public static TableDataComponent TableData
-        // {
-        //     get;
-        //     private set;
-        // }
-        //
-        // public static GameDataComponent GameData
-        // {
-        //     get;
-        //     private set;
-        // }
-        //
+        public static ITableDataModule TableData
+        {
+            get;
+            private set;
+        }
+        
         public static ILuaModule Lua
         {
             get;
             private set;
         }
-        //
+        
         // public static PreloadComponent AssetPreload
         // {
         //     get;
         //     private set;
         // }
-        //
+        
         // public static InputComponent InputComponent
         // {
         //     get;
         //     private set;
         // }
 
-        private static void InitCustomModules()
-        {
-            // TableData = UnityGameFramework.Runtime.GameEntry.GetComponent<TableDataComponent>();
-            // GameData = UnityGameFramework.Runtime.GameEntry.GetComponent<GameDataComponent>();
+        private static void InitCustomModules() {
+            TableData = Aure.GetModule<ITableDataModule>();
             Lua = Aure.GetModule<ILuaModule>();
         }
     }

@@ -41,7 +41,7 @@ local function LoadTable(tbName)
 	end
 
 	local className, bytesFileName = GetTableLoadInfo(tbName)
-	local tb_list = require("GameConfig/".. className)
+	local tb_list = require("DataTables/".. className)
 	local fun_name = "GetRootAs".. className
 	local fun = tb_list[fun_name]
 	if fun == nil then

@@ -18,7 +18,6 @@ namespace BiuBiu.Editor
             typeof(List<int>),
             typeof(Action<string>),
 
-
             #region Unity
 
             typeof(UnityEngine.Object),
@@ -108,6 +107,8 @@ namespace BiuBiu.Editor
             //typeof(Light),            
             //typeof(Mathf),
             //typeof(UnityEngine.UI.Graphic),
+            
+            typeof(LuaCallStatic),
         };
 
         [CSharpCallLua] public static List<Type> CSharpCallLua = new List<Type>()
