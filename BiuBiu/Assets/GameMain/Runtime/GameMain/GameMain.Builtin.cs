@@ -19,6 +19,9 @@ using AureFramework.UI;
 
 namespace BiuBiu
 {
+	/// <summary>
+	/// 框架模块集合
+	/// </summary>
 	public partial class GameMain
 	{
 		public static IFsmModule Fsm
@@ -26,11 +29,11 @@ namespace BiuBiu
 			get;
 			private set;
 		}
-		
-		public static IResourceModule Resource 
-		{ 
+
+		public static IResourceModule Resource
+		{
 			get;
-			private set; 
+			private set;
 		}
 
 		public static IProcedureModule Procedure
@@ -57,7 +60,8 @@ namespace BiuBiu
 			private set;
 		}
 
-		public static IObjectPoolModule ObjectPool{
+		public static IObjectPoolModule ObjectPool
+		{
 			get;
 			private set;
 		}
@@ -68,7 +72,8 @@ namespace BiuBiu
 			private set;
 		}
 
-		private static void InitBuiltinModules() {
+		private static void InitBuiltinModules()
+		{
 			Fsm = Aure.GetModule<IFsmModule>();
 			Resource = Aure.GetModule<IResourceModule>();
 			Procedure = Aure.GetModule<IProcedureModule>();

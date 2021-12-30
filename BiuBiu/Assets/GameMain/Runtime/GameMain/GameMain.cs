@@ -4,9 +4,6 @@ using UnityEngine;
 
 namespace BiuBiu
 {
-    /// <summary>
-    /// 游戏入口。
-    /// </summary>
     public partial class GameMain : MonoBehaviour
     {
         private void Start()

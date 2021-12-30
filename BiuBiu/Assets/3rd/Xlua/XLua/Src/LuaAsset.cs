@@ -1,6 +1,5 @@
 using System;
-using AureFramework;
-using AureFramework.Resource;
+using BiuBiu;
 using UnityEngine;
 
 [Serializable]
@@ -15,15 +14,8 @@ public class LuaAsset : ScriptableObject
         if(string.IsNullOrEmpty(luaPath))
             return null;
             
-        byte[] bytes = null;
-        var assetName = search + luaPath.Replace(".", "/");
-        {
-            var asset = Aure.GetModule<IResourceModule>().LoadAssetSync<LuaAsset>(assetName);
-            if (asset != null)
-            {
-                bytes = asset.GetDecodeBytes();
-            }
-        }
+        var assetName = search + luaPath.Replace(".", "/") + ".lua";
+        var bytes = AssetUtils.LoadBytes(assetName);
 
         Debug.Assert(bytes != null, $"{luaPath} not found.");
         return bytes;

@@ -10,23 +10,22 @@ using AureFramework.Procedure;
 
 namespace BiuBiu
 {
-    public class ProcedureCheckVersion : ProcedureBase
-    {
+	public class ProcedureCheckVersion : ProcedureBase
+	{
+		public override void OnEnter(params object[] args)
+		{
+			base.OnEnter(args);
 
-        public override void OnEnter(params object[] args)
-        {
-            base.OnEnter(args);
-            
-            // var uiRoot = GameMain.UI.transform;
-            // var startWindow = StartWindow.CreateStartWindow(uiRoot);
-            // startWindowScript = startWindow.GetComponent<StartWindow>();
-        }
-        
-        public override void OnUpdate()
-        {
-            base.OnUpdate();
-            
-            ChangeState<ProcedurePreload>();
-        }
-    }
+			// var uiRoot = GameMain.UI.transform;
+			// var startWindow = StartWindow.CreateStartWindow(uiRoot);
+			// startWindowScript = startWindow.GetComponent<StartWindow>();
+		}
+
+		public override void OnUpdate()
+		{
+			base.OnUpdate();
+
+			ChangeState<ProcedurePreload>();
+		}
+	}
 }

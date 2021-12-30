@@ -9,8 +9,10 @@
 using System;
 using XLua;
 
-namespace BiuBiu {
-	public interface ILuaModule {
+namespace BiuBiu
+{
+	public interface ILuaModule
+	{
 		/// <summary>
 		/// Require Lua脚本
 		/// </summary>

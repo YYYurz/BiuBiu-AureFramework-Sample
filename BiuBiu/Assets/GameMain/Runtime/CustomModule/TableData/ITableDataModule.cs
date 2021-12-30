@@ -6,11 +6,13 @@
 // Email: 1228396352@qq.com
 //------------------------------------------------------------
 
-namespace BiuBiu {
+namespace BiuBiu
+{
 	/// <summary>
 	/// 配置表模块接口
 	/// </summary>
-	public interface ITableDataModule {
+	public interface ITableDataModule
+	{
 		/// <summary>
 		/// 获取读表类
 		/// </summary>

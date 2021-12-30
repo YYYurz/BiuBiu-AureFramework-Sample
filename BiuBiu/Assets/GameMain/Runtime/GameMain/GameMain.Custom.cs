@@ -1,13 +1,16 @@
 ﻿using AureFramework;
 using UnityEngine;
 
-namespace BiuBiu {
+namespace BiuBiu
+{
 	/// <summary>
-	/// 游戏入口。
+	/// 框架模块集合
 	/// </summary>
-	public partial class GameMain : MonoBehaviour {
-		public static ITableDataModule TableData { 
-			get; 
+	public partial class GameMain : MonoBehaviour
+	{
+		public static ITableDataModule TableData
+		{
+			get;
 			private set;
 		}
 
@@ -29,7 +32,8 @@ namespace BiuBiu {
 		//     private set;
 		// }
 
-		private static void InitCustomModules() {
+		private static void InitCustomModules()
+		{
 			TableData = Aure.GetModule<ITableDataModule>();
 			Lua = Aure.GetModule<ILuaModule>();
 		}

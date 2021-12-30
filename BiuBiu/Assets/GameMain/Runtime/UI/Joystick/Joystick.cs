@@ -12,18 +12,21 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
 
 	private Vector2 originPos;
 	private Vector2 parentPos;
-	
+
 	private bool isDragging;
 
-	private void Start() {
+	private void Start()
+	{
 		isDragging = false;
 		originPos = dragBgRectTransform.anchoredPosition;
 		parentPos = transform.parent.GetComponent<RectTransform>().anchoredPosition;
 	}
 
-	public void OnPointerDown(PointerEventData eventData) {
+	public void OnPointerDown(PointerEventData eventData)
+	{
 		IsPressPosInArea(eventData.position);
-		if (isDragging) {
+		if (isDragging)
+		{
 			return;
 		}
 
@@ -31,8 +34,10 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
 		OnRefreshHandle(eventData.position);
 	}
 
-	public void OnPointerUp(PointerEventData eventData) {
-		if (!isDragging) {
+	public void OnPointerUp(PointerEventData eventData)
+	{
+		if (!isDragging)
+		{
 			return;
 		}
 
@@ -40,29 +45,34 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
 		ResetHandle();
 	}
 
-	public void OnDrag(PointerEventData eventData) {
-		if (!isDragging) {
+	public void OnDrag(PointerEventData eventData)
+	{
+		if (!isDragging)
+		{
 			return;
 		}
-		
+
 		OnRefreshHandle(eventData.position);
 	}
 
-	private void IsPressPosInArea(Vector2 position) {
+	private void IsPressPosInArea(Vector2 position)
+	{
 		var offset = position - parentPos;
 		var distance = Vector2.Distance(offset, originPos);
 		Debug.Log(distance);
 	}
 
-	private void OnRefreshHandle(Vector2 position) {
+	private void OnRefreshHandle(Vector2 position)
+	{
 		var direction = (position - parentPos).normalized;
 		var offset = direction * 100f;
-		
+
 		dragHandleRectTransform.anchoredPosition = offset + originPos;
 		// InputComponent.OnRefreshMoveDirectionVector(direction);
 	}
 
-	private void ResetHandle() {
+	private void ResetHandle()
+	{
 		dragHandleRectTransform.anchoredPosition = originPos;
 		// InputComponent.OnRefreshMoveDirectionVector(Vector2.zero);
 	}

@@ -1,4 +1,12 @@
-﻿using System.Collections.Generic;
+﻿//------------------------------------------------------------
+// AureFramework
+// Developed By ZhiRui Yu.
+// GitHub: https://github.com/YYYurz
+// Gitee: https://gitee.com/yyyurz
+// Email: 1228396352@qq.com
+//------------------------------------------------------------
+
+using System.Collections.Generic;
 using UnityEngine;
 using AureFramework.Procedure;
 using AureFramework.Resource;
@@ -9,7 +17,6 @@ namespace BiuBiu
 	{
 		private static readonly LoadAssetCallbacks LoadAssetCallBacks = new LoadAssetCallbacks(null, OnLoadAssetSuccess, null, OnLoadAssetFailed);
 		private static readonly List<int> LoadingAssetList = new List<int>();
-
 		private static bool allAssetLoadedComplete;
 
 		public override void OnEnter(params object[] args)

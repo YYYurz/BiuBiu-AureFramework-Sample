@@ -8,32 +8,36 @@
 
 using UnityEngine;
 
-namespace BiuBiu {
+namespace BiuBiu
+{
 	/// <summary>
 	/// Lua调用C#静态类
 	/// </summary>
-	public static class LuaCallStatic {
+	public static class LuaCallStatic
+	{
 		/// <summary>
 		/// 强制切换切场景流程
 		/// </summary>
 		/// <param name="sceneName"></param>
-		public static void ChangeScene(string sceneName) {
+		public static void ChangeScene(string sceneName)
+		{
 			GameMain.Procedure.ChangeProcedure<ProcedureChangeScene>(sceneName);
 		}
 
 		/// <summary>
 		/// 
 		/// </summary>
-		/// <param name="assetName"></param>
+		/// <param name="filePath"> 资源路径 </param>
 		/// <returns></returns>
-		public static byte[] GetBytesFile(string assetName) {
-			if (string.IsNullOrEmpty(assetName)) {
-				Debug.LogError("LuaCallStatic : Asset name is null.");
+		public static byte[] GetBytesFile(string filePath)
+		{
+			if (string.IsNullOrEmpty(filePath))
+			{
+				Debug.LogError("LuaCallStatic : File path is null.");
 				return null;
 			}
 
-			var textAsset = GameMain.Resource.LoadAssetSync<TextAsset>(assetName);
-			return textAsset.bytes;
+			return AssetUtils.LoadBytes(filePath);
 		}
 	}
 }

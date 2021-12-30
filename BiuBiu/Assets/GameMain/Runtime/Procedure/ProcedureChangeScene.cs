@@ -11,49 +11,58 @@ using AureFramework.Procedure;
 using AureFramework.Scene;
 using UnityEngine;
 
-namespace BiuBiu {
-	public class ProcedureChangeScene : ProcedureBase {
+namespace BiuBiu
+{
+	public class ProcedureChangeScene : ProcedureBase
+	{
 		private string loadingSceneName;
 		private bool isLoadSceneComplete;
-		
-		public override void OnEnter(params object[] args) {
+
+		public override void OnEnter(params object[] args)
+		{
 			base.OnEnter(args);
-			
+
 			GameMain.Event.Subscribe<LoadSceneUpdateEventArgs>(OnLoadSceneUpdateCallback);
 			GameMain.Event.Subscribe<LoadSceneSuccessEventArgs>(OnLoadSceneSuccessCallback);
 
 			isLoadSceneComplete = false;
 			loadingSceneName = (string) args[0];
-			GameMain.Scene.LoadScene(loadingSceneName);			
+			GameMain.Scene.LoadScene(loadingSceneName);
 		}
 
-		public override void OnUpdate() {
+		public override void OnUpdate()
+		{
 			base.OnUpdate();
 
-			if (!isLoadSceneComplete) {
+			if (!isLoadSceneComplete)
+			{
 				return;
 			}
-			
+
 			ChangeState<ProcedureLobby>();
 		}
 
-		public override void OnExit() {
+		public override void OnExit()
+		{
 			base.OnExit();
-			
+
 			GameMain.Event.Unsubscribe<LoadSceneUpdateEventArgs>(OnLoadSceneUpdateCallback);
 			GameMain.Event.Unsubscribe<LoadSceneSuccessEventArgs>(OnLoadSceneSuccessCallback);
 		}
 
-		private void OnLoadSceneUpdateCallback(object sender, AureEventArgs e) {
+		private void OnLoadSceneUpdateCallback(object sender, AureEventArgs e)
+		{
 			var args = (LoadSceneUpdateEventArgs) e;
 
 			Debug.Log($"Loading Scene, SceneName :{args.SceneName}, Progress :{args.Progress}");
 		}
-		
-		private void OnLoadSceneSuccessCallback(object sender, AureEventArgs e) {
+
+		private void OnLoadSceneSuccessCallback(object sender, AureEventArgs e)
+		{
 			var args = (LoadSceneSuccessEventArgs) e;
-			
-			if (args.SceneName.Equals(loadingSceneName)) {
+
+			if (args.SceneName.Equals(loadingSceneName))
+			{
 				isLoadSceneComplete = true;
 			}
 		}

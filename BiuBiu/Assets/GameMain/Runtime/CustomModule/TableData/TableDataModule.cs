@@ -10,24 +10,27 @@ using System;
 using System.Collections.Generic;
 using AureFramework;
 
-namespace BiuBiu {
+namespace BiuBiu
+{
 	/// <summary>
 	/// 配置表模块
 	/// </summary>
-	public sealed class TableDataModule : AureFrameworkModule ,ITableDataModule {
+	public sealed class TableDataModule : AureFrameworkModule, ITableDataModule
+	{
 		private readonly Dictionary<Type, ITableReader> readerDic = new Dictionary<Type, ITableReader>();
 
 		public override int Priority => 20;
 
-		public override void Init() {
-			
+		public override void Init()
+		{
 		}
 
-		public override void Tick(float elapseTime, float realElapseTime) {
-			
+		public override void Tick(float elapseTime, float realElapseTime)
+		{
 		}
 
-		public override void Clear() {
+		public override void Clear()
+		{
 		}
 
 		/// <summary>
@@ -35,16 +38,19 @@ namespace BiuBiu {
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <returns></returns>
-		public T GetDataTableReader<T>() where T : ITableReader {
-			if (readerDic.TryGetValue(typeof(T), out var tableReader)) {
+		public T GetDataTableReader<T>() where T : ITableReader
+		{
+			if (readerDic.TryGetValue(typeof(T), out var tableReader))
+			{
 				return (T) tableReader;
 			}
 
 			return LoadTable<T>();
 		}
 
-		private T LoadTable<T>() where T : ITableReader{
-			var tableReader = (ITableReader)Activator.CreateInstance(typeof(T));
+		private T LoadTable<T>() where T : ITableReader
+		{
+			var tableReader = (ITableReader) Activator.CreateInstance(typeof(T));
 			tableReader.LoadDataFile();
 			readerDic.Add(typeof(T), tableReader);
 
