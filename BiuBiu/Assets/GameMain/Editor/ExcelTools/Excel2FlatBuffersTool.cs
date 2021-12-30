@@ -70,7 +70,7 @@ namespace BiuBiu.Editor {
 				EditorGUILayout.BeginVertical("box", GUILayout.Width(500f), GUILayout.Height(440f));
 				if (Directory.Exists(selectFolderPath)) {
 					var folder = new DirectoryInfo(selectFolderPath);
-					var files = folder.GetFiles("DT*.xlsx");
+					var files = folder.GetFiles("*.xlsx");
 					selectFileList.Clear();
 					for (var i = 0; i < files.Length; i++) {
 						isSelect[i] = EditorGUILayout.ToggleLeft(files[i].Name, isSelect[i]);
@@ -91,7 +91,6 @@ namespace BiuBiu.Editor {
 			}
 		}
 
-		// 选择文件夹
 		private void BrowseOutputDirectory() {
 			var directory = EditorUtility.OpenFolderPanel("选择文件夹", selectFolderPath, string.Empty);
 			if (!string.IsNullOrEmpty(directory)) {
@@ -99,7 +98,6 @@ namespace BiuBiu.Editor {
 			}
 		}
 
-		// 打开当前目录
 		private void OpenDirectory(string path) {
 			if (string.IsNullOrEmpty(path)) return;
 
@@ -111,7 +109,6 @@ namespace BiuBiu.Editor {
 			Process.Start("explorer.exe", path);
 		}
 
-		// 生成
 		private void Generate() {
 			if (!isSelect.Contains(true)) {
 				helpMessage = "未选择文件！！！！！！";

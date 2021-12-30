@@ -18,8 +18,7 @@ namespace BiuBiu {
 		public override void OnEnter(params object[] args) {
 			base.OnEnter(args);
 
-			var a = GameMain.TableData.GetDataTableReader<DTEntityTableReader>().GetInfo(10001).AssetName;
-			Debug.Log(a);
+			GameMain.Lua.DoString("require('GameMain')");
 		}
 
 		public override void OnUpdate() {

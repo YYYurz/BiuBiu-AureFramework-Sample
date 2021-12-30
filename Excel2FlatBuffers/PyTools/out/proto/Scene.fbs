@@ -1,0 +1,15 @@
+include "FP.fbs";
+
+namespace GameConfig;
+
+table Scene {
+    Id:uint;
+    AssetName:string;
+}
+
+table SceneList {
+    data:[Scene];
+}
+
+file_identifier "CONF";
+file_extension "game_config";

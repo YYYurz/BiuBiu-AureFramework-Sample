@@ -1,0 +1,20 @@
+include "FP.fbs";
+
+namespace GameConfig;
+
+table UIWindow {
+    Id:uint;
+    UIName:string;
+    UIGroupName:string;
+    AllowMultiInstance:uint;
+    PauseCoveredUIForm:uint;
+    AssetPath:string;
+    LuaFile:string;
+}
+
+table UIWindowList {
+    data:[UIWindow];
+}
+
+file_identifier "CONF";
+file_extension "game_config";

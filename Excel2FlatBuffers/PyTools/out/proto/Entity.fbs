@@ -1,0 +1,15 @@
+include "FP.fbs";
+
+namespace GameConfig;
+
+table Entity {
+    Id:uint;
+    AssetName:string;
+}
+
+table EntityList {
+    data:[Entity];
+}
+
+file_identifier "CONF";
+file_extension "game_config";

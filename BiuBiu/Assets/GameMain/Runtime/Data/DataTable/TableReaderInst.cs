@@ -2,128 +2,86 @@ using FlatBuffers;
 using GameConfig;
 
 
-public class DTEntityTableReader : TableReader<DTEntity, DTEntityList>
+public class EntityTableReader : TableReader<Entity, EntityList>
 {
-    public override string TablePath => "Assets/GameAssets/DataTables/bytes/DTEntity.bytes";   
-    protected override DTEntity? GetData(DTEntityList dataList, int i)
+    public override string TablePath => "Assets/GameAssets/DataTables/bytes/Entity.bytes";   
+    protected override Entity? GetData(EntityList dataList, int i)
     {
         return dataList.Data(i);
     }
-    protected override int GetDataLength(DTEntityList dataList)
+    protected override int GetDataLength(EntityList dataList)
     {
         return dataList.DataLength;
     }
-    protected override uint GetKey(DTEntity data)
+    protected override uint GetKey(Entity data)
     {
         return data.Id;
     }
-    protected override DTEntityList GetTableDataList(ByteBuffer byteBuffer)
+    protected override EntityList GetTableDataList(ByteBuffer byteBuffer)
     {
-        return DTEntityList.GetRootAsDTEntityList(byteBuffer);
+        return EntityList.GetRootAsEntityList(byteBuffer);
     }
 }
 
-public class DTGameConfigTableReader : TableReader<DTGameConfig, DTGameConfigList>
+public class SceneTableReader : TableReader<Scene, SceneList>
 {
-    public override string TablePath => "Assets/GameAssets/DataTables/bytes/DTGameConfig.bytes";   
-    protected override DTGameConfig? GetData(DTGameConfigList dataList, int i)
+    public override string TablePath => "Assets/GameAssets/DataTables/bytes/Scene.bytes";   
+    protected override Scene? GetData(SceneList dataList, int i)
     {
         return dataList.Data(i);
     }
-    protected override int GetDataLength(DTGameConfigList dataList)
+    protected override int GetDataLength(SceneList dataList)
     {
         return dataList.DataLength;
     }
-    protected override uint GetKey(DTGameConfig data)
+    protected override uint GetKey(Scene data)
     {
         return data.Id;
     }
-    protected override DTGameConfigList GetTableDataList(ByteBuffer byteBuffer)
+    protected override SceneList GetTableDataList(ByteBuffer byteBuffer)
     {
-        return DTGameConfigList.GetRootAsDTGameConfigList(byteBuffer);
+        return SceneList.GetRootAsSceneList(byteBuffer);
     }
 }
 
-public class DTSceneTableReader : TableReader<DTScene, DTSceneList>
+public class SoundTableReader : TableReader<Sound, SoundList>
 {
-    public override string TablePath => "Assets/GameAssets/DataTables/bytes/DTScene.bytes";   
-    protected override DTScene? GetData(DTSceneList dataList, int i)
+    public override string TablePath => "Assets/GameAssets/DataTables/bytes/Sound.bytes";   
+    protected override Sound? GetData(SoundList dataList, int i)
     {
         return dataList.Data(i);
     }
-    protected override int GetDataLength(DTSceneList dataList)
+    protected override int GetDataLength(SoundList dataList)
     {
         return dataList.DataLength;
     }
-    protected override uint GetKey(DTScene data)
+    protected override uint GetKey(Sound data)
     {
         return data.Id;
     }
-    protected override DTSceneList GetTableDataList(ByteBuffer byteBuffer)
+    protected override SoundList GetTableDataList(ByteBuffer byteBuffer)
     {
-        return DTSceneList.GetRootAsDTSceneList(byteBuffer);
+        return SoundList.GetRootAsSoundList(byteBuffer);
     }
 }
 
-public class DTSoundTableReader : TableReader<DTSound, DTSoundList>
+public class UIWindowTableReader : TableReader<UIWindow, UIWindowList>
 {
-    public override string TablePath => "Assets/GameAssets/DataTables/bytes/DTSound.bytes";   
-    protected override DTSound? GetData(DTSoundList dataList, int i)
+    public override string TablePath => "Assets/GameAssets/DataTables/bytes/UIWindow.bytes";   
+    protected override UIWindow? GetData(UIWindowList dataList, int i)
     {
         return dataList.Data(i);
     }
-    protected override int GetDataLength(DTSoundList dataList)
+    protected override int GetDataLength(UIWindowList dataList)
     {
         return dataList.DataLength;
     }
-    protected override uint GetKey(DTSound data)
+    protected override uint GetKey(UIWindow data)
     {
         return data.Id;
     }
-    protected override DTSoundList GetTableDataList(ByteBuffer byteBuffer)
+    protected override UIWindowList GetTableDataList(ByteBuffer byteBuffer)
     {
-        return DTSoundList.GetRootAsDTSoundList(byteBuffer);
-    }
-}
-
-public class DTUIWindowTableReader : TableReader<DTUIWindow, DTUIWindowList>
-{
-    public override string TablePath => "Assets/GameAssets/DataTables/bytes/DTUIWindow.bytes";   
-    protected override DTUIWindow? GetData(DTUIWindowList dataList, int i)
-    {
-        return dataList.Data(i);
-    }
-    protected override int GetDataLength(DTUIWindowList dataList)
-    {
-        return dataList.DataLength;
-    }
-    protected override uint GetKey(DTUIWindow data)
-    {
-        return data.Id;
-    }
-    protected override DTUIWindowList GetTableDataList(ByteBuffer byteBuffer)
-    {
-        return DTUIWindowList.GetRootAsDTUIWindowList(byteBuffer);
-    }
-}
-
-public class DTVocationTableReader : TableReader<DTVocation, DTVocationList>
-{
-    public override string TablePath => "Assets/GameAssets/DataTables/bytes/DTVocation.bytes";   
-    protected override DTVocation? GetData(DTVocationList dataList, int i)
-    {
-        return dataList.Data(i);
-    }
-    protected override int GetDataLength(DTVocationList dataList)
-    {
-        return dataList.DataLength;
-    }
-    protected override uint GetKey(DTVocation data)
-    {
-        return data.Id;
-    }
-    protected override DTVocationList GetTableDataList(ByteBuffer byteBuffer)
-    {
-        return DTVocationList.GetRootAsDTVocationList(byteBuffer);
+        return UIWindowList.GetRootAsUIWindowList(byteBuffer);
     }
 }

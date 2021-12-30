@@ -1,28 +1,12 @@
 local flatbuffers = require('3rd/flatbuffers')
-local luaHelper =  LuaHelper
-local language = "_cn"
-local multiLanguage = { "word", "errorcode" }
-local tolower = string.lower
-
-local function GetWord(word)
-	local s = word and string.gsub(word, "\\n", "\n") or ""
-	return s
-end
 
 ---@class reader
-local m = {
-	tbs = {},
-	pps = {},
+local TableReader = {
+	tableList = {},
 }
 
 local function GetTableLoadInfo(tbName)
-	local lowTbName = tolower(tbName)
-	local bytesFileName
-	if table.hasValue(multiLanguage, lowTbName) then
-		bytesFileName = "table/".. lowTbName ..language
-	else
-		bytesFileName = "table/".. lowTbName
-	end
+	local bytesFileName = "Assets/GameAssets/DataTables/bytes/" .. tbName .. ".bytes"
 
 	local className
 	local index = string.find(tbName, "_")
@@ -34,10 +18,20 @@ local function GetTableLoadInfo(tbName)
 	return className, bytesFileName
 end
 
-local function LoadTable(tbName)
-	local tb_data = m.tbs[tbName]
-	if tb_data ~= nil then
-		return tb_data
+--- 获取配置表格数据
+function TableReader:GetInfo(tb_name, key)
+	local tb = self:GetTable(tb_name)
+	if tb == nil then
+		return nil
+	end
+	return tb[key]
+end
+
+--- 获取配置表格整张表
+function TableReader:GetTable(tbName)
+	local tableData = self.tableList[tbName]
+	if tableData ~= nil then
+		return tableData
 	end
 
 	local className, bytesFileName = GetTableLoadInfo(tbName)
@@ -48,47 +42,22 @@ local function LoadTable(tbName)
 		Log.Error("Can not found function:"..fun_name)
 		return nil
 	end
-	tb_data = {}
-
-	local data = luaHelper.ReadTableData(bytesFileName)
+	
+	tableData = {}
+	local data = LuaCallStatic.ReadTableData(bytesFileName)
 	local buf = flatbuffers.binaryArray.New(data)
-	local data_list = fun(buf, 0)
-	local pps_action = m.pps[tbName]
-	local len = data_list:DataLength()
+	local dataList = fun(buf, 0)
+	local len = dataList:DataLength()
 	for i = 1, len do
-		local data_item = data_list:Data(i)
-		if data_item then
-			local id = data_item:Id()
-			tb_data[id] = data_item
-			if pps_action then
-				pps_action(id, data_item)
-			end
+		local dataItem = dataList:Data(i)
+		if dataItem then
+			local id = dataItem:Id()
+			tableData[id] = dataItem
 		end
 	end
-	m.tbs[tbName] = tb_data
-	return tb_data
+	
+	self.tableList[tbName] = tableData
+	return tableData
 end
 
-function m.RegisterPostProcessAction(tb_name, action)
-	if m.pps[tb_name] ~= nil then
-		Log.Error("Register Same PostProcessAction:" .. tb_name)
-		return
-	end
-	m.pps[tb_name] = action
-end
-
-function m.GetInfo(tb_name, key)
-	local tb = LoadTable(tb_name)
-	if tb == nil then
-		return nil
-	end
-	return tb[key]
-end
-
-function m.GetTable(tb_name)
-	return LoadTable(tb_name)
-end
-
-m.GetWord = GetWord
-m.LoadTable = LoadTable
-return m
+return TableReader

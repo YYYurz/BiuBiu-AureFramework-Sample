@@ -1,0 +1,20 @@
+include "FP.fbs";
+
+namespace GameConfig;
+
+table Sound {
+    Id:uint;
+    SoundName:string;
+    SoundGroupName:string;
+    SoundPriority:uint;
+    Loop:uint;
+    SoundVolume:float;
+    AssetPath:string;
+}
+
+table SoundList {
+    data:[Sound];
+}
+
+file_identifier "CONF";
+file_extension "game_config";

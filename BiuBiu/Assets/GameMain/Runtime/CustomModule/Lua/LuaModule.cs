@@ -167,6 +167,5 @@ namespace BiuBiu {
 
 			return LuaAsset.Require(filePath);
 		}
-
 	}
 }
