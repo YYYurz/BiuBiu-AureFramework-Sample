@@ -17,32 +17,24 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: b1b9b5ed4641d06408a32161babdfa4c
   m_SerializeEntries:
-  - m_GUID: 613929ddeff0aeb489caa7f2b3be906a
-    m_Address: LobbyScene
+  - m_GUID: 50c4f30fe1dc3834198d98cae082e95f
+    m_Address: Assets/GameAssets/Art2D/UI/Login/LoginWindow.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 16cec7b2f39e860419a3b92a2d8148d9
-    m_Address: Assets/GameAssets/DataTables/bytes/DTEntity.bytes
+  - m_GUID: f9c2cef11b7587e4f9f31b333b26abfc
+    m_Address: Assets/GameAssets/Art2D/UI/Battle/BattleWindow.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 3721a4501404fe949b8a42a0eb044508
-    m_Address: Assets/GameAssets/DataTables/bytes/DTGameConfig.bytes
+  - m_GUID: 665593322e1831f42a35c6e935054242
+    m_Address: Assets/GameAssets/Art2D/UI/JoyStick/JoyStick.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 0d945e3533330484ca439313efec87a5
-    m_Address: Assets/GameAssets/DataTables/bytes/DTScene.bytes
+  - m_GUID: 1ce005a3728dc224caca079ed425c4ce
+    m_Address: Assets/GameAssets/Art2D/UI/Loading/LoadingWindow.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 9f0f972d44c828b46a6f500d1fbe42a2
-    m_Address: Assets/GameAssets/DataTables/bytes/DTSound.bytes
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 1dbd426f725830546b431f693deeb665
-    m_Address: Assets/GameAssets/DataTables/bytes/DTUIWindow.bytes
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: e7c8440873290a84d82d0a4465bc4825
-    m_Address: Assets/GameAssets/DataTables/bytes/DTVocation.bytes
+  - m_GUID: 10b7656ab8742f64fa941ed814875999
+    m_Address: MainLobby
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

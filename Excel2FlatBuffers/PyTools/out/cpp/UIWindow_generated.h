@@ -19,10 +19,8 @@ struct UIWindow FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_ID = 4,
     VT_UINAME = 6,
     VT_UIGROUPNAME = 8,
-    VT_ALLOWMULTIINSTANCE = 10,
-    VT_PAUSECOVEREDUIFORM = 12,
-    VT_ASSETPATH = 14,
-    VT_LUAFILE = 16
+    VT_ASSETPATH = 10,
+    VT_LUAFILE = 12
   };
   uint32_t Id() const {
     return GetField<uint32_t>(VT_ID, 0);
@@ -32,12 +30,6 @@ struct UIWindow FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   const flatbuffers::String *UIGroupName() const {
     return GetPointer<const flatbuffers::String *>(VT_UIGROUPNAME);
-  }
-  uint32_t AllowMultiInstance() const {
-    return GetField<uint32_t>(VT_ALLOWMULTIINSTANCE, 0);
-  }
-  uint32_t PauseCoveredUIForm() const {
-    return GetField<uint32_t>(VT_PAUSECOVEREDUIFORM, 0);
   }
   const flatbuffers::String *AssetPath() const {
     return GetPointer<const flatbuffers::String *>(VT_ASSETPATH);
@@ -52,8 +44,6 @@ struct UIWindow FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            verifier.VerifyString(UIName()) &&
            VerifyOffset(verifier, VT_UIGROUPNAME) &&
            verifier.VerifyString(UIGroupName()) &&
-           VerifyField<uint32_t>(verifier, VT_ALLOWMULTIINSTANCE) &&
-           VerifyField<uint32_t>(verifier, VT_PAUSECOVEREDUIFORM) &&
            VerifyOffset(verifier, VT_ASSETPATH) &&
            verifier.VerifyString(AssetPath()) &&
            VerifyOffset(verifier, VT_LUAFILE) &&
@@ -73,12 +63,6 @@ struct UIWindowBuilder {
   }
   void add_UIGroupName(flatbuffers::Offset<flatbuffers::String> UIGroupName) {
     fbb_.AddOffset(UIWindow::VT_UIGROUPNAME, UIGroupName);
-  }
-  void add_AllowMultiInstance(uint32_t AllowMultiInstance) {
-    fbb_.AddElement<uint32_t>(UIWindow::VT_ALLOWMULTIINSTANCE, AllowMultiInstance, 0);
-  }
-  void add_PauseCoveredUIForm(uint32_t PauseCoveredUIForm) {
-    fbb_.AddElement<uint32_t>(UIWindow::VT_PAUSECOVEREDUIFORM, PauseCoveredUIForm, 0);
   }
   void add_AssetPath(flatbuffers::Offset<flatbuffers::String> AssetPath) {
     fbb_.AddOffset(UIWindow::VT_ASSETPATH, AssetPath);
@@ -103,15 +87,11 @@ inline flatbuffers::Offset<UIWindow> CreateUIWindow(
     uint32_t Id = 0,
     flatbuffers::Offset<flatbuffers::String> UIName = 0,
     flatbuffers::Offset<flatbuffers::String> UIGroupName = 0,
-    uint32_t AllowMultiInstance = 0,
-    uint32_t PauseCoveredUIForm = 0,
     flatbuffers::Offset<flatbuffers::String> AssetPath = 0,
     flatbuffers::Offset<flatbuffers::String> LuaFile = 0) {
   UIWindowBuilder builder_(_fbb);
   builder_.add_LuaFile(LuaFile);
   builder_.add_AssetPath(AssetPath);
-  builder_.add_PauseCoveredUIForm(PauseCoveredUIForm);
-  builder_.add_AllowMultiInstance(AllowMultiInstance);
   builder_.add_UIGroupName(UIGroupName);
   builder_.add_UIName(UIName);
   builder_.add_Id(Id);
@@ -123,8 +103,6 @@ inline flatbuffers::Offset<UIWindow> CreateUIWindowDirect(
     uint32_t Id = 0,
     const char *UIName = nullptr,
     const char *UIGroupName = nullptr,
-    uint32_t AllowMultiInstance = 0,
-    uint32_t PauseCoveredUIForm = 0,
     const char *AssetPath = nullptr,
     const char *LuaFile = nullptr) {
   auto UIName__ = UIName ? _fbb.CreateString(UIName) : 0;
@@ -136,8 +114,6 @@ inline flatbuffers::Offset<UIWindow> CreateUIWindowDirect(
       Id,
       UIName__,
       UIGroupName__,
-      AllowMultiInstance,
-      PauseCoveredUIForm,
       AssetPath__,
       LuaFile__);
 }

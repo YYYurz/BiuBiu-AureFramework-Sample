@@ -10,11 +10,15 @@ namespace BiuBiu
     {
         public static bool IsEditor() => Application.isEditor;
         
+        public static bool IsUIOpen(int uiFormId) => GameMain.UI.IsUIOpen(uiFormId);
+        
         public static bool IsUIOpen(string uiName) => GameMain.UI.IsUIOpen(uiName);
         
-        public static void OpenWindow(string uiName) => GameMain.UI.OpenUI(uiName, "Normal", null);
+        public static void OpenUI(int uiFormId, object userData) => GameMain.UI.OpenUI(uiFormId, userData);
 
-        public static void CloseWindow(string uiName) => GameMain.UI.CloseUI(uiName);
+        public static void CloseUI(int uiFormId) => GameMain.UI.CloseUI(uiFormId);
+        
+        public static void CloseUI(string uiName) => GameMain.UI.CloseUI(uiName);
 
         private static T GetChild<T>(GameObject selfObj, string path) {
             if (selfObj == null) {

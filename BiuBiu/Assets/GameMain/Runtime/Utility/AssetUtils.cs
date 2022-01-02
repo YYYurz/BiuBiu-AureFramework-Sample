@@ -30,7 +30,7 @@ namespace BiuBiu
 			{
 				return null;
 			}
-			Debug.Log(fullPath);
+			
 			result = File.ReadAllBytes(fullPath);
 #else
 			var textAsset = GameMain.Resource.LoadAssetSync<TextAsset>(filePath);

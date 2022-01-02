@@ -7,6 +7,7 @@
 //------------------------------------------------------------
 
 using AureFramework.UI;
+using UnityEngine;
 using XLua;
 
 namespace BiuBiu
@@ -19,25 +20,27 @@ namespace BiuBiu
 		private string uiName;
 
 		private LuaTable luaScriptTable;
-		// private UIFormOpenDataInfo formDataInfo { get; set; }
+		private UIFormOpenInfo uiFormOpenInfo;
 
 		public override void OnInit(object userData)
 		{
 			base.OnInit(userData);
-			// formDataInfo = userData as UIFormOpenDataInfo;
-			// if (formDataInfo == null)
-			// {
-			//     Debug.LogError("LuaForm Open Error! invalid userData!");
-			//     return;
-			// }
+			uiFormOpenInfo = userData as UIFormOpenInfo;
+			if (uiFormOpenInfo == null)
+			{
+			    Debug.LogError("LuaForm : UIFormOpenInfo is null.");
+			    return;
+			}
 
-			luaScriptTable = (LuaTable) GameMain.Lua.CallLuaFunction("", "New", new[] {typeof(LuaTable)})[0];
-
+			var luaScript = (LuaTable) GameMain.Lua.DoString($"return require('{uiFormOpenInfo.LuaFile}')")[0];
+			luaScriptTable = (LuaTable) GameMain.Lua.CallLuaFunction(luaScript, "New", new[] {typeof(LuaTable)}, luaScript)[0];
+			
 			if (luaScriptTable != null)
 			{
+				luaScriptTable.Set("uiFormId", uiFormOpenInfo.UIFormId);
 				luaScriptTable.Set("transform", transform);
 				luaScriptTable.Set("gameObject", gameObject);
-				GameMain.Lua.CallLuaFunction(luaScriptTable, "OnCreate", luaScriptTable);
+				GameMain.Lua.CallLuaFunction(luaScriptTable, "OnInit", null, luaScriptTable);
 			}
 		}
 
@@ -46,7 +49,7 @@ namespace BiuBiu
 			base.OnOpen(userData);
 			if (luaScriptTable != null)
 			{
-				GameMain.Lua.CallLuaFunction(luaScriptTable, "OnOpen", luaScriptTable);
+				GameMain.Lua.CallLuaFunction(luaScriptTable, "OnOpen", null, luaScriptTable);
 			}
 		}
 
@@ -54,7 +57,7 @@ namespace BiuBiu
 		{
 			if (luaScriptTable != null)
 			{
-				GameMain.Lua.CallLuaFunction(luaScriptTable, "OnClose", luaScriptTable);
+				GameMain.Lua.CallLuaFunction(luaScriptTable, "OnClose", null, luaScriptTable);
 			}
 
 			base.OnClose();
@@ -62,8 +65,12 @@ namespace BiuBiu
 
 		public override void OnDestroy()
 		{
-			if (luaScriptTable == null) return;
-			GameMain.Lua.CallLuaFunction(luaScriptTable, "OnDestroy", luaScriptTable);
+			if (luaScriptTable == null)
+			{
+				return;
+			}
+			
+			GameMain.Lua.CallLuaFunction(luaScriptTable, "OnDestroy", null, luaScriptTable);
 			luaScriptTable.Dispose();
 			luaScriptTable = null;
 		}

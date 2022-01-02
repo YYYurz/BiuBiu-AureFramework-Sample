@@ -15,12 +15,14 @@ namespace BiuBiu
         /// </summary>
         public static class UIFormID
         {
-            public const int Undefined = 0; //空白界面
-            public const int UITipsForm = 1; //纯文字提示框
-            public const int UIFormHideMask = 10; // 屏蔽点击界面
+            // Normal
+            public const int LoginWindow = 1001;
+            public const int BattleWindow = 1002;
+            
+            // PopUp
 
-            public const int LoginWindow = 2001;
-            public const int BattleWindow = 2002;
+            // Top
+            public const int LoadingWindow = 3001;
         }
     }
 }

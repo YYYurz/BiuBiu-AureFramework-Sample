@@ -6,8 +6,6 @@ table UIWindow {
     Id:uint;
     UIName:string;
     UIGroupName:string;
-    AllowMultiInstance:uint;
-    PauseCoveredUIForm:uint;
     AssetPath:string;
     LuaFile:string;
 }

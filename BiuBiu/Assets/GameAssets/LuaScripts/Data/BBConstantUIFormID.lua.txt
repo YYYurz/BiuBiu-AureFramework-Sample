@@ -1,7 +1,0 @@
-local BBConstantUIFormID = {}
-BBConstantUIFormID.Undefined = 0
-BBConstantUIFormID.UITipsForm = 1
-BBConstantUIFormID.UIFormHideMask = 10
-BBConstantUIFormID.LoginWindow = 2001
-BBConstantUIFormID.BattleWindow = 2002
-return BBConstantUIFormID

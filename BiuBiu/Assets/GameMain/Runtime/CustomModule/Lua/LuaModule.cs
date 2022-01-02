@@ -151,25 +151,31 @@ namespace BiuBiu
 		/// </summary>
 		/// <param name="luaTable"> 类名 </param>
 		/// <param name="funcName"> 函数名 </param>
+		/// <param name="typeList"> 返回值类型列表 </param>
 		/// <param name="args"> 函数调用参数 </param>
-		public void CallLuaFunction(LuaTable luaTable, string funcName, params object[] args)
+		public object[] CallLuaFunction(LuaTable luaTable, string funcName, Type[] typeList, params object[] args)
 		{
 			if (luaTable != null)
 			{
 				try
 				{
 					var luaFunction = luaTable.Get<LuaFunction>(funcName);
-					luaFunction.Call(args, null);
+					var result = luaFunction.Call(args, typeList);
+					
 					luaFunction.Dispose();
+
+					return result;
 				}
 				catch (Exception exception)
 				{
-					Debug.Log(exception.Message);
+					Debug.LogError(exception.Message);
+					return null;
 				}
 			}
 			else
 			{
 				Debug.LogError("AureFramework LuaModule: LuaTable is invalid.");
+				return null;
 			}
 		}
 

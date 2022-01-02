@@ -40,39 +40,23 @@ class UIWindow(object):
         return None
 
     # UIWindow
-    def AllowMultiInstance(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(10))
-        if o != 0:
-            return self._tab.Get(flatbuffers.number_types.Uint32Flags, o + self._tab.Pos)
-        return 0
-
-    # UIWindow
-    def PauseCoveredUIForm(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(12))
-        if o != 0:
-            return self._tab.Get(flatbuffers.number_types.Uint32Flags, o + self._tab.Pos)
-        return 0
-
-    # UIWindow
     def AssetPath(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(14))
+        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(10))
         if o != 0:
             return self._tab.String(o + self._tab.Pos)
         return None
 
     # UIWindow
     def LuaFile(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(16))
+        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(12))
         if o != 0:
             return self._tab.String(o + self._tab.Pos)
         return None
 
-def UIWindowStart(builder): builder.StartObject(7)
+def UIWindowStart(builder): builder.StartObject(5)
 def UIWindowAddId(builder, Id): builder.PrependUint32Slot(0, Id, 0)
 def UIWindowAddUIName(builder, UIName): builder.PrependUOffsetTRelativeSlot(1, flatbuffers.number_types.UOffsetTFlags.py_type(UIName), 0)
 def UIWindowAddUIGroupName(builder, UIGroupName): builder.PrependUOffsetTRelativeSlot(2, flatbuffers.number_types.UOffsetTFlags.py_type(UIGroupName), 0)
-def UIWindowAddAllowMultiInstance(builder, AllowMultiInstance): builder.PrependUint32Slot(3, AllowMultiInstance, 0)
-def UIWindowAddPauseCoveredUIForm(builder, PauseCoveredUIForm): builder.PrependUint32Slot(4, PauseCoveredUIForm, 0)
-def UIWindowAddAssetPath(builder, AssetPath): builder.PrependUOffsetTRelativeSlot(5, flatbuffers.number_types.UOffsetTFlags.py_type(AssetPath), 0)
-def UIWindowAddLuaFile(builder, LuaFile): builder.PrependUOffsetTRelativeSlot(6, flatbuffers.number_types.UOffsetTFlags.py_type(LuaFile), 0)
+def UIWindowAddAssetPath(builder, AssetPath): builder.PrependUOffsetTRelativeSlot(3, flatbuffers.number_types.UOffsetTFlags.py_type(AssetPath), 0)
+def UIWindowAddLuaFile(builder, LuaFile): builder.PrependUOffsetTRelativeSlot(4, flatbuffers.number_types.UOffsetTFlags.py_type(LuaFile), 0)
 def UIWindowEnd(builder): return builder.EndObject()

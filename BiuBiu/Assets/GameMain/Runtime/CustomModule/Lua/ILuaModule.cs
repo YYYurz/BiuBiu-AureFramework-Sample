@@ -50,7 +50,8 @@ namespace BiuBiu
 		/// </summary>
 		/// <param name="luaTable"> 类名 </param>
 		/// <param name="funcName"> 函数名 </param>
+		/// <param name="typeList"> 返回值类型列表 </param>
 		/// <param name="args"> 函数调用参数 </param>
-		void CallLuaFunction(LuaTable luaTable, string funcName, params object[] args);
+		object[] CallLuaFunction(LuaTable luaTable, string funcName, Type[] typeList, params object[] args);
 	}
 }

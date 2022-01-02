@@ -22,7 +22,7 @@ namespace BiuBiu
 		{
 			base.OnEnter(args);
 
-			GameMain.Lua.DoString("require('GameMain')");
+			GameMain.UI.OpenUI(Constant.UIFormID.LoginWindow);
 		}
 
 		public override void OnUpdate()

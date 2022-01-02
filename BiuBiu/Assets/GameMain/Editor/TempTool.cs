@@ -32,11 +32,14 @@ namespace BiuBiu.Editor
 
 		private void Run()
 		{
-			var fileInfoList = Directory.GetFiles("D:\\Study\\UnityProject\\BiuBiu\\BiuBiu\\Assets\\GameAssets\\LuaScripts");
+			var fileInfoList = Directory.GetFiles("D:\\Study\\UnityProject\\BiuBiu\\BiuBiu\\Assets\\GameAssets\\LuaScripts", "*.lua.txt", SearchOption.AllDirectories);
 			foreach (var filePath in fileInfoList)
 			{
 				var fileInfo = new FileInfo(filePath);
-				fileInfo.MoveTo(Path.ChangeExtension(filePath, ".lua"));
+				if (!filePath.Contains(".meta"))
+				{
+					fileInfo.MoveTo(Path.ChangeExtension(filePath, ""));
+				}
 			}
 		}
 	}

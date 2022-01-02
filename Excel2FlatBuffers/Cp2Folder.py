@@ -85,7 +85,7 @@ if __name__ == "__main__":
         ["bytes"], "./out/bytes", "../BiuBiu/Assets/GameAssets/DataTables/bytes")
 
     CopyFileUtil.CopyTreeFromToWithFileType(
-        ["lua"], "./out/lua/GameConfig", "../BiuBiu/Assets/GameAssets/LuaScripts/DataTables")
+        ["lua"], "./out/lua/GameConfig", "../BiuBiu/Assets/GameAssets/LuaScripts/GameConfig")
 
     CopyFileUtil.CopyTreeFromToWithFileType(
         ["cs"], "./out/cs", "../BiuBiu/Assets/GameMain/Runtime/Data/DataTable/FlatBuffers")

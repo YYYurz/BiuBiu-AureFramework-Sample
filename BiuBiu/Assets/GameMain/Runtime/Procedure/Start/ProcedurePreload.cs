@@ -38,7 +38,14 @@ namespace BiuBiu
 			//     return;
 			// }
 
-			ChangeState<ProcedureChangeScene>("LobbyScene");
+			ChangeState<ProcedureChangeScene>("MainLobby");
+		}
+
+		public override void OnExit()
+		{
+			base.OnExit();
+			
+			GameMain.Lua.DoString("require('GameMain')");
 		}
 
 		/// <summary>
