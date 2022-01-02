@@ -184,3 +184,4 @@ return {
 	MessageSetItemByteSize = MessageSetItemByteSize,
 	GroupByteSize = GroupByteSize
 }
+

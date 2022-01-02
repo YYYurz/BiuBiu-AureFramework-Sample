@@ -1468,3 +1468,4 @@ RegisterFunc(HrConstantMSG.kFishLogicClientGetNewPlayerGiftBagReqRes, HandleFish
 netReceiver = NetReceiver.New()
 
 return netReceiver
+

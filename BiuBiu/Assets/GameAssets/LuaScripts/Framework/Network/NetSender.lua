@@ -757,3 +757,4 @@ function NetSender.SendGetNewPlayerGiftReq()
 end
 
 return NetSender
+

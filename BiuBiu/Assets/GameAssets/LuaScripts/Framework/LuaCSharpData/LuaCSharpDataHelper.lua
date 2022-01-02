@@ -38,3 +38,4 @@ LuaCSharpDataHelper.PinUIBattleMoneyFormDataTable = PinUIBattleMoneyFormDataTabl
 
 return LuaCSharpDataHelper;
 
+

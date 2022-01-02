@@ -1,4 +1,4 @@
-﻿local UIBase = require "UIForm/UIBase"
+local UIBase = require "UIForm/UIBase"
 
 ---@class LoadingWindow : UIBase 加载界面
 local LoadingWindow = UIBase:New()

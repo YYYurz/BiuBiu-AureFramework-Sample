@@ -21,3 +21,4 @@ ProtoHelper.Encode = Encode
 ProtoHelper.GetClass = GetClass
 
 return ProtoHelper
+

@@ -1,4 +1,4 @@
-﻿local luaBehaviour = require "Common/LuaBehaviour"
+local luaBehaviour = require "Common/LuaBehaviour"
 local UIBase = require "UIForm/UIBase"
 
 ---@class LogicBase : UIBase Lua层逻辑基类

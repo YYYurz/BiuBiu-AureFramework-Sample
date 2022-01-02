@@ -39,3 +39,4 @@ UpdatableSingleton.GetInstance = GetInstance
 UpdatableSingleton.Destory = Destory
 
 return UpdatableSingleton
+

@@ -1,4 +1,4 @@
-﻿local UIBase = require "UIForm/UIBase"
+local UIBase = require "UIForm/UIBase"
 
 ---@class BattleWindow : UIBase 战斗界面
 local BattleWindow = UIBase:New()

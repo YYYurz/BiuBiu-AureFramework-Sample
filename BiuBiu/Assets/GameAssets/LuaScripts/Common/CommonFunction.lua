@@ -16,3 +16,4 @@ function CommonFunction:CloseWindow(uiFormID)
 end
 
 return CommonFunction
+

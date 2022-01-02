@@ -8,6 +8,7 @@
 
 using System;
 using System.IO;
+using System.Text;
 using UnityEditor;
 using UnityEngine;
 
@@ -32,13 +33,26 @@ namespace BiuBiu.Editor
 
 		private void Run()
 		{
-			var fileInfoList = Directory.GetFiles("D:\\Study\\UnityProject\\BiuBiu\\BiuBiu\\Assets\\GameAssets\\LuaScripts", "*.lua.txt", SearchOption.AllDirectories);
+			var fileInfoList = Directory.GetFiles("D:\\Study\\UnityProject\\BiuBiu\\BiuBiu\\Assets\\GameAssets\\LuaScripts", "*.lua", SearchOption.AllDirectories);
 			foreach (var filePath in fileInfoList)
 			{
-				var fileInfo = new FileInfo(filePath);
-				if (!filePath.Contains(".meta"))
+				if (filePath.Contains(".meta"))
 				{
-					fileInfo.MoveTo(Path.ChangeExtension(filePath, ""));
+					continue;
+				}
+				
+				//以UTF-8带BOM格式读取文件内容
+				var end = new UTF8Encoding(true);
+				var str = string.Empty;
+				using (var sr = new StreamReader(filePath, end))
+				{
+					str = sr.ReadToEnd();
+				}
+				//以UTF-8不带BOM格式重新写入文件
+				end = new UTF8Encoding(false);
+				using (var sw = new StreamWriter(filePath, false, end))
+				{
+					sw.Write(str);
 				}
 			}
 		}

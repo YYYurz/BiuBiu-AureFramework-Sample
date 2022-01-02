@@ -39,3 +39,4 @@ Singleton.GetInstance = GetInstance
 Singleton.Destory = Destory
 
 return Singleton;
+
