@@ -3,10 +3,7 @@ using UnityEngine.UI;
 
 namespace BiuBiu
 {
-    /// <summary>
-    /// Lua调用C# UI相关接口
-    /// </summary>
-    public static class UIUtils
+    public static partial class LuaHelper
     {
         public static bool IsEditor() => Application.isEditor;
         

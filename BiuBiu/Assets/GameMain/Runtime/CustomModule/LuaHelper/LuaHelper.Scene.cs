@@ -8,16 +8,15 @@
 
 namespace BiuBiu
 {
-	/// <summary>
-	/// 配置表模块接口
-	/// </summary>
-	public interface ITableDataModule
+	public static partial class LuaHelper
 	{
 		/// <summary>
-		/// 获取读表类
+		/// 强制切换切场景流程
 		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <returns></returns>
-		T GetDataTableReader<T>() where T : ITableReader;
+		/// <param name="sceneName"></param>
+		public static void ChangeScene(string sceneName)
+		{
+			GameMain.Procedure.ChangeProcedure<ProcedureChangeScene>(sceneName);
+		}
 	}
 }

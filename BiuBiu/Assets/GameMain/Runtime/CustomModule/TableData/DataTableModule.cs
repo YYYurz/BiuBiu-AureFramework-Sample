@@ -15,7 +15,7 @@ namespace BiuBiu
 	/// <summary>
 	/// 配置表模块
 	/// </summary>
-	public sealed class TableDataModule : AureFrameworkModule, ITableDataModule
+	public sealed class DataTableModule : AureFrameworkModule, IDataTableModule
 	{
 		private readonly Dictionary<Type, ITableReader> readerDic = new Dictionary<Type, ITableReader>();
 
@@ -31,6 +31,7 @@ namespace BiuBiu
 
 		public override void Clear()
 		{
+			readerDic.Clear();
 		}
 
 		/// <summary>

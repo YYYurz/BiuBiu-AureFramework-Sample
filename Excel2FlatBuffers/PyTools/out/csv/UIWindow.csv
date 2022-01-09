@@ -1,4 +1,4 @@
-Id,UIName,UIGroupName,AssetPath,LuaFile
+Id,UIName,UIGroupName,AssetName,LuaFile
 int,string,string,string,string
 "1","UITipsForm","Top","Common/Prefabs/UICommon/UITipsForm","UIForm/UICommon/UITipsForm"
 "2","UIMessageBoxForm","PopUp","Common/Prefabs/UICommon/UIMessageBoxForm","UIForm/UICommon/UIMessageBoxForm"
@@ -7,6 +7,7 @@ int,string,string,string,string
 "52","UILoginMainForm","Normal","Login/Prefabs/UILogin/UILoginMainForm","UIForm/UILogin/UILoginMainForm"
 "1001","LoginWindow","Normal","Assets/GameAssets/Art2D/UI/Login/LoginWindow.prefab","UIForm/Login/LoginWindow"
 "1002","BattleWindow","Normal","Assets/GameAssets/Art2D/UI/Battle/BattleWindow.prefab","UIForm/Battle/BattleWindow"
+"1003","SoundWindow","Normal","Assets/GameAssets/Art2D/UI/Sound/SoundWindow.prefab","UIForm/Sound/SoundWindow"
 "3001","LoadingWindow","Top","Assets/GameAssets/Art2D/UI/LoadingWindow/LoadingWindow.prefab","UIForm/Loading/LoadingWindow"
 "","","","",""
 "","","","",""

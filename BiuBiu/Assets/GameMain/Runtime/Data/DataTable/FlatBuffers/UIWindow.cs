@@ -32,13 +32,13 @@ public struct UIWindow : IFlatbufferObject
   public ArraySegment<byte>? GetUIGroupNameBytes() { return __p.__vector_as_arraysegment(8); }
 #endif
   public byte[] GetUIGroupNameArray() { return __p.__vector_as_array<byte>(8); }
-  public string AssetPath { get { int o = __p.__offset(10); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public string AssetName { get { int o = __p.__offset(10); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetAssetPathBytes() { return __p.__vector_as_span(10); }
+  public Span<byte> GetAssetNameBytes() { return __p.__vector_as_span(10); }
 #else
-  public ArraySegment<byte>? GetAssetPathBytes() { return __p.__vector_as_arraysegment(10); }
+  public ArraySegment<byte>? GetAssetNameBytes() { return __p.__vector_as_arraysegment(10); }
 #endif
-  public byte[] GetAssetPathArray() { return __p.__vector_as_array<byte>(10); }
+  public byte[] GetAssetNameArray() { return __p.__vector_as_array<byte>(10); }
   public string LuaFile { get { int o = __p.__offset(12); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
   public Span<byte> GetLuaFileBytes() { return __p.__vector_as_span(12); }
@@ -51,11 +51,11 @@ public struct UIWindow : IFlatbufferObject
       uint Id = 0,
       StringOffset UINameOffset = default(StringOffset),
       StringOffset UIGroupNameOffset = default(StringOffset),
-      StringOffset AssetPathOffset = default(StringOffset),
+      StringOffset AssetNameOffset = default(StringOffset),
       StringOffset LuaFileOffset = default(StringOffset)) {
     builder.StartObject(5);
     UIWindow.AddLuaFile(builder, LuaFileOffset);
-    UIWindow.AddAssetPath(builder, AssetPathOffset);
+    UIWindow.AddAssetName(builder, AssetNameOffset);
     UIWindow.AddUIGroupName(builder, UIGroupNameOffset);
     UIWindow.AddUIName(builder, UINameOffset);
     UIWindow.AddId(builder, Id);
@@ -66,7 +66,7 @@ public struct UIWindow : IFlatbufferObject
   public static void AddId(FlatBufferBuilder builder, uint Id) { builder.AddUint(0, Id, 0); }
   public static void AddUIName(FlatBufferBuilder builder, StringOffset UINameOffset) { builder.AddOffset(1, UINameOffset.Value, 0); }
   public static void AddUIGroupName(FlatBufferBuilder builder, StringOffset UIGroupNameOffset) { builder.AddOffset(2, UIGroupNameOffset.Value, 0); }
-  public static void AddAssetPath(FlatBufferBuilder builder, StringOffset AssetPathOffset) { builder.AddOffset(3, AssetPathOffset.Value, 0); }
+  public static void AddAssetName(FlatBufferBuilder builder, StringOffset AssetNameOffset) { builder.AddOffset(3, AssetNameOffset.Value, 0); }
   public static void AddLuaFile(FlatBufferBuilder builder, StringOffset LuaFileOffset) { builder.AddOffset(4, LuaFileOffset.Value, 0); }
   public static Offset<UIWindow> EndUIWindow(FlatBufferBuilder builder) {
     int o = builder.EndObject();

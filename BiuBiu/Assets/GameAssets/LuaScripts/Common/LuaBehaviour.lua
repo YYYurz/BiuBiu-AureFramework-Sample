@@ -1,4 +1,4 @@
-local UIUtils = UIUtils
+local LuaHelper = LuaHelper
 
 ---@class LuaBehaviour Lua侧的Behavior基类
 local LuaBehaviour = {}
@@ -11,23 +11,23 @@ function LuaBehaviour:New(target)
 end
 
 function LuaBehaviour:GetText(obj, path)
-	return UIUtils.GetText(obj, path)
+	return LuaHelper.GetText(obj, path)
 end
 
 function LuaBehaviour:GetImage(obj, path)
-	return UIUtils.GetImage(obj, path)
+	return LuaHelper.GetImage(obj, path)
 end
 
 function LuaBehaviour:GetRawImage(obj, path)
-	return UIUtils.GetRawImage(obj, path)
+	return LuaHelper.GetRawImage(obj, path)
 end
 
 function LuaBehaviour:GetButton(obj, path)
-	return UIUtils.GetButton(obj, path)
+	return LuaHelper.GetButton(obj, path)
 end
 
 function LuaBehaviour:GetSlider(obj, path)
-	return UIUtils.GetSlider(obj, path)
+	return LuaHelper.GetSlider(obj, path)
 end
 
 return LuaBehaviour

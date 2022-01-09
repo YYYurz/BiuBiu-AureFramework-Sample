@@ -40,7 +40,7 @@ class UIWindow(object):
         return None
 
     # UIWindow
-    def AssetPath(self):
+    def AssetName(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(10))
         if o != 0:
             return self._tab.String(o + self._tab.Pos)
@@ -57,6 +57,6 @@ def UIWindowStart(builder): builder.StartObject(5)
 def UIWindowAddId(builder, Id): builder.PrependUint32Slot(0, Id, 0)
 def UIWindowAddUIName(builder, UIName): builder.PrependUOffsetTRelativeSlot(1, flatbuffers.number_types.UOffsetTFlags.py_type(UIName), 0)
 def UIWindowAddUIGroupName(builder, UIGroupName): builder.PrependUOffsetTRelativeSlot(2, flatbuffers.number_types.UOffsetTFlags.py_type(UIGroupName), 0)
-def UIWindowAddAssetPath(builder, AssetPath): builder.PrependUOffsetTRelativeSlot(3, flatbuffers.number_types.UOffsetTFlags.py_type(AssetPath), 0)
+def UIWindowAddAssetName(builder, AssetName): builder.PrependUOffsetTRelativeSlot(3, flatbuffers.number_types.UOffsetTFlags.py_type(AssetName), 0)
 def UIWindowAddLuaFile(builder, LuaFile): builder.PrependUOffsetTRelativeSlot(4, flatbuffers.number_types.UOffsetTFlags.py_type(LuaFile), 0)
 def UIWindowEnd(builder): return builder.EndObject()

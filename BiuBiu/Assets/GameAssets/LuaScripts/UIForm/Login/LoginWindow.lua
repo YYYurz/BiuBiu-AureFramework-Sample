@@ -37,8 +37,8 @@ function LoginWindow:OnDestroy()
 end
 
 function LoginWindow:OnLogin()
-	--self:CloseUI()
-	CF:OpenWindow(UIFormID.BattleWindow)
+	self:CloseUI()
+	CF:OpenUI(UIFormID.BattleWindow)
 end
 
 return LoginWindow

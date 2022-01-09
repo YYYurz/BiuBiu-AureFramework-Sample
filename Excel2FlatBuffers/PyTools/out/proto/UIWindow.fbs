@@ -6,7 +6,7 @@ table UIWindow {
     Id:uint;
     UIName:string;
     UIGroupName:string;
-    AssetPath:string;
+    AssetName:string;
     LuaFile:string;
 }
 

@@ -40,7 +40,7 @@ function UIWindow_mt:UIGroupName()
         return self.view:String(o + self.view.pos)
     end
 end
-function UIWindow_mt:AssetPath()
+function UIWindow_mt:AssetName()
     local o = self.view:Offset(10)
     if o ~= 0 then
         return self.view:String(o + self.view.pos)
@@ -56,7 +56,7 @@ function UIWindow.Start(builder) builder:StartObject(5) end
 function UIWindow.AddId(builder, Id) builder:PrependUint32Slot(0, Id, 0) end
 function UIWindow.AddUIName(builder, UIName) builder:PrependUOffsetTRelativeSlot(1, UIName, 0) end
 function UIWindow.AddUIGroupName(builder, UIGroupName) builder:PrependUOffsetTRelativeSlot(2, UIGroupName, 0) end
-function UIWindow.AddAssetPath(builder, AssetPath) builder:PrependUOffsetTRelativeSlot(3, AssetPath, 0) end
+function UIWindow.AddAssetName(builder, AssetName) builder:PrependUOffsetTRelativeSlot(3, AssetName, 0) end
 function UIWindow.AddLuaFile(builder, LuaFile) builder:PrependUOffsetTRelativeSlot(4, LuaFile, 0) end
 function UIWindow.End(builder) return builder:EndObject() end
 

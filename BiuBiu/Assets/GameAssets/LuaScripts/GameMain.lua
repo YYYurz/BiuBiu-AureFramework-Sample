@@ -2,7 +2,7 @@
 require "Global"
 
 ---LuaDebugger
-if UIUtils.IsEditor() then
+if LuaHelper.IsEditor() then
 	package.cpath = package.cpath .. ';D:/Study/UnityProject/BiuBiu/EmmyLuaDebugger/?.dll'
 	local dbg = require('emmy_core')
 	dbg.tcpListen('localhost', 9966)

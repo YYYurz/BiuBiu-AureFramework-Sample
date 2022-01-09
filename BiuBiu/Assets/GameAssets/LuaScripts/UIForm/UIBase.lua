@@ -1,6 +1,5 @@
 local LuaBehaviour = require "Common/LuaBehaviour"
-local LuaCall = CS.Hr.LuaCallStatic
-local UIUtils = UIUtils
+local LuaHelper = LuaHelper
 
 local openList = {}
 
@@ -14,9 +13,6 @@ function UIBase:OnInit()
 end
 
 function UIBase:OnOpen()
-    if self.uiFormId == nil then
-        print("Oh lo")
-    end
     openList[self.uiFormId] = self
 end
 
@@ -31,7 +27,7 @@ end
 
 function UIBase:OnClose()
     for _, v in pairs(self.tableLoadAsset) do
-        LuaCall.UnloadAsset(v)
+        LuaHelper.UnloadAsset(v)
     end
     if openList[self.uiFormId] then
         openList[self.uiFormId] = nil
@@ -51,6 +47,7 @@ function UIBase:AddEventListener(uiEventID, callBack)
     if type(callBack) ~= "function" then
         return
     end
+    
     self.EventListenerList[uiEventID] = callBack
 end
 
@@ -69,9 +66,9 @@ function UIBase:AddLoadAsset(nAsset)
     table.insert(self.tableLoadAsset, nAsset)
 end
 
---- 关闭自己UI
+--- 关闭自己
 function UIBase:CloseUI()
-    CF:CloseWindow(self.uiFormId)
+    CF:CloseUI(self.uiFormId)
 end
 
 --- 添加Unity UI组件的事件监听
@@ -85,7 +82,7 @@ function UIBase:AddButtonDownListener(button, callback, table)
         print("UIBase : AddButtonDownListener false")
     end
     self.UIListenerList[button] = 1
-    UIUtils.AddButtonClickListener(button, callback, table)
+    LuaHelper.AddButtonClickListener(button, callback, table)
 end
 
 

@@ -17,8 +17,6 @@ namespace BiuBiu
 	/// </summary>
 	public sealed class LuaForm : UIFormBase
 	{
-		private string uiName;
-
 		private LuaTable luaScriptTable;
 		private UIFormOpenInfo uiFormOpenInfo;
 

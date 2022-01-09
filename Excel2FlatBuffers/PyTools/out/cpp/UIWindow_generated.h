@@ -19,7 +19,7 @@ struct UIWindow FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_ID = 4,
     VT_UINAME = 6,
     VT_UIGROUPNAME = 8,
-    VT_ASSETPATH = 10,
+    VT_ASSETNAME = 10,
     VT_LUAFILE = 12
   };
   uint32_t Id() const {
@@ -31,8 +31,8 @@ struct UIWindow FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   const flatbuffers::String *UIGroupName() const {
     return GetPointer<const flatbuffers::String *>(VT_UIGROUPNAME);
   }
-  const flatbuffers::String *AssetPath() const {
-    return GetPointer<const flatbuffers::String *>(VT_ASSETPATH);
+  const flatbuffers::String *AssetName() const {
+    return GetPointer<const flatbuffers::String *>(VT_ASSETNAME);
   }
   const flatbuffers::String *LuaFile() const {
     return GetPointer<const flatbuffers::String *>(VT_LUAFILE);
@@ -44,8 +44,8 @@ struct UIWindow FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            verifier.VerifyString(UIName()) &&
            VerifyOffset(verifier, VT_UIGROUPNAME) &&
            verifier.VerifyString(UIGroupName()) &&
-           VerifyOffset(verifier, VT_ASSETPATH) &&
-           verifier.VerifyString(AssetPath()) &&
+           VerifyOffset(verifier, VT_ASSETNAME) &&
+           verifier.VerifyString(AssetName()) &&
            VerifyOffset(verifier, VT_LUAFILE) &&
            verifier.VerifyString(LuaFile()) &&
            verifier.EndTable();
@@ -64,8 +64,8 @@ struct UIWindowBuilder {
   void add_UIGroupName(flatbuffers::Offset<flatbuffers::String> UIGroupName) {
     fbb_.AddOffset(UIWindow::VT_UIGROUPNAME, UIGroupName);
   }
-  void add_AssetPath(flatbuffers::Offset<flatbuffers::String> AssetPath) {
-    fbb_.AddOffset(UIWindow::VT_ASSETPATH, AssetPath);
+  void add_AssetName(flatbuffers::Offset<flatbuffers::String> AssetName) {
+    fbb_.AddOffset(UIWindow::VT_ASSETNAME, AssetName);
   }
   void add_LuaFile(flatbuffers::Offset<flatbuffers::String> LuaFile) {
     fbb_.AddOffset(UIWindow::VT_LUAFILE, LuaFile);
@@ -87,11 +87,11 @@ inline flatbuffers::Offset<UIWindow> CreateUIWindow(
     uint32_t Id = 0,
     flatbuffers::Offset<flatbuffers::String> UIName = 0,
     flatbuffers::Offset<flatbuffers::String> UIGroupName = 0,
-    flatbuffers::Offset<flatbuffers::String> AssetPath = 0,
+    flatbuffers::Offset<flatbuffers::String> AssetName = 0,
     flatbuffers::Offset<flatbuffers::String> LuaFile = 0) {
   UIWindowBuilder builder_(_fbb);
   builder_.add_LuaFile(LuaFile);
-  builder_.add_AssetPath(AssetPath);
+  builder_.add_AssetName(AssetName);
   builder_.add_UIGroupName(UIGroupName);
   builder_.add_UIName(UIName);
   builder_.add_Id(Id);
@@ -103,18 +103,18 @@ inline flatbuffers::Offset<UIWindow> CreateUIWindowDirect(
     uint32_t Id = 0,
     const char *UIName = nullptr,
     const char *UIGroupName = nullptr,
-    const char *AssetPath = nullptr,
+    const char *AssetName = nullptr,
     const char *LuaFile = nullptr) {
   auto UIName__ = UIName ? _fbb.CreateString(UIName) : 0;
   auto UIGroupName__ = UIGroupName ? _fbb.CreateString(UIGroupName) : 0;
-  auto AssetPath__ = AssetPath ? _fbb.CreateString(AssetPath) : 0;
+  auto AssetName__ = AssetName ? _fbb.CreateString(AssetName) : 0;
   auto LuaFile__ = LuaFile ? _fbb.CreateString(LuaFile) : 0;
   return GameConfig::CreateUIWindow(
       _fbb,
       Id,
       UIName__,
       UIGroupName__,
-      AssetPath__,
+      AssetName__,
       LuaFile__);
 }
 

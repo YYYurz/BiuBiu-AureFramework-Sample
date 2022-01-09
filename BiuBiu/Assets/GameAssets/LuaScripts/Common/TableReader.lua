@@ -44,7 +44,7 @@ function TableReader:GetTable(tbName)
 	end
 	
 	tableData = {}
-	local data = LuaCallStatic.GetBytesFile(bytesFileName)
+	local data = LuaHelper.GetBytesFile(bytesFileName)
 	local buf = flatbuffers.binaryArray.New(data)
 	local dataList = fun(buf, 0)
 	local len = dataList:DataLength()

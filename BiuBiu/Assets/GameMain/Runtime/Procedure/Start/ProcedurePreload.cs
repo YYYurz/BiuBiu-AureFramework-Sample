@@ -60,7 +60,7 @@ namespace BiuBiu
 			LoadingAssetList.Add(taskId);
 		}
 
-		private static void OnLoadAssetSuccess(string assetName, int taskId, Object asset)
+		private static void OnLoadAssetSuccess(string assetName, int taskId, Object asset, object userData)
 		{
 			LoadingAssetList.Remove(taskId);
 			if (LoadingAssetList.Count == 0)
@@ -69,7 +69,7 @@ namespace BiuBiu
 			}
 		}
 
-		private static void OnLoadAssetFailed(string assetName, int taskId, string errorMessage)
+		private static void OnLoadAssetFailed(string assetName, int taskId, string errorMessage, object userData)
 		{
 			Debug.LogError($"ProcedurePreload : Preload asset failed, asset name :{assetName}");
 			LoadingAssetList.Remove(taskId);

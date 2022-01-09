@@ -17,7 +17,7 @@ namespace BiuBiu
     {
         public static bool IsUIOpen(this IUIModule uiModule, int uiFormId)
         {
-            var uiInfo = GameMain.TableData.GetDataTableReader<UIWindowTableReader>().GetInfo((uint)uiFormId);
+            var uiInfo = GameMain.UIDataTable.GetDataTableReader<UIWindowTableReader>().GetInfo((uint)uiFormId);
             var uiName = uiInfo.UIName;
             
             return uiModule.IsUIOpen(uiName);
@@ -25,19 +25,19 @@ namespace BiuBiu
         
         public static void OpenUI(this IUIModule uiModule, int uiFormId, object userData = null)
         {
-            var uiInfo = GameMain.TableData.GetDataTableReader<UIWindowTableReader>().GetInfo((uint)uiFormId);
-            var uiName = uiInfo.AssetPath;
-            var uiAssetPath = uiInfo.AssetPath;
+            var uiInfo = GameMain.UIDataTable.GetDataTableReader<UIWindowTableReader>().GetInfo((uint)uiFormId);
+            var uiName = uiInfo.UIName;
+            var uiAssetName = uiInfo.AssetName;
             var uiGroupName = uiInfo.UIGroupName;
             var uiFormOpenDataInfo = UIFormOpenInfo.Create(uiFormId, uiInfo.LuaFile, userData);
             
-            uiModule.OpenUI(uiName, uiAssetPath, uiGroupName, uiFormOpenDataInfo);
+            uiModule.OpenUI(uiName, uiAssetName, uiGroupName, uiFormOpenDataInfo);
         }
 
         public static void CloseUI(this IUIModule uiModule, int uiFormId)
         {
-            var uiInfo = GameMain.TableData.GetDataTableReader<UIWindowTableReader>().GetInfo((uint)uiFormId);
-            var uiName = uiInfo.AssetPath;
+            var uiInfo = GameMain.UIDataTable.GetDataTableReader<UIWindowTableReader>().GetInfo((uint)uiFormId);
+            var uiName = uiInfo.UIName;
             
             uiModule.CloseUI(uiName);
         }

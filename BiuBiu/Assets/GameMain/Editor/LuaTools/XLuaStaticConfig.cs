@@ -108,7 +108,7 @@ namespace BiuBiu.Editor
             //typeof(Mathf),
             //typeof(UnityEngine.UI.Graphic),
             
-            typeof(LuaCallStatic),
+            typeof(LuaHelper),
         };
 
         [CSharpCallLua] public static List<Type> CSharpCallLua = new List<Type>()

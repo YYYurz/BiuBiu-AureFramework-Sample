@@ -1,18 +1,18 @@
-local UIUtils = UIUtils
+local LuaHelper = LuaHelper
 
 ---@class CommonFunction 公共函数调用接口
 CommonFunction = {}
 
 function CommonFunction:IsUIOpen(uiFormID)
-	UIUtils.IsUIOpen(uiFormID)
+	LuaHelper.IsUIOpen(uiFormID)
 end
 
-function CommonFunction:OpenWindow(uiFormID)
-	UIUtils.OpenUI(uiFormID)
+function CommonFunction:OpenUI(uiFormID)
+	LuaHelper.OpenUI(uiFormID)
 end
 
-function CommonFunction:CloseWindow(uiFormID)
-	UIUtils.CloseUI(uiFormID)
+function CommonFunction:CloseUI(uiFormID)
+	LuaHelper.CloseUI(uiFormID)
 end
 
 return CommonFunction

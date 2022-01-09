@@ -1,4 +1,4 @@
-local UIBase = require "UIForm/UIBase"
+﻿local UIBase = require "UIForm/UIBase"
 
 ---@class BattleWindow : UIBase 战斗界面
 local BattleWindow = UIBase:New()
@@ -7,8 +7,8 @@ function BattleWindow:ManualInit()
 	
 end
 
-function BattleWindow:OnCreate()
-	UIBase.OnCreate(self)
+function BattleWindow:OnInit()
+	UIBase.OnInit(self)
 	self:ManualInit()
 end
 
@@ -23,7 +23,7 @@ end
 function BattleWindow:OnDestroy()
 	UIBase.OnDestroy(self)
 	self = nil
-	LoginWindow = nil
+	BattleWindow = nil
 end
 
 return BattleWindow

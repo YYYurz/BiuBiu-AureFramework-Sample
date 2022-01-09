@@ -6,26 +6,15 @@
 // Email: 1228396352@qq.com
 //------------------------------------------------------------
 
+using AureFramework.Sound;
 using UnityEngine;
 
 namespace BiuBiu
 {
-	/// <summary>
-	/// Lua调用C#静态类
-	/// </summary>
-	public static class LuaCallStatic
+	public static partial class LuaHelper
 	{
 		/// <summary>
-		/// 强制切换切场景流程
-		/// </summary>
-		/// <param name="sceneName"></param>
-		public static void ChangeScene(string sceneName)
-		{
-			GameMain.Procedure.ChangeProcedure<ProcedureChangeScene>(sceneName);
-		}
-
-		/// <summary>
-		/// 
+		/// 加载二进制资源
 		/// </summary>
 		/// <param name="filePath"> 资源路径 </param>
 		/// <returns></returns>

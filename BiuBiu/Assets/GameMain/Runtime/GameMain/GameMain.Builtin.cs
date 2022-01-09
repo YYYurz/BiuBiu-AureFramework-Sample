@@ -15,6 +15,7 @@ using AureFramework.ObjectPool;
 using AureFramework.Procedure;
 using AureFramework.ReferencePool;
 using AureFramework.Scene;
+using AureFramework.Sound;
 using AureFramework.UI;
 
 namespace BiuBiu
@@ -72,6 +73,12 @@ namespace BiuBiu
 			private set;
 		}
 
+		public static ISoundModule Sound
+		{
+			get;
+			private set;
+		}
+
 		private static void InitBuiltinModules()
 		{
 			Fsm = Aure.GetModule<IFsmModule>();
@@ -82,6 +89,7 @@ namespace BiuBiu
 			ReferencePool = Aure.GetModule<IReferencePoolModule>();
 			ObjectPool = Aure.GetModule<IObjectPoolModule>();
 			Scene = Aure.GetModule<ISceneModule>();
+			Sound = Aure.GetModule<ISoundModule>();
 		}
 	}
 }

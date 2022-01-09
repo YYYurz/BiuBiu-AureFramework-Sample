@@ -18,6 +18,7 @@ namespace BiuBiu
             // Normal
             public const int LoginWindow = 1001;
             public const int BattleWindow = 1002;
+            public const int SoundWindow = 1003;
             
             // PopUp
 

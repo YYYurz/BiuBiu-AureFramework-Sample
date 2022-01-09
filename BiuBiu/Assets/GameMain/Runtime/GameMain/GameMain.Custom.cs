@@ -8,7 +8,7 @@ namespace BiuBiu
 	/// </summary>
 	public partial class GameMain : MonoBehaviour
 	{
-		public static ITableDataModule TableData
+		public static IDataTableModule UIDataTable
 		{
 			get;
 			private set;
@@ -34,7 +34,7 @@ namespace BiuBiu
 
 		private static void InitCustomModules()
 		{
-			TableData = Aure.GetModule<ITableDataModule>();
+			UIDataTable = Aure.GetModule<IDataTableModule>();
 			Lua = Aure.GetModule<ILuaModule>();
 		}
 	}
