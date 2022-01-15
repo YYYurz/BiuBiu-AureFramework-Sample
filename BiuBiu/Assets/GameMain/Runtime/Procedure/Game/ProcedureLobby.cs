@@ -37,13 +37,6 @@ namespace BiuBiu
 			// var shop2 = GameMain.Resource.InstantiateSync("Shop");
 			// var shop2 = GameMain.Resource.LoadAssetSync<GameObject>("Shop");
 			// var shop3 = Object.Instantiate(shop2);
-
-			var i = 0;
-			while (i < 1000)
-			{
-				i++;
-				GameMain.Resource.LoadAssetSync<GameObject>("Shop");
-			}
 		}
 
 		public override void OnUpdate()

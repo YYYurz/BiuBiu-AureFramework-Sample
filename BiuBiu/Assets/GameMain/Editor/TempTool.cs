@@ -10,14 +10,17 @@ using System;
 using System.IO;
 using System.Text;
 using UnityEditor;
+using UnityEditor.AddressableAssets;
+using UnityEditor.AddressableAssets.Settings;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace BiuBiu.Editor
 {
 	public class TempTool : EditorWindow
 	{
 		[MenuItem("BiuBiu/临时工具", false, 150)]
-		private static void Open()
+		private static void OpenWindow()
 		{
 			var window = GetWindow<TempTool>(true, "导表工具", true);
 			window.minSize = window.maxSize = new Vector2(500f, 500f);
@@ -25,13 +28,38 @@ namespace BiuBiu.Editor
 
 		private void OnGUI()
 		{
-			if (GUILayout.Button("A"))
+			if (GUILayout.Button("Addressable"))
 			{
-				Run();
+				Test();
+			}
+			
+			if (GUILayout.Button("修改文本文件的编码格式"))
+			{
+				ModifyCodeFormat();
 			}
 		}
 
-		private void Run()
+		private void Test()
+		{
+			var str = "ASD";
+			string a = null;
+			if (string.IsNullOrEmpty(a))
+			{
+				Debug.Log("Yeah");
+			}
+			
+			if (str.StartsWith(a))
+			{
+				Debug.Log("Yeah");
+			}
+
+			if (str.EndsWith(a))
+			{
+				Debug.Log("Yeah");
+			}
+		}
+
+		private void ModifyCodeFormat()
 		{
 			var fileInfoList = Directory.GetFiles("D:\\Study\\UnityProject\\BiuBiu\\BiuBiu\\Assets\\GameAssets\\LuaScripts", "*.lua", SearchOption.AllDirectories);
 			foreach (var filePath in fileInfoList)

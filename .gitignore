@@ -1,7 +1,8 @@
 **/[Ll]ibrary/
-**/[Ll]/ogs/
-**/[Ll]/og/
+**/[Ll]ogs/
+**/[Ll]og/
 **/[Tt]emp/
+**/[Bb]uildApk/
 **/[Uu]serSettings/
 **/[Dd]ebug/
 **/.idea/

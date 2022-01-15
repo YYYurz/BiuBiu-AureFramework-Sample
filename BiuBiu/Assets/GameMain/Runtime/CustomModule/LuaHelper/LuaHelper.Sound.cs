@@ -13,14 +13,24 @@ namespace BiuBiu
 {
 	public static partial class LuaHelper
 	{
-		public static void PlaySound(string soundAssetName, string soundGroupName, SoundParams soundParams = null)
+		public static int PlaySound(string soundAssetName, string soundGroupName, SoundParams soundParams = null)
 		{
 			if (soundParams == null)
 			{
 				soundParams = SoundParams.Create();
 			}
 
-			GameMain.Sound.PlaySound(soundAssetName, soundGroupName, soundParams);
+			return GameMain.Sound.PlaySound(soundAssetName, soundGroupName, soundParams);
+		}
+
+		public static void PauseSound(int soundId, float fadeOutSeconds = 0f)
+		{
+			GameMain.Sound.PauseSound(soundId, fadeOutSeconds);
+		}
+		
+		public static void ResumeSound(int soundId, float fadeInSeconds = 0f)
+		{
+			GameMain.Sound.ResumeSound(soundId, fadeInSeconds);
 		}
 	}
 }

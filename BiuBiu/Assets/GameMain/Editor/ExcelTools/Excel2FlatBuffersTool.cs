@@ -163,10 +163,10 @@ namespace BiuBiu.Editor
 
 		private void BrowseOutputDirectory()
 		{
-			var directory = EditorUtility.OpenFolderPanel("选择文件夹", selectFolderPath, string.Empty);
+			var directory = EditorUtility.OpenFolderPanel("选择文件夹", ExcelDirectory, string.Empty);
 			if (!string.IsNullOrEmpty(directory))
 			{
-				selectFolderPath = directory;
+				ExcelDirectory = directory;
 			}
 		}
 

@@ -65,10 +65,6 @@ MonoBehaviour:
     m_Address: SoundReverse
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 0ac701538ce9f4c4bb6b7ec6fa79e689
-    m_Address: Shop
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6798ea86944d6bb4a90f734a49dfafdb, type: 2}
   m_SchemaSet:

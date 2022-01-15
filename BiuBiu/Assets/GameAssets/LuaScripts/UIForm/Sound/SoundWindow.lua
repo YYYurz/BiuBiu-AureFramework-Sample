@@ -9,9 +9,9 @@ function SoundWindow:ManualInit()
     self.BtnSound4 = self:GetButton(self.gameObject, "BtnSound4")
 
     self:AddListener(self.BtnSound1.onClick, function() self:OnPlaySound("TestSound1", "Sound") end)
-    self:AddListener(self.BtnSound2.onClick, function() self:OnPlaySound("TestSound2", "Sound") end)
-    self:AddListener(self.BtnSound3.onClick, function() self:OnPlaySound("TestSound3", "Sound") end)
-    self:AddListener(self.BtnSound4.onClick, function() self:OnPlaySound("SoundReverse", "Bgm") end)
+    self:AddListener(self.BtnSound2.onClick, function() self:OnPlaySound("SoundReverse", "Bgm") end)
+    self:AddListener(self.BtnSound3.onClick, function() self:OnPauseSound(self.curSoundId) end)
+    self:AddListener(self.BtnSound4.onClick, function() self:OnResumeSound(self.curSoundId) end)
 end
 
 function SoundWindow:OnInit()
@@ -45,7 +45,15 @@ function SoundWindow:OnLogin()
 end
 
 function SoundWindow:OnPlaySound(soundName, soundGroupName)
-    LuaHelper.PlaySound(soundName, soundGroupName)
+    self.curSoundId = LuaHelper.PlaySound(soundName, soundGroupName)
+end
+
+function SoundWindow:OnPauseSound(soundId)
+    LuaHelper.PauseSound(soundId, 1)
+end
+
+function SoundWindow:OnResumeSound(soundId)
+    LuaHelper.ResumeSound(soundId, 1)
 end
 
 return SoundWindow
