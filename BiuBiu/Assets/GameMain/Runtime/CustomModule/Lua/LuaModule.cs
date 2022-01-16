@@ -187,14 +187,22 @@ namespace BiuBiu
 			}
 		}
 
-		private static byte[] CustomLoader(ref string filePath)
+		private static byte[] CustomLoader(ref string luaPath)
 		{
-			if (filePath.Contains("emmy_core"))
+			if (luaPath.Contains("emmy_core"))
 			{
 				return null;
 			}
 
-			return LuaAsset.Require(filePath, "Assets/GameAssets/LuaScripts/");
+			if (string.IsNullOrEmpty(luaPath))
+			{
+				return null;
+			}
+            
+			var assetName = "Assets/GameAssets/LuaScripts/" + luaPath.Replace(".", "/") + ".lua";
+			var bytes = AssetUtils.LoadBytes(assetName);
+
+			return bytes;
 		}
 	}
 }

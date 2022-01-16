@@ -124,36 +124,37 @@ namespace BiuBiu.Editor
 				EditorGUILayout.EndHorizontal();
 			}
 
-			scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUILayout.Width(500f), GUILayout.Height(385f));
+			EditorGUILayout.BeginVertical("box", GUILayout.Width(470f), GUILayout.Height(385f));
 			{
-				EditorGUILayout.BeginVertical("box", GUILayout.Width(500f), GUILayout.Height(440f));
-				if (Directory.Exists(selectFolderPath))
+				scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUILayout.Width(500f), GUILayout.Height(385f));
 				{
-					foreach (var fileName in allFileList)
+					if (Directory.Exists(selectFolderPath))
 					{
-						var isSelect = selectFileList.Contains(fileName);
-						if (isSelect != EditorGUILayout.ToggleLeft(fileName, isSelect))
+						foreach (var fileName in allFileList)
 						{
-							if (!isSelect)
+							var isSelect = selectFileList.Contains(fileName);
+							if (isSelect != EditorGUILayout.ToggleLeft(fileName, isSelect))
 							{
-								selectFileList.Add(fileName);
-								if (selectFileList.Count == allFileList.Count)
+								if (!isSelect)
 								{
-									isSelectAll = true;
+									selectFileList.Add(fileName);
+									if (selectFileList.Count == allFileList.Count)
+									{
+										isSelectAll = true;
+									}
 								}
-							}
-							else
-							{
-								selectFileList.Remove(fileName);
-								isSelectAll = false;
+								else
+								{
+									selectFileList.Remove(fileName);
+									isSelectAll = false;
+								}
 							}
 						}
 					}
 				}
-
-				EditorGUILayout.EndVertical();
+				EditorGUILayout.EndScrollView();
 			}
-			EditorGUILayout.EndScrollView();
+			EditorGUILayout.EndVertical();
 
 			if (GUILayout.Button("生成", GUILayout.Width(500f)))
 			{

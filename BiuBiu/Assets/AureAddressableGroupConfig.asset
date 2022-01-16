@@ -17,33 +17,13 @@ MonoBehaviour:
     filterPrefix: 
     filterSuffix: 
     filterString: 
-    filterPrefixMode: 1
-    filterSuffixMode: 1
-    filterStringMode: 0
-    ergodicLayers: 0
-    addressNaming: 0
-    maxByte: 2147483647
-  - assetPath: Assets/CasualGameSounds
-    filterPrefix: 
-    filterSuffix: 
-    filterString: 
-    filterPrefixMode: 0
-    filterSuffixMode: 0
-    filterStringMode: 0
-    ergodicLayers: 0
-    addressNaming: 0
-    maxByte: 2147483647
-  - assetPath: 
-    filterPrefix: 
-    filterSuffix: 
-    filterString: 
     filterPrefixMode: 0
     filterSuffixMode: 0
     filterStringMode: 0
     ergodicLayers: 1
-    addressNaming: 0
+    addressNaming: 1
     maxByte: 2147483647
-  - assetPath: 
+  - assetPath: Assets/GameAssets/Art2D/Bgm
     filterPrefix: 
     filterSuffix: 
     filterString: 
@@ -53,7 +33,7 @@ MonoBehaviour:
     ergodicLayers: 0
     addressNaming: 0
     maxByte: 2147483647
-  - assetPath: 
+  - assetPath: Assets/GameAssets/LuaScripts
     filterPrefix: 
     filterSuffix: 
     filterString: 
@@ -63,7 +43,7 @@ MonoBehaviour:
     ergodicLayers: 0
     addressNaming: 0
     maxByte: 2147483647
-  - assetPath: 
+  - assetPath: Assets/GameAssets/Art2D/Sound
     filterPrefix: 
     filterSuffix: 
     filterString: 

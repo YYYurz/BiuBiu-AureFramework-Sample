@@ -4,11 +4,9 @@ namespace GameConfig;
 
 table Sound {
     Id:uint;
-    SoundName:string;
-    SoundGroupName:string;
-    SoundPriority:uint;
+    GroupName:string;
     Loop:uint;
-    SoundVolume:float;
+    Volume:float;
     AssetPath:string;
 }
 

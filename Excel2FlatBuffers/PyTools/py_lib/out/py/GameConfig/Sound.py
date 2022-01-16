@@ -26,53 +26,37 @@ class Sound(object):
         return 0
 
     # Sound
-    def SoundName(self):
+    def GroupName(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(6))
         if o != 0:
             return self._tab.String(o + self._tab.Pos)
         return None
 
     # Sound
-    def SoundGroupName(self):
+    def Loop(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(8))
         if o != 0:
-            return self._tab.String(o + self._tab.Pos)
-        return None
+            return self._tab.Get(flatbuffers.number_types.Uint32Flags, o + self._tab.Pos)
+        return 0
 
     # Sound
-    def SoundPriority(self):
+    def Volume(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(10))
-        if o != 0:
-            return self._tab.Get(flatbuffers.number_types.Uint32Flags, o + self._tab.Pos)
-        return 0
-
-    # Sound
-    def Loop(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(12))
-        if o != 0:
-            return self._tab.Get(flatbuffers.number_types.Uint32Flags, o + self._tab.Pos)
-        return 0
-
-    # Sound
-    def SoundVolume(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(14))
         if o != 0:
             return self._tab.Get(flatbuffers.number_types.Float32Flags, o + self._tab.Pos)
         return 0.0
 
     # Sound
     def AssetPath(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(16))
+        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(12))
         if o != 0:
             return self._tab.String(o + self._tab.Pos)
         return None
 
-def SoundStart(builder): builder.StartObject(7)
+def SoundStart(builder): builder.StartObject(5)
 def SoundAddId(builder, Id): builder.PrependUint32Slot(0, Id, 0)
-def SoundAddSoundName(builder, SoundName): builder.PrependUOffsetTRelativeSlot(1, flatbuffers.number_types.UOffsetTFlags.py_type(SoundName), 0)
-def SoundAddSoundGroupName(builder, SoundGroupName): builder.PrependUOffsetTRelativeSlot(2, flatbuffers.number_types.UOffsetTFlags.py_type(SoundGroupName), 0)
-def SoundAddSoundPriority(builder, SoundPriority): builder.PrependUint32Slot(3, SoundPriority, 0)
-def SoundAddLoop(builder, Loop): builder.PrependUint32Slot(4, Loop, 0)
-def SoundAddSoundVolume(builder, SoundVolume): builder.PrependFloat32Slot(5, SoundVolume, 0.0)
-def SoundAddAssetPath(builder, AssetPath): builder.PrependUOffsetTRelativeSlot(6, flatbuffers.number_types.UOffsetTFlags.py_type(AssetPath), 0)
+def SoundAddGroupName(builder, GroupName): builder.PrependUOffsetTRelativeSlot(1, flatbuffers.number_types.UOffsetTFlags.py_type(GroupName), 0)
+def SoundAddLoop(builder, Loop): builder.PrependUint32Slot(2, Loop, 0)
+def SoundAddVolume(builder, Volume): builder.PrependFloat32Slot(3, Volume, 0.0)
+def SoundAddAssetPath(builder, AssetPath): builder.PrependUOffsetTRelativeSlot(4, flatbuffers.number_types.UOffsetTFlags.py_type(AssetPath), 0)
 def SoundEnd(builder): return builder.EndObject()

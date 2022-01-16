@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -140,47 +140,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 267982961198003560, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
       propertyPath: soundGroupList.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 267982961198003560, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
-      propertyPath: soundGroupList.Array.data[0].soundAgentPoolCapacity
-      value: 500
-      objectReference: {fileID: 0}
-    - target: {fileID: 267982961198003560, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
-      propertyPath: soundGroupList.Array.data[0].soundAgentPoolExpireTime
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 267982961198003560, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
       propertyPath: soundGroupList.Array.data[0].volume
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 267982961198003560, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
-      propertyPath: soundGroupList.Array.data[1].soundAgentPoolCapacity
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 267982961198003560, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
-      propertyPath: soundGroupList.Array.data[1].soundAgentPoolExpireTime
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 267982961198003560, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
       propertyPath: soundGroupList.Array.data[1].volume
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 267982961198003560, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
-      propertyPath: soundGroupList.Array.data[1].groupName
-      value: Bgm
-      objectReference: {fileID: 0}
-    - target: {fileID: 267982961198003560, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
-      propertyPath: soundGroupList.Array.data[2].groupName
-      value: Bgm
-      objectReference: {fileID: 0}
-    - target: {fileID: 267982961198003560, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
-      propertyPath: soundGroupList.Array.data[2].soundAgentPoolCapacity
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 267982961198003560, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
-      propertyPath: soundGroupList.Array.data[2].soundAgentPoolExpireTime
-      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 267982961198003560, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
       propertyPath: soundGroupList.Array.data[2].volume
@@ -191,19 +159,59 @@ PrefabInstance:
       value: Sound
       objectReference: {fileID: 0}
     - target: {fileID: 267982961198003560, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
-      propertyPath: soundGroupList.Array.data[1].soundAssetPoolCapacity
-      value: 10
+      propertyPath: soundGroupList.Array.data[1].groupName
+      value: Bgm
       objectReference: {fileID: 0}
     - target: {fileID: 267982961198003560, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
-      propertyPath: soundGroupList.Array.data[1].soundAssetPoolExpireTime
-      value: 300
+      propertyPath: soundGroupList.Array.data[2].groupName
+      value: asd
+      objectReference: {fileID: 0}
+    - target: {fileID: 267982961198003560, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
+      propertyPath: soundGroupList.Array.data[0].soundAgentPoolCapacity
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 267982961198003560, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
       propertyPath: soundGroupList.Array.data[0].soundAssetPoolCapacity
       value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 267982961198003560, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
+      propertyPath: soundGroupList.Array.data[1].soundAgentPoolCapacity
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 267982961198003560, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
+      propertyPath: soundGroupList.Array.data[1].soundAssetPoolCapacity
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 267982961198003560, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
+      propertyPath: soundGroupList.Array.data[2].soundAgentPoolCapacity
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 267982961198003560, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
+      propertyPath: soundGroupList.Array.data[2].soundAssetPoolCapacity
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 267982961198003560, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
+      propertyPath: soundGroupList.Array.data[0].soundAgentPoolExpireTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 267982961198003560, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
       propertyPath: soundGroupList.Array.data[0].soundAssetPoolExpireTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 267982961198003560, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
+      propertyPath: soundGroupList.Array.data[1].soundAgentPoolExpireTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 267982961198003560, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
+      propertyPath: soundGroupList.Array.data[1].soundAssetPoolExpireTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 267982961198003560, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
+      propertyPath: soundGroupList.Array.data[2].soundAgentPoolExpireTime
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 267982961198003560, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
+      propertyPath: soundGroupList.Array.data[2].soundAssetPoolExpireTime
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 595306626288924492, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
@@ -213,6 +221,10 @@ PrefabInstance:
     - target: {fileID: 677162784933647780, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
       propertyPath: m_RootOrder
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193148012413222402, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1193148012413222402, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -227,6 +239,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1193148012413222402, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193148012413222402, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -236,14 +252,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1193148012413222402, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1193148012413222402, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1193148012413222402, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
-      propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1193148012413222402, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
@@ -287,8 +295,24 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5672693853685373340, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
+      propertyPath: objectPoolCapacity
+      value: 2333
+      objectReference: {fileID: 0}
+    - target: {fileID: 5672693853685373340, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
+      propertyPath: objectPoolExpireTime
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 5672693853685373340, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
+      propertyPath: uiObjectPoolCapacity
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5672693853685373340, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
       propertyPath: uiGroupList.Array.size
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5672693853685373340, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
+      propertyPath: uiObjectPoolExpireTime
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5672693853685373340, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
       propertyPath: uiGroupList.Array.data[0]
@@ -302,21 +326,9 @@ PrefabInstance:
       propertyPath: uiGroupList.Array.data[2]
       value: Top
       objectReference: {fileID: 0}
-    - target: {fileID: 5672693853685373340, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
-      propertyPath: objectPoolCapacity
-      value: 2333
-      objectReference: {fileID: 0}
-    - target: {fileID: 5672693853685373340, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
-      propertyPath: objectPoolExpireTime
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 5672693853685373340, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
-      propertyPath: uiObjectPoolCapacity
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 5672693853685373340, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
-      propertyPath: uiObjectPoolExpireTime
-      value: 300
+    - target: {fileID: 5807285779437032579, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
+      propertyPath: entranceProcedureTypeName
+      value: BiuBiu.ProcedureLaunch
       objectReference: {fileID: 0}
     - target: {fileID: 5807285779437032579, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
       propertyPath: allProcedureTypeNameList.Array.size
@@ -349,10 +361,6 @@ PrefabInstance:
     - target: {fileID: 5807285779437032579, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
       propertyPath: allProcedureTypeNameList.Array.data[6]
       value: BiuBiu.ProcedurePreload
-      objectReference: {fileID: 0}
-    - target: {fileID: 5807285779437032579, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
-      propertyPath: entranceProcedureTypeName
-      value: BiuBiu.ProcedureLaunch
       objectReference: {fileID: 0}
     - target: {fileID: 5954711753677004638, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
       propertyPath: m_RootOrder

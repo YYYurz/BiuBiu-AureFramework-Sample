@@ -47,7 +47,7 @@ namespace BiuBiu
 			base.OnOpen(userData);
 			if (luaScriptTable != null)
 			{
-				GameMain.Lua.CallLuaFunction(luaScriptTable, "OnOpen", null, luaScriptTable);
+				GameMain.Lua.CallLuaFunction(luaScriptTable, "OnOpen", null, luaScriptTable, uiFormOpenInfo.UserData);
 			}
 		}
 
@@ -71,6 +71,9 @@ namespace BiuBiu
 			GameMain.Lua.CallLuaFunction(luaScriptTable, "OnDestroy", null, luaScriptTable);
 			luaScriptTable.Dispose();
 			luaScriptTable = null;
+			
+			GameMain.ReferencePool.Release(uiFormOpenInfo);
+			uiFormOpenInfo = null;
 		}
 	}
 }

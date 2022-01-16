@@ -17,30 +17,22 @@ struct SoundList;
 struct Sound FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_ID = 4,
-    VT_SOUNDNAME = 6,
-    VT_SOUNDGROUPNAME = 8,
-    VT_SOUNDPRIORITY = 10,
-    VT_LOOP = 12,
-    VT_SOUNDVOLUME = 14,
-    VT_ASSETPATH = 16
+    VT_GROUPNAME = 6,
+    VT_LOOP = 8,
+    VT_VOLUME = 10,
+    VT_ASSETPATH = 12
   };
   uint32_t Id() const {
     return GetField<uint32_t>(VT_ID, 0);
   }
-  const flatbuffers::String *SoundName() const {
-    return GetPointer<const flatbuffers::String *>(VT_SOUNDNAME);
-  }
-  const flatbuffers::String *SoundGroupName() const {
-    return GetPointer<const flatbuffers::String *>(VT_SOUNDGROUPNAME);
-  }
-  uint32_t SoundPriority() const {
-    return GetField<uint32_t>(VT_SOUNDPRIORITY, 0);
+  const flatbuffers::String *GroupName() const {
+    return GetPointer<const flatbuffers::String *>(VT_GROUPNAME);
   }
   uint32_t Loop() const {
     return GetField<uint32_t>(VT_LOOP, 0);
   }
-  float SoundVolume() const {
-    return GetField<float>(VT_SOUNDVOLUME, 0.0f);
+  float Volume() const {
+    return GetField<float>(VT_VOLUME, 0.0f);
   }
   const flatbuffers::String *AssetPath() const {
     return GetPointer<const flatbuffers::String *>(VT_ASSETPATH);
@@ -48,13 +40,10 @@ struct Sound FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyField<uint32_t>(verifier, VT_ID) &&
-           VerifyOffset(verifier, VT_SOUNDNAME) &&
-           verifier.VerifyString(SoundName()) &&
-           VerifyOffset(verifier, VT_SOUNDGROUPNAME) &&
-           verifier.VerifyString(SoundGroupName()) &&
-           VerifyField<uint32_t>(verifier, VT_SOUNDPRIORITY) &&
+           VerifyOffset(verifier, VT_GROUPNAME) &&
+           verifier.VerifyString(GroupName()) &&
            VerifyField<uint32_t>(verifier, VT_LOOP) &&
-           VerifyField<float>(verifier, VT_SOUNDVOLUME) &&
+           VerifyField<float>(verifier, VT_VOLUME) &&
            VerifyOffset(verifier, VT_ASSETPATH) &&
            verifier.VerifyString(AssetPath()) &&
            verifier.EndTable();
@@ -67,20 +56,14 @@ struct SoundBuilder {
   void add_Id(uint32_t Id) {
     fbb_.AddElement<uint32_t>(Sound::VT_ID, Id, 0);
   }
-  void add_SoundName(flatbuffers::Offset<flatbuffers::String> SoundName) {
-    fbb_.AddOffset(Sound::VT_SOUNDNAME, SoundName);
-  }
-  void add_SoundGroupName(flatbuffers::Offset<flatbuffers::String> SoundGroupName) {
-    fbb_.AddOffset(Sound::VT_SOUNDGROUPNAME, SoundGroupName);
-  }
-  void add_SoundPriority(uint32_t SoundPriority) {
-    fbb_.AddElement<uint32_t>(Sound::VT_SOUNDPRIORITY, SoundPriority, 0);
+  void add_GroupName(flatbuffers::Offset<flatbuffers::String> GroupName) {
+    fbb_.AddOffset(Sound::VT_GROUPNAME, GroupName);
   }
   void add_Loop(uint32_t Loop) {
     fbb_.AddElement<uint32_t>(Sound::VT_LOOP, Loop, 0);
   }
-  void add_SoundVolume(float SoundVolume) {
-    fbb_.AddElement<float>(Sound::VT_SOUNDVOLUME, SoundVolume, 0.0f);
+  void add_Volume(float Volume) {
+    fbb_.AddElement<float>(Sound::VT_VOLUME, Volume, 0.0f);
   }
   void add_AssetPath(flatbuffers::Offset<flatbuffers::String> AssetPath) {
     fbb_.AddOffset(Sound::VT_ASSETPATH, AssetPath);
@@ -100,19 +83,15 @@ struct SoundBuilder {
 inline flatbuffers::Offset<Sound> CreateSound(
     flatbuffers::FlatBufferBuilder &_fbb,
     uint32_t Id = 0,
-    flatbuffers::Offset<flatbuffers::String> SoundName = 0,
-    flatbuffers::Offset<flatbuffers::String> SoundGroupName = 0,
-    uint32_t SoundPriority = 0,
+    flatbuffers::Offset<flatbuffers::String> GroupName = 0,
     uint32_t Loop = 0,
-    float SoundVolume = 0.0f,
+    float Volume = 0.0f,
     flatbuffers::Offset<flatbuffers::String> AssetPath = 0) {
   SoundBuilder builder_(_fbb);
   builder_.add_AssetPath(AssetPath);
-  builder_.add_SoundVolume(SoundVolume);
+  builder_.add_Volume(Volume);
   builder_.add_Loop(Loop);
-  builder_.add_SoundPriority(SoundPriority);
-  builder_.add_SoundGroupName(SoundGroupName);
-  builder_.add_SoundName(SoundName);
+  builder_.add_GroupName(GroupName);
   builder_.add_Id(Id);
   return builder_.Finish();
 }
@@ -120,23 +99,18 @@ inline flatbuffers::Offset<Sound> CreateSound(
 inline flatbuffers::Offset<Sound> CreateSoundDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
     uint32_t Id = 0,
-    const char *SoundName = nullptr,
-    const char *SoundGroupName = nullptr,
-    uint32_t SoundPriority = 0,
+    const char *GroupName = nullptr,
     uint32_t Loop = 0,
-    float SoundVolume = 0.0f,
+    float Volume = 0.0f,
     const char *AssetPath = nullptr) {
-  auto SoundName__ = SoundName ? _fbb.CreateString(SoundName) : 0;
-  auto SoundGroupName__ = SoundGroupName ? _fbb.CreateString(SoundGroupName) : 0;
+  auto GroupName__ = GroupName ? _fbb.CreateString(GroupName) : 0;
   auto AssetPath__ = AssetPath ? _fbb.CreateString(AssetPath) : 0;
   return GameConfig::CreateSound(
       _fbb,
       Id,
-      SoundName__,
-      SoundGroupName__,
-      SoundPriority,
+      GroupName__,
       Loop,
-      SoundVolume,
+      Volume,
       AssetPath__);
 }
 

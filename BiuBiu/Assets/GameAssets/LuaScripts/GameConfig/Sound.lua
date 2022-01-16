@@ -28,53 +28,38 @@ function Sound_mt:Id()
     end
     return 0
 end
-function Sound_mt:SoundName()
+function Sound_mt:GroupName()
     local o = self.view:Offset(6)
     if o ~= 0 then
         return self.view:String(o + self.view.pos)
     end
 end
-function Sound_mt:SoundGroupName()
+function Sound_mt:Loop()
     local o = self.view:Offset(8)
     if o ~= 0 then
-        return self.view:String(o + self.view.pos)
+        return self.view:Get(flatbuffers.N.Uint32, o + self.view.pos)
     end
+    return 0
 end
-function Sound_mt:SoundPriority()
+function Sound_mt:Volume()
     local o = self.view:Offset(10)
-    if o ~= 0 then
-        return self.view:Get(flatbuffers.N.Uint32, o + self.view.pos)
-    end
-    return 0
-end
-function Sound_mt:Loop()
-    local o = self.view:Offset(12)
-    if o ~= 0 then
-        return self.view:Get(flatbuffers.N.Uint32, o + self.view.pos)
-    end
-    return 0
-end
-function Sound_mt:SoundVolume()
-    local o = self.view:Offset(14)
     if o ~= 0 then
         return self.view:Get(flatbuffers.N.Float32, o + self.view.pos)
     end
     return 0.0
 end
 function Sound_mt:AssetPath()
-    local o = self.view:Offset(16)
+    local o = self.view:Offset(12)
     if o ~= 0 then
         return self.view:String(o + self.view.pos)
     end
 end
-function Sound.Start(builder) builder:StartObject(7) end
+function Sound.Start(builder) builder:StartObject(5) end
 function Sound.AddId(builder, Id) builder:PrependUint32Slot(0, Id, 0) end
-function Sound.AddSoundName(builder, SoundName) builder:PrependUOffsetTRelativeSlot(1, SoundName, 0) end
-function Sound.AddSoundGroupName(builder, SoundGroupName) builder:PrependUOffsetTRelativeSlot(2, SoundGroupName, 0) end
-function Sound.AddSoundPriority(builder, SoundPriority) builder:PrependUint32Slot(3, SoundPriority, 0) end
-function Sound.AddLoop(builder, Loop) builder:PrependUint32Slot(4, Loop, 0) end
-function Sound.AddSoundVolume(builder, SoundVolume) builder:PrependFloat32Slot(5, SoundVolume, 0.0) end
-function Sound.AddAssetPath(builder, AssetPath) builder:PrependUOffsetTRelativeSlot(6, AssetPath, 0) end
+function Sound.AddGroupName(builder, GroupName) builder:PrependUOffsetTRelativeSlot(1, GroupName, 0) end
+function Sound.AddLoop(builder, Loop) builder:PrependUint32Slot(2, Loop, 0) end
+function Sound.AddVolume(builder, Volume) builder:PrependFloat32Slot(3, Volume, 0.0) end
+function Sound.AddAssetPath(builder, AssetPath) builder:PrependUOffsetTRelativeSlot(4, AssetPath, 0) end
 function Sound.End(builder) return builder:EndObject() end
 
 return Sound -- return the module

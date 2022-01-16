@@ -33,13 +33,6 @@ function UIBase:OnClose()
         openList[self.uiFormId] = nil
     end
     self.tableLoadAsset = {}
-
-    for k, _ in pairs(self.UIListenerList) do
-        k:RemoveAllListeners()
-        k:Invoke()
-    end
-    self.UIListenerList = nil
-    self.EventListenerList = nil
 end
 
 --- 添加Lua侧的Logic向UI发送的事件

@@ -6,21 +6,20 @@
 // Email: 1228396352@qq.com
 //------------------------------------------------------------
 
-using AureFramework.Sound;
 using UnityEngine;
 
 namespace BiuBiu
 {
 	public static partial class LuaHelper
 	{
-		public static int PlaySound(string soundAssetName, string soundGroupName, SoundParams soundParams = null)
+		public static int PlaySound(int soundId, float fadeInSeconds = 0f, GameObject bindingObject = null)
 		{
-			if (soundParams == null)
-			{
-				soundParams = SoundParams.Create();
-			}
+			return GameMain.Sound.PlaySound(soundId, fadeInSeconds, bindingObject);
+		}
 
-			return GameMain.Sound.PlaySound(soundAssetName, soundGroupName, soundParams);
+		public static void StopSound(int soundId, float fadeOutSeconds = 0f)
+		{
+			GameMain.Sound.StopSound(soundId, fadeOutSeconds);
 		}
 
 		public static void PauseSound(int soundId, float fadeOutSeconds = 0f)

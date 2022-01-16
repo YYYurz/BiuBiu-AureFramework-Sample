@@ -6,14 +6,10 @@
 // Email: 1228396352@qq.com
 //------------------------------------------------------------
 
-using System;
 using System.IO;
 using System.Text;
 using UnityEditor;
-using UnityEditor.AddressableAssets;
-using UnityEditor.AddressableAssets.Settings;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 namespace BiuBiu.Editor
 {

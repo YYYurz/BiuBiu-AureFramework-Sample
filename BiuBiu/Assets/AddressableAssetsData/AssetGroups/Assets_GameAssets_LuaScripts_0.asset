@@ -1,0 +1,189 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Assets_GameAssets_LuaScripts_0
+  m_EditorClassIdentifier: 
+  m_GroupName: Assets_GameAssets_LuaScripts_0
+  m_Data:
+    m_SerializedData: []
+  m_GUID: de89fc37504ab3040b00614aa7fcab27
+  m_SerializeEntries:
+  - m_GUID: 9600271eaded4014cb78010a7613f71e
+    m_Address: Assets/GameAssets/LuaScripts/GameMain.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 1f5e186d0ffb423479ab783b1cd861cc
+    m_Address: Assets/GameAssets/LuaScripts/3rd/flatbuffers.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: bb98b1fa9bf73b0438faf1c9c2f21979
+    m_Address: Assets/GameAssets/LuaScripts/3rd/flatbuffers/binaryarray.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: bd80473888188974488b3fa8a8469977
+    m_Address: Assets/GameAssets/LuaScripts/3rd/flatbuffers/builder.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2427a2681403749478b921e5a3044a7d
+    m_Address: Assets/GameAssets/LuaScripts/3rd/flatbuffers/compat.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c117dc8a08fc45e489401706be12c89b
+    m_Address: Assets/GameAssets/LuaScripts/3rd/flatbuffers/numTypes.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8222849624ded2f4e815323b312630b1
+    m_Address: Assets/GameAssets/LuaScripts/3rd/flatbuffers/view.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e6d014a47f6ed6d4f9e0f8a9c3c323e8
+    m_Address: Assets/GameAssets/LuaScripts/Common/CommonFunction.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 76d7aa5062669464d8732a7d4ccaea66
+    m_Address: Assets/GameAssets/LuaScripts/Common/EventID.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: cee24d414d03acf4186918e400a61dce
+    m_Address: Assets/GameAssets/LuaScripts/Common/LuaBehaviour.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: afdfddbe6ecae274aa8da06b5508d687
+    m_Address: Assets/GameAssets/LuaScripts/Common/TableReader.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4fa9085ef4e9f6541a41575d431db411
+    m_Address: Assets/GameAssets/LuaScripts/Common/util.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ceed07fe972da06429f426e1ab96e9cf
+    m_Address: Assets/GameAssets/LuaScripts/Constant/UIFormID.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8b7bf36820ba6e74e8a21e9e62ca202e
+    m_Address: Assets/GameAssets/LuaScripts/Framework/Common/Messenger.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 7ca7f09f314aabb438947154e1b83481
+    m_Address: Assets/GameAssets/LuaScripts/Framework/Common/Singleton.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e86d040ea8cd8644f9a689e6f52caf95
+    m_Address: Assets/GameAssets/LuaScripts/Framework/Common/Updatable.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 07b51383341e6d54a9532ce9ccbdf78a
+    m_Address: Assets/GameAssets/LuaScripts/Framework/Common/UpdatableSingleton.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 710bd0541a6b1254dab50eb7957e48f9
+    m_Address: Assets/GameAssets/LuaScripts/Framework/Logger/Logger.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9027cc7fc01ec1f4f8f93bf34d276daf
+    m_Address: Assets/GameAssets/LuaScripts/Framework/LuaCSharpData/LuaCSharpArr.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 87f347dba9e8e424db86e60217fa2e64
+    m_Address: Assets/GameAssets/LuaScripts/Framework/LuaCSharpData/LuaCSharpDataHelper.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c935095469584b84c9ee685f50ce1a67
+    m_Address: Assets/GameAssets/LuaScripts/Framework/Updater/Coroutine.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b9ec0ce8fdfb7d443b7643fa08fbbfe1
+    m_Address: Assets/GameAssets/LuaScripts/Framework/Updater/Timer.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9a1f2e6a8f162ca43977e6099e625dc1
+    m_Address: Assets/GameAssets/LuaScripts/Framework/Updater/TimerManager.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: dec2926755643e3489e903fe3d42836b
+    m_Address: Assets/GameAssets/LuaScripts/Framework/Updater/UpdateManager.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2b53a8f751c4f4840a0f122c052df233
+    m_Address: Assets/GameAssets/LuaScripts/GameConfig/Entity.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: bb4ba93c085042d4a80b33444c781e32
+    m_Address: Assets/GameAssets/LuaScripts/GameConfig/EntityList.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b7a7f4929f34b524bb9824a4325aa4fc
+    m_Address: Assets/GameAssets/LuaScripts/GameConfig/FP.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: aebfbb976f3f1cf409183d1a14f736c9
+    m_Address: Assets/GameAssets/LuaScripts/GameConfig/Scene.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 73d6bfbb904257b49a66c4e47824b3cd
+    m_Address: Assets/GameAssets/LuaScripts/GameConfig/SceneList.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c78da509fdd377e46b5dbede4f052c48
+    m_Address: Assets/GameAssets/LuaScripts/GameConfig/Sound.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 1f2e29921f2ff3a42a91ffd4a2e54567
+    m_Address: Assets/GameAssets/LuaScripts/GameConfig/SoundList.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b2c37de63c3adcc4a811cfb7648d1d9e
+    m_Address: Assets/GameAssets/LuaScripts/GameConfig/UIWindow.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3feb202484375ef458b9374c9251fe35
+    m_Address: Assets/GameAssets/LuaScripts/GameConfig/UIWindowList.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 030c369c1a8c14242b23a1652dcdbea0
+    m_Address: Assets/GameAssets/LuaScripts/Logic/LogicBase.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 56a83e70210b1644bbd52b19a37aaed1
+    m_Address: Assets/GameAssets/LuaScripts/Logic/Login/LoginLogic.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2c02874c68149c140b1f1d0fdfb87ee6
+    m_Address: Assets/GameAssets/LuaScripts/UIForm/UIBase.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 61b515a1ee704d84e9dba717d372b27a
+    m_Address: Assets/GameAssets/LuaScripts/UIForm/Battle/BattleWindow.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 16c52bed4028e4c478d1643d90a348db
+    m_Address: Assets/GameAssets/LuaScripts/UIForm/Loading/LoadingWindow.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c10934bf6f221eb419d75d20cce06b3e
+    m_Address: Assets/GameAssets/LuaScripts/UIForm/Login/LoginWindow.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 63c5f748e5da40e4a822b918f53ea756
+    m_Address: Assets/GameAssets/LuaScripts/UIForm/Sound/SoundWindow.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ea962ef2a2ca5314e9e1fec45a7cbe8b
+    m_Address: Assets/GameAssets/LuaScripts/Global.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 6798ea86944d6bb4a90f734a49dfafdb, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 86e8b0a3ae471614aa29fc7e46c6ec6a, type: 2}
+    - {fileID: 11400000, guid: 348129ea5848e9c41b08de01b8e6be13, type: 2}

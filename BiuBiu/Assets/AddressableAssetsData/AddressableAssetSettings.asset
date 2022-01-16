@@ -40,7 +40,14 @@ MonoBehaviour:
   m_GroupAssets:
   - {fileID: 11400000, guid: eddf005d57654d245bec754a55fe091f, type: 2}
   - {fileID: 11400000, guid: 4e1b9ff405bac4342b4e385a4f4ab94a, type: 2}
-  - {fileID: 11400000, guid: 62b7e117678a84644b890d7eaeca990a, type: 2}
+  - {fileID: 11400000, guid: 5a1b317778ed62542b265a8086944225, type: 2}
+  - {fileID: 11400000, guid: a3d41897a2155e44b89bdccf7cb7db9a, type: 2}
+  - {fileID: 11400000, guid: e8f63831b6ec5834ca1d2086994a8f35, type: 2}
+  - {fileID: 11400000, guid: 10a0264e9418a0c40a43706d97694624, type: 2}
+  - {fileID: 11400000, guid: 280dd929d708fc5468b72fed419461eb, type: 2}
+  - {fileID: 11400000, guid: b080691c2a0c57645bf7be8b7228af72, type: 2}
+  - {fileID: 11400000, guid: 5a15ff1775cba7f4f8e6daf11cfb63a8, type: 2}
+  - {fileID: 11400000, guid: b92f94721534c9346851486df6361bf0, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -80,8 +87,7 @@ MonoBehaviour:
       m_InlineUsage: 0
     m_ProfileVersion: 1
   m_LabelTable:
-    m_LabelNames:
-    - default
+    m_LabelNames: []
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 9ef19fee15511104bbad46f10e791428, type: 2}

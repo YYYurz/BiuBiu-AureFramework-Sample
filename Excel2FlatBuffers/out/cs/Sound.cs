@@ -18,58 +18,44 @@ public struct Sound : IFlatbufferObject
   public Sound __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
   public uint Id { get { int o = __p.__offset(4); return o != 0 ? __p.bb.GetUint(o + __p.bb_pos) : (uint)0; } }
-  public string SoundName { get { int o = __p.__offset(6); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public string GroupName { get { int o = __p.__offset(6); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetSoundNameBytes() { return __p.__vector_as_span(6); }
+  public Span<byte> GetGroupNameBytes() { return __p.__vector_as_span(6); }
 #else
-  public ArraySegment<byte>? GetSoundNameBytes() { return __p.__vector_as_arraysegment(6); }
+  public ArraySegment<byte>? GetGroupNameBytes() { return __p.__vector_as_arraysegment(6); }
 #endif
-  public byte[] GetSoundNameArray() { return __p.__vector_as_array<byte>(6); }
-  public string SoundGroupName { get { int o = __p.__offset(8); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public byte[] GetGroupNameArray() { return __p.__vector_as_array<byte>(6); }
+  public uint Loop { get { int o = __p.__offset(8); return o != 0 ? __p.bb.GetUint(o + __p.bb_pos) : (uint)0; } }
+  public float Volume { get { int o = __p.__offset(10); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
+  public string AssetPath { get { int o = __p.__offset(12); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetSoundGroupNameBytes() { return __p.__vector_as_span(8); }
+  public Span<byte> GetAssetPathBytes() { return __p.__vector_as_span(12); }
 #else
-  public ArraySegment<byte>? GetSoundGroupNameBytes() { return __p.__vector_as_arraysegment(8); }
+  public ArraySegment<byte>? GetAssetPathBytes() { return __p.__vector_as_arraysegment(12); }
 #endif
-  public byte[] GetSoundGroupNameArray() { return __p.__vector_as_array<byte>(8); }
-  public uint SoundPriority { get { int o = __p.__offset(10); return o != 0 ? __p.bb.GetUint(o + __p.bb_pos) : (uint)0; } }
-  public uint Loop { get { int o = __p.__offset(12); return o != 0 ? __p.bb.GetUint(o + __p.bb_pos) : (uint)0; } }
-  public float SoundVolume { get { int o = __p.__offset(14); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
-  public string AssetPath { get { int o = __p.__offset(16); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
-#if ENABLE_SPAN_T
-  public Span<byte> GetAssetPathBytes() { return __p.__vector_as_span(16); }
-#else
-  public ArraySegment<byte>? GetAssetPathBytes() { return __p.__vector_as_arraysegment(16); }
-#endif
-  public byte[] GetAssetPathArray() { return __p.__vector_as_array<byte>(16); }
+  public byte[] GetAssetPathArray() { return __p.__vector_as_array<byte>(12); }
 
   public static Offset<Sound> CreateSound(FlatBufferBuilder builder,
       uint Id = 0,
-      StringOffset SoundNameOffset = default(StringOffset),
-      StringOffset SoundGroupNameOffset = default(StringOffset),
-      uint SoundPriority = 0,
+      StringOffset GroupNameOffset = default(StringOffset),
       uint Loop = 0,
-      float SoundVolume = 0.0f,
+      float Volume = 0.0f,
       StringOffset AssetPathOffset = default(StringOffset)) {
-    builder.StartObject(7);
+    builder.StartObject(5);
     Sound.AddAssetPath(builder, AssetPathOffset);
-    Sound.AddSoundVolume(builder, SoundVolume);
+    Sound.AddVolume(builder, Volume);
     Sound.AddLoop(builder, Loop);
-    Sound.AddSoundPriority(builder, SoundPriority);
-    Sound.AddSoundGroupName(builder, SoundGroupNameOffset);
-    Sound.AddSoundName(builder, SoundNameOffset);
+    Sound.AddGroupName(builder, GroupNameOffset);
     Sound.AddId(builder, Id);
     return Sound.EndSound(builder);
   }
 
-  public static void StartSound(FlatBufferBuilder builder) { builder.StartObject(7); }
+  public static void StartSound(FlatBufferBuilder builder) { builder.StartObject(5); }
   public static void AddId(FlatBufferBuilder builder, uint Id) { builder.AddUint(0, Id, 0); }
-  public static void AddSoundName(FlatBufferBuilder builder, StringOffset SoundNameOffset) { builder.AddOffset(1, SoundNameOffset.Value, 0); }
-  public static void AddSoundGroupName(FlatBufferBuilder builder, StringOffset SoundGroupNameOffset) { builder.AddOffset(2, SoundGroupNameOffset.Value, 0); }
-  public static void AddSoundPriority(FlatBufferBuilder builder, uint SoundPriority) { builder.AddUint(3, SoundPriority, 0); }
-  public static void AddLoop(FlatBufferBuilder builder, uint Loop) { builder.AddUint(4, Loop, 0); }
-  public static void AddSoundVolume(FlatBufferBuilder builder, float SoundVolume) { builder.AddFloat(5, SoundVolume, 0.0f); }
-  public static void AddAssetPath(FlatBufferBuilder builder, StringOffset AssetPathOffset) { builder.AddOffset(6, AssetPathOffset.Value, 0); }
+  public static void AddGroupName(FlatBufferBuilder builder, StringOffset GroupNameOffset) { builder.AddOffset(1, GroupNameOffset.Value, 0); }
+  public static void AddLoop(FlatBufferBuilder builder, uint Loop) { builder.AddUint(2, Loop, 0); }
+  public static void AddVolume(FlatBufferBuilder builder, float Volume) { builder.AddFloat(3, Volume, 0.0f); }
+  public static void AddAssetPath(FlatBufferBuilder builder, StringOffset AssetPathOffset) { builder.AddOffset(4, AssetPathOffset.Value, 0); }
   public static Offset<Sound> EndSound(FlatBufferBuilder builder) {
     int o = builder.EndObject();
     return new Offset<Sound>(o);
