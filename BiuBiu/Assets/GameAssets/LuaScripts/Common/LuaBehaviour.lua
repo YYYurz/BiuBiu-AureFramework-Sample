@@ -30,4 +30,8 @@ function LuaBehaviour:GetSlider(obj, path)
 	return LuaHelper.GetSlider(obj, path)
 end
 
+function LuaBehaviour:GetContentList(obj, path)
+	return LuaHelper.GetContentList(obj, path)
+end
+
 return LuaBehaviour

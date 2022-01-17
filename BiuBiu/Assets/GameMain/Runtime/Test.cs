@@ -12,7 +12,7 @@ using UnityEngine;
 namespace BiuBiu
 {
 	[Serializable]
-	public class Test
+	public class Test : MonoBehaviour
 	{
 		private readonly string testStr;
 		private float volume;
@@ -37,6 +37,11 @@ namespace BiuBiu
 					Debug.Log(testStr + volume);
 				}
 			}
+		}
+
+		public void Func()
+		{
+			Debug.Log("Func");
 		}
 	}
 }

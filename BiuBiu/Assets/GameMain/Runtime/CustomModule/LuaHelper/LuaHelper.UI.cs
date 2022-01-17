@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using AureFramework;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace BiuBiu
@@ -46,6 +47,11 @@ namespace BiuBiu
 
         public static Slider GetSlider(GameObject obj, string path) {
             return GetChild<Slider>(obj, path);
+        }
+
+        public static UIContentList GetContentList(GameObject obj, string path)
+        {
+            return GetChild<UIContentList>(obj, path);
         }
     }
 }

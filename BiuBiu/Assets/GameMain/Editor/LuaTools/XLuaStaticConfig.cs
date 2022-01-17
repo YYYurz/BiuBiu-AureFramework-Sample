@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using AureFramework;
 using XLua;
 using UnityEditor;
 
@@ -109,6 +110,8 @@ namespace BiuBiu.Editor
             //typeof(UnityEngine.UI.Graphic),
             
             typeof(LuaHelper),
+            typeof(UIContentList),
+            typeof(UIContentItem),
         };
 
         [CSharpCallLua] public static List<Type> CSharpCallLua = new List<Type>()
