@@ -112,6 +112,7 @@ namespace BiuBiu.Editor
             typeof(LuaHelper),
             typeof(UIContentList),
             typeof(UIContentItem),
+            typeof(UIEventTrigger),
         };
 
         [CSharpCallLua] public static List<Type> CSharpCallLua = new List<Type>()
@@ -119,15 +120,18 @@ namespace BiuBiu.Editor
             #region unity
 
             typeof(UnityEngine.Events.UnityAction),
-            typeof(UnityEngine.Events.UnityAction<bool>),
-            typeof(UnityEngine.Events.UnityAction<int>),
-            typeof(UnityEngine.Events.UnityAction<float>),
+            typeof(UnityEngine.Events.UnityAction<LuaTable>),
+            typeof(UnityEngine.Events.UnityAction<LuaTable, bool>),
+            typeof(UnityEngine.Events.UnityAction<LuaTable, int>),
+            typeof(UnityEngine.Events.UnityAction<LuaTable, float>),
             typeof(UnityEngine.Events.UnityAction<UnityEngine.Vector2>),
             typeof(List<UnityEngine.UI.Dropdown.OptionData>),
             typeof(UnityEngine.Events.UnityEvent<int>),
 
             #endregion
 
+            typeof(LuaFunction),
+            
             #region system
 
             typeof(Action<int, byte[]>),

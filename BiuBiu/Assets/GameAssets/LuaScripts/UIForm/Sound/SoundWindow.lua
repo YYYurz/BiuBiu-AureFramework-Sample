@@ -4,17 +4,21 @@ local UIBase = require "UIForm/UIBase"
 local SoundWindow = UIBase:New()
 
 function SoundWindow:ManualInit()
-    self.BtnSound1 = self:GetButton(self.gameObject, "BtnSound1")
-    self.BtnSound2 = self:GetButton(self.gameObject, "BtnSound2")
-    self.BtnSound3 = self:GetButton(self.gameObject, "BtnSound3")
-    self.BtnSound4 = self:GetButton(self.gameObject, "BtnSound4")
+    self.BtnSound1 = self:GetChild(self.gameObject, "BtnSound1")
+    self.BtnSound2 = self:GetChild(self.gameObject, "BtnSound2")
+    self.BtnSound3 = self:GetChild(self.gameObject, "BtnSound3")
+    self.BtnSound4 = self:GetChild(self.gameObject, "BtnSound4")
     
     self.UIContentList = self:GetContentList(self.gameObject, "Scroll View")
 
-    self:AddListener(self.BtnSound1.onClick, function() self:OnPlaySound(1) end)
-    self:AddListener(self.BtnSound2.onClick, function() self:OnPlaySound(1005) end)
-    self:AddListener(self.BtnSound3.onClick, function() self:OnStopSound(self.curSoundId) end)
-    self:AddListener(self.BtnSound4.onClick, function() self:CloseUI() end)
+    if BtnSound1 == nil then
+        print("asd")
+    end
+    
+    self:AddClickListener(self.BtnSound1, self.OnPlaySound, self, 1)
+    self:AddClickListener(self.BtnSound2, self.OnPlaySound, self, 1001)
+    self:AddClickListener(self.BtnSound3, self.OnPlaySound, self, 1002)
+    self:AddClickListener(self.BtnSound4, self.OnPlaySound, self, 1003)
 end
 
 function SoundWindow:OnInit()
@@ -45,8 +49,8 @@ function SoundWindow:OnLogin()
     CF:OpenUI(UIFormID.BattleWindow)
 end
 
-function SoundWindow:OnPlaySound(Id)
-    self.curSoundId = LuaHelper.PlaySound(Id)
+function SoundWindow:OnPlaySound(soundId)
+    self.curSoundId = LuaHelper.PlaySound(soundId)
 end
 
 function SoundWindow:OnPauseSound(soundId)

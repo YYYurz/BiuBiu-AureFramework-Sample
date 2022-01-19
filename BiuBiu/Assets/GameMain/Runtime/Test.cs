@@ -8,40 +8,15 @@
 
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace BiuBiu
 {
-	[Serializable]
-	public class Test : MonoBehaviour
+	public class Test : MonoBehaviour, IPointerClickHandler
 	{
-		private readonly string testStr;
-		private float volume;
-
-		public Test(string testStr)
+		public void OnPointerClick(PointerEventData eventData)
 		{
-			this.testStr = testStr;
-		}
-		
-		[SerializeField]
-		public float Volume
-		{
-			get
-			{
-				return volume;
-			}
-			set
-			{
-				volume = value;
-				if (!string.IsNullOrEmpty(testStr))
-				{
-					Debug.Log(testStr + volume);
-				}
-			}
-		}
-
-		public void Func()
-		{
-			Debug.Log("Func");
+			Debug.Log("Test");
 		}
 	}
 }

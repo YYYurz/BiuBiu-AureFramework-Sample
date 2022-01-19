@@ -1,5 +1,4 @@
-﻿using AureFramework;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace BiuBiu
@@ -27,6 +26,11 @@ namespace BiuBiu
             var childObj = selfObj.transform.Find(path);
             var targetComponent = childObj.GetComponent<T>();
             return targetComponent;
+        }
+
+        public static GameObject GetChild(GameObject selfObj, string path)
+        {
+            return selfObj.transform.Find(path).gameObject;
         }
 
         public static Text GetText(GameObject obj, string path) {

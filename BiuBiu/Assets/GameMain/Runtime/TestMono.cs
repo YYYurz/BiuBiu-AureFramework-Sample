@@ -7,11 +7,15 @@
 //------------------------------------------------------------
 
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace BiuBiu
 {
-	public class TestMono : MonoBehaviour
+	public class TestMono : MonoBehaviour, IPointerClickHandler
 	{
-		[SerializeField] private Test[] testList;
+		public void OnPointerClick(PointerEventData eventData)
+		{
+			Debug.Log("TestMono");
+		}
 	}
 }
