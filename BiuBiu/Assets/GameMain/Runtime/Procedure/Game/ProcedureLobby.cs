@@ -23,7 +23,7 @@ namespace BiuBiu
 		{
 			base.OnEnter(args);
 
-			GameMain.UI.OpenUI(Constant.UIFormID.SoundWindow);
+			// GameMain.UI.OpenUI(Constant.UIFormID.SoundWindow);
 			
 			var loadAssetCallBacks = new LoadAssetCallbacks(OnLoadAssetBegin, OnLoadAssetSuccess, null, OnLoadAssetFailed);
 			// GameMain.Resource.LoadAssetAsync<VideoClip>("VideoTest", loadAssetCallBacks, null);
@@ -39,10 +39,18 @@ namespace BiuBiu
 			// var shop3 = Object.Instantiate(shop2);
 		}
 
+		private float i;
+		private bool b = false;
 		public override void OnUpdate()
 		{
 			base.OnUpdate();
 
+			i += Time.deltaTime;
+			if (i > 5 && !b)
+			{
+				b = true;
+				GameMain.UI.OpenUI(Constant.UIFormID.SoundWindow);
+			}
 		}
 
 		private void OnLoadAssetBegin(string assetName, int taskId)

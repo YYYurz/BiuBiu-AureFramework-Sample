@@ -8,12 +8,7 @@ function SoundWindow:ManualInit()
     self.BtnSound2 = self:GetChild(self.gameObject, "BtnSound2")
     self.BtnSound3 = self:GetChild(self.gameObject, "BtnSound3")
     self.BtnSound4 = self:GetChild(self.gameObject, "BtnSound4")
-    
     self.UIContentList = self:GetContentList(self.gameObject, "Scroll View")
-
-    if BtnSound1 == nil then
-        print("asd")
-    end
     
     self:AddClickListener(self.BtnSound1, self.OnPlaySound, self, 1)
     self:AddClickListener(self.BtnSound2, self.OnPlaySound, self, 1001)
@@ -30,7 +25,7 @@ end
 function SoundWindow:OnOpen()
     UIBase.OnOpen(self)
 
-    self.UIContentList:InitContentList(40)
+    self.UIContentList:RefreshContentList(40, self)
 end
 
 function SoundWindow:OnClose()

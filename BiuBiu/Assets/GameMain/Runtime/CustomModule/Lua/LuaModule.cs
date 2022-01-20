@@ -61,7 +61,7 @@ namespace BiuBiu
 			}
 			catch (Exception e)
 			{
-				Debug.LogError("AureFramework LuaModule " + e.Message);
+				Debug.LogError("AureFramework LuaModule : " + e.Message);
 				return null;
 			}
 		}

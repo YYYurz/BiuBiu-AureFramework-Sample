@@ -1,9 +1,8 @@
 local LuaBehaviour = require "Common/LuaBehaviour"
-local LuaHelper = LuaHelper
 
 local openList = {}
 
----@class UIBase : LuaBehaviour Lua层UI基类
+---@class UIBase : LuaBehaviour UI基类
 local UIBase = LuaBehaviour:New()
 
 function UIBase:OnInit()

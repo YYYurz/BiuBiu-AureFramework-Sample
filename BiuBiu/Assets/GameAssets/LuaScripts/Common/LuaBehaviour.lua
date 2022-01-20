@@ -4,6 +4,7 @@ local LuaHelper = LuaHelper
 local LuaBehaviour = {}
 
 function LuaBehaviour:New(target)	
+	print("LuaBehaviour:New(target)	")
 	target = target or {}
 	self.__index = self
 	setmetatable(target, self)
