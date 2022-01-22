@@ -181,6 +181,14 @@ MonoBehaviour:
     m_Address: Assets/GameAssets/LuaScripts/Global.lua
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: c3f5acbd8907da14ab29e563d5535be0
+    m_Address: Assets/GameAssets/LuaScripts/UIForm/ItemBase.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ff356f3a763db144da091bb3edca7cb3
+    m_Address: Assets/GameAssets/LuaScripts/UIForm/Sound/SoundItem.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6798ea86944d6bb4a90f734a49dfafdb, type: 2}
   m_SchemaSet:

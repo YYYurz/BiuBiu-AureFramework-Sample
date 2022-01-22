@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using AureFramework;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace BiuBiu
@@ -56,6 +57,11 @@ namespace BiuBiu
         public static UIContentList GetContentList(GameObject obj, string path)
         {
             return GetChild<UIContentList>(obj, path);
+        }
+        
+        public static UISpriteLoader GetSpriteLoader(GameObject obj, string path)
+        {
+            return GetChild<UISpriteLoader>(obj, path);
         }
     }
 }

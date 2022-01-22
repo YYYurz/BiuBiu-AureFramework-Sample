@@ -3,7 +3,7 @@ local LuaBehaviour = require "Common/LuaBehaviour"
 ---@class ItemBase : LuaBehaviour Item基类
 local ItemBase = LuaBehaviour:New()
 
-function ItemBase:OnInit(baseController)
+function ItemBase:OnInit()
     
 end
 

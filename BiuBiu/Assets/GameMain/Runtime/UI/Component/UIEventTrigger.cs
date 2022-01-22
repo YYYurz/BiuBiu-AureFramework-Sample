@@ -143,7 +143,7 @@ namespace BiuBiu
 
 		public void RemoveAllEvent()
 		{
-			Debug.Log("Remove All Event");
+			// Debug.Log("Remove All Event");
 			onClick?.Dispose();
 			onClick = null;
 			curParamType = ParamTypes.None;

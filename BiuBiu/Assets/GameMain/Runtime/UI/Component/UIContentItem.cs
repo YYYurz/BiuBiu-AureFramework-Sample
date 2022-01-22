@@ -45,14 +45,17 @@ namespace BiuBiu
 			}
 		}
 		
-		public void OnInit()
+		public void OnInit(int itemIndex)
 		{
-			GameMain.Lua.CallLuaFunction(itemTable, "OnInit", null, controllerBase);
+			itemTable.Set("controller", controllerBase);
+			itemTable.Set("gameObject", itemGameObj);
+			itemTable.Set("itemIndex", itemIndex);
+			GameMain.Lua.CallLuaFunction(itemTable, "OnInit", null, itemTable);
 		}
 
 		public void OnRefresh()
 		{
-			
+			GameMain.Lua.CallLuaFunction(itemTable, "OnRefresh", null, itemTable);
 		}
 
 		public override void OnSpawn()
@@ -67,6 +70,7 @@ namespace BiuBiu
 
 		public override void OnRelease()
 		{
+			GameMain.Lua.CallLuaFunction(itemTable, "OnRelease", null, itemTable);
 		}
 		
 		public static UIContentItem Create(GameObject gameObj, LuaTable controllerBase)
@@ -79,6 +83,8 @@ namespace BiuBiu
 			uiContentItem.itemGameObj = gameObj;
 			uiContentItem.rectTransform = rectTransform;
 			uiContentItem.controllerBase = controllerBase;
+			
+			gameObj.SetActive(true);
 			
 			return uiContentItem;
 		}

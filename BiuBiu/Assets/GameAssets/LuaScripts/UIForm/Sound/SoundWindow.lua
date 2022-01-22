@@ -3,6 +3,10 @@ local UIBase = require "UIForm/UIBase"
 ---@class SoundWindow : UIBase 声音界面
 local SoundWindow = UIBase:New()
 
+function SoundWindow:GetItemDataByIndex(itemIndex)
+    return self.itemDataList[itemIndex + 1]
+end
+
 function SoundWindow:ManualInit()
     self.BtnSound1 = self:GetChild(self.gameObject, "BtnSound1")
     self.BtnSound2 = self:GetChild(self.gameObject, "BtnSound2")
@@ -20,12 +24,20 @@ function SoundWindow:OnInit()
     UIBase.OnInit(self)
     self:ManualInit() 
     
+    self.itemDataList = {}
+    for i = 1, 100 do
+        table.insert(self.itemDataList, "Free Flat Arrow 1 E Icon")
+        table.insert(self.itemDataList, "Free Flat Arrow 1 N Icon")
+        table.insert(self.itemDataList, "Free Flat Arrow 1 NE Icon")
+        table.insert(self.itemDataList, "Free Flat Arrow 2 E Icon")
+        table.insert(self.itemDataList, "Free Flat Battery No Icon")
+    end
 end
 
 function SoundWindow:OnOpen()
     UIBase.OnOpen(self)
 
-    self.UIContentList:RefreshContentList(40, self)
+    self.UIContentList:RefreshContentList(#self.itemDataList, self)
 end
 
 function SoundWindow:OnClose()

@@ -46,7 +46,7 @@ namespace BiuBiu
 			base.OnUpdate();
 
 			i += Time.deltaTime;
-			if (i > 5 && !b)
+			if (i > 3 && !b)
 			{
 				b = true;
 				GameMain.UI.OpenUI(Constant.UIFormID.SoundWindow);
