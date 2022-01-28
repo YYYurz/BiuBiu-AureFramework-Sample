@@ -6,7 +6,6 @@
 // Email: 1228396352@qq.com
 //------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using AureFramework.ObjectPool;
 using UnityEngine;
@@ -23,11 +22,9 @@ namespace BiuBiu
 	{
 		private readonly Dictionary<int, UIContentItem> usingItemObjectDic = new Dictionary<int, UIContentItem>();
 		private readonly List<int> recyclingItemIndexList = new List<int>();
-		
-		private readonly List<LuaTable> itemLuaScriptList = new List<LuaTable>();
 		private readonly List<int> curShowItemIndexList = new List<int>();
+		private readonly List<LuaTable> itemLuaScriptList = new List<LuaTable>();
 		private IObjectPool<UIContentItem> itemObjectPool;
-		// private ScrollRect scrollRect;
 		private RectTransform viewPort;
 		private RectTransform content;
 		private int oneLineItemCount;
@@ -71,6 +68,7 @@ namespace BiuBiu
 			{
 				return;
 			}
+			
 			RecycleItem();
 			RefreshItems();
 		}
@@ -125,16 +123,6 @@ namespace BiuBiu
 			}
 			
 			content.sizeDelta = new Vector2(width, height);
-		}
-		
-		private void CalculateItems()
-		{
-			if (!CalculateNeedShowItemIndexList())
-			{
-				return;
-			}
-
-			RefreshItems();
 		}
 		
 		/// <summary>
