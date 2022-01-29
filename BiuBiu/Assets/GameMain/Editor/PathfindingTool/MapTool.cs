@@ -42,7 +42,12 @@ namespace BiuBiu.Editor
 			set
 			{
 				curMapConfig = value;
-				ReadGroupConfig();
+				if (curMapConfig != null)
+				{
+					cellSize = curMapConfig.CellSize;
+					mapHeight = curMapConfig.MapHeight;
+					mapMaxSize = curMapConfig.MapMaxSize;
+				}
 			}
 		}
 
@@ -175,19 +180,6 @@ namespace BiuBiu.Editor
 		}
 
 		/// <summary>
-		/// 读取地图配置
-		/// </summary>
-		private void ReadGroupConfig()
-		{
-			if (curMapConfig != null)
-			{
-				cellSize = curMapConfig.CellSize;
-				mapHeight = curMapConfig.MapHeight;
-				mapMaxSize = curMapConfig.MapMaxSize;
-			}
-		}
-
-		/// <summary>
 		/// 绘制配置中保存的网格
 		/// </summary>
 		private void DrawConfigCell()
@@ -211,7 +203,7 @@ namespace BiuBiu.Editor
 		}
 
 		/// <summary>
-		/// 绘制鼠标移动格子
+		/// 绘制跟随鼠标的格子
 		/// </summary>
 		private void DrawMouseMoveCell()
 		{
@@ -224,7 +216,7 @@ namespace BiuBiu.Editor
 		}
 
 		/// <summary>
-		/// 绘制鼠标选中格子
+		/// 绘制鼠标拖拽选中格子
 		/// </summary>
 		private void DrawMouseSelectCell()
 		{
@@ -244,18 +236,6 @@ namespace BiuBiu.Editor
 					DrawCellByPoint(new Vector3(x, mapHeight, z));
 				}
 			}
-		}
-
-		private void DrawCellByPoint(Vector3 point)
-		{
-			var vertArray = new[]
-			{
-				new Vector3(point.x - cellSize.x / 2, point.y, point.z - cellSize.y / 2),
-				new Vector3(point.x - cellSize.x / 2, point.y, point.z + cellSize.y / 2),
-				new Vector3(point.x + cellSize.x / 2, point.y, point.z + cellSize.y / 2),
-				new Vector3(point.x + cellSize.x / 2, point.y, point.z - cellSize.y / 2),
-			};
-			Handles.DrawSolidRectangleWithOutline(vertArray, new Color(0f, 1f, 0f, 0.1f), Color.blue);
 		}
 
 		/// <summary>
@@ -293,6 +273,18 @@ namespace BiuBiu.Editor
 				
 				tempYPos += cellSize.y;
 			}
+		}
+		
+		private void DrawCellByPoint(Vector3 point)
+		{
+			var vertArray = new[]
+			{
+				new Vector3(point.x - cellSize.x / 2, point.y, point.z - cellSize.y / 2),
+				new Vector3(point.x - cellSize.x / 2, point.y, point.z + cellSize.y / 2),
+				new Vector3(point.x + cellSize.x / 2, point.y, point.z + cellSize.y / 2),
+				new Vector3(point.x + cellSize.x / 2, point.y, point.z - cellSize.y / 2),
+			};
+			Handles.DrawSolidRectangleWithOutline(vertArray, new Color(0f, 1f, 0f, 0.1f), Color.blue);
 		}
 		
 		private void OnMouseMoveEvent()
