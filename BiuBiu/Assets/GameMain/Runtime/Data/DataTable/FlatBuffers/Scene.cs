@@ -25,19 +25,29 @@ public struct Scene : IFlatbufferObject
   public ArraySegment<byte>? GetAssetNameBytes() { return __p.__vector_as_arraysegment(6); }
 #endif
   public byte[] GetAssetNameArray() { return __p.__vector_as_array<byte>(6); }
+  public string MapConfig { get { int o = __p.__offset(8); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+#if ENABLE_SPAN_T
+  public Span<byte> GetMapConfigBytes() { return __p.__vector_as_span(8); }
+#else
+  public ArraySegment<byte>? GetMapConfigBytes() { return __p.__vector_as_arraysegment(8); }
+#endif
+  public byte[] GetMapConfigArray() { return __p.__vector_as_array<byte>(8); }
 
   public static Offset<Scene> CreateScene(FlatBufferBuilder builder,
       uint Id = 0,
-      StringOffset AssetNameOffset = default(StringOffset)) {
-    builder.StartObject(2);
+      StringOffset AssetNameOffset = default(StringOffset),
+      StringOffset MapConfigOffset = default(StringOffset)) {
+    builder.StartObject(3);
+    Scene.AddMapConfig(builder, MapConfigOffset);
     Scene.AddAssetName(builder, AssetNameOffset);
     Scene.AddId(builder, Id);
     return Scene.EndScene(builder);
   }
 
-  public static void StartScene(FlatBufferBuilder builder) { builder.StartObject(2); }
+  public static void StartScene(FlatBufferBuilder builder) { builder.StartObject(3); }
   public static void AddId(FlatBufferBuilder builder, uint Id) { builder.AddUint(0, Id, 0); }
   public static void AddAssetName(FlatBufferBuilder builder, StringOffset AssetNameOffset) { builder.AddOffset(1, AssetNameOffset.Value, 0); }
+  public static void AddMapConfig(FlatBufferBuilder builder, StringOffset MapConfigOffset) { builder.AddOffset(2, MapConfigOffset.Value, 0); }
   public static Offset<Scene> EndScene(FlatBufferBuilder builder) {
     int o = builder.EndObject();
     return new Offset<Scene>(o);

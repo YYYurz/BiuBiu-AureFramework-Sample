@@ -29,7 +29,6 @@ namespace BiuBiu
 			);
 
 			entityManager.CreateEntity(archetype);
-
 			
 		}
 		

@@ -34,9 +34,16 @@ function Scene_mt:AssetName()
         return self.view:String(o + self.view.pos)
     end
 end
-function Scene.Start(builder) builder:StartObject(2) end
+function Scene_mt:MapConfig()
+    local o = self.view:Offset(8)
+    if o ~= 0 then
+        return self.view:String(o + self.view.pos)
+    end
+end
+function Scene.Start(builder) builder:StartObject(3) end
 function Scene.AddId(builder, Id) builder:PrependUint32Slot(0, Id, 0) end
 function Scene.AddAssetName(builder, AssetName) builder:PrependUOffsetTRelativeSlot(1, AssetName, 0) end
+function Scene.AddMapConfig(builder, MapConfig) builder:PrependUOffsetTRelativeSlot(2, MapConfig, 0) end
 function Scene.End(builder) return builder:EndObject() end
 
 return Scene -- return the module

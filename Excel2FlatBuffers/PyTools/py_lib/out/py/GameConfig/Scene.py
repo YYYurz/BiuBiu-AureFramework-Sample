@@ -32,7 +32,15 @@ class Scene(object):
             return self._tab.String(o + self._tab.Pos)
         return None
 
-def SceneStart(builder): builder.StartObject(2)
+    # Scene
+    def MapConfig(self):
+        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(8))
+        if o != 0:
+            return self._tab.String(o + self._tab.Pos)
+        return None
+
+def SceneStart(builder): builder.StartObject(3)
 def SceneAddId(builder, Id): builder.PrependUint32Slot(0, Id, 0)
 def SceneAddAssetName(builder, AssetName): builder.PrependUOffsetTRelativeSlot(1, flatbuffers.number_types.UOffsetTFlags.py_type(AssetName), 0)
+def SceneAddMapConfig(builder, MapConfig): builder.PrependUOffsetTRelativeSlot(2, flatbuffers.number_types.UOffsetTFlags.py_type(MapConfig), 0)
 def SceneEnd(builder): return builder.EndObject()

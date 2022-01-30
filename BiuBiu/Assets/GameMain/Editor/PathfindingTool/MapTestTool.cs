@@ -7,6 +7,8 @@
 //------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
@@ -16,8 +18,14 @@ namespace BiuBiu.Editor
 	/// <summary>
 	/// 配置寻路网格工具
 	/// </summary>
-	public class MapTool : EditorWindow
+	public class MapTestTool : EditorWindow
 	{
+		private enum PointType
+		{
+			Start,
+			End,
+		}
+		
 		private GameObject planeObj;
 		private MapConfig curMapConfig;
 		private Vector2 cellSize = Vector2.one;
@@ -27,8 +35,11 @@ namespace BiuBiu.Editor
 		private Vector3 mouseMovePos;
 		private Vector3 mouseDownPos;
 		private Vector3 mouseUpPos;
-		private MapCellType curCellType = MapCellType.None;
+		private PointType curPointType = PointType.Start;
 		private bool isDragging;
+
+		private Vector3 startPosition;
+		private Vector3 endPosition;
 		
 		/// <summary>
 		/// 获取或设置编辑的地图配置
@@ -46,8 +57,12 @@ namespace BiuBiu.Editor
 					cellSize = value.CellSize;
 					mapHeight = value.MapHeight;
 					mapMaxSize = value.MapMaxSize;
-
-					EditorUtility.SetDirty(value);
+					
+					pointDic.Clear();
+					foreach (var point in value.PointList)
+					{
+						pointDic.Add(point.key, point.value);
+					}
 				}
 				
 				curMapConfig = value;
@@ -122,10 +137,10 @@ namespace BiuBiu.Editor
 			}
 		}
 		
-		[MenuItem("BiuBiu/地图网格编辑工具", false, 100)]
+		[MenuItem("BiuBiu/寻路测试", false, 101)]
 		private static void Open()
 		{
-			var window = GetWindow<MapTool>(true, "地图网格编辑工具", true);
+			var window = GetWindow<MapTestTool>(true, "地图网格编辑工具", true);
 			window.minSize = window.maxSize = new Vector2(300f, 150f);
 		}
 		
@@ -144,15 +159,127 @@ namespace BiuBiu.Editor
 		private void OnGUI()
 		{
 			CurMapConfig = (MapConfig) EditorGUILayout.ObjectField("寻路网格配置文件", CurMapConfig, typeof(MapConfig), false);
-			MapHeight = EditorGUILayout.FloatField("网格高度", mapHeight);
-			MapMaxSize = EditorGUILayout.FloatField("网格尺寸", mapMaxSize);
-			CellSize = EditorGUILayout.Vector2Field("格子大小", cellSize);
-			curCellType = (MapCellType) EditorGUILayout.EnumPopup("格子类型", curCellType);
-			if (GUILayout.Button("新建地图网格配置"))
+			curPointType = (PointType) EditorGUILayout.EnumPopup("格子类型", curPointType);
+			if (GUILayout.Button("测试"))
 			{
-				CurMapConfig = MapConfig.CreateDefaultConfig(null);
+				Test();
 			}
 		}
+
+		private struct Point
+		{
+			public int g;
+			public int h;
+			public int f;
+			public int2 position;
+			public int2 parent;
+		}
+
+		private readonly Dictionary<int2, float3> pointDic = new Dictionary<int2, float3>();
+		private readonly List<Point> openList;
+		private readonly List<Point> parentList;
+		private readonly List<Point> closeList;
+		private readonly List<Point> pathList;
+		private Point processingPoint;
+		private int2 start;
+		private int2 end;
+		
+		private void Test()
+		{
+			openList.Clear();
+			parentList.Clear();
+			closeList.Clear();
+			pathList.Clear();
+
+			start = pointDic.FirstOrDefault(point => point.Value.Equals(startPosition)).Key;
+			end = pointDic.FirstOrDefault(point => point.Value.Equals(endPosition)).Key;
+			
+			var startPoint = new Point
+			{
+				g = 0,
+				h = 0,
+				f = 0,
+				position = start,
+				parent = start,
+			};
+			processingPoint = startPoint;
+			openList.Add(startPoint);
+
+			while (openList.Count > 0)
+			{
+				CheckAround();
+			}
+		}
+
+		private bool CheckAround()
+		{
+			for (var x = -1; x <= 1; x++)
+			{
+				for (var y = 0; y <= 1; y++)
+				{
+					if (x == 0 && y == 0)
+					{
+						continue;
+					}
+					
+					var posX = processingPoint.position.x + x;
+					var posY = processingPoint.position.y + y;
+					if (!pointDic.ContainsKey(new int2(posX, posY)))
+					{
+						continue;
+					}
+
+					var costG = Mathf.Abs(x) == Mathf.Abs(y) ? processingPoint.g + 14 : processingPoint.g + 10;
+					var costH = Mathf.Abs(posX - end.x) + Mathf.Abs(posY - end.y);
+					var costF = costG + costH;
+					var point = new Point
+					{
+						g = costG,
+						h = costH,
+						f = costF,
+						position = new int2(processingPoint.position.x + x, processingPoint.position.y + y),
+						parent = processingPoint.position,
+					};
+				}
+			}
+
+			return false;
+		}
+
+		
+		private void AddToOpen(int2 point)
+		{
+			
+		}
+
+		private void AddToClose()
+		{
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
 		private void OnDisable()
 		{
@@ -226,21 +353,14 @@ namespace BiuBiu.Editor
 		/// </summary>
 		private void DrawMouseSelectCell()
 		{
-			if (!isDragging)
+			if (!startPosition.Equals(Vector3.zero))
 			{
-				return;
+				DrawCellByPoint(startPosition, Color.red, Color.blue);
 			}
 			
-			var startX = Math.Min(mouseDownPos.x, mouseMovePos.x);
-			var startZ = Math.Min(mouseDownPos.z, mouseMovePos.z);
-			var endX = Math.Max(mouseDownPos.x, mouseMovePos.x);
-			var endZ = Math.Max(mouseDownPos.z, mouseMovePos.z);;
-			for (var x = startX; x <= endX; x += cellSize.x)
+			if (!endPosition.Equals(Vector3.zero))
 			{
-				for (var z = startZ; z <= endZ; z += cellSize.y)
-				{
-					DrawCellByPoint(new Vector3(x, mapHeight, z), Color.green, Color.blue);
-				}
+				DrawCellByPoint(endPosition, Color.black, Color.blue);
 			}
 		}
 
@@ -315,84 +435,26 @@ namespace BiuBiu.Editor
 					{
 						mouseDownPos = mouseMovePos;
 					}
-					
-					isDragging = true;
-					break;
-				}
-				case EventType.MouseUp when Event.current.button == 0:
-				{
-					if (TryGetMousePositionInCell(out var mousePose))
-					{
-						mouseUpPos = mousePose;
-					}
-					else
-					{
-						mouseUpPos = mouseMovePos;
-					}
 
-					if (isDragging)
-					{
-						WriteSelectCellToConfig();
-					}
-					
-					isDragging = false;
+					SelectPoint();
 					break;
 				}
 			}
 		}
 
-		/// <summary>
-		/// 写入上一次拖拽选择的结果到当前编辑的MapConfig
-		/// </summary>
-		private void WriteSelectCellToConfig()
+		private void SelectPoint()
 		{
-			if (curMapConfig == null)
+			switch (curPointType)
 			{
-				Debug.Log("Map Tool : Please select a map config first.");
-				return;
-			}
-			
-			var startX = Math.Min(mouseDownPos.x, mouseUpPos.x);
-			var startZ = Math.Min(mouseDownPos.z, mouseUpPos.z);
-			var endX = Math.Max(mouseDownPos.x, mouseUpPos.x);
-			var endZ = Math.Max(mouseDownPos.z, mouseUpPos.z);
-			
-			var configPointList = curMapConfig.PointList;
-			for (var x = startX; x <= endX; x += cellSize.x)
-			{
-				for (var z = startZ; z <= endZ; z += cellSize.y)
-				{
-					var indexInPointList = GetCurMapConfigPointIndex(x, mapHeight, z);
-					switch (curCellType)
-					{
-						case MapCellType.None:
-						{
-							if (indexInPointList != -1)
-							{
-								configPointList.RemoveAt(indexInPointList);
-							}
-
-							break;
-						}
-						case MapCellType.NormalFloor:
-						{
-							if (indexInPointList == -1)
-							{
-								var x2d = x >= 0 ? Mathf.CeilToInt(x / cellSize.x) : Mathf.FloorToInt(x / cellSize.x);
-								var z2d = z >= 0 ? Mathf.CeilToInt(z / cellSize.y) : Mathf.FloorToInt(z / cellSize.y);
-								configPointList.Add(new MapPoint
-								{
-									key = new int2(x2d, z2d),
-									value = new float3(x, mapHeight, z),
-								});
-							}
-
-							break;
-						}
-					}
-				}
+				case PointType.Start:
+					startPosition = mouseDownPos;
+					break;
+				case PointType.End:
+					endPosition = mouseDownPos;
+					break;
 			}
 		}
+		
 
 		/// <summary>
 		/// 根据坐标获取当前配置PointList中的索引

@@ -5,6 +5,7 @@ namespace GameConfig;
 table Scene {
     Id:uint;
     AssetName:string;
+    MapConfig:string;
 }
 
 table SceneList {
