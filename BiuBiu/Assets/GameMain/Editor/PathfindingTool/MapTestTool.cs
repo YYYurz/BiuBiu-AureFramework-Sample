@@ -61,6 +61,11 @@ namespace BiuBiu.Editor
 					pointDic.Clear();
 					foreach (var point in value.PointList)
 					{
+						if (pointDic.ContainsKey(point.key))
+						{
+							Debug.LogError(point.key);
+							continue;
+						}
 						pointDic.Add(point.key, point.value);
 					}
 				}
@@ -166,51 +171,87 @@ namespace BiuBiu.Editor
 			}
 		}
 
-		private struct Point
+		private struct PointInformation
 		{
 			public int g;
 			public int h;
 			public int f;
-			public int2 position;
 			public int2 parent;
 		}
 
 		private readonly Dictionary<int2, float3> pointDic = new Dictionary<int2, float3>();
-		private readonly List<Point> openList;
-		private readonly List<Point> parentList;
-		private readonly List<Point> closeList;
-		private readonly List<Point> pathList;
-		private Point processingPoint;
+		private readonly Dictionary<int2, PointInformation> openDic = new Dictionary<int2, PointInformation>();
+		private readonly Dictionary<int2, PointInformation> closeDic = new Dictionary<int2, PointInformation>();
+		private readonly List<int2> pathResultList = new List<int2>();
+		private int2 processingPos;
 		private int2 start;
 		private int2 end;
 		
 		private void Test()
 		{
-			openList.Clear();
-			parentList.Clear();
-			closeList.Clear();
-			pathList.Clear();
+			openDic.Clear();
+			closeDic.Clear();
+			pathResultList.Clear();
 
 			start = pointDic.FirstOrDefault(point => point.Value.Equals(startPosition)).Key;
 			end = pointDic.FirstOrDefault(point => point.Value.Equals(endPosition)).Key;
-			
-			var startPoint = new Point
-			{
-				g = 0,
-				h = 0,
-				f = 0,
-				position = start,
-				parent = start,
-			};
-			processingPoint = startPoint;
-			openList.Add(startPoint);
 
-			while (openList.Count > 0)
+			Debug.Log("---");
+			Debug.Log(start);
+			Debug.Log(end);
+			Debug.Log("---");
+			
+			do
 			{
-				CheckAround();
-			}
+				SelectMinCostF();
+				if (CheckAround())
+				{
+					CreatePath();
+					break;
+				}
+			} 
+			while (openDic.Count > 0);
 		}
 
+		/// <summary>
+		/// 选择F值最小的节点作为当前处理节点
+		/// </summary>
+		private void SelectMinCostF()
+		{
+			var pointInformation = new PointInformation();
+			if (closeDic.Count == 0)
+			{
+				pointInformation.g = 0;
+				pointInformation.h = 0;
+				pointInformation.f = 0;
+				pointInformation.parent = start;
+
+				processingPos = start;
+				closeDic.Add(start, pointInformation);
+			}
+			else
+			{
+				var tempPoint = openDic.First();
+				foreach (var openPoint in openDic)
+				{
+					if (openPoint.Value.f < tempPoint.Value.f)
+					{
+						tempPoint = openPoint;
+					}
+				}				
+				
+				processingPos = tempPoint.Key;
+				openDic.Remove(tempPoint.Key);
+				closeDic.Add(tempPoint.Key, tempPoint.Value);
+			}
+
+			DrawCloseCell();
+		}
+
+		/// <summary>
+		/// 检查当前点的周围坐标
+		/// </summary>
+		/// <returns></returns>
 		private bool CheckAround()
 		{
 			for (var x = -1; x <= 1; x++)
@@ -221,40 +262,74 @@ namespace BiuBiu.Editor
 					{
 						continue;
 					}
-					
-					var posX = processingPoint.position.x + x;
-					var posY = processingPoint.position.y + y;
-					if (!pointDic.ContainsKey(new int2(posX, posY)))
+
+					var processingPointInformation = closeDic[processingPos];
+					var posX = processingPos.x + x;
+					var posY = processingPos.y + y;
+					var pos = new int2(processingPos.x + x, processingPos.y + y);
+					if (!pointDic.ContainsKey(pos) || closeDic.ContainsKey(pos))
 					{
 						continue;
 					}
 
-					var costG = Mathf.Abs(x) == Mathf.Abs(y) ? processingPoint.g + 14 : processingPoint.g + 10;
+					var costG = Mathf.Abs(x) == Mathf.Abs(y) ? processingPointInformation.g + 14 : processingPointInformation.g + 10;
 					var costH = Mathf.Abs(posX - end.x) + Mathf.Abs(posY - end.y);
 					var costF = costG + costH;
-					var point = new Point
+					var pointInformation = new PointInformation
 					{
 						g = costG,
 						h = costH,
 						f = costF,
-						position = new int2(processingPoint.position.x + x, processingPoint.position.y + y),
-						parent = processingPoint.position,
+						parent = processingPos,
 					};
+					if (AddToOpen(pos, pointInformation))
+					{
+						return true;
+					}
 				}
 			}
 
 			return false;
 		}
 
-		
-		private void AddToOpen(int2 point)
+		/// <summary>
+		/// 添加点到OpenDic
+		/// </summary>
+		/// <param name="pos"></param>
+		/// <param name="pointInformation"></param>
+		private bool AddToOpen(int2 pos, PointInformation pointInformation)
 		{
-			
+			if (openDic.ContainsKey(pos) && openDic[pos].g > pointInformation.g)
+			{
+				openDic[pos] = pointInformation;
+			}
+			else
+			{
+				openDic.Add(pos, pointInformation);
+			}
+
+			if (pos.Equals(end))
+			{
+				return true;
+			}
+
+			return false;
 		}
 
-		private void AddToClose()
+		private void CreatePath()
 		{
+			var tempInformation = openDic[end];
+			var tempPos = end;
+
+			pathResultList.Add(tempPos);
+			while (!tempPos.Equals(start))
+			{
+				tempPos = tempInformation.parent;
+				tempInformation = closeDic[tempPos];
+				pathResultList.Add(tempPos);
+			}
 			
+			pathResultList.Reverse();
 		}
 		
 		
@@ -316,7 +391,36 @@ namespace BiuBiu.Editor
 			DrawMapMeshLine();
 			DrawMouseMoveCell();
 			DrawMouseSelectCell();
+
+			DrawPathCell();
+			DrawOpenCell();
+			// DrawCloseCell();
 			SceneView.RepaintAll();
+		}
+
+		private void DrawPathCell()
+		{
+			foreach (var pathPoint in pathResultList)
+			{
+				DrawCellByPoint(pointDic[pathPoint], Color.magenta, Color.black);
+			}
+		}
+		
+		private void DrawOpenCell()
+		{
+			foreach (var openPoint in openDic)
+			{
+				DrawCellByPoint(pointDic[openPoint.Key], Color.yellow, Color.black);
+			}
+		}
+		
+		private void DrawCloseCell()
+		{
+			foreach (var closePoint in closeDic)
+			{
+				Debug.Log(closePoint.Key);
+				// DrawCellByPoint(pointDic[closePoint.Key], Color.black, Color.black);
+			}
 		}
 
 		/// <summary>

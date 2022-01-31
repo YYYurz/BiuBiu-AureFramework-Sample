@@ -8,6 +8,7 @@
 
 using System.IO;
 using System.Text;
+using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
 
@@ -24,7 +25,7 @@ namespace BiuBiu.Editor
 
 		private void OnGUI()
 		{
-			if (GUILayout.Button("Addressable"))
+			if (GUILayout.Button("Test"))
 			{
 				Test();
 			}
@@ -37,21 +38,11 @@ namespace BiuBiu.Editor
 
 		private void Test()
 		{
-			var str = "ASD";
-			string a = null;
-			if (string.IsNullOrEmpty(a))
+			var a = new int2(1, 1);
+			var b = new int2(1, 1);
+			if (a.Equals(b))
 			{
-				Debug.Log("Yeah");
-			}
-			
-			if (str.StartsWith(a))
-			{
-				Debug.Log("Yeah");
-			}
-
-			if (str.EndsWith(a))
-			{
-				Debug.Log("Yeah");
+				Debug.Log("HaHah");
 			}
 		}
 
