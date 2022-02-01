@@ -195,85 +195,71 @@ namespace BiuBiu.Editor
 
 			start = pointDic.FirstOrDefault(point => point.Value.Equals(startPosition)).Key;
 			end = pointDic.FirstOrDefault(point => point.Value.Equals(endPosition)).Key;
-
-			Debug.Log("---");
-			Debug.Log(start);
-			Debug.Log(end);
-			Debug.Log("---");
 			
-			do
+			openDic.Add(start, new PointInformation
+			{
+				g = 0,
+				h = 0,
+				f = 0,
+				parent = start,
+			});
+			while (openDic.Count > 0)
 			{
 				SelectMinCostF();
-				if (CheckAround())
+				RefreshSurroundPoints();
+				if (openDic.ContainsKey(end))
 				{
 					CreatePath();
 					break;
 				}
 			} 
-			while (openDic.Count > 0);
 		}
-
+		
 		/// <summary>
 		/// 选择F值最小的节点作为当前处理节点
 		/// </summary>
 		private void SelectMinCostF()
 		{
-			var pointInformation = new PointInformation();
-			if (closeDic.Count == 0)
+			var tempPoint = openDic.First();
+			foreach (var openPoint in openDic)
 			{
-				pointInformation.g = 0;
-				pointInformation.h = 0;
-				pointInformation.f = 0;
-				pointInformation.parent = start;
-
-				processingPos = start;
-				closeDic.Add(start, pointInformation);
-			}
-			else
-			{
-				var tempPoint = openDic.First();
-				foreach (var openPoint in openDic)
+				if (openPoint.Value.f < tempPoint.Value.f)
 				{
-					if (openPoint.Value.f < tempPoint.Value.f)
-					{
-						tempPoint = openPoint;
-					}
-				}				
-				
-				processingPos = tempPoint.Key;
-				openDic.Remove(tempPoint.Key);
-				closeDic.Add(tempPoint.Key, tempPoint.Value);
+					tempPoint = openPoint;
+				}
 			}
 
-			DrawCloseCell();
+			processingPos = tempPoint.Key;
+			openDic.Remove(tempPoint.Key);
+			closeDic.Add(tempPoint.Key, tempPoint.Value);
 		}
 
 		/// <summary>
-		/// 检查当前点的周围坐标
+		/// 刷新当前点的周围点信息
 		/// </summary>
-		/// <returns></returns>
-		private bool CheckAround()
+		private void RefreshSurroundPoints()
 		{
 			for (var x = -1; x <= 1; x++)
 			{
-				for (var y = 0; y <= 1; y++)
+				for (var y = -1; y <= 1; y++)
 				{
 					if (x == 0 && y == 0)
 					{
 						continue;
 					}
-
+			
 					var processingPointInformation = closeDic[processingPos];
 					var posX = processingPos.x + x;
 					var posY = processingPos.y + y;
-					var pos = new int2(processingPos.x + x, processingPos.y + y);
+					var pos = new int2(posX, posY);
 					if (!pointDic.ContainsKey(pos) || closeDic.ContainsKey(pos))
 					{
 						continue;
 					}
-
+			
 					var costG = Mathf.Abs(x) == Mathf.Abs(y) ? processingPointInformation.g + 14 : processingPointInformation.g + 10;
-					var costH = Mathf.Abs(posX - end.x) + Mathf.Abs(posY - end.y);
+					var costH = (Mathf.Abs(posX - end.x) + Mathf.Abs(posY - end.y)) * 10;
+					
 					var costF = costG + costH;
 					var pointInformation = new PointInformation
 					{
@@ -282,38 +268,29 @@ namespace BiuBiu.Editor
 						f = costF,
 						parent = processingPos,
 					};
-					if (AddToOpen(pos, pointInformation))
-					{
-						return true;
-					}
+					AddToOpen(pos, pointInformation);
 				}
 			}
-
-			return false;
 		}
-
+		
 		/// <summary>
 		/// 添加点到OpenDic
 		/// </summary>
 		/// <param name="pos"></param>
 		/// <param name="pointInformation"></param>
-		private bool AddToOpen(int2 pos, PointInformation pointInformation)
+		private void AddToOpen(int2 pos, PointInformation pointInformation)
 		{
-			if (openDic.ContainsKey(pos) && openDic[pos].g > pointInformation.g)
+			if (openDic.ContainsKey(pos))
 			{
-				openDic[pos] = pointInformation;
+				if (openDic[pos].g > pointInformation.g)
+				{
+					openDic[pos] = pointInformation;
+				}
 			}
 			else
 			{
 				openDic.Add(pos, pointInformation);
 			}
-
-			if (pos.Equals(end))
-			{
-				return true;
-			}
-
-			return false;
 		}
 
 		private void CreatePath()
@@ -392,9 +369,10 @@ namespace BiuBiu.Editor
 			DrawMouseMoveCell();
 			DrawMouseSelectCell();
 
-			DrawPathCell();
 			DrawOpenCell();
-			// DrawCloseCell();
+			DrawCloseCell();
+			DrawPathCell();
+			
 			SceneView.RepaintAll();
 		}
 
@@ -418,8 +396,7 @@ namespace BiuBiu.Editor
 		{
 			foreach (var closePoint in closeDic)
 			{
-				Debug.Log(closePoint.Key);
-				// DrawCellByPoint(pointDic[closePoint.Key], Color.black, Color.black);
+				DrawCellByPoint(pointDic[closePoint.Key], Color.black, Color.black);
 			}
 		}
 
@@ -473,9 +450,9 @@ namespace BiuBiu.Editor
 		/// </summary>
 		private void DrawMapMeshLine()
 		{
-			var mapHalfSize = mapMaxSize / 2;
+			var mapHalfSize = mapMaxSize / 2f;
 			
-			var tempXPos = 0f;
+			var tempXPos =cellSize.x / 2f;
 			while (tempXPos <= mapHalfSize)
 			{
 				var leftXa = new Vector3(tempXPos, mapHeight, mapHalfSize);
@@ -489,7 +466,7 @@ namespace BiuBiu.Editor
 				tempXPos += cellSize.x;
 			}
 
-			var tempYPos = 0f;
+			var tempYPos = cellSize.y / 2f;
 			while (tempYPos <= mapHalfSize)
 			{
 				var leftXa = new Vector3(mapHalfSize, mapHeight, tempYPos);
@@ -594,8 +571,8 @@ namespace BiuBiu.Editor
 			var ray = Camera.current.ScreenPointToRay(mousePos);
 			if (Physics.Raycast(ray, out var rh, 3000f) && rh.collider.gameObject == planeObj)
 			{
-				var posX = Mathf.CeilToInt(rh.point.x / cellSize.x) * cellSize.x - cellSize.x / 2;
-				var posZ = Mathf.CeilToInt(rh.point.z / cellSize.y) * cellSize.y - cellSize.y / 2;
+				var posX = Mathf.FloorToInt((rh.point.x + cellSize.x / 2) / cellSize.x) * cellSize.x;
+				var posZ = Mathf.FloorToInt((rh.point.z + cellSize.y / 2) / cellSize.y) * cellSize.y;
 				mousePose = new Vector3(posX, mapHeight, posZ);
 
 				return true;

@@ -249,9 +249,9 @@ namespace BiuBiu.Editor
 		/// </summary>
 		private void DrawMapMeshLine()
 		{
-			var mapHalfSize = mapMaxSize / 2;
+			var mapHalfSize = mapMaxSize / 2f;
 			
-			var tempXPos = 0f;
+			var tempXPos =cellSize.x / 2f;
 			while (tempXPos <= mapHalfSize)
 			{
 				var leftXa = new Vector3(tempXPos, mapHeight, mapHalfSize);
@@ -265,7 +265,7 @@ namespace BiuBiu.Editor
 				tempXPos += cellSize.x;
 			}
 
-			var tempYPos = 0f;
+			var tempYPos = cellSize.y / 2f;
 			while (tempYPos <= mapHalfSize)
 			{
 				var leftXa = new Vector3(mapHalfSize, mapHeight, tempYPos);
@@ -428,8 +428,8 @@ namespace BiuBiu.Editor
 			var ray = Camera.current.ScreenPointToRay(mousePos);
 			if (Physics.Raycast(ray, out var rh, 3000f) && rh.collider.gameObject == planeObj)
 			{
-				var posX = Mathf.CeilToInt(rh.point.x / cellSize.x) * cellSize.x - cellSize.x / 2;
-				var posZ = Mathf.CeilToInt(rh.point.z / cellSize.y) * cellSize.y - cellSize.y / 2;
+				var posX = Mathf.FloorToInt((rh.point.x + cellSize.x / 2) / cellSize.x) * cellSize.x;
+				var posZ = Mathf.FloorToInt((rh.point.z + cellSize.y / 2) / cellSize.y) * cellSize.y;
 				mousePose = new Vector3(posX, mapHeight, posZ);
 
 				return true;
