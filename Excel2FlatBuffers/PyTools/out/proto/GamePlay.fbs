@@ -1,0 +1,15 @@
+include "FP.fbs";
+
+namespace GameConfig;
+
+table GamePlay {
+    Id:uint;
+    MapConfig:string;
+}
+
+table GamePlayList {
+    data:[GamePlay];
+}
+
+file_identifier "CONF";
+file_extension "game_config";

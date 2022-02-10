@@ -4,11 +4,9 @@ local UIBase = require "UIForm/UIBase"
 local LoginWindow = UIBase:New()
 
 function LoginWindow:ManualInit()
-	self.BtnPlay = self:GetButton(self.gameObject, "BtnPlay")
+	self.BtnPlay = self:GetChild(self.gameObject, "BtnPlay")
 
-	self:AddListener(self.BtnPlay.onClick, Utils.bind(self.OnLogin, self))
-	
-	self:AddEventListener(UIEventID.EVENT_Test, self.OnCallBack)
+	self:AddClickListener(self.BtnPlay, self.OnLogin, self)
 end
 
 function LoginWindow:OnInit()
@@ -37,8 +35,7 @@ function LoginWindow:OnDestroy()
 end
 
 function LoginWindow:OnLogin()
-	self:CloseUI()
-	CF:OpenUI(UIFormID.BattleWindow)
+	LuaHelper.ChangeScene(2)
 end
 
 return LoginWindow

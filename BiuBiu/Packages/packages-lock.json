@@ -132,6 +132,23 @@
       "dependencies": {},
       "url": "https://packages.unity.cn"
     },
+    "com.unity.physics": {
+      "version": "0.6.0-preview.3",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.burst": "1.4.1",
+        "com.unity.collections": "0.15.0-preview.21",
+        "com.unity.entities": "0.17.0-preview.41",
+        "com.unity.jobs": "0.8.0-preview.23",
+        "com.unity.mathematics": "1.2.1",
+        "com.unity.test-framework": "1.1.11",
+        "com.unity.test-framework.performance": "2.3.1-preview",
+        "com.unity.modules.imgui": "1.0.0",
+        "com.unity.modules.jsonserialize": "1.0.0"
+      },
+      "url": "https://packages.unity.cn"
+    },
     "com.unity.platforms": {
       "version": "0.10.0-preview.10",
       "depth": 1,
@@ -141,6 +158,15 @@
         "com.unity.properties.ui": "1.6.2-preview.1",
         "com.unity.scriptablebuildpipeline": "1.6.4-preview",
         "com.unity.serialization": "1.6.2-preview"
+      },
+      "url": "https://packages.unity.cn"
+    },
+    "com.unity.postprocessing": {
+      "version": "3.1.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.physics": "1.0.0"
       },
       "url": "https://packages.unity.cn"
     },
