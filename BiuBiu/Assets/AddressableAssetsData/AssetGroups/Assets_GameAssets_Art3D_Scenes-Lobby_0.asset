@@ -21,18 +21,6 @@ MonoBehaviour:
     m_Address: MainLobby
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 94e19cd9e7bda584c8e76222b15b46bd
-    m_Address: LightingData
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 387820b518f9ac74281786c2e0af5660
-    m_Address: Lightmap-0_comp_dir
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 9f99a1489e2f8f04a9e6dd34948af531
-    m_Address: Lightmap-0_comp_light
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 3a94e275edba6124d842819873ee418c
     m_Address: MainLobbyLightingSettings
     m_ReadOnly: 0

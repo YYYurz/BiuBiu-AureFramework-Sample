@@ -45,7 +45,7 @@ namespace BiuBiu
 		public const string DefaultMapConfigPath = "Assets/MapConfig.asset";
 
 		[SerializeField] private List<MapPoint> pointList = new List<MapPoint>();
-		[SerializeField] private Vector2 cellSize = Vector2.one;
+		[SerializeField] private float2 cellSize = new float2(1f, 1f);
 		[SerializeField] private float mapHeight;
 		[SerializeField] private float mapMaxSize = 100f;
 
@@ -64,7 +64,7 @@ namespace BiuBiu
 		/// <summary>
 		/// 获取或设置格子大小
 		/// </summary>
-		public Vector2 CellSize
+		public float2 CellSize
 		{
 			get
 			{

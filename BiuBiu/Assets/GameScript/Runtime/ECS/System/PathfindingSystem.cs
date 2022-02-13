@@ -6,15 +6,23 @@
 // Email: 1228396352@qq.com
 //------------------------------------------------------------
 
+using System.Collections.Generic;
 using System.Linq;
+using AureFramework;
+using Unity.Burst;
 using Unity.Collections;
+using Unity.Collections.LowLevel.Unsafe;
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
+using Unity.Transforms;
 using UnityEngine;
 
 namespace BiuBiu
 {
+	/// <summary>
+	/// 每帧刷新自动寻路单位的寻路路径
+	/// </summary>
 	public class PathfindingSystem : ComponentSystemBase
 	{
 		private struct PointInformation
@@ -25,28 +33,42 @@ namespace BiuBiu
 			public int2 parent;
 		}
 
+		private readonly Dictionary<uint, List<float3>> pathDic = new Dictionary<uint, List<float3>>();
+		private float3 targetPos;
+
 		protected override void OnCreate()
 		{
 			base.OnCreate();
-			
-			// Debug.Log("PathfindingSystem  OnCreate");
 		}
 
 		public override void Update()
 		{
-			// if (!GameMain.GamePlay.IsStart || GameMain.GamePlay.IsPause)
+			if (!GameMain.GamePlay.IsStart || GameMain.GamePlay.IsPause)
+			{
+				return;
+			}
+			
+			// var queryDescription = new EntityQueryDesc
 			// {
-			// 	return;
+			// 	All = new ComponentType[]
+			// 	{
+			// 		typeof(PositionComponent),
+			// 		typeof(Translation),
+			// 	},
+			// 	None = new ComponentType[] {typeof(ControlBuffComponent)},
+			// };
+			//
+			// var query = GetEntityQuery(queryDescription);
+			// var entityArray = query.ToEntityArray(Allocator.TempJob);
+			// foreach (var entity in entityArray)
+			// {
 			// }
-			
-			
-			// GetEntityQuery()
-			// var lookup = GetBufferFromEntity<PathPointBufferElement>();
-			// var buffer = lookup[]
-			
-			// Debug.Log("PathfindingSystem  Update");
 		}
 
+		/// <summary>
+		/// 寻路Job
+		/// </summary>
+		[BurstCompile]
 		private struct PathfindingJob : IJob
 		{
 			private NativeHashMap<int2, float3> pointDic;
@@ -77,7 +99,8 @@ namespace BiuBiu
 					f = 0,
 					parent = start,
 				});
-				while (openDic.Any())
+				
+				while (!openDic.IsEmpty)
 				{
 					SelectMinCostF();
 					RefreshSurroundPoints();
@@ -94,12 +117,14 @@ namespace BiuBiu
 			/// </summary>
 			private void SelectMinCostF()
 			{
-				var tempPoint = openDic.First();
+				var tempPoint = new KeyValue<int2, PointInformation>();
+				var tempF = int.MaxValue;
 				foreach (var openPoint in openDic)
 				{
-					if (openPoint.Value.f < tempPoint.Value.f)
+					if (openPoint.Value.f < tempF)
 					{
 						tempPoint = openPoint;
+						tempF = openPoint.Value.f;
 					}
 				}
 

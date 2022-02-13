@@ -7,14 +7,24 @@
 //------------------------------------------------------------
 
 using Unity.Entities;
+using Unity.Mathematics;
 
 namespace BiuBiu
 {
-	public class TestEntity 
+	/// <summary>
+	/// 位置数据
+	/// </summary>
+	// [BurstCompile]
+	public struct PositionComponent : IComponentData
 	{
-		public void Test()
-		{
-			
-		}
+		/// <summary>
+		/// 当前位置
+		/// </summary>
+		public float3 CurPosition;
+		
+		/// <summary>
+		/// 下一个位置
+		/// </summary>
+		public float3 NextPosition;
 	}
 }

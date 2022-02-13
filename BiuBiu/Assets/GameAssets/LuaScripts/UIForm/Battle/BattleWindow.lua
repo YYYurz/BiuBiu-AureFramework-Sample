@@ -4,7 +4,9 @@ local UIBase = require "UIForm/UIBase"
 local BattleWindow = UIBase:New()
 
 function BattleWindow:ManualInit()
+	self.QuitBtn = self:GetChild(self.gameObject, "QuitBtn")
 	
+	self:AddClickListener(self.QuitBtn, self.OnClickQuitGame, self)
 end
 
 function BattleWindow:OnInit()
@@ -24,6 +26,10 @@ function BattleWindow:OnDestroy()
 	UIBase.OnDestroy(self)
 	self = nil
 	BattleWindow = nil
+end
+
+function BattleWindow:OnClickQuitGame()
+	LuaHelper.ChangeScene(1)
 end
 
 return BattleWindow

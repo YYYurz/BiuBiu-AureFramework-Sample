@@ -7,6 +7,8 @@ namespace BiuBiu
 		public override void OnEnter(params object[] args)
 		{
 			base.OnEnter(args);
+			
+			GameMain.GamePlay.CreateGame(1);
 		}
 
 		public override void OnUpdate()
@@ -17,6 +19,8 @@ namespace BiuBiu
 		public override void OnExit()
 		{
 			base.OnExit();
+			
+			GameMain.GamePlay.QuitCurrentGame();
 		}
 	}
 }

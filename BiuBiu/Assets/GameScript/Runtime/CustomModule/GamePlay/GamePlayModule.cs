@@ -7,29 +7,56 @@
 //------------------------------------------------------------
 
 using AureFramework;
+using Unity.Entities;
 
 namespace BiuBiu
 {
+	/// <summary>
+	/// 游戏玩法模块 
+	/// </summary>
 	public sealed class GamePlayModule : AureFrameworkModule, IGamePlayModule
 	{
+		private World entityWorld;
+		private MapConfig curMapConfig;
+		private bool isStart;
+		private bool isPause;
+		
+		/// <summary>
+		/// 当前游戏寻路网格配置
+		/// </summary>
 		public MapConfig CurMapConfig
 		{
-			get;
+			get
+			{
+				return curMapConfig;
+			}
 		}
 
+		/// <summary>
+		/// 游戏是否开始
+		/// </summary>
 		public bool IsStart
 		{
-			get;
+			get
+			{
+				return isStart;
+			}
 		}
 
+		/// <summary>
+		/// 游戏是否暂停
+		/// </summary>
 		public bool IsPause
 		{
-			get;
+			get
+			{
+				return isPause;
+			}
 		}
 
 		public override void Init()
 		{
-			
+			entityWorld = World.DefaultGameObjectInjectionWorld;
 		}
 
 		public override void Tick(float elapseTime, float realElapseTime)
@@ -45,7 +72,16 @@ namespace BiuBiu
 
 		public void CreateGame(int gameId)
 		{
-			
+			isStart = true;
+			isPause = false;
+		}
+
+		public void QuitCurrentGame()
+		{
+			isStart = false;
+			var allEntityArray = entityWorld.EntityManager.GetAllEntities();
+			entityWorld.EntityManager.DestroyEntity(allEntityArray);
+			allEntityArray.Dispose();
 		}
 	}
 }

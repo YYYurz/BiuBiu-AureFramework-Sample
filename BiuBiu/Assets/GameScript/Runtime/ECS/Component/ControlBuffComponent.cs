@@ -6,19 +6,25 @@
 // Email: 1228396352@qq.com
 //------------------------------------------------------------
 
-using UnityEngine;
+using Unity.Entities;
 
 namespace BiuBiu
 {
-	public static partial class LuaHelper
+	public struct ControlBuffComponent : IComponentData
 	{
 		/// <summary>
-		/// 强制切换切场景流程
+		/// 击飞剩余时间
 		/// </summary>
-		/// <param name="sceneId"> 场景Id </param>
-		public static void ChangeScene(uint sceneId)
-		{
-			GameMain.Procedure.ChangeProcedure<ProcedureChangeScene>(sceneId);
-		}
+		public float FlyTime;
+		
+		/// <summary>
+		/// 眩晕剩余时间
+		/// </summary>
+		public float VertigoTime;
+		
+		/// <summary>
+		/// 击退剩余时间
+		/// </summary>
+		public float BackTime;
 	}
 }

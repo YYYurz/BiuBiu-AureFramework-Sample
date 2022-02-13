@@ -37,5 +37,7 @@ namespace BiuBiu
 		/// </summary>
 		/// <param name="gameId"> 游戏Id </param>
 		void CreateGame(int gameId);
+
+		void QuitCurrentGame();
 	}
 }

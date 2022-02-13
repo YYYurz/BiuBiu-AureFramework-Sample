@@ -16,49 +16,42 @@ namespace BiuBiu
 {
 	public class ProcedureChangeScene : ProcedureBase
 	{
+		private string lastSceneAssetName;
 		private string curSceneAssetName;
 		private uint curSceneId;
 		private uint curSceneWindowId;
-		private bool isUnloadSceneComplete;
-		private bool isLoadSceneComplete;
+		private bool isChangeSceneComplete;
 
 		public override void OnEnter(params object[] args)
 		{
 			base.OnEnter(args);
 
+			GameMain.Event.Subscribe<OpenUISuccessEventArgs>(OnOpenUISuccessCallback);
 			GameMain.Event.Subscribe<LoadSceneUpdateEventArgs>(OnLoadSceneUpdateCallback);
 			GameMain.Event.Subscribe<LoadSceneSuccessEventArgs>(OnLoadSceneSuccessCallback);
 			GameMain.Event.Subscribe<UnloadSceneSuccessEventArgs>(OnUnloadSceneSuccessCallback);
 
-			// 卸载上一个场景
-			if (!string.IsNullOrEmpty(curSceneAssetName))
-			{
-				GameMain.Scene.UnloadScene(curSceneAssetName);
-				isUnloadSceneComplete = false;
-			}
-			else
-			{
-				isUnloadSceneComplete = true;
-			}
-			
-			isLoadSceneComplete = false;
+			isChangeSceneComplete = false;
 			curSceneId = (uint) args[0];
 			
-			// 加载新场景
+			// 获取新场景信息
 			var sceneData = GameMain.DataTable.GetDataTableReader<SceneTableReader>().GetInfo(curSceneId);
+			lastSceneAssetName = curSceneAssetName;
 			curSceneWindowId = sceneData.SceneWindowId;
 			curSceneAssetName = sceneData.AssetName;
-			
+
+			Debug.LogError("1");
+			// 1.关闭所有UI，打开Loading界面
+
 			GameMain.UI.CloseAllUI();
 			GameMain.UI.OpenUI(Constant.UIFormId.LoadingWindow);
-			GameMain.Scene.LoadScene(curSceneAssetName);
 		}
 
 		public override void OnUpdate()
 		{
 			base.OnUpdate();
 
-			if (!isLoadSceneComplete || !isUnloadSceneComplete || !GameMain.UI.IsUIOpen(curSceneWindowId))
+			if (!isChangeSceneComplete)
 			{
 				return;
 			}
@@ -83,6 +76,7 @@ namespace BiuBiu
 			base.OnExit();
 
 			GameMain.UI.CloseUI(Constant.UIFormId.LoadingWindow);
+			GameMain.Event.Unsubscribe<OpenUISuccessEventArgs>(OnOpenUISuccessCallback);
 			GameMain.Event.Unsubscribe<LoadSceneUpdateEventArgs>(OnLoadSceneUpdateCallback);
 			GameMain.Event.Unsubscribe<LoadSceneSuccessEventArgs>(OnLoadSceneSuccessCallback);
 			GameMain.Event.Unsubscribe<UnloadSceneSuccessEventArgs>(OnUnloadSceneSuccessCallback);
@@ -97,18 +91,39 @@ namespace BiuBiu
 
 		private void OnLoadSceneSuccessCallback(object sender, AureEventArgs e)
 		{
-			var args = (LoadSceneSuccessEventArgs) e;
-
-			if (args.SceneName.Equals(curSceneAssetName))
+			// 3.新场景加载完成，开始卸载旧场景
+			Debug.LogError("3");
+			if (!string.IsNullOrEmpty(lastSceneAssetName))
 			{
-				isLoadSceneComplete = true;
-				GameMain.UI.OpenUI(curSceneWindowId);
+				GameMain.Scene.UnloadScene(lastSceneAssetName);
+			}
+			else
+			{
+				OnUnloadSceneSuccessCallback(this, null);
 			}
 		}
 
 		private void OnUnloadSceneSuccessCallback(object sender, AureEventArgs e)
 		{
-			isUnloadSceneComplete = true;
+			// 4.旧场景卸载完成，打开新场景主界面
+			Debug.LogError("4");
+			GameMain.UI.OpenUI(curSceneWindowId);
+		}
+
+		private void OnOpenUISuccessCallback(object sender, AureEventArgs e)
+		{
+			if (GameMain.UI.IsUIOpen(curSceneWindowId))
+			{
+				Debug.LogError("5");
+				// 5.新场景主界面已经打开，完成切换场景
+				isChangeSceneComplete = true;
+			}
+			else if (GameMain.UI.IsUIOpen(Constant.UIFormId.LoadingWindow))
+			{
+				Debug.LogError("2");
+				// 2.Loading界面已经打开，开始加载新场景
+				GameMain.Scene.LoadScene(curSceneAssetName);
+			}
 		}
 	}
 }

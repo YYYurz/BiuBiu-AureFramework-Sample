@@ -6,14 +6,18 @@
 // Email: 1228396352@qq.com
 //------------------------------------------------------------
 
-using Unity.Burst;
 using Unity.Entities;
 
 namespace BiuBiu
 {
-	[BurstCompile]
-	public struct TestComponent : IComponentData
+	/// <summary>
+	/// 刷新单位位置
+	/// </summary>
+	public class PositionRefreshSystem : ComponentSystemBase
 	{
-		public float level;
+		public override void Update()
+		{
+			
+		}
 	}
 }

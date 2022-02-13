@@ -6,12 +6,16 @@
 // Email: 1228396352@qq.com
 //------------------------------------------------------------
 
-using Unity.Entities;
-
-namespace AureFramework
+namespace BiuBiu
 {
-	public struct PathPointBufferElement : IBufferElementData
+	public static partial class ECSConstant
 	{
-		public float PointPosition;
+		/// <summary>
+		/// 控制效果类型
+		/// </summary>
+		public enum ControlBuffType
+		{
+			
+		}
 	}
 }

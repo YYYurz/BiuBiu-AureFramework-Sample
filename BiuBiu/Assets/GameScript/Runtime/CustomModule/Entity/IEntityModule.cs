@@ -6,20 +6,13 @@
 // Email: 1228396352@qq.com
 //------------------------------------------------------------
 
-using Unity.Burst;
-using Unity.Entities;
-
-namespace AureFramework
+namespace BiuBiu
 {
 	/// <summary>
-	/// 可寻路数据
+	/// ECS实体模块接口
 	/// </summary>
-	// [BurstCompile]
-	public struct AiPositionComponent : IComponentData
+	public interface IEntityModule
 	{
-		/// <summary>
-		/// 控制状态计数
-		/// </summary>
-		public int ControlBuffCounter;
+
 	}
 }

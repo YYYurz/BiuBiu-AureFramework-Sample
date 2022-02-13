@@ -20,7 +20,7 @@ namespace BiuBiu.Editor
 	{
 		private GameObject planeObj;
 		private MapConfig curMapConfig;
-		private Vector2 cellSize = Vector2.one;
+		private float2 cellSize = new float2(1f, 1f);
 		private float mapHeight;
 		private float mapMaxSize = 100f;
 
@@ -428,9 +428,7 @@ namespace BiuBiu.Editor
 			var ray = Camera.current.ScreenPointToRay(mousePos);
 			if (Physics.Raycast(ray, out var rh, 3000f) && rh.collider.gameObject == planeObj)
 			{
-				var posX = Mathf.FloorToInt((rh.point.x + cellSize.x / 2) / cellSize.x) * cellSize.x;
-				var posZ = Mathf.FloorToInt((rh.point.z + cellSize.y / 2) / cellSize.y) * cellSize.y;
-				mousePose = new Vector3(posX, mapHeight, posZ);
+				mousePose = PathfindingUtils.GetIndexPositionInMapConfig(rh.point, cellSize, mapHeight);
 
 				return true;
 			}
