@@ -73,13 +73,13 @@ MonoBehaviour:
     ergodicLayers: 1
     addressNaming: 1
     maxByte: 2147483647
-  - assetPath: Assets/GameAssets/Art3D/Scenes
+  - assetPath: Assets/GameAssets/Art3D/Character
     filterPrefix: 
     filterSuffix: 
     filterString: 
     filterPrefixMode: 0
     filterSuffixMode: 0
     filterStringMode: 0
-    ergodicLayers: 1
+    ergodicLayers: 0
     addressNaming: 1
     maxByte: 2147483647

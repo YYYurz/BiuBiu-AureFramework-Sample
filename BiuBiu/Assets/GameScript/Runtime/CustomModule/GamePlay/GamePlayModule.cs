@@ -8,6 +8,7 @@
 
 using AureFramework;
 using Unity.Entities;
+using UnityEngine;
 
 namespace BiuBiu
 {
@@ -18,6 +19,8 @@ namespace BiuBiu
 	{
 		private World entityWorld;
 		private MapConfig curMapConfig;
+		private Camera mainCamera;
+		private uint sceneId;
 		private bool isStart;
 		private bool isPause;
 		
@@ -29,6 +32,14 @@ namespace BiuBiu
 			get
 			{
 				return curMapConfig;
+			}
+		}
+
+		public Camera MainCamera
+		{
+			get
+			{
+				return mainCamera;
 			}
 		}
 
@@ -68,20 +79,44 @@ namespace BiuBiu
 		{
 			
 		}
-		
 
-		public void CreateGame(int gameId)
+		public void StartGame()
 		{
 			isStart = true;
 			isPause = false;
 		}
 
+		public void PauseGame()
+		{
+			if (!isStart)
+			{
+				return;
+			}
+			
+			isPause = true;
+		}
+
+		public void ResumeGame()
+		{
+			if (!isStart)
+			{
+				return;
+			}
+			
+			isPause = false;
+		}
+		
+		public void CreateGame(uint gameId)
+		{
+			var gameData = GameMain.DataTable.GetDataTableReader<GamePlayTableReader>().GetInfo(gameId);
+			sceneId = gameData.SceneId;
+			
+		}
+
 		public void QuitCurrentGame()
 		{
 			isStart = false;
-			var allEntityArray = entityWorld.EntityManager.GetAllEntities();
-			entityWorld.EntityManager.DestroyEntity(allEntityArray);
-			allEntityArray.Dispose();
+			GameMain.Entity.DestroyAllCacheEntity();
 		}
 	}
 }

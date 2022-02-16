@@ -6,6 +6,8 @@
 // Email: 1228396352@qq.com
 //------------------------------------------------------------
 
+using System;
+
 namespace BiuBiu
 {
 	/// <summary>
@@ -36,8 +38,9 @@ namespace BiuBiu
 		/// 创建游戏
 		/// </summary>
 		/// <param name="gameId"> 游戏Id </param>
-		void CreateGame(int gameId);
-
-		void QuitCurrentGame();
+		/// <param name="preloadOverCallback"> 预加载资源完成回调 </param>
+		// void CreateGame(int gameId, Action preloadOverCallback);
+		//
+		// void QuitCurrentGame();
 	}
 }

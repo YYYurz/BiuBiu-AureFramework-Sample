@@ -41,5 +41,13 @@ namespace BiuBiu
             
             uiModule.CloseUI(uiName);
         }
+
+        public static void CloseAllUIExcept(this IUIModule uiModule, uint uiFormId)
+        {
+            var uiInfo = GameMain.DataTable.GetDataTableReader<UIWindowTableReader>().GetInfo(uiFormId);
+            var uiName = uiInfo.UIName;
+            
+            uiModule.CloseAllUIExcept(uiName);
+        }
     }
 }

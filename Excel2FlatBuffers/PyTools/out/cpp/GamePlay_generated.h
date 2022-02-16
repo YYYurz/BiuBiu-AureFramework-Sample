@@ -17,10 +17,14 @@ struct GamePlayList;
 struct GamePlay FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_ID = 4,
-    VT_MAPCONFIG = 6
+    VT_SCENEID = 6,
+    VT_MAPCONFIG = 8
   };
   uint32_t Id() const {
     return GetField<uint32_t>(VT_ID, 0);
+  }
+  uint32_t SceneId() const {
+    return GetField<uint32_t>(VT_SCENEID, 0);
   }
   const flatbuffers::String *MapConfig() const {
     return GetPointer<const flatbuffers::String *>(VT_MAPCONFIG);
@@ -28,6 +32,7 @@ struct GamePlay FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyField<uint32_t>(verifier, VT_ID) &&
+           VerifyField<uint32_t>(verifier, VT_SCENEID) &&
            VerifyOffset(verifier, VT_MAPCONFIG) &&
            verifier.VerifyString(MapConfig()) &&
            verifier.EndTable();
@@ -39,6 +44,9 @@ struct GamePlayBuilder {
   flatbuffers::uoffset_t start_;
   void add_Id(uint32_t Id) {
     fbb_.AddElement<uint32_t>(GamePlay::VT_ID, Id, 0);
+  }
+  void add_SceneId(uint32_t SceneId) {
+    fbb_.AddElement<uint32_t>(GamePlay::VT_SCENEID, SceneId, 0);
   }
   void add_MapConfig(flatbuffers::Offset<flatbuffers::String> MapConfig) {
     fbb_.AddOffset(GamePlay::VT_MAPCONFIG, MapConfig);
@@ -58,9 +66,11 @@ struct GamePlayBuilder {
 inline flatbuffers::Offset<GamePlay> CreateGamePlay(
     flatbuffers::FlatBufferBuilder &_fbb,
     uint32_t Id = 0,
+    uint32_t SceneId = 0,
     flatbuffers::Offset<flatbuffers::String> MapConfig = 0) {
   GamePlayBuilder builder_(_fbb);
   builder_.add_MapConfig(MapConfig);
+  builder_.add_SceneId(SceneId);
   builder_.add_Id(Id);
   return builder_.Finish();
 }
@@ -68,11 +78,13 @@ inline flatbuffers::Offset<GamePlay> CreateGamePlay(
 inline flatbuffers::Offset<GamePlay> CreateGamePlayDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
     uint32_t Id = 0,
+    uint32_t SceneId = 0,
     const char *MapConfig = nullptr) {
   auto MapConfig__ = MapConfig ? _fbb.CreateString(MapConfig) : 0;
   return GameConfig::CreateGamePlay(
       _fbb,
       Id,
+      SceneId,
       MapConfig__);
 }
 

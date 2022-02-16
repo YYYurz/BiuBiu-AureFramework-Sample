@@ -26,23 +26,18 @@ namespace BiuBiu
 			private set;
 		}
 
-		// public static PreloadComponent AssetPreload
-		// {
-		//     get;
-		//     private set;
-		// }
-
-		// public static InputComponent InputComponent
-		// {
-		//     get;
-		//     private set;
-		// }
+		public static IEntityModule Entity
+		{
+			get;
+			private set;
+		}
 
 		private static void InitCustomModules()
 		{
 			DataTable = Aure.GetModule<IDataTableModule>();
 			Lua = Aure.GetModule<ILuaModule>();
 			GamePlay = Aure.GetModule<IGamePlayModule>();
+			Entity = Aure.GetModule<IEntityModule>();
 		}
 	}
 }

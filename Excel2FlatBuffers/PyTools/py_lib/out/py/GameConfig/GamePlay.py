@@ -26,13 +26,21 @@ class GamePlay(object):
         return 0
 
     # GamePlay
-    def MapConfig(self):
+    def SceneId(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(6))
+        if o != 0:
+            return self._tab.Get(flatbuffers.number_types.Uint32Flags, o + self._tab.Pos)
+        return 0
+
+    # GamePlay
+    def MapConfig(self):
+        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(8))
         if o != 0:
             return self._tab.String(o + self._tab.Pos)
         return None
 
-def GamePlayStart(builder): builder.StartObject(2)
+def GamePlayStart(builder): builder.StartObject(3)
 def GamePlayAddId(builder, Id): builder.PrependUint32Slot(0, Id, 0)
-def GamePlayAddMapConfig(builder, MapConfig): builder.PrependUOffsetTRelativeSlot(1, flatbuffers.number_types.UOffsetTFlags.py_type(MapConfig), 0)
+def GamePlayAddSceneId(builder, SceneId): builder.PrependUint32Slot(1, SceneId, 0)
+def GamePlayAddMapConfig(builder, MapConfig): builder.PrependUOffsetTRelativeSlot(2, flatbuffers.number_types.UOffsetTFlags.py_type(MapConfig), 0)
 def GamePlayEnd(builder): return builder.EndObject()

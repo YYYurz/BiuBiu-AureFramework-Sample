@@ -16,14 +16,24 @@ namespace BiuBiu
 	/// </summary>
 	public class UIJoystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 	{
-		[SerializeField] private RectTransform dragBgRectTransform;
-		[SerializeField] private RectTransform dragHandleRectTransform;
-		[SerializeField] private float dragAreaRadius;
-
 		private Vector2 originPos;
 		private Vector2 parentPos;
-
+		private Vector2 direction;
 		private bool isDragging;
+
+		[SerializeField] private RectTransform dragBgRectTransform;
+		[SerializeField] private RectTransform dragHandleRectTransform;
+
+		/// <summary>
+		/// 获取摇杆方向
+		/// </summary>
+		public Vector2 Direction
+		{
+			get
+			{
+				return direction;
+			}
+		}
 
 		private void Start()
 		{
@@ -34,7 +44,6 @@ namespace BiuBiu
 
 		public void OnPointerDown(PointerEventData eventData)
 		{
-			IsPressPosInArea(eventData.position);
 			if (isDragging)
 			{
 				return;
@@ -42,17 +51,6 @@ namespace BiuBiu
 
 			isDragging = true;
 			OnRefreshHandle(eventData.position);
-		}
-
-		public void OnPointerUp(PointerEventData eventData)
-		{
-			if (!isDragging)
-			{
-				return;
-			}
-
-			isDragging = false;
-			ResetHandle();
 		}
 
 		public void OnDrag(PointerEventData eventData)
@@ -64,27 +62,38 @@ namespace BiuBiu
 
 			OnRefreshHandle(eventData.position);
 		}
-
-		private void IsPressPosInArea(Vector2 position)
+		
+		public void OnPointerUp(PointerEventData eventData)
 		{
-			var offset = position - parentPos;
-			var distance = Vector2.Distance(offset, originPos);
-			Debug.Log(distance);
+			if (!isDragging)
+			{
+				return;
+			}
+
+			isDragging = false;
+			ResetHandle();
 		}
 
 		private void OnRefreshHandle(Vector2 position)
 		{
-			var direction = (position - parentPos).normalized;
-			var offset = direction * 100f;
-
-			dragHandleRectTransform.anchoredPosition = offset + originPos;
-			// InputComponent.OnRefreshMoveDirectionVector(direction);
+			var offset = position - parentPos;
+			if (offset.magnitude > 40f)
+			{
+				direction = offset.normalized;
+				var handlePos = direction * 100f;
+				dragHandleRectTransform.anchoredPosition = handlePos + originPos;
+				GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Direction, direction));
+			}
+			else
+			{
+				dragHandleRectTransform.anchoredPosition = offset;
+			}
 		}
 
 		private void ResetHandle()
 		{
 			dragHandleRectTransform.anchoredPosition = originPos;
-			// InputComponent.OnRefreshMoveDirectionVector(Vector2.zero);
+			GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.None, direction));
 		}
 	}
 }

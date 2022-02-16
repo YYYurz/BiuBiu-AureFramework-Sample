@@ -4,6 +4,7 @@ namespace GameConfig;
 
 table GamePlay {
     Id:uint;
+    SceneId:uint;
     MapConfig:string;
 }
 

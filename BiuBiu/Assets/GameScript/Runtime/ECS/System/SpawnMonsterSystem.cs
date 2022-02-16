@@ -23,21 +23,6 @@ namespace BiuBiu
 	{
 		private const int MaxMonsterCount = 10;
 		private int curMonsterCount = 0;
-		private EntityArchetype monsterArchetype;
-
-		protected override void OnCreate()
-		{
-			base.OnCreate();
-			
-			monsterArchetype = EntityManager.CreateArchetype(
-				typeof(Translation),
-				typeof(LocalToWorld),
-				typeof(Rotation),
-				typeof(RenderMesh),
-				typeof(RenderBounds),
-				typeof(Animation)
-			);
-		}
 
 		public override void Update()
 		{
@@ -52,10 +37,11 @@ namespace BiuBiu
 				curMonsterCount++;
 			}
 		}
+		
 
 		private void CreateMonster()
 		{
-			var monsterEntity = EntityManager.CreateEntity(monsterArchetype);
+			var monsterEntity = GameMain.Entity.CreateEntity("Monster");
 			var position =  new float3(Random.Range(-15f, 15f), 1f, Random.Range(-15f, 15f));
 			var rotation = new quaternion(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f), 1f);
 			EntityManager.SetComponentData(monsterEntity, new Translation{ Value = position });

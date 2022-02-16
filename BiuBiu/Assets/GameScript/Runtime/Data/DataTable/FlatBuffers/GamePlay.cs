@@ -18,26 +18,30 @@ public struct GamePlay : IFlatbufferObject
   public GamePlay __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
   public uint Id { get { int o = __p.__offset(4); return o != 0 ? __p.bb.GetUint(o + __p.bb_pos) : (uint)0; } }
-  public string MapConfig { get { int o = __p.__offset(6); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public uint SceneId { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetUint(o + __p.bb_pos) : (uint)0; } }
+  public string MapConfig { get { int o = __p.__offset(8); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetMapConfigBytes() { return __p.__vector_as_span(6); }
+  public Span<byte> GetMapConfigBytes() { return __p.__vector_as_span(8); }
 #else
-  public ArraySegment<byte>? GetMapConfigBytes() { return __p.__vector_as_arraysegment(6); }
+  public ArraySegment<byte>? GetMapConfigBytes() { return __p.__vector_as_arraysegment(8); }
 #endif
-  public byte[] GetMapConfigArray() { return __p.__vector_as_array<byte>(6); }
+  public byte[] GetMapConfigArray() { return __p.__vector_as_array<byte>(8); }
 
   public static Offset<GamePlay> CreateGamePlay(FlatBufferBuilder builder,
       uint Id = 0,
+      uint SceneId = 0,
       StringOffset MapConfigOffset = default(StringOffset)) {
-    builder.StartObject(2);
+    builder.StartObject(3);
     GamePlay.AddMapConfig(builder, MapConfigOffset);
+    GamePlay.AddSceneId(builder, SceneId);
     GamePlay.AddId(builder, Id);
     return GamePlay.EndGamePlay(builder);
   }
 
-  public static void StartGamePlay(FlatBufferBuilder builder) { builder.StartObject(2); }
+  public static void StartGamePlay(FlatBufferBuilder builder) { builder.StartObject(3); }
   public static void AddId(FlatBufferBuilder builder, uint Id) { builder.AddUint(0, Id, 0); }
-  public static void AddMapConfig(FlatBufferBuilder builder, StringOffset MapConfigOffset) { builder.AddOffset(1, MapConfigOffset.Value, 0); }
+  public static void AddSceneId(FlatBufferBuilder builder, uint SceneId) { builder.AddUint(1, SceneId, 0); }
+  public static void AddMapConfig(FlatBufferBuilder builder, StringOffset MapConfigOffset) { builder.AddOffset(2, MapConfigOffset.Value, 0); }
   public static Offset<GamePlay> EndGamePlay(FlatBufferBuilder builder) {
     int o = builder.EndObject();
     return new Offset<GamePlay>(o);

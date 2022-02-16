@@ -6,7 +6,7 @@ int,string,string,string,string
 "5","UIReconnectForm","PopUp","UIReconnectForm","UIForm/UICommon/UIReconnectForm"
 "52","UILoginMainForm","Normal","UILoginMainForm","UIForm/UILogin/UILoginMainForm"
 "1001","LoginWindow","Normal","LoginWindow","UIForm/Login/LoginWindow"
-"1002","BattleWindow","Normal","BattleWindow","UIForm/Battle/BattleWindow"
+"1002","BattleWindow","Normal","BattleWindow",""
 "1003","SoundWindow","Normal","SoundWindow","UIForm/Sound/SoundWindow"
 "3001","LoadingWindow","Top","LoadingWindow","UIForm/Loading/LoadingWindow"
 "","","","",""

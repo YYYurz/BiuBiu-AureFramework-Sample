@@ -1,5 +1,5 @@
 Id,SceneId,MapConfig
-int,string,string
+int,int,string
 "1","2","BattleMapConfig"
 "","",""
 "","",""
