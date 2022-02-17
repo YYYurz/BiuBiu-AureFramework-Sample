@@ -11,9 +11,9 @@ namespace BiuBiu
 			// GameMain.GamePlay.CreateGame(1);
 		}
 
-		public override void OnUpdate()
+		public override void OnUpdate(float elapseTime, float realElapseTime)
 		{
-			base.OnUpdate();
+			base.OnUpdate(elapseTime, realElapseTime);
 		}
 
 		public override void OnExit()

@@ -7,7 +7,6 @@
 //------------------------------------------------------------
 
 using AureFramework.UI;
-using Unity.Entities;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -58,7 +57,7 @@ namespace BiuBiu
 
 		private static void OnClickQuitGame()
 		{
-			GameMain.Procedure.ChangeProcedure<ProcedureChangeScene>(Constant.SceneId.MainLobby);
+			GameMain.Procedure.ChangeProcedure<ProcedureChangeScene>(SceneType.Normal, Constant.SceneId.MainLobby);
 		}
 	}
 }

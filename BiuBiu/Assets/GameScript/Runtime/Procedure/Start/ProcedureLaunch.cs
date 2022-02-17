@@ -16,8 +16,10 @@ namespace BiuBiu
 		{
 		}
 
-		public override void OnUpdate()
+		public override void OnUpdate(float elapseTime, float realElapseTime)
 		{
+			base.OnUpdate(elapseTime, realElapseTime);
+			
 			ChangeState<ProcedureCheckVersion>();
 		}
 

@@ -21,9 +21,9 @@ namespace BiuBiu
 			// startWindowScript = startWindow.GetComponent<StartWindow>();
 		}
 
-		public override void OnUpdate()
+		public override void OnUpdate(float elapseTime, float realElapseTime)
 		{
-			base.OnUpdate();
+			base.OnUpdate(elapseTime, realElapseTime);
 
 			ChangeState<ProcedurePreload>();
 		}

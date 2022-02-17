@@ -13,7 +13,7 @@ namespace BiuBiu
 	public sealed partial class PlayerController : MonoBehaviour
 	{
 		/// <summary>
-		/// 回避状态
+		/// 闪避状态
 		/// </summary>
 		private sealed class StateRetreat : PlayerControllerStateBase
 		{

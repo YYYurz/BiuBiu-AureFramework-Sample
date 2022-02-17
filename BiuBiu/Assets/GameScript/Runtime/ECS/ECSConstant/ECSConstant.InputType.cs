@@ -36,7 +36,7 @@ namespace BiuBiu
 			Attack2,
 			
 			/// <summary>
-			/// 回避
+			/// 闪避
 			/// </summary>
 			Retreat,
 		}	

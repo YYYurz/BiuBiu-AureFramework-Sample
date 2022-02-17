@@ -41,10 +41,24 @@ function GamePlay_mt:MapConfig()
         return self.view:String(o + self.view.pos)
     end
 end
-function GamePlay.Start(builder) builder:StartObject(3) end
+function GamePlay_mt:PreloadAssets()
+    local o = self.view:Offset(10)
+    if o ~= 0 then
+        return self.view:String(o + self.view.pos)
+    end
+end
+function GamePlay_mt:PlayerAsset()
+    local o = self.view:Offset(12)
+    if o ~= 0 then
+        return self.view:String(o + self.view.pos)
+    end
+end
+function GamePlay.Start(builder) builder:StartObject(5) end
 function GamePlay.AddId(builder, Id) builder:PrependUint32Slot(0, Id, 0) end
 function GamePlay.AddSceneId(builder, SceneId) builder:PrependUint32Slot(1, SceneId, 0) end
 function GamePlay.AddMapConfig(builder, MapConfig) builder:PrependUOffsetTRelativeSlot(2, MapConfig, 0) end
+function GamePlay.AddPreloadAssets(builder, PreloadAssets) builder:PrependUOffsetTRelativeSlot(3, PreloadAssets, 0) end
+function GamePlay.AddPlayerAsset(builder, PlayerAsset) builder:PrependUOffsetTRelativeSlot(4, PlayerAsset, 0) end
 function GamePlay.End(builder) return builder:EndObject() end
 
 return GamePlay -- return the module

@@ -18,9 +18,9 @@ namespace BiuBiu
 			
 		}
 		
-		public override void OnUpdate()
+		public override void OnUpdate(float elapseTime, float realElapseTime)
 		{
-			base.OnUpdate();
+			base.OnUpdate(elapseTime, realElapseTime);
 
 		
 		}

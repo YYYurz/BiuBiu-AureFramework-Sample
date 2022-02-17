@@ -35,7 +35,7 @@ function LoginWindow:OnDestroy()
 end
 
 function LoginWindow:OnLogin()
-	LuaHelper.ChangeScene(2)
+	LuaHelper.ChangeScene(2, 1)
 end
 
 return LoginWindow

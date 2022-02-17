@@ -14,10 +14,19 @@ using UnityEngine;
 
 namespace BiuBiu
 {
+	public enum SceneType
+	{
+		None = 0,
+		Normal = 1,
+		Battle = 2,
+	}	
+	
 	public class ProcedureChangeScene : ProcedureBase
 	{
+		private SceneType curSceneType = SceneType.None;
 		private string lastSceneAssetName;
 		private string curSceneAssetName;
+		private uint curGameId;
 		private uint curSceneId;
 		private uint curSceneWindowId;
 		private bool isChangeSceneComplete;
@@ -26,13 +35,37 @@ namespace BiuBiu
 		{
 			base.OnEnter(args);
 
-			GameMain.Event.Subscribe<OpenUISuccessEventArgs>(OnOpenUISuccessCallback);
-			GameMain.Event.Subscribe<LoadSceneUpdateEventArgs>(OnLoadSceneUpdateCallback);
-			GameMain.Event.Subscribe<LoadSceneSuccessEventArgs>(OnLoadSceneSuccessCallback);
-			GameMain.Event.Subscribe<UnloadSceneSuccessEventArgs>(OnUnloadSceneSuccessCallback);
+			GameMain.Event.Subscribe<OpenUISuccessEventArgs>(OnOpenUISuccess);
+			GameMain.Event.Subscribe<LoadSceneUpdateEventArgs>(OnLoadSceneUpdate);
+			GameMain.Event.Subscribe<LoadSceneSuccessEventArgs>(OnLoadSceneSuccess);
+			GameMain.Event.Subscribe<UnloadSceneSuccessEventArgs>(OnUnloadSceneSuccess);
 
+			if (curSceneType == SceneType.Battle)
+			{
+				GameMain.GamePlay.QuitCurrentGame();
+			}
+			
 			isChangeSceneComplete = false;
-			curSceneId = (uint) args[0];
+			curSceneType = (SceneType) args[0];
+			switch (curSceneType)
+			{
+				case SceneType.None:
+				{
+					break;
+				}
+				case SceneType.Normal:
+				{
+					curGameId = 0;
+					curSceneId = (uint) args[1];
+					break;
+				}
+				case SceneType.Battle:
+				{
+					curGameId = (uint) args[1];
+					curSceneId = GameMain.DataTable.GetDataTableReader<GamePlayTableReader>().GetInfo(curGameId).SceneId;
+					break;
+				}
+			}
 			
 			// 获取新场景信息
 			var sceneData = GameMain.DataTable.GetDataTableReader<SceneTableReader>().GetInfo(curSceneId);
@@ -41,13 +74,13 @@ namespace BiuBiu
 			curSceneAssetName = sceneData.AssetName;
 
 			// 1.关闭所有UI，打开Loading界面
-			GameMain.UI.CloseAllUIExcept(Constant.UIFormId.LoadingWindow);
+			GameMain.UI.CloseAllUI();
 			GameMain.UI.OpenUI(Constant.UIFormId.LoadingWindow);
 		}
 
-		public override void OnUpdate()
+		public override void OnUpdate(float elapseTime, float realElapseTime)
 		{
-			base.OnUpdate();
+			base.OnUpdate(elapseTime, realElapseTime);
 
 			if (!isChangeSceneComplete)
 			{
@@ -56,12 +89,12 @@ namespace BiuBiu
 			
 			switch (curSceneId)
 			{
-				case 1:
+				case Constant.SceneId.MainLobby:
 				{
 					ChangeState<ProcedureLobby>();
 					break;
 				}
-				case 2:
+				case Constant.SceneId.BattleField:
 				{
 					ChangeState<ProcedureBattle>();
 					break;
@@ -74,20 +107,20 @@ namespace BiuBiu
 			base.OnExit();
 
 			GameMain.UI.CloseUI(Constant.UIFormId.LoadingWindow);
-			GameMain.Event.Unsubscribe<OpenUISuccessEventArgs>(OnOpenUISuccessCallback);
-			GameMain.Event.Unsubscribe<LoadSceneUpdateEventArgs>(OnLoadSceneUpdateCallback);
-			GameMain.Event.Unsubscribe<LoadSceneSuccessEventArgs>(OnLoadSceneSuccessCallback);
-			GameMain.Event.Unsubscribe<UnloadSceneSuccessEventArgs>(OnUnloadSceneSuccessCallback);
+			GameMain.Event.Unsubscribe<OpenUISuccessEventArgs>(OnOpenUISuccess);
+			GameMain.Event.Unsubscribe<LoadSceneUpdateEventArgs>(OnLoadSceneUpdate);
+			GameMain.Event.Unsubscribe<LoadSceneSuccessEventArgs>(OnLoadSceneSuccess);
+			GameMain.Event.Unsubscribe<UnloadSceneSuccessEventArgs>(OnUnloadSceneSuccess);
 		}
 
-		private static void OnLoadSceneUpdateCallback(object sender, AureEventArgs e)
+		private static void OnLoadSceneUpdate(object sender, AureEventArgs e)
 		{
 			var args = (LoadSceneUpdateEventArgs) e;
 
 			Debug.Log($"Loading Scene, SceneName :{args.SceneName}, Progress :{args.Progress}");
 		}
 
-		private void OnLoadSceneSuccessCallback(object sender, AureEventArgs e)
+		private void OnLoadSceneSuccess(object sender, AureEventArgs e)
 		{
 			// 3.新场景加载完成，开始卸载旧场景
 			if (!string.IsNullOrEmpty(lastSceneAssetName))
@@ -96,22 +129,30 @@ namespace BiuBiu
 			}
 			else
 			{
-				OnUnloadSceneSuccessCallback(this, null);
+				OnUnloadSceneSuccess(this, null);
 			}
 		}
 
-		private void OnUnloadSceneSuccessCallback(object sender, AureEventArgs e)
+		private void OnUnloadSceneSuccess(object sender, AureEventArgs e)
 		{
 			// 4.旧场景卸载完成，打开新场景主界面
 			GameMain.UI.OpenUI(curSceneWindowId);
 		}
 
-		private void OnOpenUISuccessCallback(object sender, AureEventArgs e)
+		private void OnOpenUISuccess(object sender, AureEventArgs e)
 		{
 			if (GameMain.UI.IsUIOpen(curSceneWindowId))
 			{
 				// 5.新场景主界面已经打开，切换场景完成
-				isChangeSceneComplete = true;
+				if (curSceneType == SceneType.Battle)
+				{
+					GameMain.GamePlay.CreateGame(curGameId, () => isChangeSceneComplete = true);
+					GameMain.GamePlay.StartGame();
+				}
+				else
+				{
+					isChangeSceneComplete = true;
+				}
 			}
 			else if (GameMain.UI.IsUIOpen(Constant.UIFormId.LoadingWindow))
 			{

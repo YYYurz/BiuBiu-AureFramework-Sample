@@ -6,6 +6,8 @@ table GamePlay {
     Id:uint;
     SceneId:uint;
     MapConfig:string;
+    PreloadAssets:string;
+    PlayerAsset:string;
 }
 
 table GamePlayList {

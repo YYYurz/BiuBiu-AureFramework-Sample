@@ -6,9 +6,14 @@
 // Email: 1228396352@qq.com
 //------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
 using AureFramework;
-using Unity.Entities;
+using AureFramework.Resource;
+using AureFramework.Utility;
+using GameConfig;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace BiuBiu
 {
@@ -17,10 +22,15 @@ namespace BiuBiu
 	/// </summary>
 	public sealed class GamePlayModule : AureFrameworkModule, IGamePlayModule
 	{
-		private World entityWorld;
+		private readonly List<Object> cacheAssetList = new List<Object>();
+		private PlayerController playerController;
 		private MapConfig curMapConfig;
 		private Camera mainCamera;
-		private uint sceneId;
+
+		private LoadAssetCallbacks loadAssetCallbacks;
+		private Action createGameCompleteCallBack;
+
+		private int preloadingAssetCount;
 		private bool isStart;
 		private bool isPause;
 		
@@ -67,7 +77,7 @@ namespace BiuBiu
 
 		public override void Init()
 		{
-			entityWorld = World.DefaultGameObjectInjectionWorld;
+			loadAssetCallbacks = new LoadAssetCallbacks(null, OnLoadAssetSuccess, null, OnLoadAssetFailed);
 		}
 
 		public override void Tick(float elapseTime, float realElapseTime)
@@ -106,17 +116,69 @@ namespace BiuBiu
 			isPause = false;
 		}
 		
-		public void CreateGame(uint gameId)
+		public void CreateGame(uint gameId, Action callback)
 		{
-			var gameData = GameMain.DataTable.GetDataTableReader<GamePlayTableReader>().GetInfo(gameId);
-			sceneId = gameData.SceneId;
+			createGameCompleteCallBack = callback;
 			
+			var gamePlayData = GameMain.DataTable.GetDataTableReader<GamePlayTableReader>().GetInfo(gameId);
+			CreatePlayer(gamePlayData);
+			PreloadAssets(gamePlayData);
 		}
 
 		public void QuitCurrentGame()
 		{
 			isStart = false;
 			GameMain.Entity.DestroyAllCacheEntity();
+			
+			foreach (var asset in cacheAssetList)
+			{
+				GameMain.Resource.ReleaseAsset(asset);
+			}
+			cacheAssetList.Clear();
+			
+			GameMain.Resource.ReleaseAsset(playerController.gameObject);
+			playerController = null;
+		}
+
+		private void PreloadAssets(GamePlay gamePlayData)
+		{
+			if (string.IsNullOrEmpty(gamePlayData.PreloadAssets))
+			{
+				createGameCompleteCallBack?.Invoke();
+				return;
+			}
+
+			var preloadAssetArray = gamePlayData.PreloadAssets.Split('|');
+			preloadingAssetCount = 0;
+			foreach (var preloadAsset in preloadAssetArray)
+			{
+				GameMain.Resource.LoadAssetAsync<Object>(preloadAsset, loadAssetCallbacks, null);
+				preloadingAssetCount++;
+			}
+		}
+
+		private void CreatePlayer(GamePlay gamePlayData)
+		{
+			var playerGameObj = GameMain.Resource.InstantiateSync(gamePlayData.PlayerAsset);
+			playerController = playerGameObj.GetComponent<PlayerController>();
+			playerController.transform.position = Vector3.up;
+		}
+
+		private void OnLoadAssetSuccess(string assetName, int taskId, Object asset, object userData)
+		{
+			if (--preloadingAssetCount <= 0)
+			{
+				createGameCompleteCallBack?.Invoke();
+			}
+		}
+
+		private void OnLoadAssetFailed(string assetName, int taskId, string errorMessage, object userData)
+		{
+			Debug.LogError($"GamePlayModule : Preload asset failed, error message : {errorMessage}");
+			if (--preloadingAssetCount <= 0)
+			{
+				createGameCompleteCallBack?.Invoke();
+			}
 		}
 	}
 }

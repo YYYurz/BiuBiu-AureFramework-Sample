@@ -29,16 +29,16 @@ namespace BiuBiu
 			StartPreload(args);
 		}
 
-		public override void OnUpdate()
+		public override void OnUpdate(float elapseTime, float realElapseTime)
 		{
-			base.OnUpdate();
+			base.OnUpdate(elapseTime, realElapseTime);
 
 			// if (!allAssetLoadedComplete)
 			// {
 			//     return;
 			// }
 
-			ChangeState<ProcedureChangeScene>(Constant.SceneId.MainLobby);
+			ChangeState<ProcedureChangeScene>(SceneType.Normal, Constant.SceneId.MainLobby);
 		}
 
 		public override void OnExit()

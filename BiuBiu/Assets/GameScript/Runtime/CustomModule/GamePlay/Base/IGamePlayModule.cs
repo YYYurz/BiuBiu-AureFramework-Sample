@@ -32,15 +32,20 @@ namespace BiuBiu
 		{
 			get;
 		}
-		
+
+		void StartGame();
+
+		void PauseGame();
+
+		void ResumeGame();
 		
 		/// <summary>
 		/// 创建游戏
 		/// </summary>
 		/// <param name="gameId"> 游戏Id </param>
-		/// <param name="preloadOverCallback"> 预加载资源完成回调 </param>
-		// void CreateGame(int gameId, Action preloadOverCallback);
-		//
-		// void QuitCurrentGame();
+		/// <param name="createGameCompleteCallBack"> 创建游戏完成回调 </param>
+		void CreateGame(uint gameId, Action createGameCompleteCallBack);
+		
+		void QuitCurrentGame();
 	}
 }

@@ -39,20 +39,26 @@ namespace BiuBiu
 			public override void OnEnter(params object[] args)
 			{
 				base.OnEnter(args);
-				
+
+				canChange = true;
 				playerController.animator.CrossFade("normal_walking", 0.1f);
 			}
 
-			public override void OnUpdate()
+			public override void OnUpdate(float elapseTime, float realElapseTime)
 			{
-				base.OnUpdate();
+				base.OnUpdate(elapseTime, realElapseTime);
 
 				if (playerController.curDirection.Equals(Vector2.zero))
 				{
 					return;
 				}
-				
-				
+
+				var trans = playerController.transform;
+				var pos = trans.position;
+				var offset = playerController.curDirection * (realElapseTime * playerController.moveSpeed);
+				var nextPos = new Vector3(pos.x + offset.x, pos.y, pos.z + offset.y); 
+				trans.LookAt(nextPos);
+				trans.position = nextPos;
 			}
 		}
 	}

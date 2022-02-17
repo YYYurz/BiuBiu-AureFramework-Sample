@@ -26,22 +26,42 @@ public struct GamePlay : IFlatbufferObject
   public ArraySegment<byte>? GetMapConfigBytes() { return __p.__vector_as_arraysegment(8); }
 #endif
   public byte[] GetMapConfigArray() { return __p.__vector_as_array<byte>(8); }
+  public string PreloadAssets { get { int o = __p.__offset(10); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+#if ENABLE_SPAN_T
+  public Span<byte> GetPreloadAssetsBytes() { return __p.__vector_as_span(10); }
+#else
+  public ArraySegment<byte>? GetPreloadAssetsBytes() { return __p.__vector_as_arraysegment(10); }
+#endif
+  public byte[] GetPreloadAssetsArray() { return __p.__vector_as_array<byte>(10); }
+  public string PlayerAsset { get { int o = __p.__offset(12); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+#if ENABLE_SPAN_T
+  public Span<byte> GetPlayerAssetBytes() { return __p.__vector_as_span(12); }
+#else
+  public ArraySegment<byte>? GetPlayerAssetBytes() { return __p.__vector_as_arraysegment(12); }
+#endif
+  public byte[] GetPlayerAssetArray() { return __p.__vector_as_array<byte>(12); }
 
   public static Offset<GamePlay> CreateGamePlay(FlatBufferBuilder builder,
       uint Id = 0,
       uint SceneId = 0,
-      StringOffset MapConfigOffset = default(StringOffset)) {
-    builder.StartObject(3);
+      StringOffset MapConfigOffset = default(StringOffset),
+      StringOffset PreloadAssetsOffset = default(StringOffset),
+      StringOffset PlayerAssetOffset = default(StringOffset)) {
+    builder.StartObject(5);
+    GamePlay.AddPlayerAsset(builder, PlayerAssetOffset);
+    GamePlay.AddPreloadAssets(builder, PreloadAssetsOffset);
     GamePlay.AddMapConfig(builder, MapConfigOffset);
     GamePlay.AddSceneId(builder, SceneId);
     GamePlay.AddId(builder, Id);
     return GamePlay.EndGamePlay(builder);
   }
 
-  public static void StartGamePlay(FlatBufferBuilder builder) { builder.StartObject(3); }
+  public static void StartGamePlay(FlatBufferBuilder builder) { builder.StartObject(5); }
   public static void AddId(FlatBufferBuilder builder, uint Id) { builder.AddUint(0, Id, 0); }
   public static void AddSceneId(FlatBufferBuilder builder, uint SceneId) { builder.AddUint(1, SceneId, 0); }
   public static void AddMapConfig(FlatBufferBuilder builder, StringOffset MapConfigOffset) { builder.AddOffset(2, MapConfigOffset.Value, 0); }
+  public static void AddPreloadAssets(FlatBufferBuilder builder, StringOffset PreloadAssetsOffset) { builder.AddOffset(3, PreloadAssetsOffset.Value, 0); }
+  public static void AddPlayerAsset(FlatBufferBuilder builder, StringOffset PlayerAssetOffset) { builder.AddOffset(4, PlayerAssetOffset.Value, 0); }
   public static Offset<GamePlay> EndGamePlay(FlatBufferBuilder builder) {
     int o = builder.EndObject();
     return new Offset<GamePlay>(o);

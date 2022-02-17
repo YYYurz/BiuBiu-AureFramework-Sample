@@ -46,11 +46,11 @@ namespace BiuBiu
 			var rotation = new quaternion(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f), 1f);
 			EntityManager.SetComponentData(monsterEntity, new Translation{ Value = position });
 			EntityManager.SetComponentData(monsterEntity, new Rotation{ Value = rotation });
-			EntityManager.SetSharedComponentData(monsterEntity, new RenderMesh
-			{
-				mesh = GameMain.Resource.LoadAssetSync<Mesh>("Me"),
-				material = GameMain.Resource.LoadAssetSync<Material>("Mat")
-			});
+			// EntityManager.SetSharedComponentData(monsterEntity, new RenderMesh
+			// {
+			// 	mesh = GameMain.Resource.LoadAssetSync<Mesh>("Me"),
+			// 	material = GameMain.Resource.LoadAssetSync<Material>("Mat")
+			// });
 		}
 	}
 }
