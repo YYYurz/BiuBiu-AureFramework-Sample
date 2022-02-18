@@ -67,7 +67,7 @@ namespace BiuBiu
 		private void Idle()
 		{
 			var playerState = (PlayerControllerStateBase) playerFsm.CurrentState;
-			if (playerState.CanChange)
+			if (playerState.CanChange && !(playerState is StateIdle))
 			{
 				playerFsm.ChangeState<StateIdle>();
 			}

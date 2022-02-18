@@ -41,7 +41,7 @@ namespace BiuBiu
 				base.OnEnter(args);
 
 				canChange = true;
-				playerController.animator.CrossFade("normal_walking", 0.1f);
+				playerController.animator.CrossFade("AnimRun", 0.1f);
 			}
 
 			public override void OnUpdate(float elapseTime, float realElapseTime)

@@ -42,6 +42,50 @@ namespace BiuBiu
 			parentPos = transform.parent.GetComponent<RectTransform>().anchoredPosition;
 		}
 
+		private void Update()
+		{
+			var direction = Vector2.zero;
+			if (Input.GetKey(KeyCode.W))
+			{
+				direction = Vector2.up;
+				GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Direction, direction));
+			}
+			else if (Input.GetKey(KeyCode.A))
+			{
+				direction = Vector2.left;
+				GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Direction, direction));
+			}
+			else if (Input.GetKey(KeyCode.S))
+			{
+				direction = Vector2.down;
+				GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Direction, direction));
+			}
+			else if (Input.GetKey(KeyCode.D))
+			{
+				direction = Vector2.right;
+				GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Direction, direction));
+			}
+			else if (Input.GetKeyDown(KeyCode.Space))
+			{
+				direction = Vector2.zero;
+				GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.None, direction));
+			}
+			
+			
+			if (Input.GetKeyDown(KeyCode.J))
+			{
+				GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Attack1, direction));
+			}
+			else if (Input.GetKeyDown(KeyCode.K))
+			{
+				GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Attack2, direction));
+			}
+			else if (Input.GetKeyDown(KeyCode.L))
+			{
+				GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Retreat, direction));
+			}
+		}
+
 		public void OnPointerDown(PointerEventData eventData)
 		{
 			if (isDragging)
@@ -87,6 +131,7 @@ namespace BiuBiu
 			else
 			{
 				dragHandleRectTransform.anchoredPosition = offset;
+				GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.None, direction));
 			}
 		}
 

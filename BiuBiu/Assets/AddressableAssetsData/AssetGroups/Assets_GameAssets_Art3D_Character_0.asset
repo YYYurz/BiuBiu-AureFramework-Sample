@@ -17,8 +17,40 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 5cca4d857d0242f49bc289095d99baba
   m_SerializeEntries:
-  - m_GUID: 64cdbd5fb0bbb7a4496dcd1742537768
+  - m_GUID: ec948f8e0c2ff154f8d8ab7b12efce49
     m_Address: Player
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8a537fea5b00ab0458197650139e6125
+    m_Address: char_body
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8b54c6436e3456941968d876a43bf866
+    m_Address: char_face
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9f3e9a0681283d94d857aed1b398abc9
+    m_Address: char_hair
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f7d25ff5393a3cd45b14ac1849990a67
+    m_Address: char_sword
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 1c49343bfd8efd148ba8f96f1aa50352
+    m_Address: char_body
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d8f34f525a4046f479cce46d8fe2e94a
+    m_Address: char_face
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f9bce73b84e2ec149988e760416316a8
+    m_Address: char_hair
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: aec7bcbcd40581349a3ab2e1abc00adf
+    m_Address: char_sword
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
