@@ -17,40 +17,24 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 5cca4d857d0242f49bc289095d99baba
   m_SerializeEntries:
-  - m_GUID: ec948f8e0c2ff154f8d8ab7b12efce49
+  - m_GUID: 441435fb1a8fd0f4e82b7be3a5d49696
     m_Address: Player
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 8a537fea5b00ab0458197650139e6125
-    m_Address: char_body
+  - m_GUID: ad8c2bee857aaca4dbcf348b7e988a44
+    m_Address: Materials-RPG-Character
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 8b54c6436e3456941968d876a43bf866
-    m_Address: char_face
+  - m_GUID: 8a7b78e82902d1b4eba2923c6a4cf1c7
+    m_Address: 2Hand-Sword
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 9f3e9a0681283d94d857aed1b398abc9
-    m_Address: char_hair
+  - m_GUID: e57e9b8cd5e115f4f8d7736473e5c7fd
+    m_Address: RPG-Character
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: f7d25ff5393a3cd45b14ac1849990a67
-    m_Address: char_sword
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 1c49343bfd8efd148ba8f96f1aa50352
-    m_Address: char_body
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: d8f34f525a4046f479cce46d8fe2e94a
-    m_Address: char_face
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: f9bce73b84e2ec149988e760416316a8
-    m_Address: char_hair
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: aec7bcbcd40581349a3ab2e1abc00adf
-    m_Address: char_sword
+  - m_GUID: 8d6091f14c0c6604595a64a4e031e7e5
+    m_Address: Textures-RPG-Character
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

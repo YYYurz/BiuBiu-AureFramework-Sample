@@ -43,10 +43,10 @@ namespace BiuBiu
 
 		public override void Update()
 		{
-			if (!GameMain.GamePlay.IsStart || GameMain.GamePlay.IsPause)
-			{
-				return;
-			}
+			// if (!GameMain.GamePlay.IsStart || GameMain.GamePlay.IsPause)
+			// {
+			// 	return;
+			// }
 			
 			// var queryDescription = new EntityQueryDesc
 			// {

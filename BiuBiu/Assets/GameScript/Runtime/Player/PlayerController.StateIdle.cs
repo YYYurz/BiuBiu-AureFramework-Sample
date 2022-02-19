@@ -19,7 +19,6 @@ namespace BiuBiu
 		private sealed class StateIdle : PlayerControllerStateBase
 		{
 			private PlayerController playerController;
-			private float timer;
 			private bool canChange;
 			
 			public override bool CanChange
@@ -34,6 +33,7 @@ namespace BiuBiu
 			{
 				base.OnInit(fsm, userData);
 
+				canChange = true;
 				playerController = (PlayerController) userData[0];
 			}
 
@@ -41,29 +41,7 @@ namespace BiuBiu
 			{
 				base.OnEnter(args);
 
-				timer = 0f;
-				canChange = true;
-				playerController.animator.CrossFade("AnimIdle1", 0.2f);
-			}
-
-			public override void OnUpdate(float elapseTime, float realElapseTime)
-			{
-				base.OnUpdate(elapseTime, realElapseTime);
-
-				var stateInfo = playerController.animator.GetCurrentAnimatorStateInfo(0);
-				timer += GameMain.GamePlay.IsPause || !GameMain.GamePlay.IsStart ? 0f : realElapseTime;
-				if (timer >= 10f)
-				{
-					timer = 0f;
-					playerController.animator.CrossFade("AnimIdle2", 0.1f);
-					Debug.LogError(1);
-				}
-				else if (stateInfo.IsName("AnimIdle2") && stateInfo.normalizedTime >= 1f)
-				{
-					timer = 0f;
-					playerController.animator.CrossFade("AnimIdle1", 0.2f);
-					Debug.LogError(2);
-				}
+				playerController.animator.CrossFade("AnimIdle", 0.2f);
 			}
 		}
 	}

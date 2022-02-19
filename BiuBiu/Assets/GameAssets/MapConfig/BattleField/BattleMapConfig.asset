@@ -61739,6 +61739,8 @@ MonoBehaviour:
       x: -12.5
       y: 0
       z: 15.5
-  cellSize: {x: 0.5, y: 0.5}
+  cellSize:
+    x: 0.5
+    y: 0.5
   mapHeight: 0
   mapMaxSize: 50

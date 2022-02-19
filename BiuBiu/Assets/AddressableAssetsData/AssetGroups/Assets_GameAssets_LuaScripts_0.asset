@@ -69,50 +69,6 @@ MonoBehaviour:
     m_Address: Assets/GameAssets/LuaScripts/Constant/UIFormID.lua
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 8b7bf36820ba6e74e8a21e9e62ca202e
-    m_Address: Assets/GameAssets/LuaScripts/Framework/Common/Messenger.lua
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 7ca7f09f314aabb438947154e1b83481
-    m_Address: Assets/GameAssets/LuaScripts/Framework/Common/Singleton.lua
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: e86d040ea8cd8644f9a689e6f52caf95
-    m_Address: Assets/GameAssets/LuaScripts/Framework/Common/Updatable.lua
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 07b51383341e6d54a9532ce9ccbdf78a
-    m_Address: Assets/GameAssets/LuaScripts/Framework/Common/UpdatableSingleton.lua
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 710bd0541a6b1254dab50eb7957e48f9
-    m_Address: Assets/GameAssets/LuaScripts/Framework/Logger/Logger.lua
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 9027cc7fc01ec1f4f8f93bf34d276daf
-    m_Address: Assets/GameAssets/LuaScripts/Framework/LuaCSharpData/LuaCSharpArr.lua
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 87f347dba9e8e424db86e60217fa2e64
-    m_Address: Assets/GameAssets/LuaScripts/Framework/LuaCSharpData/LuaCSharpDataHelper.lua
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: c935095469584b84c9ee685f50ce1a67
-    m_Address: Assets/GameAssets/LuaScripts/Framework/Updater/Coroutine.lua
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: b9ec0ce8fdfb7d443b7643fa08fbbfe1
-    m_Address: Assets/GameAssets/LuaScripts/Framework/Updater/Timer.lua
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 9a1f2e6a8f162ca43977e6099e625dc1
-    m_Address: Assets/GameAssets/LuaScripts/Framework/Updater/TimerManager.lua
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: dec2926755643e3489e903fe3d42836b
-    m_Address: Assets/GameAssets/LuaScripts/Framework/Updater/UpdateManager.lua
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 2b53a8f751c4f4840a0f122c052df233
     m_Address: Assets/GameAssets/LuaScripts/GameConfig/Entity.lua
     m_ReadOnly: 0
@@ -159,10 +115,6 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: 2c02874c68149c140b1f1d0fdfb87ee6
     m_Address: Assets/GameAssets/LuaScripts/UIForm/UIBase.lua
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 61b515a1ee704d84e9dba717d372b27a
-    m_Address: Assets/GameAssets/LuaScripts/UIForm/Battle/BattleWindow.lua
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 16c52bed4028e4c478d1643d90a348db

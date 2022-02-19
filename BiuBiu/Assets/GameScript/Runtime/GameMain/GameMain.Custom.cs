@@ -32,12 +32,19 @@ namespace BiuBiu
 			private set;
 		}
 
+		public static IEffectModule Effect
+		{
+			get;
+			private set;
+		}
+
 		private static void InitCustomModules()
 		{
 			DataTable = Aure.GetModule<IDataTableModule>();
 			Lua = Aure.GetModule<ILuaModule>();
 			GamePlay = Aure.GetModule<IGamePlayModule>();
 			Entity = Aure.GetModule<IEntityModule>();
+			Effect = Aure.GetModule<IEffectModule>();
 		}
 	}
 }

@@ -6,6 +6,7 @@
 // Email: 1228396352@qq.com
 //------------------------------------------------------------
 
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -42,49 +43,39 @@ namespace BiuBiu
 			parentPos = transform.parent.GetComponent<RectTransform>().anchoredPosition;
 		}
 
+#if UNITY_EDITOR
 		private void Update()
 		{
-			var direction = Vector2.zero;
-			if (Input.GetKey(KeyCode.W))
+			// xbox手柄测试用
+			var h = Input.GetAxis("Horizontal");
+			var v = Input.GetAxis("Vertical");
+			h = Math.Abs(h) < 0.1f ? 0f : h;
+			v = Math.Abs(v) < 0.1f ? 0f : -v;
+			direction = new Vector2(h, v);
+
+			if (v.Equals(0f) && h.Equals(0f))
 			{
-				direction = Vector2.up;
-				GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Direction, direction));
-			}
-			else if (Input.GetKey(KeyCode.A))
-			{
-				direction = Vector2.left;
-				GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Direction, direction));
-			}
-			else if (Input.GetKey(KeyCode.S))
-			{
-				direction = Vector2.down;
-				GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Direction, direction));
-			}
-			else if (Input.GetKey(KeyCode.D))
-			{
-				direction = Vector2.right;
-				GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Direction, direction));
-			}
-			else if (Input.GetKeyDown(KeyCode.Space))
-			{
-				direction = Vector2.zero;
 				GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.None, direction));
 			}
-			
-			
-			if (Input.GetKeyDown(KeyCode.J))
+			else
 			{
-				GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Attack1, direction));
+				GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Direction, direction));
 			}
-			else if (Input.GetKeyDown(KeyCode.K))
+			
+			if(Input.GetKeyDown(KeyCode.Joystick1Button0) || Input.GetKey(KeyCode.Joystick1Button0))
 			{
-				GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Attack2, direction));
+				GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Attack, direction));
 			}
-			else if (Input.GetKeyDown(KeyCode.L))
+			else if(Input.GetKeyDown(KeyCode.Joystick1Button1))
 			{
 				GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Retreat, direction));
 			}
+			else if(Input.GetKeyDown(KeyCode.Joystick1Button2))
+			{
+				GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Skill, direction));
+			}
 		}
+#endif
 
 		public void OnPointerDown(PointerEventData eventData)
 		{

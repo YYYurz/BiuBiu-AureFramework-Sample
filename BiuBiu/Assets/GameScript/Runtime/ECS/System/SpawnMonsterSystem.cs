@@ -26,16 +26,16 @@ namespace BiuBiu
 
 		public override void Update()
 		{
-			if (!GameMain.GamePlay.IsStart || GameMain.GamePlay.IsPause)
-			{
-				return;
-			}
-
-			if (curMonsterCount < MaxMonsterCount)
-			{
-				CreateMonster();
-				curMonsterCount++;
-			}
+			// if (!GameMain.GamePlay.IsStart || GameMain.GamePlay.IsPause)
+			// {
+			// 	return;
+			// }
+			//
+			// if (curMonsterCount < MaxMonsterCount)
+			// {
+			// 	CreateMonster();
+			// 	curMonsterCount++;
+			// }
 		}
 		
 

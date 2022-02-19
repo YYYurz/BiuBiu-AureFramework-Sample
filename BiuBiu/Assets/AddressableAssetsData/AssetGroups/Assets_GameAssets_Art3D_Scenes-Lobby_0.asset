@@ -25,10 +25,6 @@ MonoBehaviour:
     m_Address: MainLobbyLightingSettings
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 855bb93e5928ab943b2301645e0cb7f5
-    m_Address: PostProcessingVolume Profile
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6798ea86944d6bb4a90f734a49dfafdb, type: 2}
   m_SchemaSet:

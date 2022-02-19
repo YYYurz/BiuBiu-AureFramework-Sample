@@ -26,14 +26,14 @@ namespace BiuBiu
 			Direction,
 			
 			/// <summary>
-			/// 攻击1
+			/// 攻击
 			/// </summary>
-			Attack1,
+			Attack,
 			
 			/// <summary>
-			/// 攻击2
+			/// 技能
 			/// </summary>
-			Attack2,
+			Skill,
 			
 			/// <summary>
 			/// 闪避

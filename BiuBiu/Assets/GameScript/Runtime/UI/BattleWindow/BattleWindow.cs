@@ -42,12 +42,12 @@ namespace BiuBiu
 
 		private void OnClickAttack1()
 		{
-			GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Attack1, joyStick.Direction));
+			GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Attack, joyStick.Direction));
 		}
 		
 		private void OnClickAttack2()
 		{
-			GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Attack2, joyStick.Direction));
+			GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Skill, joyStick.Direction));
 		}
 		
 		private void OnClickRetreat()

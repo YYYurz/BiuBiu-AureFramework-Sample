@@ -2176,6 +2176,8 @@ MonoBehaviour:
       x: -10
       y: 0
       z: -11
-  cellSize: {x: 1, y: 1}
+  cellSize:
+    x: 1
+    y: 1
   mapHeight: 0
   mapMaxSize: 25

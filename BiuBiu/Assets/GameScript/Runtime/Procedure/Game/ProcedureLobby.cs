@@ -15,7 +15,10 @@ namespace BiuBiu
 		public override void OnEnter(params object[] args)
 		{
 			base.OnEnter(args);
-			
+
+			var a = 0.112234;
+			var s = a * 100f % 1 / 100f;
+
 		}
 		
 		public override void OnUpdate(float elapseTime, float realElapseTime)

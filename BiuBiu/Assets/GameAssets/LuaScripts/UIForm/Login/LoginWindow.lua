@@ -12,20 +12,14 @@ end
 function LoginWindow:OnInit()
 	UIBase.OnInit(self)
 	self:ManualInit()
-	
-	print("LoginWindow OnInit")
 end
 
 function LoginWindow:OnOpen()
 	UIBase.OnOpen(self)
-	
-	print("LoginWindow OnOpen")
 end
 
 function LoginWindow:OnClose()
 	UIBase.OnClose(self)
-	
-	print("LoginWindow OnClose")
 end
 
 function LoginWindow:OnDestroy()

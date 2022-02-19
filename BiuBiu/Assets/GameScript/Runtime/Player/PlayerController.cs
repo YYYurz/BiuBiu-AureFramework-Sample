@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using AureFramework.Event;
 using AureFramework.Fsm;
+using Unity.Transforms;
 using UnityEngine;
 
 namespace BiuBiu
@@ -37,8 +38,8 @@ namespace BiuBiu
 
 			var playerStateTypeList = new List<Type>
 			{
-				typeof(StateAttack1),
-				typeof(StateAttack2),
+				typeof(StateAttack),
+				typeof(StateSkill),
 				typeof(StateDead),
 				typeof(StateIdle),
 				typeof(StateMove),
@@ -47,10 +48,7 @@ namespace BiuBiu
 			playerFsm = GameMain.Fsm.CreateFsm(this, playerStateTypeList, this);			
 			
 			GameMain.Event.Subscribe<InputEventArgs>(OnInput);
-		}
-
-		private void Start()
-		{
+			
 			playerFsm.ChangeState<StateIdle>();
 		}
 
@@ -93,7 +91,7 @@ namespace BiuBiu
 			var playerState = (PlayerControllerStateBase) playerFsm.CurrentState;
 			if (playerState.CanChange)
 			{
-				playerFsm.ChangeState<StateAttack1>();
+				playerFsm.ChangeState<StateAttack>();
 			}
 		}
 
@@ -105,7 +103,7 @@ namespace BiuBiu
 			var playerState = (PlayerControllerStateBase) playerFsm.CurrentState;
 			if (playerState.CanChange)
 			{
-				playerFsm.ChangeState<StateAttack2>();
+				playerFsm.ChangeState<StateSkill>();
 			}
 		}
 		
@@ -145,12 +143,12 @@ namespace BiuBiu
 					Move();
 					break;
 				}
-				case ECSConstant.InputType.Attack1:
+				case ECSConstant.InputType.Attack:
 				{
 					Attack1();
 					break;
 				}
-				case ECSConstant.InputType.Attack2:
+				case ECSConstant.InputType.Skill:
 				{
 					Attack2();
 					break;
@@ -163,6 +161,12 @@ namespace BiuBiu
 			}
 
 			curDirection = args.Direction;
+		}
+		
+		private void OnAttackEvent(int attackStage)
+		{
+			var effectName = "Sword Slash " + attackStage;
+			GameMain.Effect.PlayEffect(effectName, Vector3.zero, Quaternion.identity, transform);
 		}
 	}
 }

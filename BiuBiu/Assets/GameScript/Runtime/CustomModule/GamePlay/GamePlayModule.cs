@@ -130,14 +130,15 @@ namespace BiuBiu
 			isStart = false;
 			GameMain.Entity.DestroyAllCacheEntity();
 			
+			GameMain.Resource.ReleaseAsset(playerController.gameObject);
+			playerController = null;
 			foreach (var asset in cacheAssetList)
 			{
 				GameMain.Resource.ReleaseAsset(asset);
 			}
 			cacheAssetList.Clear();
 			
-			GameMain.Resource.ReleaseAsset(playerController.gameObject);
-			playerController = null;
+			GameMain.Effect.ClearAllEffect();
 		}
 
 		private void PreloadAssets(GamePlay gamePlayData)
