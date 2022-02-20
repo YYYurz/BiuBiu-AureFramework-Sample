@@ -23,6 +23,11 @@ namespace BiuBiu
 			get;
 		}
 
+		public PlayerController PlayerController
+		{
+			get;
+		}
+
 		bool IsStart
 		{
 			get;

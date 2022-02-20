@@ -7,8 +7,6 @@
 //------------------------------------------------------------
 
 using System.Collections.Generic;
-using System.Linq;
-using AureFramework;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
@@ -25,44 +23,75 @@ namespace BiuBiu
 	/// </summary>
 	public class PathfindingSystem : ComponentSystemBase
 	{
-		private struct PointInformation
-		{
-			public int g;
-			public int h;
-			public int f;
-			public int2 parent;
-		}
-
 		private readonly Dictionary<uint, List<float3>> pathDic = new Dictionary<uint, List<float3>>();
-		private float3 targetPos;
-
-		protected override void OnCreate()
-		{
-			base.OnCreate();
-		}
+		private int2 targetPos;
 
 		public override void Update()
 		{
-			// if (!GameMain.GamePlay.IsStart || GameMain.GamePlay.IsPause)
-			// {
-			// 	return;
-			// }
+			if (!GameMain.GamePlay.IsStart || GameMain.GamePlay.IsPause)
+			{
+				return;
+			}
+
+			var entityArray = GetMovablePositionComponentArray();
+			var positionComponentArray = new NativeArray<PositionComponent>();
 			
-			// var queryDescription = new EntityQueryDesc
-			// {
-			// 	All = new ComponentType[]
-			// 	{
-			// 		typeof(PositionComponent),
-			// 		typeof(Translation),
-			// 	},
-			// 	None = new ComponentType[] {typeof(ControlBuffComponent)},
-			// };
-			//
-			// var query = GetEntityQuery(queryDescription);
-			// var entityArray = query.ToEntityArray(Allocator.TempJob);
+			var jobHandleList = new NativeList<JobHandle>(Allocator.Temp);
+			var jobList = new List<PathfindingJob>();
+			var mapCellSize = GameMain.GamePlay.CurMapConfig.CellSize;
+			foreach (var entity in entityArray)
+			{
+				var positionComponent = EntityManager.GetComponentData<PositionComponent>(entity);
+				var start = PathfindingUtils.GetIndexPositionInMapConfig(positionComponent.CurPosition.x, positionComponent.CurPosition.z, mapCellSize);
+				var pathFindingJob = new PathfindingJob(start, targetPos);
+				jobList.Add(pathFindingJob);
+				jobHandleList.Add(pathFindingJob.Schedule());
+			}
+			JobHandle.CompleteAll(jobHandleList);
 			// foreach (var entity in entityArray)
 			// {
+			// 	var positionComponent = EntityManager.GetComponentData<PositionComponent>(entity);
+			// 	var a = pathResult[positionComponent.Id];
+			// 	var f = GameMain.GamePlay.CurMapConfig.PointList.Find((point => point.key.Equals(a[0]))).value;
+			// 	var e = GameMain.GamePlay.CurMapConfig.PointList.Find((point => point.key.Equals(a[1]))).value;
+			// 	EntityManager.SetComponentData(entity, new PositionComponent
+			// 	{
+			// 		CurPosition = f,
+			// 		NextPosition = e
+			// 	});
 			// }
+			// foreach (var job in jobList)
+			// {
+			// 	Debug.Log(job.pathResultList[0] + "  " + job.pathResultList[1]);
+			// }
+			
+			jobHandleList.Dispose();
+		}
+
+		private void RefreshTargetPos()
+		{
+			var playerPos = GameMain.GamePlay.PlayerController.transform.position;
+			var mapCellSize = GameMain.GamePlay.CurMapConfig.CellSize;
+			targetPos = PathfindingUtils.GetIndexPositionInMapConfig(playerPos.x, playerPos.z, mapCellSize);
+		}
+
+		private NativeArray<Entity> GetMovablePositionComponentArray()
+		{
+			var queryDescription = new EntityQueryDesc
+			{
+				All = new ComponentType[]
+				{
+					typeof(PositionComponent),
+					typeof(Translation),
+				},
+				None = new ComponentType[]
+				{
+					typeof(ControlBuffComponent)
+				},
+			};
+			
+			var query = GetEntityQuery(queryDescription);
+			return query.ToEntityArray(Allocator.Temp);
 		}
 
 		/// <summary>
@@ -71,45 +100,58 @@ namespace BiuBiu
 		[BurstCompile]
 		private struct PathfindingJob : IJob
 		{
+			private struct PointInformation
+			{
+				public int g;
+				public int h;
+				public int f;
+				public int2 parent;
+			}
+
+			private NativeList<int2> pathResultList;
+			private int2 startPos;
+			private int2 endPos;
+			
 			private NativeHashMap<int2, float3> pointDic;
 			private NativeHashMap<int2, PointInformation> openDic;
 			private NativeHashMap<int2, PointInformation> closeDic;
-			private NativeList<int2> pathResultList;
 			private int2 processingPos;
-			private readonly int2 start;
-			private readonly int2 end;
 
 			public PathfindingJob(int2 start, int2 end)
 			{
+				pathResultList = new NativeList<int2>(Allocator.TempJob);
 				pointDic = new NativeHashMap<int2, float3>();
 				openDic = new NativeHashMap<int2, PointInformation>();
 				closeDic = new NativeHashMap<int2, PointInformation>();
-				pathResultList = new NativeList<int2>();
+				startPos = start;
+				endPos = end;
 				processingPos = int2.zero;
-				this.start = start;
-				this.end = end;
 			}
-			
+
 			public void Execute()
 			{
-				openDic.Add(start, new PointInformation
+				openDic.Add(startPos, new PointInformation
 				{
 					g = 0,
 					h = 0,
 					f = 0,
-					parent = start,
+					parent = startPos,
 				});
 				
 				while (!openDic.IsEmpty)
 				{
 					SelectMinCostF();
 					RefreshSurroundPoints();
-					if (openDic.ContainsKey(end))
+					if (openDic.ContainsKey(endPos))
 					{
 						CreatePath();
 						break;
 					}
 				}
+
+				pointDic.Dispose();
+				openDic.Dispose();
+				closeDic.Dispose();
 			}
 
 			/// <summary>
@@ -159,7 +201,7 @@ namespace BiuBiu
 						var costG = Mathf.Abs(x) == Mathf.Abs(y)
 							? processingPointInformation.g + 14
 							: processingPointInformation.g + 10;
-						var costH = (Mathf.Abs(posX - end.x) + Mathf.Abs(posY - end.y)) * 10;
+						var costH = (Mathf.Abs(posX - endPos.x) + Mathf.Abs(posY - endPos.y)) * 10;
 
 						var costF = costG + costH;
 						var pointInformation = new PointInformation
@@ -196,11 +238,11 @@ namespace BiuBiu
 
 			private void CreatePath()
 			{
-				var tempInformation = openDic[end];
-				var tempPos = end;
+				var tempInformation = openDic[endPos];
+				var tempPos = endPos;
 
 				pathResultList.Add(tempPos);
-				while (!tempPos.Equals(start))
+				while (!tempPos.Equals(startPos))
 				{
 					tempPos = tempInformation.parent;
 					tempInformation = closeDic[tempPos];

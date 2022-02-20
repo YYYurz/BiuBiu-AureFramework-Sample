@@ -825,6 +825,14 @@ MonoBehaviour:
     m_Address: Waves23
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 8166544cdadb80b4facbacc11ec0d869
+    m_Address: TestMesh
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b2236f535da3de6429f5cce351e1422a
+    m_Address: Crack12bcg 1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6798ea86944d6bb4a90f734a49dfafdb, type: 2}
   m_SchemaSet:

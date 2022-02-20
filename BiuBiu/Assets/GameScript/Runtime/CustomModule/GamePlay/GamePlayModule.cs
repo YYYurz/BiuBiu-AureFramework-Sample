@@ -45,6 +45,14 @@ namespace BiuBiu
 			}
 		}
 
+		public PlayerController PlayerController
+		{
+			get
+			{
+				return playerController;
+			}
+		}
+
 		public Camera MainCamera
 		{
 			get
@@ -122,6 +130,7 @@ namespace BiuBiu
 			
 			var gamePlayData = GameMain.DataTable.GetDataTableReader<GamePlayTableReader>().GetInfo(gameId);
 			CreatePlayer(gamePlayData);
+			CreateMapConfig(gamePlayData);
 			PreloadAssets(gamePlayData);
 		}
 
@@ -165,8 +174,14 @@ namespace BiuBiu
 			playerController.transform.position = Vector3.up;
 		}
 
+		private void CreateMapConfig(GamePlay gamePlayData)
+		{
+			curMapConfig = GameMain.Resource.LoadAssetSync<MapConfig>(gamePlayData.MapConfig);
+		}
+
 		private void OnLoadAssetSuccess(string assetName, int taskId, Object asset, object userData)
 		{
+			cacheAssetList.Add(asset);
 			if (--preloadingAssetCount <= 0)
 			{
 				createGameCompleteCallBack?.Invoke();

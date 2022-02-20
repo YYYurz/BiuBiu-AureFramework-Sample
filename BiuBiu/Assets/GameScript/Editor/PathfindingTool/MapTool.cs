@@ -428,7 +428,7 @@ namespace BiuBiu.Editor
 			var ray = Camera.current.ScreenPointToRay(mousePos);
 			if (Physics.Raycast(ray, out var rh, 3000f) && rh.collider.gameObject == planeObj)
 			{
-				mousePose = PathfindingUtils.GetIndexPositionInMapConfig(rh.point, cellSize, mapHeight);
+				mousePose = PathfindingUtils.GetUnitPositionInMapConfig(rh.point, cellSize, mapHeight);
 
 				return true;
 			}

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Assets_GameAssets_MapConfig-BattleField_01
+  m_Name: Assets_GameAssets_MapConfig_0
   m_EditorClassIdentifier: 
-  m_GroupName: Assets_GameAssets_MapConfig-BattleField_01
+  m_GroupName: Assets_GameAssets_MapConfig_0
   m_Data:
     m_SerializedData: []
-  m_GUID: 779e966f562932844bee72090955a072
+  m_GUID: 65a1345a283ffb14eafab61ff95a282f
   m_SerializeEntries:
   - m_GUID: e39ec5cae71759541a92e2d06f541201
     m_Address: BattleMapConfig
@@ -25,5 +25,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: 6798ea86944d6bb4a90f734a49dfafdb, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 4e7f71f388cf72f4b9b3d1a767866018, type: 2}
-    - {fileID: 11400000, guid: f89216e8aa1ece140ab26c4493da2a9e, type: 2}
+    - {fileID: 11400000, guid: 98fd9005256037a4781ccc7a6c51ac3f, type: 2}
+    - {fileID: 11400000, guid: 07f0ecf617e0d61448dd41879cc08b11, type: 2}

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5834b5087d578d24c926ce20cd31e6d6, type: 3}
-  m_Name: Assets_GameAssets_MapConfig-BattleField_01_ContentUpdateGroupSchema
+  m_Name: Assets_GameAssets_MapConfig_0_ContentUpdateGroupSchema
   m_EditorClassIdentifier: 
-  m_Group: {fileID: 11400000, guid: 3b3d63e422d0f4c4ba2479803e701a0c, type: 2}
+  m_Group: {fileID: 11400000, guid: 01ca67da6a0524c46b4b68cd40ff66f1, type: 2}
   m_StaticContent: 0

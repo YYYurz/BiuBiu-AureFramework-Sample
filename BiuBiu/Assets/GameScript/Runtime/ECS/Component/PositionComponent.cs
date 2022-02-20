@@ -18,6 +18,11 @@ namespace BiuBiu
 	public struct PositionComponent : IComponentData
 	{
 		/// <summary>
+		/// 唯一编号
+		/// </summary>
+		public int Id;
+		
+		/// <summary>
 		/// 当前位置
 		/// </summary>
 		public float3 CurPosition;
