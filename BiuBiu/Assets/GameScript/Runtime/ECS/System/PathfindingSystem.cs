@@ -23,6 +23,14 @@ namespace BiuBiu
 	/// </summary>
 	public class PathfindingSystem : ComponentSystemBase
 	{
+		private struct PointInformation
+		{
+			public int g;
+			public int h;
+			public int f;
+			public int2 parent;
+		}
+		
 		private readonly Dictionary<uint, List<float3>> pathDic = new Dictionary<uint, List<float3>>();
 		private int2 targetPos;
 
@@ -33,6 +41,9 @@ namespace BiuBiu
 				return;
 			}
 
+			var mapConfig = GameMain.GamePlay.CurMapConfig;
+			// var mapPointArray = new NativeArray<PointInformation>(mapConfig.PointArray.Count, Allocator.Temp); 
+
 			var entityArray = GetMovablePositionComponentArray();
 			var positionComponentArray = new NativeArray<PositionComponent>();
 			
@@ -42,7 +53,7 @@ namespace BiuBiu
 			foreach (var entity in entityArray)
 			{
 				var positionComponent = EntityManager.GetComponentData<PositionComponent>(entity);
-				var start = PathfindingUtils.GetIndexPositionInMapConfig(positionComponent.CurPosition.x, positionComponent.CurPosition.z, mapCellSize);
+				var start = PathfindingUtils.GetIndexByWorldPosition(positionComponent.CurPosition.x, positionComponent.CurPosition.z, mapCellSize);
 				var pathFindingJob = new PathfindingJob(start, targetPos);
 				jobList.Add(pathFindingJob);
 				jobHandleList.Add(pathFindingJob.Schedule());
@@ -72,7 +83,7 @@ namespace BiuBiu
 		{
 			var playerPos = GameMain.GamePlay.PlayerController.transform.position;
 			var mapCellSize = GameMain.GamePlay.CurMapConfig.CellSize;
-			targetPos = PathfindingUtils.GetIndexPositionInMapConfig(playerPos.x, playerPos.z, mapCellSize);
+			targetPos = PathfindingUtils.GetIndexByWorldPosition(playerPos.x, playerPos.z, mapCellSize);
 		}
 
 		private NativeArray<Entity> GetMovablePositionComponentArray()
@@ -100,13 +111,7 @@ namespace BiuBiu
 		[BurstCompile]
 		private struct PathfindingJob : IJob
 		{
-			private struct PointInformation
-			{
-				public int g;
-				public int h;
-				public int f;
-				public int2 parent;
-			}
+			
 
 			private NativeList<int2> pathResultList;
 			private int2 startPos;
@@ -148,10 +153,6 @@ namespace BiuBiu
 						break;
 					}
 				}
-
-				pointDic.Dispose();
-				openDic.Dispose();
-				closeDic.Dispose();
 			}
 
 			/// <summary>

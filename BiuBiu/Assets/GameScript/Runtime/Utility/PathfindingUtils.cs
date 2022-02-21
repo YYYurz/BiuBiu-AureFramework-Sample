@@ -18,33 +18,41 @@ namespace BiuBiu
 	public static class PathfindingUtils
 	{
 		/// <summary>
-		/// 根据实际位置获取在网格配置中的具体格子位置
+		/// 根据实际位置获取在网格配置中的索引
 		/// </summary>
-		/// <param name="actualPosition"></param>
+		/// <param name="worldPos"></param>
 		/// <param name="cellSize"></param>
-		/// <param name="mapHeight"></param>
+		/// <param name="mapSize"></param>
 		/// <returns></returns>
-		public static float3 GetUnitPositionInMapConfig(float3 actualPosition, float2 cellSize, float mapHeight)
+		public static int GetIndexByWorldPosition(float3 worldPos, float cellSize, float mapSize)
 		{
-			var posX = Mathf.FloorToInt((actualPosition.x + cellSize.x / 2) / cellSize.x) * cellSize.x;
-			var posZ = Mathf.FloorToInt((actualPosition.z + cellSize.y / 2) / cellSize.y) * cellSize.y;
-			
-			return new float3(posX, mapHeight, posZ);
+			var halfMapSize = mapSize * 0.5f;
+			var cellNumPerLine = Mathf.CeilToInt(mapSize / cellSize);
+			var xValue = Mathf.CeilToInt((worldPos.x + halfMapSize) / cellSize);
+			var zValue = Mathf.FloorToInt((worldPos.z + halfMapSize) / cellSize);
+			var index = xValue + zValue * cellNumPerLine;
+
+			return index;
 		}
 
 		/// <summary>
-		/// 根据实际位置的xz左边获取在网格配置中的索引位置
+		/// 根据索引获取在网格配置中的实际位置
 		/// </summary>
-		/// <param name="x"></param>
-		/// <param name="z"></param>
+		/// <param name="index"></param>
 		/// <param name="cellSize"></param>
+		/// <param name="mapSize"></param>
+		/// <param name="mapHeight"></param>
 		/// <returns></returns>
-		public static int2 GetIndexPositionInMapConfig(float x, float z, float2 cellSize)
+		public static float3 GetWorldPositionByIndex(int index, float cellSize, float mapSize, float mapHeight)
 		{
-			var x2d = x >= 0 ? Mathf.CeilToInt(x / cellSize.x) : Mathf.FloorToInt(x / cellSize.x);
-			var z2d = z >= 0 ? Mathf.CeilToInt(z / cellSize.y) : Mathf.FloorToInt(z / cellSize.y);
-
-			return new int2(x2d, z2d);
+			var halfMapSize = mapSize * 0.5f;
+			var halfCellSize = cellSize * 0.5f;
+			var xValue = index % 10;
+			var zValue = Mathf.FloorToInt(index / 10f) + 1;
+			var xPos = xValue * cellSize - halfCellSize - halfMapSize;
+			var zPos = zValue * cellSize - halfCellSize - halfMapSize;
+			
+			return new float3(xPos, mapHeight, zPos);
 		}
 	}
 }

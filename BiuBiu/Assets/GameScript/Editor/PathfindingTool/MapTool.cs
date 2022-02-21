@@ -20,9 +20,9 @@ namespace BiuBiu.Editor
 	{
 		private GameObject planeObj;
 		private MapConfig curMapConfig;
-		private float2 cellSize = new float2(1f, 1f);
+		private float cellSize = 1f;
 		private float mapHeight;
-		private float mapMaxSize = 100f;
+		private float mapSize = 100f;
 
 		private Vector3 mouseMovePos;
 		private Vector3 mouseDownPos;
@@ -45,7 +45,7 @@ namespace BiuBiu.Editor
 				{
 					cellSize = value.CellSize;
 					mapHeight = value.MapHeight;
-					mapMaxSize = value.MapMaxSize;
+					mapSize = value.MapSize;
 
 					EditorUtility.SetDirty(value);
 				}
@@ -57,19 +57,16 @@ namespace BiuBiu.Editor
 		/// <summary>
 		/// 设置格子大小
 		/// </summary>
-		private Vector2 CellSize
+		private float CellSize
 		{
 			set
 			{
-				if (value.x.Equals(cellSize.x) && value.y.Equals(cellSize.y))
+				if (value.Equals(cellSize))
 				{
 					return;
 				}
 				
-				var x = value.x < 0.05f ? 0.05f : value.x;
-				var y = value.y < 0.05f ? 0.05f : value.y;
-				cellSize = new Vector2(x, y);
-				
+				cellSize = value < 0.05f ? 0.05f : value;
 				if (curMapConfig != null)
 				{
 					curMapConfig.CellSize = cellSize;
@@ -105,19 +102,24 @@ namespace BiuBiu.Editor
 		/// <summary>
 		/// 设置网格尺寸
 		/// </summary>
-		private float MapMaxSize
+		private float MapSize
 		{
 			set
 			{
-				mapMaxSize = value;
+				if (value.Equals(mapSize))
+				{
+					return;
+				}				
+				
+				mapSize = value;
 				if (planeObj != null)
 				{
-					planeObj.transform.localScale = new Vector3(mapMaxSize / 10f, 1f, mapMaxSize / 10f);
+					planeObj.transform.localScale = new Vector3(mapSize / 10f, 1f, mapSize / 10f);
 				}
 				
 				if (curMapConfig != null)
 				{
-					curMapConfig.MapMaxSize = value;
+					curMapConfig.MapSize = value;
 				}
 			}
 		}
@@ -137,7 +139,7 @@ namespace BiuBiu.Editor
 			planeObj = GameObject.CreatePrimitive(PrimitiveType.Plane);
 			planeObj.GetComponent<MeshRenderer>().enabled = false;
 			planeObj.transform.position = new Vector3(0f, mapHeight, 0f);
-			planeObj.transform.localScale = new Vector3(mapMaxSize / 10f, 1f, mapMaxSize / 10f);
+			planeObj.transform.localScale = new Vector3(mapSize / 10f, 1f, mapSize / 10f);
 			planeObj.hideFlags = HideFlags.HideInHierarchy | HideFlags.HideInInspector;
 		}
 
@@ -145,8 +147,8 @@ namespace BiuBiu.Editor
 		{
 			CurMapConfig = (MapConfig) EditorGUILayout.ObjectField("寻路网格配置文件", CurMapConfig, typeof(MapConfig), false);
 			MapHeight = EditorGUILayout.FloatField("网格高度", mapHeight);
-			MapMaxSize = EditorGUILayout.FloatField("网格尺寸", mapMaxSize);
-			CellSize = EditorGUILayout.Vector2Field("格子大小", cellSize);
+			MapSize = EditorGUILayout.FloatField("网格尺寸", mapSize);
+			CellSize = EditorGUILayout.FloatField("格子大小", cellSize);
 			curCellType = (MapCellType) EditorGUILayout.EnumPopup("格子类型", curCellType);
 			if (GUILayout.Button("新建地图网格配置"))
 			{
@@ -201,10 +203,15 @@ namespace BiuBiu.Editor
 			{
 				return;
 			}
-			
-			foreach (var point in curMapConfig.PointList)
+
+			var pointArray = curMapConfig.PointArray;
+			for (var i = 0; i < pointArray.Length; i++)
 			{
-				DrawCellByPoint(point.value, Color.green, Color.blue);
+				var point = pointArray[i];
+				if (point.index != 0)
+				{
+					DrawCellByPoint(point.worldPos, new Color(0f, 1f, 0f, 0.1f), Color.blue);
+				}
 			}
 		}
 
@@ -235,11 +242,11 @@ namespace BiuBiu.Editor
 			var startZ = Math.Min(mouseDownPos.z, mouseMovePos.z);
 			var endX = Math.Max(mouseDownPos.x, mouseMovePos.x);
 			var endZ = Math.Max(mouseDownPos.z, mouseMovePos.z);;
-			for (var x = startX; x <= endX; x += cellSize.x)
+			for (var x = startX; x <= endX; x += cellSize)
 			{
-				for (var z = startZ; z <= endZ; z += cellSize.y)
+				for (var z = startZ; z <= endZ; z += cellSize)
 				{
-					DrawCellByPoint(new Vector3(x, mapHeight, z), Color.green, Color.blue);
+					DrawCellByPoint(new Vector3(x, mapHeight, z), new Color(0f, 1f, 0f, 0.2f), Color.blue);
 				}
 			}
 		}
@@ -249,9 +256,9 @@ namespace BiuBiu.Editor
 		/// </summary>
 		private void DrawMapMeshLine()
 		{
-			var mapHalfSize = mapMaxSize / 2f;
+			var mapHalfSize = mapSize / 2f;
 			
-			var tempXPos =cellSize.x / 2f;
+			var tempXPos =cellSize / 2f;
 			while (tempXPos <= mapHalfSize)
 			{
 				var leftXa = new Vector3(tempXPos, mapHeight, mapHalfSize);
@@ -262,22 +269,22 @@ namespace BiuBiu.Editor
 				var rightXb = new Vector3(-tempXPos, mapHeight, -mapHalfSize);
 				Handles.DrawLine(rightXa, rightXb);
 
-				tempXPos += cellSize.x;
+				tempXPos += cellSize;
 			}
 
-			var tempYPos = cellSize.y / 2f;
+			var tempYPos = cellSize / 2f;
 			while (tempYPos <= mapHalfSize)
 			{
-				var leftXa = new Vector3(mapHalfSize, mapHeight, tempYPos);
-				var leftYa = new Vector3(-mapHalfSize, mapHeight, tempYPos);
-				Handles.DrawLine(leftXa, leftYa);
+				var leftYa = new Vector3(mapHalfSize, mapHeight, tempYPos);
+				var leftYb = new Vector3(-mapHalfSize, mapHeight, tempYPos);
+				Handles.DrawLine(leftYa, leftYb);
 				
 				
-				var rightXa = new Vector3(mapHalfSize, mapHeight, -tempYPos);
-				var rightYa = new Vector3(-mapHalfSize, mapHeight, -tempYPos);
-				Handles.DrawLine(rightXa, rightYa);
+				var rightYa = new Vector3(mapHalfSize, mapHeight, -tempYPos);
+				var rightYb = new Vector3(-mapHalfSize, mapHeight, -tempYPos);
+				Handles.DrawLine(rightYa, rightYb);
 				
-				tempYPos += cellSize.y;
+				tempYPos += cellSize;
 			}
 		}
 		
@@ -285,10 +292,10 @@ namespace BiuBiu.Editor
 		{
 			var vertArray = new[]
 			{
-				new Vector3(point.x - cellSize.x / 2, point.y, point.z - cellSize.y / 2),
-				new Vector3(point.x - cellSize.x / 2, point.y, point.z + cellSize.y / 2),
-				new Vector3(point.x + cellSize.x / 2, point.y, point.z + cellSize.y / 2),
-				new Vector3(point.x + cellSize.x / 2, point.y, point.z - cellSize.y / 2),
+				new Vector3(point.x - cellSize / 2, point.y, point.z - cellSize / 2),
+				new Vector3(point.x - cellSize / 2, point.y, point.z + cellSize / 2),
+				new Vector3(point.x + cellSize / 2, point.y, point.z + cellSize / 2),
+				new Vector3(point.x + cellSize / 2, point.y, point.z - cellSize / 2),
 			};
 			Handles.DrawSolidRectangleWithOutline(vertArray, faceColor, outlineColor);
 		}
@@ -357,34 +364,33 @@ namespace BiuBiu.Editor
 			var endX = Math.Max(mouseDownPos.x, mouseUpPos.x);
 			var endZ = Math.Max(mouseDownPos.z, mouseUpPos.z);
 			
-			var configPointList = curMapConfig.PointList;
-			for (var x = startX; x <= endX; x += cellSize.x)
+			var configPointArray = curMapConfig.PointArray;
+			for (var x = startX; x <= endX; x += cellSize)
 			{
-				for (var z = startZ; z <= endZ; z += cellSize.y)
+				for (var z = startZ; z <= endZ; z += cellSize)
 				{
-					var indexInPointList = GetCurMapConfigPointIndex(x, mapHeight, z);
+					var worldPos = new float3(x, mapHeight, z);
+					var index = PathfindingUtils.GetIndexByWorldPosition(worldPos, cellSize, mapSize);
 					switch (curCellType)
 					{
 						case MapCellType.None:
 						{
-							if (indexInPointList != -1)
+							if (index + 1 < configPointArray.Length && configPointArray[index].index != 0)
 							{
-								configPointList.RemoveAt(indexInPointList);
+								configPointArray[index] = default;
 							}
 
 							break;
 						}
 						case MapCellType.NormalFloor:
 						{
-							if (indexInPointList == -1)
+							if (index + 1 < configPointArray.Length)
 							{
-								var x2d = x >= 0 ? Mathf.CeilToInt(x / cellSize.x) : Mathf.FloorToInt(x / cellSize.x);
-								var z2d = z >= 0 ? Mathf.CeilToInt(z / cellSize.y) : Mathf.FloorToInt(z / cellSize.y);
-								configPointList.Add(new MapPoint
+								configPointArray[index] = new MapPoint
 								{
-									key = new int2(x2d, z2d),
-									value = new float3(x, mapHeight, z),
-								});
+									index = index,
+									worldPos = worldPos,
+								};
 							}
 
 							break;
@@ -392,28 +398,6 @@ namespace BiuBiu.Editor
 					}
 				}
 			}
-		}
-
-		/// <summary>
-		/// 根据坐标获取当前配置PointList中的索引
-		/// </summary>
-		/// <param name="x"></param>
-		/// <param name="y"></param>
-		/// <param name="z"></param>
-		/// <returns></returns>
-		private int GetCurMapConfigPointIndex(float x, float y, float z)
-		{
-			var configPointList = curMapConfig.PointList;
-			for (var index = 0; index < configPointList.Count; index++)
-			{
-				var realPosition = configPointList[index].value;
-				if (realPosition.x.Equals(x) && realPosition.y.Equals(y) && realPosition.z.Equals(z))
-				{
-					return index;
-				}
-			}
-
-			return -1;
 		}
 
 		/// <summary>
@@ -428,8 +412,10 @@ namespace BiuBiu.Editor
 			var ray = Camera.current.ScreenPointToRay(mousePos);
 			if (Physics.Raycast(ray, out var rh, 3000f) && rh.collider.gameObject == planeObj)
 			{
-				mousePose = PathfindingUtils.GetUnitPositionInMapConfig(rh.point, cellSize, mapHeight);
-
+				var posX = Mathf.FloorToInt((rh.point.x + cellSize / 2) / cellSize) * cellSize;
+				var posZ = Mathf.FloorToInt((rh.point.z + cellSize / 2) / cellSize) * cellSize;
+				mousePose = new float3(posX, mapHeight, posZ);
+				
 				return true;
 			}
 			

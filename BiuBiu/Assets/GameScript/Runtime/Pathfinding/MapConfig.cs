@@ -20,19 +20,19 @@ namespace BiuBiu
 	public struct MapPoint
 	{
 		/// <summary>
-		/// 2d坐标轴位置，按数组索引方式
+		/// 索引
 		/// </summary>
-		public int2 key;
+		public int index;
 		
 		/// <summary>
 		/// 实际世界坐标
 		/// </summary>
-		public float3 value;
+		public float3 worldPos;
 
-		public MapPoint(int2 key, float3 value)
+		public MapPoint(int index, float3 worldPos)
 		{
-			this.key = key;
-			this.value = value;
+			this.index = index;
+			this.worldPos = worldPos;
 		}
 	}
 	
@@ -44,27 +44,27 @@ namespace BiuBiu
 	{
 		public const string DefaultMapConfigPath = "Assets/MapConfig.asset";
 
-		[SerializeField] private List<MapPoint> pointList = new List<MapPoint>();
-		[SerializeField] private float2 cellSize = new float2(1f, 1f);
+		[SerializeField] private MapPoint[] pointArray = new MapPoint[0];
+		[SerializeField] private float cellSize = 1f;
 		[SerializeField] private float mapHeight;
-		[SerializeField] private float mapMaxSize = 100f;
+		[SerializeField] private float mapSize = 100f;
 
 
 		/// <summary>
 		/// 获取可行走格子坐标列表
 		/// </summary>
-		public List<MapPoint> PointList
+		public MapPoint[] PointArray
 		{
 			get
 			{
-				return pointList;
+				return pointArray;
 			}
 		}
 
 		/// <summary>
 		/// 获取或设置格子大小
 		/// </summary>
-		public float2 CellSize
+		public float CellSize
 		{
 			get
 			{
@@ -96,15 +96,16 @@ namespace BiuBiu
 		/// <summary>
 		/// 获取或设置网格尺寸
 		/// </summary>
-		public float MapMaxSize
+		public float MapSize
 		{
 			get
 			{
-				return mapMaxSize;
+				return mapSize;
 			}
 			set
 			{
-				mapMaxSize = value;
+				mapSize = value;
+				RefreshPointList();
 			}
 		}
 		
@@ -125,18 +126,26 @@ namespace BiuBiu
 
 		private void RefreshPointList()
 		{
-			for (var i = 0; i < pointList.Count; i++)
+			var cellNumPerLine = Mathf.CeilToInt(mapSize / cellSize);
+			var newPointArray = new MapPoint[cellNumPerLine * cellNumPerLine + 1];
+			for (var i = 0; i < pointArray.Length; i++)
 			{
-				var position2D = pointList[i].key;
-				var newX = position2D.x * cellSize.x - cellSize.x / 2f;
-				var newY = mapHeight;
-				var newZ = position2D.y * cellSize.y - cellSize.y / 2f;
-				pointList[i] = new MapPoint
+				if (pointArray[i].index != 0)
 				{
-					key = position2D,
-					value = new float3(newX, newY, newZ)
-				};
+					var worldPos = pointArray[i].worldPos;
+					var newIndex = PathfindingUtils.GetIndexByWorldPosition(worldPos, cellSize, mapSize);
+					if (newIndex >= 0 && newIndex < newPointArray.Length)
+					{
+						newPointArray[newIndex] = new MapPoint
+						{
+							index = newIndex,
+							worldPos = worldPos,
+						};
+					}
+				}
 			}
+
+			pointArray = newPointArray;
 		}
 	}
 }

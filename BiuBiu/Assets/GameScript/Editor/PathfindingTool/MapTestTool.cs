@@ -28,7 +28,7 @@ namespace BiuBiu.Editor
 		
 		private GameObject planeObj;
 		private MapConfig curMapConfig;
-		private Vector2 cellSize = Vector2.one;
+		private float cellSize = 1f;
 		private float mapHeight;
 		private float mapMaxSize = 100f;
 
@@ -56,18 +56,7 @@ namespace BiuBiu.Editor
 				{
 					cellSize = value.CellSize;
 					mapHeight = value.MapHeight;
-					mapMaxSize = value.MapMaxSize;
-					
-					pointDic.Clear();
-					foreach (var point in value.PointList)
-					{
-						if (pointDic.ContainsKey(point.key))
-						{
-							Debug.LogError(point.key);
-							continue;
-						}
-						pointDic.Add(point.key, point.value);
-					}
+					mapMaxSize = value.MapSize;
 				}
 				
 				curMapConfig = value;
@@ -77,19 +66,16 @@ namespace BiuBiu.Editor
 		/// <summary>
 		/// 设置格子大小
 		/// </summary>
-		private Vector2 CellSize
+		private float CellSize
 		{
 			set
 			{
-				if (value.x.Equals(cellSize.x) && value.y.Equals(cellSize.y))
+				if (value.Equals(cellSize))
 				{
 					return;
 				}
 				
-				var x = value.x < 0.05f ? 0.05f : value.x;
-				var y = value.y < 0.05f ? 0.05f : value.y;
-				cellSize = new Vector2(x, y);
-				
+				cellSize = value < 0.05f ? 0.05f : value;
 				if (curMapConfig != null)
 				{
 					curMapConfig.CellSize = cellSize;
@@ -137,7 +123,7 @@ namespace BiuBiu.Editor
 				
 				if (curMapConfig != null)
 				{
-					curMapConfig.MapMaxSize = value;
+					curMapConfig.MapSize = value;
 				}
 			}
 		}
@@ -173,46 +159,60 @@ namespace BiuBiu.Editor
 
 		private struct PointInformation
 		{
+			public float worldPosx;
+			public float worldPosz;
+			
 			public int g;
 			public int h;
 			public int f;
-			public int2 parent;
+			public int parent;
+
+			public bool isWalkable;
 		}
 
-		private readonly Dictionary<int2, float3> pointDic = new Dictionary<int2, float3>();
-		private readonly Dictionary<int2, PointInformation> openDic = new Dictionary<int2, PointInformation>();
-		private readonly Dictionary<int2, PointInformation> closeDic = new Dictionary<int2, PointInformation>();
-		private readonly List<int2> pathResultList = new List<int2>();
-		private int2 processingPos;
-		private int2 start;
-		private int2 end;
+		private PointInformation[] pointInformationArray;
+		private readonly List<int> openList = new List<int>();
+		private readonly List<int> closeList = new List<int>();
+		private readonly List<int> pathResultList = new List<int>();
+		private int processingPos;
+		private int start;
+		private int end;
 		
 		private void Test()
 		{
-			openDic.Clear();
-			closeDic.Clear();
-			pathResultList.Clear();
-
-			start = pointDic.FirstOrDefault(point => point.Value.Equals(startPosition)).Key;
-			end = pointDic.FirstOrDefault(point => point.Value.Equals(endPosition)).Key;
-			
-			openDic.Add(start, new PointInformation
-			{
-				g = 0,
-				h = 0,
-				f = 0,
-				parent = start,
-			});
-			while (openDic.Count > 0)
+			Init();
+			while (openList.Count > 0)
 			{
 				SelectMinCostF();
 				RefreshSurroundPoints();
-				if (openDic.ContainsKey(end))
+				if (openList.Contains(end))
 				{
 					CreatePath();
 					break;
 				}
 			} 
+		}
+
+		private void Init()
+		{
+			openList.Clear();
+			closeList.Clear();
+			pathResultList.Clear();
+			
+			var cellNumPerLine = Mathf.CeilToInt(mapMaxSize / cellSize);
+			pointInformationArray = new PointInformation[cellNumPerLine * cellNumPerLine + 1];
+			for (var i = 0; i < pointInformationArray.Length; i++)
+			{
+				var point = curMapConfig.PointArray[i];
+				if (point.index != 0)
+				{
+					pointInformationArray[i].worldPosx = point.worldPos.x;
+					pointInformationArray[i].worldPosz = point.worldPos.z;
+					pointInformationArray[i].isWalkable = true;
+				}
+			}
+			
+			openList.Add(start);
 		}
 		
 		/// <summary>
@@ -220,18 +220,18 @@ namespace BiuBiu.Editor
 		/// </summary>
 		private void SelectMinCostF()
 		{
-			var tempPoint = openDic.First();
-			foreach (var openPoint in openDic)
+			var tempIndex = openList[0];
+			foreach (var openPoint in openList)
 			{
-				if (openPoint.Value.f < tempPoint.Value.f)
+				if (pointInformationArray[openPoint].f < pointInformationArray[tempIndex].f)
 				{
-					tempPoint = openPoint;
+					tempIndex = openPoint;
 				}
 			}
 
-			processingPos = tempPoint.Key;
-			openDic.Remove(tempPoint.Key);
-			closeDic.Add(tempPoint.Key, tempPoint.Value);
+			processingPos = tempIndex;
+			openList.Remove(tempIndex);
+			closeList.Add(tempIndex);
 		}
 
 		/// <summary>
@@ -239,25 +239,25 @@ namespace BiuBiu.Editor
 		/// </summary>
 		private void RefreshSurroundPoints()
 		{
-			for (var x = -1; x <= 1; x++)
+			for (var x = -cellSize; x <= cellSize; x += cellSize)
 			{
-				for (var y = -1; y <= 1; y++)
+				for (var z = -cellSize; z <= cellSize; z += cellSize)
 				{
-					if (x == 0 && y == 0)
+					if (x.Equals(0f) && z.Equals(0f))
 					{
 						continue;
 					}
 			
-					var processingPointInformation = closeDic[processingPos];
-					var posX = processingPos.x + x;
-					var posY = processingPos.y + y;
+					var processingPointInformation = pointInformationArray[processingPos];
+					var posX = processingPointInformation.worldPosx + x;
+					var posZ = processingPointInformation.worldPosz + z;
 					var pos = new int2(posX, posY);
-					if (!pointDic.ContainsKey(pos) || closeDic.ContainsKey(pos))
+					if (!pointDic.ContainsKey(pos) || closeList.ContainsKey(pos))
 					{
 						continue;
 					}
 			
-					var costG = Mathf.Abs(x) == Mathf.Abs(y) ? processingPointInformation.g + 14 : processingPointInformation.g + 10;
+					var costG = Mathf.Abs(x) == Mathf.Abs(z) ? processingPointInformation.g + 14 : processingPointInformation.g + 10;
 					var costH = (Mathf.Abs(posX - end.x) + Mathf.Abs(posY - end.y)) * 10;
 					
 					var costF = costG + costH;
@@ -280,48 +280,34 @@ namespace BiuBiu.Editor
 		/// <param name="pointInformation"></param>
 		private void AddToOpen(int2 pos, PointInformation pointInformation)
 		{
-			if (openDic.ContainsKey(pos))
+			if (openList.ContainsKey(pos))
 			{
-				if (openDic[pos].g > pointInformation.g)
+				if (openList[pos].g > pointInformation.g)
 				{
-					openDic[pos] = pointInformation;
+					openList[pos] = pointInformation;
 				}
 			}
 			else
 			{
-				openDic.Add(pos, pointInformation);
+				openList.Add(pos, pointInformation);
 			}
 		}
 
 		private void CreatePath()
 		{
-			var tempInformation = openDic[end];
+			var tempInformation = openList[end];
 			var tempPos = end;
 
 			pathResultList.Add(tempPos);
 			while (!tempPos.Equals(start))
 			{
 				tempPos = tempInformation.parent;
-				tempInformation = closeDic[tempPos];
+				tempInformation = closeList[tempPos];
 				pathResultList.Add(tempPos);
 			}
 			
 			pathResultList.Reverse();
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		
 		
@@ -386,7 +372,7 @@ namespace BiuBiu.Editor
 		
 		private void DrawOpenCell()
 		{
-			foreach (var openPoint in openDic)
+			foreach (var openPoint in openList)
 			{
 				DrawCellByPoint(pointDic[openPoint.Key], Color.yellow, Color.black);
 			}
@@ -394,7 +380,7 @@ namespace BiuBiu.Editor
 		
 		private void DrawCloseCell()
 		{
-			foreach (var closePoint in closeDic)
+			foreach (var closePoint in closeList)
 			{
 				DrawCellByPoint(pointDic[closePoint.Key], Color.black, Color.black);
 			}
@@ -410,9 +396,9 @@ namespace BiuBiu.Editor
 				return;
 			}
 			
-			foreach (var point in curMapConfig.PointList)
+			foreach (var point in curMapConfig.PointArray)
 			{
-				DrawCellByPoint(point.value, Color.green, Color.blue);
+				DrawCellByPoint(point.worldPos, Color.green, Color.blue);
 			}
 		}
 
@@ -452,7 +438,7 @@ namespace BiuBiu.Editor
 		{
 			var mapHalfSize = mapMaxSize / 2f;
 			
-			var tempXPos =cellSize.x / 2f;
+			var tempXPos =cellSize / 2f;
 			while (tempXPos <= mapHalfSize)
 			{
 				var leftXa = new Vector3(tempXPos, mapHeight, mapHalfSize);
@@ -463,10 +449,10 @@ namespace BiuBiu.Editor
 				var rightXb = new Vector3(-tempXPos, mapHeight, -mapHalfSize);
 				Handles.DrawLine(rightXa, rightXb);
 
-				tempXPos += cellSize.x;
+				tempXPos += cellSize;
 			}
 
-			var tempYPos = cellSize.y / 2f;
+			var tempYPos = cellSize / 2f;
 			while (tempYPos <= mapHalfSize)
 			{
 				var leftXa = new Vector3(mapHalfSize, mapHeight, tempYPos);
@@ -478,7 +464,7 @@ namespace BiuBiu.Editor
 				var rightYa = new Vector3(-mapHalfSize, mapHeight, -tempYPos);
 				Handles.DrawLine(rightXa, rightYa);
 				
-				tempYPos += cellSize.y;
+				tempYPos += cellSize;
 			}
 		}
 		
@@ -486,10 +472,10 @@ namespace BiuBiu.Editor
 		{
 			var vertArray = new[]
 			{
-				new Vector3(point.x - cellSize.x / 2, point.y, point.z - cellSize.y / 2),
-				new Vector3(point.x - cellSize.x / 2, point.y, point.z + cellSize.y / 2),
-				new Vector3(point.x + cellSize.x / 2, point.y, point.z + cellSize.y / 2),
-				new Vector3(point.x + cellSize.x / 2, point.y, point.z - cellSize.y / 2),
+				new Vector3(point.x - cellSize / 2, point.y, point.z - cellSize / 2),
+				new Vector3(point.x - cellSize / 2, point.y, point.z + cellSize / 2),
+				new Vector3(point.x + cellSize / 2, point.y, point.z + cellSize / 2),
+				new Vector3(point.x + cellSize / 2, point.y, point.z - cellSize / 2),
 			};
 			Handles.DrawSolidRectangleWithOutline(vertArray, faceColor, outlineColor);
 		}
@@ -536,29 +522,6 @@ namespace BiuBiu.Editor
 			}
 		}
 		
-
-		/// <summary>
-		/// 根据坐标获取当前配置PointList中的索引
-		/// </summary>
-		/// <param name="x"></param>
-		/// <param name="y"></param>
-		/// <param name="z"></param>
-		/// <returns></returns>
-		private int GetCurMapConfigPointIndex(float x, float y, float z)
-		{
-			var configPointList = curMapConfig.PointList;
-			for (var index = 0; index < configPointList.Count; index++)
-			{
-				var realPosition = configPointList[index].value;
-				if (realPosition.x.Equals(x) && realPosition.y.Equals(y) && realPosition.z.Equals(z))
-				{
-					return index;
-				}
-			}
-
-			return -1;
-		}
-
 		/// <summary>
 		/// 获取鼠标当前所在的格子坐标
 		/// </summary>
@@ -571,8 +534,8 @@ namespace BiuBiu.Editor
 			var ray = Camera.current.ScreenPointToRay(mousePos);
 			if (Physics.Raycast(ray, out var rh, 3000f) && rh.collider.gameObject == planeObj)
 			{
-				var posX = Mathf.FloorToInt((rh.point.x + cellSize.x / 2) / cellSize.x) * cellSize.x;
-				var posZ = Mathf.FloorToInt((rh.point.z + cellSize.y / 2) / cellSize.y) * cellSize.y;
+				var posX = Mathf.FloorToInt((rh.point.x + cellSize / 2) / cellSize) * cellSize;
+				var posZ = Mathf.FloorToInt((rh.point.z + cellSize / 2) / cellSize) * cellSize;
 				mousePose = new Vector3(posX, mapHeight, posZ);
 
 				return true;

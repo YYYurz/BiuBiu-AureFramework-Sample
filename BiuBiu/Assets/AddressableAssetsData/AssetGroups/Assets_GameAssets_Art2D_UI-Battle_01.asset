@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Assets_GameAssets_Art2D_UI-Battle_0
+  m_Name: Assets_GameAssets_Art2D_UI-Battle_01
   m_EditorClassIdentifier: 
-  m_GroupName: Assets_GameAssets_Art2D_UI-Battle_0
+  m_GroupName: Assets_GameAssets_Art2D_UI-Battle_01
   m_Data:
     m_SerializedData: []
-  m_GUID: 4628ef2f19e7f4c4187dc83bc07c4bba
+  m_GUID: 5c32abfd23f85eb4aafb27a3e0ab189a
   m_SerializeEntries:
   - m_GUID: f9c2cef11b7587e4f9f31b333b26abfc
     m_Address: BattleWindow
@@ -29,5 +29,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: 6798ea86944d6bb4a90f734a49dfafdb, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: e0ab541c9f706d14aa38b72cb78965c6, type: 2}
-    - {fileID: 11400000, guid: 7bbdb9803cde0a24db17c676766465df, type: 2}
+    - {fileID: 11400000, guid: 4f7343974646a2f42abafd0865753bc6, type: 2}
+    - {fileID: 11400000, guid: 36fb517a245b97c4a99227bf895d84b0, type: 2}

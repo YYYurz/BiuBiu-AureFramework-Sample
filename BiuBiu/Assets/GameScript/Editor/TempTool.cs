@@ -6,6 +6,7 @@
 // Email: 1228396352@qq.com
 //------------------------------------------------------------
 
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Unity.Mathematics;
@@ -36,14 +37,14 @@ namespace BiuBiu.Editor
 			}
 		}
 
+		private struct MyStruct
+		{
+			public int a;
+		}
+		
 		private void Test()
 		{
-			var a = new int2(1, 1);
-			var b = new int2(1, 1);
-			if (a.Equals(b))
-			{
-				Debug.Log("HaHah");
-			}
+			PathfindingUtils.GetWorldPositionByIndex(1, 1, 25, 0);
 		}
 
 		private void ModifyCodeFormat()

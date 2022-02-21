@@ -17,7 +17,7 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 65a1345a283ffb14eafab61ff95a282f
   m_SerializeEntries:
-  - m_GUID: e39ec5cae71759541a92e2d06f541201
+  - m_GUID: 9545da95f29b92b43a8e063e5f682b5d
     m_Address: BattleMapConfig
     m_ReadOnly: 0
     m_SerializedLabels: []
