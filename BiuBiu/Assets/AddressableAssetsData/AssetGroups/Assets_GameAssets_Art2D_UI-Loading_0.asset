@@ -10,24 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Assets_GameAssets_Art2D_UI-Battle_01
+  m_Name: Assets_GameAssets_Art2D_UI-Loading_0
   m_EditorClassIdentifier: 
-  m_GroupName: Assets_GameAssets_Art2D_UI-Battle_01
+  m_GroupName: Assets_GameAssets_Art2D_UI-Loading_0
   m_Data:
     m_SerializedData: []
-  m_GUID: 5c32abfd23f85eb4aafb27a3e0ab189a
+  m_GUID: 300ad27d76d33394f8bbf419f657a003
   m_SerializeEntries:
-  - m_GUID: f9c2cef11b7587e4f9f31b333b26abfc
-    m_Address: BattleWindow
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 665593322e1831f42a35c6e935054242
-    m_Address: JoyStick
+  - m_GUID: 1ce005a3728dc224caca079ed425c4ce
+    m_Address: LoadingWindow
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6798ea86944d6bb4a90f734a49dfafdb, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 4f7343974646a2f42abafd0865753bc6, type: 2}
-    - {fileID: 11400000, guid: 36fb517a245b97c4a99227bf895d84b0, type: 2}
+    - {fileID: 11400000, guid: c20dd69f8dd3e884282f50fbf4d4d196, type: 2}
+    - {fileID: 11400000, guid: 1c57aaaf6ddfb7548b07bbc9fc2f20d7, type: 2}

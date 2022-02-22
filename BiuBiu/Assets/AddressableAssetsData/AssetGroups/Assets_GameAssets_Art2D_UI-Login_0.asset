@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Assets_GameAssets_Art2D_UI-Loading_01
+  m_Name: Assets_GameAssets_Art2D_UI-Login_0
   m_EditorClassIdentifier: 
-  m_GroupName: Assets_GameAssets_Art2D_UI-Loading_01
+  m_GroupName: Assets_GameAssets_Art2D_UI-Login_0
   m_Data:
     m_SerializedData: []
-  m_GUID: 7393f17c8b60d7f4a8e25371d9d5a4c2
+  m_GUID: 3f6a772dd60b7da4483c08ce67faa42b
   m_SerializeEntries:
-  - m_GUID: 1ce005a3728dc224caca079ed425c4ce
-    m_Address: LoadingWindow
+  - m_GUID: 50c4f30fe1dc3834198d98cae082e95f
+    m_Address: LoginWindow
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6798ea86944d6bb4a90f734a49dfafdb, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 9fda02d5788d4f54b9011c3622e30972, type: 2}
-    - {fileID: 11400000, guid: 452881607815f1c41b69eddd549b13ef, type: 2}
+    - {fileID: 11400000, guid: 7442a7079afc1d44895cc9dc69ea0f7e, type: 2}
+    - {fileID: 11400000, guid: fdc34a761fa4dff4cb910788cc42924b, type: 2}

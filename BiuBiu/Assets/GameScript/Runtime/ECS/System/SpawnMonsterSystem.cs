@@ -21,7 +21,7 @@ namespace BiuBiu
 	/// </summary>
 	public class SpawnMonsterSystem : ComponentSystemBase
 	{
-		private const int MaxMonsterCount = 10;
+		private const int MaxMonsterCount = 1000;
 		private int curMonsterCount;
 		private int monsterIdCounter;
 
@@ -31,8 +31,8 @@ namespace BiuBiu
 			{
 				return;
 			}
-			
-			if (curMonsterCount < MaxMonsterCount)
+
+			while (curMonsterCount < MaxMonsterCount)
 			{
 				CreateMonster();
 				curMonsterCount++;

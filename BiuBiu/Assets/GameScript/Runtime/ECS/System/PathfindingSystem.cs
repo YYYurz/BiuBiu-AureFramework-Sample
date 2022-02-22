@@ -9,7 +9,6 @@
 using System.Collections.Generic;
 using Unity.Burst;
 using Unity.Collections;
-using Unity.Collections.LowLevel.Unsafe;
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
@@ -25,14 +24,20 @@ namespace BiuBiu
 	{
 		private struct PointInformation
 		{
-			public int g;
-			public int h;
-			public int f;
-			public int2 parent;
+			public float WorldPosX;
+			public float WorldPosZ;
+			
+			public float G;
+			public float H;
+			public float F;
+			
+			public int Parent;
+
+			public bool IsWalkable;
 		}
 		
 		private readonly Dictionary<uint, List<float3>> pathDic = new Dictionary<uint, List<float3>>();
-		private int2 targetPos;
+		private int targetIndex;
 
 		public override void Update()
 		{
@@ -41,24 +46,42 @@ namespace BiuBiu
 				return;
 			}
 
-			var mapConfig = GameMain.GamePlay.CurMapConfig;
-			// var mapPointArray = new NativeArray<PointInformation>(mapConfig.PointArray.Count, Allocator.Temp); 
-
+			RefreshTargetPos();
+			var pointInformationArray = GetMapPointInformationArray(); 
 			var entityArray = GetMovablePositionComponentArray();
-			var positionComponentArray = new NativeArray<PositionComponent>();
-			
-			var jobHandleList = new NativeList<JobHandle>(Allocator.Temp);
-			var jobList = new List<PathfindingJob>();
-			var mapCellSize = GameMain.GamePlay.CurMapConfig.CellSize;
+			var jobHandleList = new NativeList<JobHandle>(Allocator.TempJob);
+			var curMapConfig = GameMain.GamePlay.CurMapConfig;
+
+			var startTime = UnityEngine.Time.realtimeSinceStartup;
 			foreach (var entity in entityArray)
 			{
 				var positionComponent = EntityManager.GetComponentData<PositionComponent>(entity);
-				var start = PathfindingUtils.GetIndexByWorldPosition(positionComponent.CurPosition.x, positionComponent.CurPosition.z, mapCellSize);
-				var pathFindingJob = new PathfindingJob(start, targetPos);
-				jobList.Add(pathFindingJob);
+				var startIndex = PathfindingUtils.GetIndexByWorldPosition(positionComponent.CurPosition, curMapConfig.CellSize, curMapConfig.MapSize);
+				// Debug.Log(positionComponent.CurPosition);
+
+				if (!(startIndex >= 0 && startIndex < curMapConfig.PointArray.Length)
+				    || !(targetIndex >= 0 && targetIndex < curMapConfig.PointArray.Length)
+				    || curMapConfig.PointArray[startIndex].index == 0
+				    || curMapConfig.PointArray[targetIndex].index == 0)
+				{
+					continue;
+				}
+				
+				var pathFindingJob = new PathfindingJob
+				{
+					PointInformationArray = pointInformationArray,
+					start = startIndex,
+					end = targetIndex,
+					cellSize = curMapConfig.CellSize,
+					mapSize = curMapConfig.MapSize,
+				};
+			
 				jobHandleList.Add(pathFindingJob.Schedule());
 			}
 			JobHandle.CompleteAll(jobHandleList);
+			
+			Debug.Log((UnityEngine.Time.realtimeSinceStartup - startTime));
+			
 			// foreach (var entity in entityArray)
 			// {
 			// 	var positionComponent = EntityManager.GetComponentData<PositionComponent>(entity);
@@ -75,15 +98,39 @@ namespace BiuBiu
 			// {
 			// 	Debug.Log(job.pathResultList[0] + "  " + job.pathResultList[1]);
 			// }
-			
+
+			pointInformationArray.Dispose();
+			entityArray.Dispose();
 			jobHandleList.Dispose();
 		}
 
 		private void RefreshTargetPos()
 		{
 			var playerPos = GameMain.GamePlay.PlayerController.transform.position;
-			var mapCellSize = GameMain.GamePlay.CurMapConfig.CellSize;
-			targetPos = PathfindingUtils.GetIndexByWorldPosition(playerPos.x, playerPos.z, mapCellSize);
+			var cellSize = GameMain.GamePlay.CurMapConfig.CellSize;
+			var mapSize = GameMain.GamePlay.CurMapConfig.MapSize;
+			targetIndex = PathfindingUtils.GetIndexByWorldPosition(playerPos, cellSize, mapSize);
+		}
+
+		private NativeArray<PointInformation> GetMapPointInformationArray()
+		{
+			var mapConfig = GameMain.GamePlay.CurMapConfig;
+			var pointInformationArray = new NativeArray<PointInformation>(GameMain.GamePlay.CurMapConfig.PointArray.Length, Allocator.TempJob);
+			for (var i = 0; i < pointInformationArray.Length; i++)
+			{
+				var point = mapConfig.PointArray[i];
+				if (point.index != 0)
+				{
+					pointInformationArray[i] = new PointInformation
+					{
+						WorldPosX = point.worldPos.x,
+						WorldPosZ = point.worldPos.z,
+						IsWalkable = true,
+					};
+				}
+			}
+
+			return pointInformationArray;
 		}
 
 		private NativeArray<Entity> GetMovablePositionComponentArray()
@@ -111,145 +158,127 @@ namespace BiuBiu
 		[BurstCompile]
 		private struct PathfindingJob : IJob
 		{
-			
-
-			private NativeList<int2> pathResultList;
-			private int2 startPos;
-			private int2 endPos;
-			
-			private NativeHashMap<int2, float3> pointDic;
-			private NativeHashMap<int2, PointInformation> openDic;
-			private NativeHashMap<int2, PointInformation> closeDic;
-			private int2 processingPos;
-
-			public PathfindingJob(int2 start, int2 end)
-			{
-				pathResultList = new NativeList<int2>(Allocator.TempJob);
-				pointDic = new NativeHashMap<int2, float3>();
-				openDic = new NativeHashMap<int2, PointInformation>();
-				closeDic = new NativeHashMap<int2, PointInformation>();
-				startPos = start;
-				endPos = end;
-				processingPos = int2.zero;
-			}
+			[ReadOnly] public NativeArray<PointInformation> PointInformationArray;
+			public float cellSize;
+			public float mapSize;
+			public int start;
+			public int end;
+			private int processingPos;
 
 			public void Execute()
 			{
-				openDic.Add(startPos, new PointInformation
-				{
-					g = 0,
-					h = 0,
-					f = 0,
-					parent = startPos,
-				});
+				var pointInformationArray = new NativeArray<PointInformation>(PointInformationArray.Length, Allocator.Temp);
+				PointInformationArray.CopyTo(pointInformationArray);
 				
-				while (!openDic.IsEmpty)
+				var openList = new NativeList<int>(Allocator.Temp);
+				var closeList = new NativeList<int>(Allocator.Temp);
+				openList.Add(start);
+
+				while (openList.Length > 0)
 				{
-					SelectMinCostF();
-					RefreshSurroundPoints();
-					if (openDic.ContainsKey(endPos))
+					SelectMinCostF(pointInformationArray, openList, closeList);
+					RefreshSurroundPoints(pointInformationArray, openList, closeList);
+					if (openList.Contains(end))
 					{
-						CreatePath();
+						// CreatePath();
 						break;
 					}
 				}
+
+				openList.Dispose();
+				closeList.Dispose();
+				pointInformationArray.Dispose();
 			}
 
 			/// <summary>
 			/// 选择F值最小的节点作为当前处理节点
 			/// </summary>
-			private void SelectMinCostF()
+			private void SelectMinCostF(NativeArray<PointInformation> pointInformationArray, NativeList<int> openList, NativeList<int> closeList)
 			{
-				var tempPoint = new KeyValue<int2, PointInformation>();
-				var tempF = int.MaxValue;
-				foreach (var openPoint in openDic)
+				var key = 0;
+				for (var i = 0; i < openList.Length; i++)
 				{
-					if (openPoint.Value.f < tempF)
+					if (pointInformationArray[openList[i]].F < pointInformationArray[openList[key]].F)
 					{
-						tempPoint = openPoint;
-						tempF = openPoint.Value.f;
+						key = i;
 					}
 				}
 
-				processingPos = tempPoint.Key;
-				openDic.Remove(tempPoint.Key);
-				closeDic.Add(tempPoint.Key, tempPoint.Value);
+				processingPos = openList[key];
+				closeList.Add(openList[key]);
+				openList.RemoveAt(key);
 			}
 
 			/// <summary>
 			/// 刷新当前点的周围点信息
 			/// </summary>
-			private void RefreshSurroundPoints()
+			private void RefreshSurroundPoints(NativeArray<PointInformation> pointInformationArray, NativeList<int> openList, NativeList<int> closeList)
 			{
-				for (var x = -1; x <= 1; x++)
+				for (var x = -cellSize; x <= cellSize; x += cellSize)
 				{
-					for (var y = -1; y <= 1; y++)
+					for (var z = -cellSize; z <= cellSize; z += cellSize)
 					{
-						if (x == 0 && y == 0)
+						if (x.Equals(0f) && z.Equals(0f))
 						{
 							continue;
 						}
-
-						var processingPointInformation = closeDic[processingPos];
-						var posX = processingPos.x + x;
-						var posY = processingPos.y + y;
-						var pos = new int2(posX, posY);
-						if (!pointDic.ContainsKey(pos) || closeDic.ContainsKey(pos))
+			
+						var processingPointInformation = pointInformationArray[processingPos];
+						var posX = processingPointInformation.WorldPosX + x;
+						var posZ = processingPointInformation.WorldPosZ + z;
+						var index = PathfindingUtils.GetIndexByWorldPosition(new float3(posX, 0f, posZ), cellSize, mapSize);
+						if (!(index >= 0 && index < pointInformationArray.Length) || !pointInformationArray[index].IsWalkable || closeList.Contains(index))
 						{
 							continue;
 						}
-
-						var costG = Mathf.Abs(x) == Mathf.Abs(y)
-							? processingPointInformation.g + 14
-							: processingPointInformation.g + 10;
-						var costH = (Mathf.Abs(posX - endPos.x) + Mathf.Abs(posY - endPos.y)) * 10;
-
+			
+						var costG = Mathf.Abs(x).Equals(Mathf.Abs(z)) ? processingPointInformation.G + 14 : processingPointInformation.G + 10;
+						var costH = (Mathf.Abs(posX - pointInformationArray[end].WorldPosX) + Mathf.Abs(posZ - pointInformationArray[end].WorldPosZ)) * 10;
 						var costF = costG + costH;
-						var pointInformation = new PointInformation
+
+						var pointInformation = pointInformationArray[index];
+						var newPointInformation = new PointInformation
 						{
-							g = costG,
-							h = costH,
-							f = costF,
-							parent = processingPos,
+							WorldPosX = pointInformation.WorldPosX,
+							WorldPosZ = pointInformation.WorldPosZ,
+							
+							G = costG,
+							H = costH,
+							F = costF,
+							Parent = processingPos,
+							
+							IsWalkable = true,
 						};
-						AddToOpen(pos, pointInformation);
+
+						if (openList.Contains(index))
+						{
+							if (pointInformationArray[index].G > costG)
+							{
+								pointInformationArray[index] = newPointInformation;
+							}
+						}
+						else
+						{
+							pointInformationArray[index] = newPointInformation;
+							openList.Add(index);
+						}
 					}
 				}
 			}
 
-			/// <summary>
-			/// 添加点到OpenDic
-			/// </summary>
-			/// <param name="pos"></param>
-			/// <param name="pointInformation"></param>
-			private void AddToOpen(int2 pos, PointInformation pointInformation)
-			{
-				if (openDic.ContainsKey(pos))
-				{
-					if (openDic[pos].g > pointInformation.g)
-					{
-						openDic[pos] = pointInformation;
-					}
-				}
-				else
-				{
-					openDic.Add(pos, pointInformation);
-				}
-			}
-
-			private void CreatePath()
-			{
-				var tempInformation = openDic[endPos];
-				var tempPos = endPos;
-
-				pathResultList.Add(tempPos);
-				while (!tempPos.Equals(startPos))
-				{
-					tempPos = tempInformation.parent;
-					tempInformation = closeDic[tempPos];
-					pathResultList.Add(tempPos);
-				}
-			}
+			// private void CreatePath()
+			// {
+			// 	var tempInformation = PointInformationArray[End];
+			// 	var tempIndex = End;
+			//
+			// 	PathResultList.Add(End);
+			// 	while (!tempIndex.Equals(Start))
+			// 	{
+			// 		tempIndex = tempInformation.Parent;
+			// 		tempInformation = PointInformationArray[tempIndex];
+			// 		PathResultList.Add(tempIndex);
+			// 	}
+			// }
 		}
 	}
 }

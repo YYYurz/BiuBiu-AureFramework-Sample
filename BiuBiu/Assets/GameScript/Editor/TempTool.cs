@@ -44,7 +44,8 @@ namespace BiuBiu.Editor
 		
 		private void Test()
 		{
-			PathfindingUtils.GetWorldPositionByIndex(1, 1, 25, 0);
+			// PathfindingUtils.GetWorldPositionByIndex(1, 1, 25, 0);
+			PathfindingUtils.GetIndexByWorldPosition(new float3(26, 0, -26), 1, 25);
 		}
 
 		private void ModifyCodeFormat()

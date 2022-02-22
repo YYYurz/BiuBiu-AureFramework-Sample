@@ -258,7 +258,7 @@ namespace BiuBiu.Editor
 		{
 			var mapHalfSize = mapSize / 2f;
 			
-			var tempXPos =cellSize / 2f;
+			var tempXPos = 0f;
 			while (tempXPos <= mapHalfSize)
 			{
 				var leftXa = new Vector3(tempXPos, mapHeight, mapHalfSize);
@@ -272,7 +272,7 @@ namespace BiuBiu.Editor
 				tempXPos += cellSize;
 			}
 
-			var tempYPos = cellSize / 2f;
+			var tempYPos = 0f;
 			while (tempYPos <= mapHalfSize)
 			{
 				var leftYa = new Vector3(mapHalfSize, mapHeight, tempYPos);
@@ -412,8 +412,8 @@ namespace BiuBiu.Editor
 			var ray = Camera.current.ScreenPointToRay(mousePos);
 			if (Physics.Raycast(ray, out var rh, 3000f) && rh.collider.gameObject == planeObj)
 			{
-				var posX = Mathf.FloorToInt((rh.point.x + cellSize / 2) / cellSize) * cellSize;
-				var posZ = Mathf.FloorToInt((rh.point.z + cellSize / 2) / cellSize) * cellSize;
+				var posX = Mathf.CeilToInt((rh.point.x / cellSize)) * cellSize - cellSize / 2;
+				var posZ = Mathf.CeilToInt((rh.point.z / cellSize)) * cellSize - cellSize / 2;
 				mousePose = new float3(posX, mapHeight, posZ);
 				
 				return true;

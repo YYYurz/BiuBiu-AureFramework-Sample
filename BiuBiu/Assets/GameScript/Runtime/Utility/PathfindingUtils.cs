@@ -27,6 +27,11 @@ namespace BiuBiu
 		public static int GetIndexByWorldPosition(float3 worldPos, float cellSize, float mapSize)
 		{
 			var halfMapSize = mapSize * 0.5f;
+			if (Mathf.Abs(worldPos.x) > halfMapSize || Mathf.Abs(worldPos.z) > halfMapSize)
+			{
+				return -1;
+			}
+			
 			var cellNumPerLine = Mathf.CeilToInt(mapSize / cellSize);
 			var xValue = Mathf.CeilToInt((worldPos.x + halfMapSize) / cellSize);
 			var zValue = Mathf.FloorToInt((worldPos.z + halfMapSize) / cellSize);

@@ -10,20 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Assets_GameAssets_Art2D_UI-Sound_01
+  m_Name: Assets_GameAssets_Art2D_UI-Battle_0
   m_EditorClassIdentifier: 
-  m_GroupName: Assets_GameAssets_Art2D_UI-Sound_01
+  m_GroupName: Assets_GameAssets_Art2D_UI-Battle_0
   m_Data:
     m_SerializedData: []
-  m_GUID: 1f77429c121a93f4b822ad7151309b1b
+  m_GUID: 242ca04a380870a499b4c6c283833ab2
   m_SerializeEntries:
-  - m_GUID: b49eab7247fc83548837a2a9dd271a64
-    m_Address: SoundWindow
+  - m_GUID: f9c2cef11b7587e4f9f31b333b26abfc
+    m_Address: BattleWindow
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 665593322e1831f42a35c6e935054242
+    m_Address: JoyStick
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6798ea86944d6bb4a90f734a49dfafdb, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 879ea972ab8e4fb40bcd1d1e5049cb92, type: 2}
-    - {fileID: 11400000, guid: 2cba6c2bf6d83054fbf040e973a121fd, type: 2}
+    - {fileID: 11400000, guid: 0a65e58acb138614b971fb13f6f0bdab, type: 2}
+    - {fileID: 11400000, guid: c18f096349f959a4b87b75dd5eb8d109, type: 2}

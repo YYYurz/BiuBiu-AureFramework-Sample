@@ -30,7 +30,7 @@ namespace BiuBiu.Editor
 		private MapConfig curMapConfig;
 		private float cellSize = 1f;
 		private float mapHeight;
-		private float mapMaxSize = 100f;
+		private float mapSize = 100f;
 
 		private Vector3 mouseMovePos;
 		private Vector3 mouseDownPos;
@@ -56,7 +56,7 @@ namespace BiuBiu.Editor
 				{
 					cellSize = value.CellSize;
 					mapHeight = value.MapHeight;
-					mapMaxSize = value.MapSize;
+					mapSize = value.MapSize;
 				}
 				
 				curMapConfig = value;
@@ -115,10 +115,10 @@ namespace BiuBiu.Editor
 		{
 			set
 			{
-				mapMaxSize = value;
+				mapSize = value;
 				if (planeObj != null)
 				{
-					planeObj.transform.localScale = new Vector3(mapMaxSize / 10f, 1f, mapMaxSize / 10f);
+					planeObj.transform.localScale = new Vector3(mapSize / 10f, 1f, mapSize / 10f);
 				}
 				
 				if (curMapConfig != null)
@@ -143,7 +143,7 @@ namespace BiuBiu.Editor
 			planeObj = GameObject.CreatePrimitive(PrimitiveType.Plane);
 			planeObj.GetComponent<MeshRenderer>().enabled = false;
 			planeObj.transform.position = new Vector3(0f, mapHeight, 0f);
-			planeObj.transform.localScale = new Vector3(mapMaxSize / 10f, 1f, mapMaxSize / 10f);
+			planeObj.transform.localScale = new Vector3(mapSize / 10f, 1f, mapSize / 10f);
 			planeObj.hideFlags = HideFlags.HideInHierarchy | HideFlags.HideInInspector;
 		}
 
@@ -159,15 +159,16 @@ namespace BiuBiu.Editor
 
 		private struct PointInformation
 		{
-			public float worldPosx;
-			public float worldPosz;
+			public float WorldPosX;
+			public float WorldPosZ;
 			
-			public int g;
-			public int h;
-			public int f;
-			public int parent;
+			public float G;
+			public float H;
+			public float F;
+			
+			public int Parent;
 
-			public bool isWalkable;
+			public bool IsWalkable;
 		}
 
 		private PointInformation[] pointInformationArray;
@@ -180,7 +181,12 @@ namespace BiuBiu.Editor
 		
 		private void Test()
 		{
-			Init();
+			if (!Init())
+			{
+				return;
+			}
+			
+			var i = 1;
 			while (openList.Count > 0)
 			{
 				SelectMinCostF();
@@ -190,29 +196,44 @@ namespace BiuBiu.Editor
 					CreatePath();
 					break;
 				}
+				i++;
+
 			} 
+			Debug.Log(i);
+
 		}
 
-		private void Init()
+		private bool Init()
 		{
+			start = PathfindingUtils.GetIndexByWorldPosition(startPosition, cellSize, mapSize);
+			end = PathfindingUtils.GetIndexByWorldPosition(endPosition, cellSize, mapSize);
+			if (!(start >= 0 && start < curMapConfig.PointArray.Length)
+			|| !(end >= 0 && end < curMapConfig.PointArray.Length)
+			|| curMapConfig.PointArray[start].index == 0
+			|| curMapConfig.PointArray[end].index == 0)
+			{
+				return false;
+			}
+			
 			openList.Clear();
 			closeList.Clear();
 			pathResultList.Clear();
 			
-			var cellNumPerLine = Mathf.CeilToInt(mapMaxSize / cellSize);
+			var cellNumPerLine = Mathf.CeilToInt(mapSize / cellSize);
 			pointInformationArray = new PointInformation[cellNumPerLine * cellNumPerLine + 1];
 			for (var i = 0; i < pointInformationArray.Length; i++)
 			{
 				var point = curMapConfig.PointArray[i];
 				if (point.index != 0)
 				{
-					pointInformationArray[i].worldPosx = point.worldPos.x;
-					pointInformationArray[i].worldPosz = point.worldPos.z;
-					pointInformationArray[i].isWalkable = true;
+					pointInformationArray[i].WorldPosX = point.worldPos.x;
+					pointInformationArray[i].WorldPosZ = point.worldPos.z;
+					pointInformationArray[i].IsWalkable = true;
 				}
 			}
 			
 			openList.Add(start);
+			return true;
 		}
 		
 		/// <summary>
@@ -223,7 +244,7 @@ namespace BiuBiu.Editor
 			var tempIndex = openList[0];
 			foreach (var openPoint in openList)
 			{
-				if (pointInformationArray[openPoint].f < pointInformationArray[tempIndex].f)
+				if (pointInformationArray[openPoint].F < pointInformationArray[tempIndex].F)
 				{
 					tempIndex = openPoint;
 				}
@@ -249,61 +270,51 @@ namespace BiuBiu.Editor
 					}
 			
 					var processingPointInformation = pointInformationArray[processingPos];
-					var posX = processingPointInformation.worldPosx + x;
-					var posZ = processingPointInformation.worldPosz + z;
-					var pos = new int2(posX, posY);
-					if (!pointDic.ContainsKey(pos) || closeList.ContainsKey(pos))
+					var posX = processingPointInformation.WorldPosX + x;
+					var posZ = processingPointInformation.WorldPosZ + z;
+					var index = PathfindingUtils.GetIndexByWorldPosition(new float3(posX, 0f, posZ), cellSize, mapSize);
+					if (!(index >= 0 && index < pointInformationArray.Length) || !pointInformationArray[index].IsWalkable || closeList.Contains(index))
 					{
 						continue;
 					}
 			
-					var costG = Mathf.Abs(x) == Mathf.Abs(z) ? processingPointInformation.g + 14 : processingPointInformation.g + 10;
-					var costH = (Mathf.Abs(posX - end.x) + Mathf.Abs(posY - end.y)) * 10;
-					
+					var costG = Mathf.Abs(x).Equals(Mathf.Abs(z)) ? processingPointInformation.G + 14 : processingPointInformation.G + 10;
+					var costH = (Mathf.Abs(posX - pointInformationArray[end].WorldPosX) + Mathf.Abs(posZ - pointInformationArray[end].WorldPosZ)) * 10;
 					var costF = costG + costH;
-					var pointInformation = new PointInformation
+
+					if (openList.Contains(index))
 					{
-						g = costG,
-						h = costH,
-						f = costF,
-						parent = processingPos,
-					};
-					AddToOpen(pos, pointInformation);
+						if (pointInformationArray[index].G > costG)
+						{
+							pointInformationArray[index].G = costG;
+							pointInformationArray[index].H = costH;
+							pointInformationArray[index].F = costF;
+							pointInformationArray[index].Parent = processingPos;
+						}
+					}
+					else
+					{
+						pointInformationArray[index].G = costG;
+						pointInformationArray[index].H = costH;
+						pointInformationArray[index].F = costF;
+						pointInformationArray[index].Parent = processingPos;
+						openList.Add(index);
+					}
 				}
 			}
 		}
 		
-		/// <summary>
-		/// 添加点到OpenDic
-		/// </summary>
-		/// <param name="pos"></param>
-		/// <param name="pointInformation"></param>
-		private void AddToOpen(int2 pos, PointInformation pointInformation)
-		{
-			if (openList.ContainsKey(pos))
-			{
-				if (openList[pos].g > pointInformation.g)
-				{
-					openList[pos] = pointInformation;
-				}
-			}
-			else
-			{
-				openList.Add(pos, pointInformation);
-			}
-		}
-
 		private void CreatePath()
 		{
-			var tempInformation = openList[end];
-			var tempPos = end;
+			var tempInformation = pointInformationArray[end];
+			var tempIndex = end;
 
-			pathResultList.Add(tempPos);
-			while (!tempPos.Equals(start))
+			pathResultList.Add(end);
+			while (!tempIndex.Equals(start))
 			{
-				tempPos = tempInformation.parent;
-				tempInformation = closeList[tempPos];
-				pathResultList.Add(tempPos);
+				tempIndex = tempInformation.Parent;
+				tempInformation = pointInformationArray[tempIndex];
+				pathResultList.Add(tempIndex);
 			}
 			
 			pathResultList.Reverse();
@@ -364,25 +375,43 @@ namespace BiuBiu.Editor
 
 		private void DrawPathCell()
 		{
-			foreach (var pathPoint in pathResultList)
+			if (curMapConfig == null)
 			{
-				DrawCellByPoint(pointDic[pathPoint], Color.magenta, Color.black);
+				return;
+			}
+			
+			var pointArray = curMapConfig.PointArray;
+			foreach (var pathIndex in pathResultList)
+			{
+				DrawCellByPoint(pointArray[pathIndex].worldPos, Color.magenta, Color.black);
 			}
 		}
 		
 		private void DrawOpenCell()
 		{
-			foreach (var openPoint in openList)
+			if (curMapConfig == null)
 			{
-				DrawCellByPoint(pointDic[openPoint.Key], Color.yellow, Color.black);
+				return;
+			}
+			
+			var pointArray = curMapConfig.PointArray;
+			foreach (var openIndex in openList)
+			{
+				DrawCellByPoint(pointArray[openIndex].worldPos, Color.yellow, Color.black);
 			}
 		}
 		
 		private void DrawCloseCell()
 		{
-			foreach (var closePoint in closeList)
+			if (curMapConfig == null)
 			{
-				DrawCellByPoint(pointDic[closePoint.Key], Color.black, Color.black);
+				return;
+			}
+			
+			var pointArray = curMapConfig.PointArray;
+			foreach (var closeIndex in closeList)
+			{
+				DrawCellByPoint(pointArray[closeIndex].worldPos, Color.black, Color.black);
 			}
 		}
 
@@ -398,7 +427,7 @@ namespace BiuBiu.Editor
 			
 			foreach (var point in curMapConfig.PointArray)
 			{
-				DrawCellByPoint(point.worldPos, Color.green, Color.blue);
+				DrawCellByPoint(point.worldPos, new Color(0f, 1f, 0f, 0.2f), Color.blue);
 			}
 		}
 
@@ -416,7 +445,7 @@ namespace BiuBiu.Editor
 		}
 
 		/// <summary>
-		/// 绘制鼠标拖拽选中格子
+		/// 绘制鼠标选中格子
 		/// </summary>
 		private void DrawMouseSelectCell()
 		{
@@ -436,9 +465,9 @@ namespace BiuBiu.Editor
 		/// </summary>
 		private void DrawMapMeshLine()
 		{
-			var mapHalfSize = mapMaxSize / 2f;
+			var mapHalfSize = mapSize / 2f;
 			
-			var tempXPos =cellSize / 2f;
+			var tempXPos = 0f;
 			while (tempXPos <= mapHalfSize)
 			{
 				var leftXa = new Vector3(tempXPos, mapHeight, mapHalfSize);
@@ -452,7 +481,7 @@ namespace BiuBiu.Editor
 				tempXPos += cellSize;
 			}
 
-			var tempYPos = cellSize / 2f;
+			var tempYPos = 0f;
 			while (tempYPos <= mapHalfSize)
 			{
 				var leftXa = new Vector3(mapHalfSize, mapHeight, tempYPos);
@@ -534,9 +563,9 @@ namespace BiuBiu.Editor
 			var ray = Camera.current.ScreenPointToRay(mousePos);
 			if (Physics.Raycast(ray, out var rh, 3000f) && rh.collider.gameObject == planeObj)
 			{
-				var posX = Mathf.FloorToInt((rh.point.x + cellSize / 2) / cellSize) * cellSize;
-				var posZ = Mathf.FloorToInt((rh.point.z + cellSize / 2) / cellSize) * cellSize;
-				mousePose = new Vector3(posX, mapHeight, posZ);
+				var posX = Mathf.CeilToInt((rh.point.x / cellSize)) * cellSize - cellSize / 2;
+				var posZ = Mathf.CeilToInt((rh.point.z / cellSize)) * cellSize - cellSize / 2;
+				mousePose = new float3(posX, mapHeight, posZ);
 
 				return true;
 			}

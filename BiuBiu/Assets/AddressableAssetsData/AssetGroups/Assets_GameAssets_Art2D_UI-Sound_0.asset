@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Assets_GameAssets_Art2D_UI-Login_01
+  m_Name: Assets_GameAssets_Art2D_UI-Sound_0
   m_EditorClassIdentifier: 
-  m_GroupName: Assets_GameAssets_Art2D_UI-Login_01
+  m_GroupName: Assets_GameAssets_Art2D_UI-Sound_0
   m_Data:
     m_SerializedData: []
-  m_GUID: f774fcc0f3adda140864e856e04bc361
+  m_GUID: 69e50067735f61a4cb9c3ce5dcb6e225
   m_SerializeEntries:
-  - m_GUID: 50c4f30fe1dc3834198d98cae082e95f
-    m_Address: LoginWindow
+  - m_GUID: b49eab7247fc83548837a2a9dd271a64
+    m_Address: SoundWindow
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6798ea86944d6bb4a90f734a49dfafdb, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 537a6f6b144cda742b7b7285088f4567, type: 2}
-    - {fileID: 11400000, guid: b2038c605c00ec349b4f68baffc9e167, type: 2}
+    - {fileID: 11400000, guid: b21d234f91e7a3d47b618ea2a3e09e88, type: 2}
+    - {fileID: 11400000, guid: 70996bd47026d454ea9f326a65d6002e, type: 2}
