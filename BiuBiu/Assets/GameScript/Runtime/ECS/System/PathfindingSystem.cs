@@ -6,14 +6,12 @@
 // Email: 1228396352@qq.com
 //------------------------------------------------------------
 
-using System.Collections.Generic;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Transforms;
-using UnityEngine;
 
 namespace BiuBiu
 {
@@ -35,8 +33,8 @@ namespace BiuBiu
 
 			public bool IsWalkable;
 		}
-		
-		private readonly Dictionary<uint, List<float3>> pathDic = new Dictionary<uint, List<float3>>();
+
+		private NativeArray<PointInformation> pointInformationArray;
 		private int targetIndex;
 
 		protected override void OnUpdate()
@@ -46,36 +44,51 @@ namespace BiuBiu
 				return;
 			}
 			RefreshTargetPos();
-			var pointInformationArray = GetMapPointInformationArray();
+			RefreshMapPointInformationArray();
 			var curMapConfig = GameMain.GamePlay.CurMapConfig;
 
 			Entities
-				.WithAll<PositionComponent, Translation>()
+				.WithAll<PathFollowComponent, Translation>()
 				.WithNone<ControlBuffComponent>()
-				.ForEach((Entity entity,  DynamicBuffer<PathPositionBuffer> positionBuffer, ref PositionComponent positionComponent) =>
+				.ForEach((Entity entity, DynamicBuffer<PathPositionBuffer> positionBuffer, ref Translation translation) =>
 				{
-					var startIndex = PathfindingUtils.GetIndexByWorldPosition(positionComponent.CurPosition, curMapConfig.CellSize, curMapConfig.MapSize);
+					var startIndex = PathfindingUtils.GetIndexByWorldPosition(translation.Value, curMapConfig.CellSize, curMapConfig.MapSize);
 					if ((startIndex >= 0 && startIndex < curMapConfig.PointArray.Length)
 					    && (targetIndex >= 0 && targetIndex < curMapConfig.PointArray.Length)
 					    && curMapConfig.PointArray[startIndex].index != 0
-					    && curMapConfig.PointArray[targetIndex].index != 0)
+					    && curMapConfig.PointArray[targetIndex].index != 0
+					    && startIndex != targetIndex)
 					{
 						var pathFindingJob = new PathfindingJob
 						{
 							PointInformationArray = pointInformationArray,
 							ResultBuffer = positionBuffer,
+							PathFollowIndexComponentFromEntity = GetComponentDataFromEntity<PathFollowComponent>(),
+							PathEntity = entity,
 							Start = startIndex,
 							End = targetIndex,
 							CellSize = curMapConfig.CellSize,
 							MapSize = curMapConfig.MapSize,
 						};
+						
 						pathFindingJob.Run();
 					}
 				});
-			
-			pointInformationArray.Dispose();
 		}
 
+		protected override void OnDestroy()
+		{
+			base.OnDestroy();
+			
+			if (pointInformationArray.IsCreated)
+			{
+				pointInformationArray.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// 刷新玩家位置地图索引
+		/// </summary>
 		private void RefreshTargetPos()
 		{
 			var playerPos = GameMain.GamePlay.PlayerController.transform.position;
@@ -84,10 +97,19 @@ namespace BiuBiu
 			targetIndex = PathfindingUtils.GetIndexByWorldPosition(playerPos, cellSize, mapSize);
 		}
 
-		private NativeArray<PointInformation> GetMapPointInformationArray()
+		/// <summary>
+		/// 获取网格配置所有可行走的点
+		/// </summary>
+		/// <returns></returns>
+		private void RefreshMapPointInformationArray()
 		{
+			if (pointInformationArray.IsCreated)
+			{
+				pointInformationArray.Dispose();
+			}
+			
+			pointInformationArray = new NativeArray<PointInformation>(GameMain.GamePlay.CurMapConfig.PointArray.Length, Allocator.TempJob);
 			var mapConfig = GameMain.GamePlay.CurMapConfig;
-			var pointInformationArray = new NativeArray<PointInformation>(GameMain.GamePlay.CurMapConfig.PointArray.Length, Allocator.TempJob);
 			for (var i = 0; i < pointInformationArray.Length; i++)
 			{
 				var point = mapConfig.PointArray[i];
@@ -101,8 +123,6 @@ namespace BiuBiu
 					};
 				}
 			}
-
-			return pointInformationArray;
 		}
 
 		/// <summary>
@@ -113,6 +133,8 @@ namespace BiuBiu
 		{
 			[ReadOnly] public NativeArray<PointInformation> PointInformationArray;
 			public DynamicBuffer<PathPositionBuffer> ResultBuffer;
+			public ComponentDataFromEntity<PathFollowComponent> PathFollowIndexComponentFromEntity;
+			public Entity PathEntity;
 			public float CellSize;
 			public float MapSize;
 			public int Start;
@@ -147,6 +169,9 @@ namespace BiuBiu
 			/// <summary>
 			/// 选择F值最小的节点作为当前处理节点
 			/// </summary>
+			/// <param name="pointInformationArray"></param>
+			/// <param name="openList"></param>
+			/// <param name="closeList"></param>
 			private void SelectMinCostF(NativeArray<PointInformation> pointInformationArray, NativeList<int> openList, NativeList<int> closeList)
 			{
 				var key = 0;
@@ -166,6 +191,9 @@ namespace BiuBiu
 			/// <summary>
 			/// 刷新当前点的周围点信息
 			/// </summary>
+			/// <param name="pointInformationArray"></param>
+			/// <param name="openList"></param>
+			/// <param name="closeList"></param>
 			private void RefreshSurroundPoints(NativeArray<PointInformation> pointInformationArray, NativeList<int> openList, NativeList<int> closeList)
 			{
 				for (var x = -CellSize; x <= CellSize; x += CellSize)
@@ -186,8 +214,8 @@ namespace BiuBiu
 							continue;
 						}
 			
-						var costG = Mathf.Abs(x).Equals(Mathf.Abs(z)) ? processingPointInformation.G + 14 : processingPointInformation.G + 10;
-						var costH = (Mathf.Abs(posX - pointInformationArray[End].WorldPosX) + Mathf.Abs(posZ - pointInformationArray[End].WorldPosZ)) * 10;
+						var costG = math.abs(x).Equals(math.abs(z)) ? processingPointInformation.G + 14 : processingPointInformation.G + 10;
+						var costH = (math.abs(posX - pointInformationArray[End].WorldPosX) + math.abs(posZ - pointInformationArray[End].WorldPosZ)) * 10;
 						var costF = costG + costH;
 
 						var pointInformation = pointInformationArray[index];
@@ -220,17 +248,22 @@ namespace BiuBiu
 				}
 			}
 
+			/// <summary>
+			/// 创建最短路径存入Buffer
+			/// </summary>
+			/// <param name="pointInformationArray"></param>
 			private void CreatePath(NativeArray<PointInformation> pointInformationArray)
 			{
 				ResultBuffer.Clear();
-				var tempInformation = pointInformationArray[End];
 				var tempIndex = End;
-				while (!tempIndex.Equals(Start))
+				do
 				{
-					tempIndex = tempInformation.Parent;
-					tempInformation = pointInformationArray[tempIndex];
+					var tempInformation = pointInformationArray[tempIndex];
 					ResultBuffer.Add(new PathPositionBuffer {Index = tempIndex});
-				}
+					tempIndex = tempInformation.Parent;
+				} while (!tempIndex.Equals(Start));
+				
+				PathFollowIndexComponentFromEntity[PathEntity] = new PathFollowComponent{ PathIndex = ResultBuffer.Length - 1 };
 			}
 		}
 	}

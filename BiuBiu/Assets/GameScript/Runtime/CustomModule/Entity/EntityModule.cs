@@ -152,6 +152,87 @@ namespace BiuBiu
 		}
 
 		/// <summary>
+		/// 用GameObject预制体创建实体
+		/// </summary>
+		/// <param name="entityPrefab"> GameObject预制体 </param>
+		/// <param name="entityPresetName"> 需要另外添加的Archetype预设 </param>
+		/// <returns></returns>
+		public Entity CreateEntity(GameObject entityPrefab, string entityPresetName = null)
+		{
+			if (entityPrefab == null)
+			{
+				Debug.LogError("EntityModule : EntityPrefab is invalid.");
+				return default;
+			}
+
+			var conversionSystem = World.DefaultGameObjectInjectionWorld.GetExistingSystem<CustomGameObjectConversionSystem>();
+			var pathSystem = World.DefaultGameObjectInjectionWorld.GetExistingSystem<PathfindingSystem>();
+			var settings = GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, conversionSystem.BlobAssetStore);
+			var prefab = GameObjectConversionUtility.ConvertGameObjectHierarchy(entityPrefab, settings);
+			var entity = entityManager.Instantiate(prefab);
+			if (!string.IsNullOrEmpty(entityPresetName) && presetArchetypeDic.ContainsKey(entityPresetName))
+			{
+				var componentTypeArray = presetArchetypeDic[entityPresetName].GetComponentTypes();
+				foreach (var componentType in componentTypeArray)
+				{
+					entityManager.AddComponent(entity, componentType);
+				}
+
+				componentTypeArray.Dispose();
+			}
+			
+			entityCacheList.Add(entity);
+
+			return entity;
+		}
+
+		/// <summary>
+		/// 用GameObject预制体创建实体
+		/// </summary>
+		/// <param name="entityPrefab"> GameObject预制体 </param>
+		/// <param name="num"> 数量 </param>
+		/// <param name="entityPresetName"> 需要另外添加的Archetype预设 </param>
+		/// <returns></returns>
+		public NativeArray<Entity> CreateEntity(GameObject entityPrefab, int num, string entityPresetName = null)
+		{
+			if (entityPrefab == null)
+			{
+				Debug.LogError("EntityModule : EntityPrefab is invalid.");
+				return default;
+			}
+
+			var conversionSystem = World.DefaultGameObjectInjectionWorld.GetExistingSystem<GameObjectConversionSystem>();
+			var settings = GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, conversionSystem.BlobAssetStore);
+			var prefab = GameObjectConversionUtility.ConvertGameObjectHierarchy(entityPrefab, settings);
+			var isAddPreset = !string.IsNullOrEmpty(entityPresetName) && presetArchetypeDic.ContainsKey(entityPresetName);
+			var entityArray = new NativeArray<Entity>(num, Allocator.Temp);
+			for (var i = 0; i < num; i++)
+			{
+				var entity = entityManager.Instantiate(prefab);
+				entityArray[i] = entity;
+				entityCacheList.Add(entity);
+			}
+
+			if (isAddPreset)
+			{
+				var componentTypeArray = presetArchetypeDic[entityPresetName].GetComponentTypes();
+				for (var i = 0; i < num; i++)
+				{
+					var entity = entityArray[i];
+					foreach (var componentType in componentTypeArray)
+					{
+						entityManager.AddComponent(entity, componentType);
+					}
+				}
+
+				componentTypeArray.Dispose();
+			}
+
+			return entityArray;
+		}
+
+
+		/// <summary>
 		/// 销毁所有实体
 		/// </summary>
 		public void DestroyAllCacheEntity()

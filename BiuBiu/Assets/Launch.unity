@@ -442,12 +442,13 @@ MonoBehaviour:
   entityPresetList:
   - entityName: Monster
     componentDataTypeNameList:
-    - BiuBiu.PositionComponent
+    - BiuBiu.MonsterDataComponent
     - Unity.Transforms.Translation
     - Unity.Transforms.Rotation
     - Unity.Rendering.RenderMesh
     - Unity.Rendering.RenderBounds
     - Unity.Transforms.LocalToWorld
+    - BiuBiu.PathFollowComponent
 --- !u!1 &635589687
 GameObject:
   m_ObjectHideFlags: 0

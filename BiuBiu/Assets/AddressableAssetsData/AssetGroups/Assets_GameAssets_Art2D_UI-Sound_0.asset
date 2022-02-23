@@ -15,7 +15,7 @@ MonoBehaviour:
   m_GroupName: Assets_GameAssets_Art2D_UI-Sound_0
   m_Data:
     m_SerializedData: []
-  m_GUID: 69e50067735f61a4cb9c3ce5dcb6e225
+  m_GUID: cd7ad35755c65ac48a2734508c5a9b23
   m_SerializeEntries:
   - m_GUID: b49eab7247fc83548837a2a9dd271a64
     m_Address: SoundWindow

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5834b5087d578d24c926ce20cd31e6d6, type: 3}
-  m_Name: Assets_GameAssets_Art3D_Character_0_ContentUpdateGroupSchema
+  m_Name: Assets_GameAssets_Art3D_Model-Character_0_ContentUpdateGroupSchema
   m_EditorClassIdentifier: 
-  m_Group: {fileID: 11400000, guid: b3f5a55ea7d8ead478db1fa39bbfa02f, type: 2}
+  m_Group: {fileID: 11400000, guid: 147b291956a8a3f448812b21d9a1e964, type: 2}
   m_StaticContent: 0

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Assets_GameAssets_Art3D_Character_0
+  m_Name: Assets_GameAssets_Art3D_Model-Character_0
   m_EditorClassIdentifier: 
-  m_GroupName: Assets_GameAssets_Art3D_Character_0
+  m_GroupName: Assets_GameAssets_Art3D_Model-Character_0
   m_Data:
     m_SerializedData: []
-  m_GUID: 5cca4d857d0242f49bc289095d99baba
+  m_GUID: 814d7079dc570ab4b9403bc8eeea0af9
   m_SerializeEntries:
   - m_GUID: 441435fb1a8fd0f4e82b7be3a5d49696
     m_Address: Player
@@ -41,5 +41,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: 6798ea86944d6bb4a90f734a49dfafdb, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: a36d9b66069f429408358b6d634ea8cf, type: 2}
-    - {fileID: 11400000, guid: 7910959aa4f6ca34eaba6c7c8db40a5c, type: 2}
+    - {fileID: 11400000, guid: 20321885031d80345a82228f7954d6bf, type: 2}
+    - {fileID: 11400000, guid: 69541fc9a46c18d4fa56816aa56fe90c, type: 2}

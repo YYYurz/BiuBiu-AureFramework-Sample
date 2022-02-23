@@ -15,7 +15,7 @@ MonoBehaviour:
   m_GroupName: Assets_GameAssets_Art2D_UI-Login_0
   m_Data:
     m_SerializedData: []
-  m_GUID: 3f6a772dd60b7da4483c08ce67faa42b
+  m_GUID: 4f54367f24d9a1e43ac6455d29e23a87
   m_SerializeEntries:
   - m_GUID: 50c4f30fe1dc3834198d98cae082e95f
     m_Address: LoginWindow

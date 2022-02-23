@@ -825,12 +825,12 @@ MonoBehaviour:
     m_Address: Waves23
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 8166544cdadb80b4facbacc11ec0d869
-    m_Address: TestMesh
+  - m_GUID: e20855b5846357440be103eac977100b
+    m_Address: TestMat
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: b2236f535da3de6429f5cce351e1422a
-    m_Address: TestMat
+  - m_GUID: 44949983e014cef4e91a02f072faf406
+    m_Address: TestMesh
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

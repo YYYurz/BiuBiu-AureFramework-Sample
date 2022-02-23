@@ -6,22 +6,13 @@
 // Email: 1228396352@qq.com
 //------------------------------------------------------------
 
-using AureFramework.Procedure;
-
 namespace BiuBiu
 {
-	public class ProcedureLaunch : ProcedureBase
+	public class CustomGameObjectConversionSystem : GameObjectConversionSystem
 	{
-		public override void OnEnter(params object[] args)
+		protected override void OnUpdate()
 		{
 			
-		}
-
-		public override void OnUpdate(float elapseTime, float realElapseTime)
-		{
-			base.OnUpdate(elapseTime, realElapseTime);
-			
-			ChangeState<ProcedureCheckVersion>();
 		}
 	}
 }
