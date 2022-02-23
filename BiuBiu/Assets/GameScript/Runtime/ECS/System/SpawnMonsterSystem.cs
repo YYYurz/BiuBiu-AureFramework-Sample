@@ -21,7 +21,7 @@ namespace BiuBiu
 	/// </summary>
 	public class SpawnMonsterSystem : ComponentSystemBase
 	{
-		private const int MaxMonsterCount = 1000;
+		private const int MaxMonsterCount = 10;
 		private int curMonsterCount;
 		private int monsterIdCounter;
 
@@ -54,6 +54,8 @@ namespace BiuBiu
 				mesh = GameMain.Resource.LoadAssetSync<Mesh>("TestMesh"),
 				material = GameMain.Resource.LoadAssetSync<Material>("TestMat")
 			});
+
+			EntityManager.AddBuffer<PathPositionBuffer>(monsterEntity);
 		}
 
 		private int GetId()
