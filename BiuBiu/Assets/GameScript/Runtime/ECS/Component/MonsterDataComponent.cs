@@ -10,6 +10,7 @@ using Unity.Entities;
 
 namespace BiuBiu
 {
+	[GenerateAuthoringComponent]
 	public struct MonsterDataComponent : IComponentData
 	{
 		public float Health;

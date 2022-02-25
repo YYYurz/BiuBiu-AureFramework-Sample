@@ -48,23 +48,6 @@ namespace BiuBiu
 		NativeArray<Entity> CreateEntity(string entityPresetName, int num);
 
 		/// <summary>
-		/// 用GameObject预制体创建实体
-		/// </summary>
-		/// <param name="entityPrefab"> GameObject预制体 </param>
-		/// <param name="entityPresetName"> 需要另外添加的Archetype预设 </param>
-		/// <returns></returns>
-		Entity CreateEntity(GameObject entityPrefab, string entityPresetName = null);
-
-		/// <summary>
-		/// 用GameObject预制体创建实体
-		/// </summary>
-		/// <param name="entityPrefab"> GameObject预制体 </param>
-		/// <param name="num"> 数量 </param>
-		/// <param name="entityPresetName"> 需要另外添加的Archetype预设 </param>
-		/// <returns></returns>
-		NativeArray<Entity> CreateEntity(GameObject entityPrefab, int num, string entityPresetName = null);
-
-		/// <summary>
 		/// 销毁所有实体
 		/// </summary>
 		void DestroyAllCacheEntity();

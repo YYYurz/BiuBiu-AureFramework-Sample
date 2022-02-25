@@ -24,18 +24,22 @@ namespace BiuBiu
 				return;
 			}
 
-			var mapPointArray = GameMain.GamePlay.CurMapConfig.PointArray;
-			Entities
-				.WithNone<ControlBuffComponent>()
-				.ForEach((DynamicBuffer<PathPositionBuffer> pathPositionBuffer, ref Translation translation, ref PathFollowComponent pathFollowIndexComponent, ref MonsterDataComponent monsterDataComponent) =>
+			var mapConfig = GameMain.GamePlay.CurMapConfig;
+			Entities.ForEach((DynamicBuffer<PathPositionBuffer> pathPositionBuffer,ref ControlBuffComponent controlBuffComponent, ref Translation translation, ref PathFollowComponent pathFollowIndexComponent, ref MonsterDataComponent monsterDataComponent) =>
 			{
-				if (pathFollowIndexComponent.PathIndex >= 0)
+				if (pathFollowIndexComponent.PathIndex >= 0 && controlBuffComponent.BackTime <= 0f)
 				{
 					var mapIndex = pathPositionBuffer[pathFollowIndexComponent.PathIndex].Index;
-					var worldPosition = mapPointArray[mapIndex].worldPos;
+					var worldPosition = mapConfig.PointArray[mapIndex].worldPos;
 					var direction = math.normalize(worldPosition - translation.Value);
 					var newPos = direction * monsterDataComponent.MoveSpeed * Time.DeltaTime;
-					translation.Value += PathfindingUtils.GetNearestEffectivePosInMap(GameMain.GamePlay.CurMapConfig, newPos);
+					newPos += translation.Value;
+					var newPosIndex = PathfindingUtils.GetIndexByWorldPosition(newPos, mapConfig.CellSize, mapConfig.MapSize);
+					if (mapConfig.PointArray[newPosIndex].index == 0)
+					{
+						newPos = mapConfig.PointArray[newPosIndex].worldPos;
+					}
+					translation.Value = newPos;
 
 					if (math.distance(translation.Value, worldPosition) < 0.1f)
 					{

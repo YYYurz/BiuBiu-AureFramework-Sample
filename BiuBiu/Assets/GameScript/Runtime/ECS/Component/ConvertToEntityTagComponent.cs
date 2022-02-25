@@ -6,13 +6,13 @@
 // Email: 1228396352@qq.com
 //------------------------------------------------------------
 
+using Unity.Entities;
+
 namespace BiuBiu
 {
-	public class CustomGameObjectConversionSystem : GameObjectConversionSystem
+	[GenerateAuthoringComponent]
+	public struct ConvertToEntityTagComponent : IComponentData
 	{
-		protected override void OnUpdate()
-		{
-			
-		}
+		public uint EntityId;
 	}
 }

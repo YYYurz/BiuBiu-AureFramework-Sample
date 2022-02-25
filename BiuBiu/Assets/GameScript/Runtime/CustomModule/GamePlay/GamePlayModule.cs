@@ -12,6 +12,7 @@ using AureFramework;
 using AureFramework.Resource;
 using AureFramework.Utility;
 using GameConfig;
+using Unity.Entities;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -148,6 +149,7 @@ namespace BiuBiu
 			cacheAssetList.Clear();
 			
 			GameMain.Effect.ClearAllEffect();
+			World.DefaultGameObjectInjectionWorld.GetExistingSystem<CreateEntityFromAddressableSystem>().ClearCacheEntity();
 		}
 
 		private void PreloadAssets(GamePlay gamePlayData)

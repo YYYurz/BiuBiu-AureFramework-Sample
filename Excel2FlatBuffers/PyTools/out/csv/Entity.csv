@@ -1,7 +1,7 @@
 Id,AssetName
 int,string
-"10001","Soldier"
-"",""
+"1","Monster"
+"2","Bullet"
 "",""
 "",""
 "",""

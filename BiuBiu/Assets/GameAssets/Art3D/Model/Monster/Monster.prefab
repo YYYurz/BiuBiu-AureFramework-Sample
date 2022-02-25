@@ -12,8 +12,12 @@ GameObject:
   - component: {fileID: 33867100533356128}
   - component: {fileID: 23663104203769724}
   - component: {fileID: 426563138776998527}
-  - component: {fileID: 1791848028072514708}
-  - component: {fileID: 9085727200482441457}
+  - component: {fileID: 9008388564387464783}
+  - component: {fileID: 1039394858306771096}
+  - component: {fileID: 2812295673423763985}
+  - component: {fileID: 7617037857116429036}
+  - component: {fileID: 7772775937413254737}
+  - component: {fileID: 1723598197647656657}
   m_Layer: 0
   m_Name: Monster
   m_TagString: Untagged
@@ -227,7 +231,7 @@ MonoBehaviour:
         Tag07: 0
     m_SerializedVersion: 1
   m_SerializedVersion: 1
---- !u!114 &1791848028072514708
+--- !u!114 &9008388564387464783
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -239,7 +243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccea9ea98e38942e0b0938c27ed1903e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MotionType: 1
+  m_MotionType: 0
   m_Smoothing: 0
   m_Mass: 1
   m_LinearDamping: 0.01
@@ -265,9 +269,9 @@ MonoBehaviour:
       z: 0
     RotationOrder: 4
   m_InertiaTensor:
-    x: 0.4
+    x: Infinity
     y: 0.4
-    z: 0.4
+    z: Infinity
   m_CustomTags:
     Tag00: 0
     Tag01: 0
@@ -277,7 +281,61 @@ MonoBehaviour:
     Tag05: 0
     Tag06: 0
     Tag07: 0
---- !u!114 &9085727200482441457
+--- !u!114 &1039394858306771096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1349864573624120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 679f107a908b4dcb96cf9609d114e95f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BackTime: 0
+--- !u!114 &2812295673423763985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1349864573624120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a8e285f98f24e1fa93f125bae9e3814, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 100
+  AttackDamage: 1
+  MoveSpeed: 3
+--- !u!114 &7617037857116429036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1349864573624120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c6b737cb65e4a109724e52248d5df7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PathIndex: -1
+--- !u!114 &7772775937413254737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1349864573624120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 082d8f2df16442cab6672977137a790e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EntityId: 1
+--- !u!114 &1723598197647656657
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -289,4 +347,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea7d7495833204790ba1d3a8755397f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ConversionMode: 0
+  ConversionMode: 1

@@ -49,15 +49,15 @@ namespace BiuBiu
 
 			Entities
 				.WithAll<PathFollowComponent, Translation>()
-				.WithNone<ControlBuffComponent>()
-				.ForEach((Entity entity, DynamicBuffer<PathPositionBuffer> positionBuffer, ref Translation translation) =>
+				.ForEach((Entity entity, DynamicBuffer<PathPositionBuffer> positionBuffer,ref ControlBuffComponent controlBuffComponent, ref Translation translation) =>
 				{
 					var startIndex = PathfindingUtils.GetIndexByWorldPosition(translation.Value, curMapConfig.CellSize, curMapConfig.MapSize);
 					if ((startIndex >= 0 && startIndex < curMapConfig.PointArray.Length)
 					    && (targetIndex >= 0 && targetIndex < curMapConfig.PointArray.Length)
 					    && curMapConfig.PointArray[startIndex].index != 0
 					    && curMapConfig.PointArray[targetIndex].index != 0
-					    && startIndex != targetIndex)
+					    && startIndex != targetIndex
+					    && controlBuffComponent.BackTime <= 0f)
 					{
 						var pathFindingJob = new PathfindingJob
 						{

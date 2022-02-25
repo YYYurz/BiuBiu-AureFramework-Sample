@@ -6,13 +6,17 @@
 // Email: 1228396352@qq.com
 //------------------------------------------------------------
 
-using Unity.Entities;
-
 namespace BiuBiu
 {
-	[GenerateAuthoringComponent]
-	public struct PathPositionBuffer : IBufferElementData
+	public static partial class Constant
 	{
-		public int Index;
+		/// <summary>
+		/// 实体Id
+		/// </summary>
+		public static class EntityId
+		{
+			public const uint Monster = 1;
+			public const uint Bullet = 2;
+		}
 	}
 }

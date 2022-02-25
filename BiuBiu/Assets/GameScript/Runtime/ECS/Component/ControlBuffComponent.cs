@@ -10,6 +10,7 @@ using Unity.Entities;
 
 namespace BiuBiu
 {
+	[GenerateAuthoringComponent]
 	public struct ControlBuffComponent : IComponentData
 	{
 		/// <summary>

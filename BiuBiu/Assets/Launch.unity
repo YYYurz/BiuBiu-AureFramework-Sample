@@ -443,11 +443,6 @@ MonoBehaviour:
   - entityName: Monster
     componentDataTypeNameList:
     - BiuBiu.MonsterDataComponent
-    - Unity.Transforms.Translation
-    - Unity.Transforms.Rotation
-    - Unity.Rendering.RenderMesh
-    - Unity.Rendering.RenderBounds
-    - Unity.Transforms.LocalToWorld
     - BiuBiu.PathFollowComponent
 --- !u!1 &635589687
 GameObject:
