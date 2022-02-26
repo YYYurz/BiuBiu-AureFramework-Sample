@@ -25,14 +25,14 @@ namespace BiuBiu
 			}
 
 			var mapConfig = GameMain.GamePlay.CurMapConfig;
-			Entities.ForEach((DynamicBuffer<PathPositionBuffer> pathPositionBuffer,ref ControlBuffComponent controlBuffComponent, ref Translation translation, ref PathFollowComponent pathFollowIndexComponent, ref MonsterDataComponent monsterDataComponent) =>
+			Entities.ForEach((DynamicBuffer<PathPositionBuffer> pathPositionBuffer,ref ControlBuffComponent controlBuffComponent, ref Translation translation, ref PathFollowComponent pathFollowComponent) =>
 			{
-				if (pathFollowIndexComponent.PathIndex >= 0 && controlBuffComponent.BackTime <= 0f)
+				if (pathFollowComponent.PathIndex >= 0 && controlBuffComponent.BackTime <= 0f)
 				{
-					var mapIndex = pathPositionBuffer[pathFollowIndexComponent.PathIndex].Index;
+					var mapIndex = pathPositionBuffer[pathFollowComponent.PathIndex].MapPointIndex;
 					var worldPosition = mapConfig.PointArray[mapIndex].worldPos;
 					var direction = math.normalize(worldPosition - translation.Value);
-					var newPos = direction * monsterDataComponent.MoveSpeed * Time.DeltaTime;
+					var newPos = direction * pathFollowComponent.MoveSpeed * Time.DeltaTime;
 					newPos += translation.Value;
 					var newPosIndex = PathfindingUtils.GetIndexByWorldPosition(newPos, mapConfig.CellSize, mapConfig.MapSize);
 					if (mapConfig.PointArray[newPosIndex].index == 0)
@@ -43,7 +43,7 @@ namespace BiuBiu
 
 					if (math.distance(translation.Value, worldPosition) < 0.1f)
 					{
-						pathFollowIndexComponent.PathIndex--;
+						pathFollowComponent.PathIndex--;
 					}
 				}
 			});

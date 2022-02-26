@@ -42,7 +42,18 @@ namespace BiuBiu
 				base.OnEnter(args);
 
 				canChange = false;
-				retreatDirection = playerController.transform.forward;
+				if (playerController.curDirection.Equals(Vector2.zero))
+				{
+					retreatDirection = playerController.transform.forward;
+				}
+				else
+				{
+					retreatDirection = playerController.curDirection;
+				}
+				
+				var position = playerController.transform.position;
+				var directionPos = new Vector3(position.x + retreatDirection.x, position.y, position.z + retreatDirection.y); 
+				playerController.transform.LookAt(directionPos);
 				playerController.animator.Play("AnimRetreat");
 			}
 			
@@ -52,12 +63,12 @@ namespace BiuBiu
 				
 				var trans = playerController.transform;
 				var pos = trans.position;
-				var offset = retreatDirection * (realElapseTime * 7f);
-				var nextPos = new Vector3(pos.x + offset.x, pos.y, pos.z + offset.z); 
+				var offset = retreatDirection * (realElapseTime * playerController.retreatSpeed);
+				var nextPos = new Vector3(pos.x + offset.x, pos.y, pos.z + offset.y); 
 				trans.position = nextPos;
 				
 				var stateInfo = playerController.animator.GetCurrentAnimatorStateInfo(0);
-				if (stateInfo.normalizedTime > 1f)
+				if (stateInfo.normalizedTime > 0.9f)
 				{
 					canChange = true;
 					ChangeState<StateIdle>();

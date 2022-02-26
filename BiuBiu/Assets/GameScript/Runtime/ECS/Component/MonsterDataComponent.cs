@@ -10,11 +10,20 @@ using Unity.Entities;
 
 namespace BiuBiu
 {
+	/// <summary>
+	/// 小怪数据（其实是桶子）
+	/// </summary>
 	[GenerateAuthoringComponent]
 	public struct MonsterDataComponent : IComponentData
 	{
+		/// <summary>
+		/// 生命值
+		/// </summary>
 		public float Health;
+		
+		/// <summary>
+		/// 攻击力（并没有什么卵用）
+		/// </summary>
 		public float AttackDamage;
-		public float MoveSpeed;
 	}
 }

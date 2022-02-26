@@ -308,7 +308,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 100
   AttackDamage: 1
-  MoveSpeed: 3
 --- !u!114 &7617037857116429036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -322,6 +321,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PathIndex: -1
+  MoveSpeed: 3
 --- !u!114 &7772775937413254737
 MonoBehaviour:
   m_ObjectHideFlags: 0

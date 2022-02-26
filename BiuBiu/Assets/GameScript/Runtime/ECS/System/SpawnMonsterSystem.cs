@@ -18,7 +18,7 @@ namespace BiuBiu
 	/// </summary>
 	public class SpawnMonsterSystem : ComponentSystem
 	{
-		private const int MaxMonsterCount = 1000;
+		private const int MaxMonsterCount = 10;
 		private int curMonsterCount;
 
 		protected override void OnUpdate()

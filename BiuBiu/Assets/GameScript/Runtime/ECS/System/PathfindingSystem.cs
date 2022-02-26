@@ -259,7 +259,7 @@ namespace BiuBiu
 				do
 				{
 					var tempInformation = pointInformationArray[tempIndex];
-					ResultBuffer.Add(new PathPositionBuffer {Index = tempIndex});
+					ResultBuffer.Add(new PathPositionBuffer {MapPointIndex = tempIndex});
 					tempIndex = tempInformation.Parent;
 				} while (!tempIndex.Equals(Start));
 				

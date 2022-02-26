@@ -7,6 +7,7 @@
 //------------------------------------------------------------
 
 using AureFramework.Fsm;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace BiuBiu
@@ -23,8 +24,6 @@ namespace BiuBiu
 				"AnimAttack2",
 				"AnimAttack3",
 				"AnimAttack4",
-				"AnimAttack5",
-				"AnimAttack6",
 			};
 			private PlayerController playerController;
 			private Vector3 attackDirection;
@@ -56,6 +55,7 @@ namespace BiuBiu
 				base.OnEnter(args);
 
 				RefreshAttackStage();
+				FlashToAreaNearestTarget();
 				canChange = false;
 				curAttackComplete = false;
 				attackDirection = playerController.transform.forward;
@@ -69,12 +69,12 @@ namespace BiuBiu
 				
 				var trans = playerController.transform;
 				var pos = trans.position;
-				var offset = attackDirection * (realElapseTime * 2f);
+				var offset = attackDirection * realElapseTime;
 				var nextPos = new Vector3(pos.x + offset.x, pos.y, pos.z + offset.z); 
 				trans.position = nextPos;
 				
 				var stateInfo = playerController.animator.GetCurrentAnimatorStateInfo(0);
-				if (stateInfo.normalizedTime > 1f)
+				if (stateInfo.normalizedTime > 0.8f)
 				{
 					canChange = true;
 					curAttackComplete = true;
@@ -89,15 +89,50 @@ namespace BiuBiu
 				curAttackEndTime = Time.realtimeSinceStartup;
 			}
 
+			/// <summary>
+			/// 如果有范围内瞄准的目标，直接闪现到跟前
+			/// </summary>
+			private void FlashToAreaNearestTarget()
+			{
+				var playerAreaTargetChecker = playerController.playerAreaTargetChecker;
+				var transform = playerController.transform;
+				var position = transform.position;
+				if (playerAreaTargetChecker.TryGetAreaNearestTarget(out var targetPosition))
+				{
+					var direction = (targetPosition - position).normalized;
+					var angle = Vector3.Angle(transform.forward, direction);
+					// 就在近处或者没有朝向目标就不闪了
+					if (math.distance(targetPosition, position) <= 2f || angle > 90)
+					{
+						return;
+					}
+					
+					transform.LookAt(direction);
+					var intervalDistance = -direction;
+					transform.position = targetPosition + intervalDistance;
+				}
+			}
+
+			/// <summary>
+			/// 当前攻击到第几段
+			/// </summary>
 			private void RefreshAttackStage()
 			{
 				if (curAttackComplete && Time.realtimeSinceStartup - curAttackEndTime <= AttackInterval)
 				{
-					attackStage = attackStage + 1 > 5 ? 0 : attackStage + 1;
+					attackStage = attackStage + 1 > 3 ? 0 : attackStage + 1;
 					return;
 				}
 
 				attackStage = 0;
+			}
+
+			/// <summary>
+			/// 检查是否需要闪烁到范围内的瞄准敌人跟前
+			/// </summary>
+			private void CheckAimTargetAndFlash()
+			{
+				
 			}
 		}
 	}

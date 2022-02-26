@@ -10,9 +10,15 @@ using Unity.Entities;
 
 namespace BiuBiu
 {
+	/// <summary>
+	/// 存储寻路路径结果
+	/// </summary>
 	[GenerateAuthoringComponent]
 	public struct PathPositionBuffer : IBufferElementData
 	{
-		public int Index;
+		/// <summary>
+		/// 地图网格索引
+		/// </summary>
+		public int MapPointIndex;
 	}
 }

@@ -10,20 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Assets_GameAssets_Art3D_Scenes-Lobby_0
+  m_Name: Assets_GameAssets_Art3D_Model-Prop_0
   m_EditorClassIdentifier: 
-  m_GroupName: Assets_GameAssets_Art3D_Scenes-Lobby_0
+  m_GroupName: Assets_GameAssets_Art3D_Model-Prop_0
   m_Data:
     m_SerializedData: []
-  m_GUID: 1d69a65bf7f83ea419b42741fc3aec43
+  m_GUID: eb348ef59c7dc6c42b2c350ed6affbac
   m_SerializeEntries:
-  - m_GUID: 10b7656ab8742f64fa941ed814875999
-    m_Address: MainLobby
+  - m_GUID: 73e322ce7b6d78143b18a95441c12371
+    m_Address: AimingTips
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d1d644e7566824640b76d4f7e0c381e6
+    m_Address: RedMaterials
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6798ea86944d6bb4a90f734a49dfafdb, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 46799035b6e82f64c848fe714852c684, type: 2}
-    - {fileID: 11400000, guid: 58d3174779bf7024c9b6c423dbd11778, type: 2}
+    - {fileID: 11400000, guid: 96511e5c83af08341a981d21d32006c1, type: 2}
+    - {fileID: 11400000, guid: 3dcf384ef76b5654c823007fb985863e, type: 2}
