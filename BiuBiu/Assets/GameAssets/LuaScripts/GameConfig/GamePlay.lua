@@ -41,11 +41,20 @@ function GamePlay_mt:MapConfig()
         return self.view:String(o + self.view.pos)
     end
 end
-function GamePlay_mt:PreloadAssets()
+function GamePlay_mt:PreloadEntities(j)
     local o = self.view:Offset(10)
     if o ~= 0 then
-        return self.view:String(o + self.view.pos)
+        local a = self.view:Vector(o)
+        return self.view:Get(flatbuffers.N.Uint32, a + ((j-1) * 4))
     end
+    return 0
+end
+function GamePlay_mt:PreloadEntitiesLength()
+    local o = self.view:Offset(10)
+    if o ~= 0 then
+        return self.view:VectorLen(o)
+    end
+    return 0
 end
 function GamePlay_mt:PlayerAsset()
     local o = self.view:Offset(12)
@@ -57,7 +66,8 @@ function GamePlay.Start(builder) builder:StartObject(5) end
 function GamePlay.AddId(builder, Id) builder:PrependUint32Slot(0, Id, 0) end
 function GamePlay.AddSceneId(builder, SceneId) builder:PrependUint32Slot(1, SceneId, 0) end
 function GamePlay.AddMapConfig(builder, MapConfig) builder:PrependUOffsetTRelativeSlot(2, MapConfig, 0) end
-function GamePlay.AddPreloadAssets(builder, PreloadAssets) builder:PrependUOffsetTRelativeSlot(3, PreloadAssets, 0) end
+function GamePlay.AddPreloadEntities(builder, PreloadEntities) builder:PrependUOffsetTRelativeSlot(3, PreloadEntities, 0) end
+function GamePlay.StartPreloadEntitiesVector(builder, numElems) return builder:StartVector(4, numElems, 4) end
 function GamePlay.AddPlayerAsset(builder, PlayerAsset) builder:PrependUOffsetTRelativeSlot(4, PlayerAsset, 0) end
 function GamePlay.End(builder) return builder:EndObject() end
 

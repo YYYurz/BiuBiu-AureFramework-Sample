@@ -16,11 +16,11 @@ namespace BiuBiu
 {
 	public class CreateEntityFromAddressableSystem : ComponentSystem
 	{
-		private readonly Dictionary<string, List<Action<Entity>>> callbackDic = new Dictionary<string, List<Action<Entity>>>();
-		private readonly Dictionary<int, string> loadingAssetDic = new Dictionary<int, string>();
 		private readonly Dictionary<string, Entity> originalEntityDic = new Dictionary<string, Entity>();
+		private readonly Dictionary<string, int> loadingAssetDic = new Dictionary<string, int>();
 		private readonly List<GameObject> originalGameObjectList = new List<GameObject>();
 		private readonly List<Entity> cacheEntityList = new List<Entity>();
+		private Action preloadOverCallback;
 		private InstantiateGameObjectCallbacks instantiateGameObjectCallbacks;
 
 		protected override void OnCreate()
@@ -30,10 +30,8 @@ namespace BiuBiu
 			instantiateGameObjectCallbacks = new InstantiateGameObjectCallbacks(OnInstantiateGameObjectBegin, OnInstantiateGameObjectSuccess, null, OnInstantiateGameObjectFailed);
 		}
 
-		private int i = 1;
 		protected override void OnUpdate()
 		{
-			i++;
 			Entities.ForEach((Entity entity, ref ConvertToEntityTagComponent convertToEntityTagComponent) =>
 			{
 				EntityManager.SetEnabled(entity, false);
@@ -41,32 +39,42 @@ namespace BiuBiu
 
 				var entityData = GameMain.DataTable.GetDataTableReader<EntityTableReader>().GetInfo(convertToEntityTagComponent.EntityId);
 				var assetName = entityData.AssetName;
-				if (originalEntityDic.ContainsKey(assetName))
+				originalEntityDic.Add(assetName, entity);
+				loadingAssetDic.Remove(assetName);
+				
+				if (loadingAssetDic.Count == 0)
 				{
-					EntityManager.DestroyEntity(entity);
+					preloadOverCallback?.Invoke();
 				}
-				else
-				{
-					originalEntityDic.Add(assetName, entity);
-				}
-
-				foreach (var callback in callbackDic[assetName])
-				{
-					var instantiateEntity = EntityManager.Instantiate(originalEntityDic[assetName]);
-					cacheEntityList.Add(instantiateEntity);
-					EntityManager.SetEnabled(instantiateEntity, true);
-					callback.Invoke(instantiateEntity);
-				}
-				callbackDic.Remove(assetName);
 			});			
+		}
+
+		/// <summary>
+		/// 先用Addressable预加载游戏物体，并等待其ConvertToEntity（只有这里预加载过的才能克隆）
+		/// </summary>
+		/// <param name="entityIdList"> 预加载实体Id列表 </param>
+		/// <param name="callback"> 完成回调 </param>
+		public void PreConvertEntityFromAddressable(IEnumerable<uint> entityIdList, Action callback)
+		{
+			ClearAllEntity();
+
+			preloadOverCallback = callback;
+			foreach (var entityId in entityIdList)
+			{
+				var entityData = GameMain.DataTable.GetDataTableReader<EntityTableReader>().GetInfo(entityId);
+				var assetName = entityData.AssetName;
+				if (!loadingAssetDic.ContainsKey(assetName))
+				{
+					GameMain.Resource.InstantiateAsync(assetName, instantiateGameObjectCallbacks, null);
+				}
+			}
 		}
 
 		/// <summary>
 		/// 创建实体
 		/// </summary>
 		/// <param name="entityId"> 实体配表Id </param>
-		/// <param name="callback"> 完成回调 </param>
-		public void CreateEntity(uint entityId, Action<Entity> callback)
+		public Entity InstantiateEntity(uint entityId)
 		{
 			var entityData = GameMain.DataTable.GetDataTableReader<EntityTableReader>().GetInfo(entityId);
 			var assetName = entityData.AssetName;
@@ -75,30 +83,37 @@ namespace BiuBiu
 				var instantiateEntity = EntityManager.Instantiate(originalEntityDic[assetName]);
 				cacheEntityList.Add(instantiateEntity);
 				EntityManager.SetEnabled(instantiateEntity, true);
-				callback.Invoke(instantiateEntity);
-				return;
+				return instantiateEntity;
 			}
 
-			if (!callbackDic.ContainsKey(assetName))
-			{
-				callbackDic.Add(assetName, new List<Action<Entity>>());	
-			}
-			callbackDic[assetName].Add(callback);
-
-			if (!loadingAssetDic.ContainsValue(assetName))
-			{
-				GameMain.Resource.InstantiateAsync(assetName, instantiateGameObjectCallbacks, null);
-			}
+			Debug.LogError($"CreateEntityFromAddressableSystem : This entity is not preloaded, entity Id : {entityId}");
+			return default;
 		}
 
 		/// <summary>
-		/// 清除所有缓存的实体和GameObject
+		/// 销毁实体
 		/// </summary>
-		public void ClearCacheEntity()
+		/// <param name="entity"> 实体 </param>
+		public void DestroyEntity(Entity entity)
+		{
+			if (!cacheEntityList.Contains(entity))
+			{
+				Debug.LogError("CreateEntityFromAddressableSystem : Destroy entity failed, this entity was not created by this system.");
+				return;
+			}
+			
+			EntityManager.DestroyEntity(entity);
+			cacheEntityList.Remove(entity);
+		}
+
+		/// <summary>
+		/// 清除所有缓存的实体和GameObject以及加载中的任务
+		/// </summary>
+		public void ClearAllEntity()
 		{
 			foreach (var loadingTask in loadingAssetDic)
 			{
-				GameMain.Resource.ReleaseTask(loadingTask.Key);
+				GameMain.Resource.ReleaseTask(loadingTask.Value);
 			}
 			
 			foreach (var gameObject in originalGameObjectList)
@@ -120,32 +135,34 @@ namespace BiuBiu
 			originalGameObjectList.Clear();
 			originalEntityDic.Clear();
 			cacheEntityList.Clear();
-			callbackDic.Clear();
+			preloadOverCallback = null;
 		}
 
 		private void OnInstantiateGameObjectBegin(string assetName, int taskId)
 		{
-			if (!loadingAssetDic.ContainsKey(taskId))
+			if (!loadingAssetDic.ContainsValue(taskId))
 			{
-				loadingAssetDic.Add(taskId, assetName);
+				loadingAssetDic.Add(assetName, taskId);
 			}
 		}
 
 		private void OnInstantiateGameObjectSuccess(string assetName, int taskId, GameObject gameObject, object userData)
 		{
-			if (loadingAssetDic.ContainsKey(taskId))
+			if (loadingAssetDic.ContainsValue(taskId))
 			{
 				gameObject.SetActive(false);
 				originalGameObjectList.Add(gameObject);
-				loadingAssetDic.Remove(taskId);
 			}
 		}
 
 		private void OnInstantiateGameObjectFailed(string assetName, int taskId, string errorMessage, object userData)
 		{
 			Debug.LogError($"CreateEntityFromAddressableSystem : Create entity failed, error message : {errorMessage}");
-			loadingAssetDic.Remove(taskId);
-			callbackDic.Remove(assetName);
+			loadingAssetDic.Remove(assetName);
+			if (loadingAssetDic.Count == 0)
+			{
+				preloadOverCallback?.Invoke();
+			}
 		}
 	}
 }

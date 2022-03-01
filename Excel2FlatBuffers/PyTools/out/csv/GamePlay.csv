@@ -1,6 +1,6 @@
-Id,SceneId,MapConfig,PreloadAssets,PlayerAsset,MapConfig
+Id,SceneId,MapConfig,PreloadEntities,PlayerAsset,MapConfig
 int,int,string,string,string,string
-"1","2","BattleMapConfig","","Player","BattleMapConfig"
+"1","2","BattleMapConfig","1","Player","BattleMapConfig"
 "","","","","",""
 "","","","","",""
 "","","","","",""

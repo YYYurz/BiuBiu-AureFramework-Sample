@@ -107,7 +107,7 @@ namespace BiuBiu
 						return;
 					}
 					
-					transform.LookAt(direction);
+					transform.LookAt(targetPosition);
 					var intervalDistance = -direction;
 					transform.position = targetPosition + intervalDistance;
 				}
@@ -125,14 +125,6 @@ namespace BiuBiu
 				}
 
 				attackStage = 0;
-			}
-
-			/// <summary>
-			/// 检查是否需要闪烁到范围内的瞄准敌人跟前
-			/// </summary>
-			private void CheckAimTargetAndFlash()
-			{
-				
 			}
 		}
 	}

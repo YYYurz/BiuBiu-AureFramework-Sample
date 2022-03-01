@@ -16,7 +16,7 @@ using Unity.Transforms;
 namespace BiuBiu
 {
 	/// <summary>
-	/// 每帧刷新自动寻路单位的寻路路径
+	/// 寻路系统
 	/// </summary>
 	public class PathfindingSystem : ComponentSystem
 	{
@@ -34,7 +34,6 @@ namespace BiuBiu
 			public bool IsWalkable;
 		}
 
-		private NativeArray<PointInformation> pointInformationArray;
 		private int targetIndex;
 
 		protected override void OnUpdate()
@@ -44,7 +43,7 @@ namespace BiuBiu
 				return;
 			}
 			RefreshTargetPos();
-			RefreshMapPointInformationArray();
+			var pointInformationArray = GetMapPointInformationArray();
 			var curMapConfig = GameMain.GamePlay.CurMapConfig;
 
 			Entities
@@ -63,7 +62,7 @@ namespace BiuBiu
 						{
 							PointInformationArray = pointInformationArray,
 							ResultBuffer = positionBuffer,
-							PathFollowIndexComponentFromEntity = GetComponentDataFromEntity<PathFollowComponent>(),
+							PathFollowComponentFromEntity = GetComponentDataFromEntity<PathFollowComponent>(),
 							PathEntity = entity,
 							Start = startIndex,
 							End = targetIndex,
@@ -74,16 +73,8 @@ namespace BiuBiu
 						pathFindingJob.Run();
 					}
 				});
-		}
 
-		protected override void OnDestroy()
-		{
-			base.OnDestroy();
-			
-			if (pointInformationArray.IsCreated)
-			{
-				pointInformationArray.Dispose();
-			}
+			pointInformationArray.Dispose();
 		}
 
 		/// <summary>
@@ -101,14 +92,9 @@ namespace BiuBiu
 		/// 获取网格配置所有可行走的点
 		/// </summary>
 		/// <returns></returns>
-		private void RefreshMapPointInformationArray()
+		private NativeArray<PointInformation> GetMapPointInformationArray()
 		{
-			if (pointInformationArray.IsCreated)
-			{
-				pointInformationArray.Dispose();
-			}
-			
-			pointInformationArray = new NativeArray<PointInformation>(GameMain.GamePlay.CurMapConfig.PointArray.Length, Allocator.TempJob);
+			var pointInformationArray = new NativeArray<PointInformation>(GameMain.GamePlay.CurMapConfig.PointArray.Length, Allocator.TempJob);
 			var mapConfig = GameMain.GamePlay.CurMapConfig;
 			for (var i = 0; i < pointInformationArray.Length; i++)
 			{
@@ -123,6 +109,8 @@ namespace BiuBiu
 					};
 				}
 			}
+
+			return pointInformationArray;
 		}
 
 		/// <summary>
@@ -133,7 +121,7 @@ namespace BiuBiu
 		{
 			[ReadOnly] public NativeArray<PointInformation> PointInformationArray;
 			public DynamicBuffer<PathPositionBuffer> ResultBuffer;
-			public ComponentDataFromEntity<PathFollowComponent> PathFollowIndexComponentFromEntity;
+			public ComponentDataFromEntity<PathFollowComponent> PathFollowComponentFromEntity;
 			public Entity PathEntity;
 			public float CellSize;
 			public float MapSize;
@@ -262,8 +250,10 @@ namespace BiuBiu
 					ResultBuffer.Add(new PathPositionBuffer {MapPointIndex = tempIndex});
 					tempIndex = tempInformation.Parent;
 				} while (!tempIndex.Equals(Start));
-				
-				PathFollowIndexComponentFromEntity[PathEntity] = new PathFollowComponent{ PathIndex = ResultBuffer.Length - 1 };
+
+				var pathFollowComponent = PathFollowComponentFromEntity[PathEntity];
+				pathFollowComponent.PathIndex = ResultBuffer.Length - 1;
+				PathFollowComponentFromEntity[PathEntity] = pathFollowComponent;
 			}
 		}
 	}

@@ -10,7 +10,6 @@ using System;
 using System.Collections.Generic;
 using AureFramework;
 using AureFramework.Resource;
-using AureFramework.Utility;
 using GameConfig;
 using Unity.Entities;
 using UnityEngine;
@@ -26,7 +25,6 @@ namespace BiuBiu
 		private readonly List<Object> cacheAssetList = new List<Object>();
 		private PlayerController playerController;
 		private MapConfig curMapConfig;
-		private Camera mainCamera;
 
 		private LoadAssetCallbacks loadAssetCallbacks;
 		private Action createGameCompleteCallBack;
@@ -51,14 +49,6 @@ namespace BiuBiu
 			get
 			{
 				return playerController;
-			}
-		}
-
-		public Camera MainCamera
-		{
-			get
-			{
-				return mainCamera;
 			}
 		}
 
@@ -96,15 +86,21 @@ namespace BiuBiu
 
 		public override void Clear()
 		{
-			
+			QuitCurrentGame();
 		}
 
+		/// <summary>
+		/// 开始游戏
+		/// </summary>
 		public void StartGame()
 		{
 			isStart = true;
 			isPause = false;
 		}
 
+		/// <summary>
+		/// 暂停游戏
+		/// </summary>
 		public void PauseGame()
 		{
 			if (!isStart)
@@ -115,6 +111,9 @@ namespace BiuBiu
 			isPause = true;
 		}
 
+		/// <summary>
+		/// 恢复游戏
+		/// </summary>
 		public void ResumeGame()
 		{
 			if (!isStart)
@@ -125,16 +124,24 @@ namespace BiuBiu
 			isPause = false;
 		}
 		
+		/// <summary>
+		/// 创建游戏
+		/// </summary>
+		/// <param name="gameId"> 游戏配置Id </param>
+		/// <param name="callback"> 创建完成回调 </param>
 		public void CreateGame(uint gameId, Action callback)
 		{
 			createGameCompleteCallBack = callback;
 			
 			var gamePlayData = GameMain.DataTable.GetDataTableReader<GamePlayTableReader>().GetInfo(gameId);
-			CreatePlayer(gamePlayData);
-			CreateMapConfig(gamePlayData);
-			PreloadAssets(gamePlayData);
+			LoadPlayer(gamePlayData);
+			LoadMapConfig(gamePlayData);
+			PreloadEntity(gamePlayData);
 		}
 
+		/// <summary>
+		/// 推出当前游戏，清除数据
+		/// </summary>
 		public void QuitCurrentGame()
 		{
 			isStart = false;
@@ -149,34 +156,42 @@ namespace BiuBiu
 			cacheAssetList.Clear();
 			
 			GameMain.Effect.ClearAllEffect();
-			World.DefaultGameObjectInjectionWorld.GetExistingSystem<CreateEntityFromAddressableSystem>().ClearCacheEntity();
+			World.DefaultGameObjectInjectionWorld.GetExistingSystem<CreateEntityFromAddressableSystem>().ClearAllEntity();
 		}
 
-		private void PreloadAssets(GamePlay gamePlayData)
+		/// <summary>
+		/// 预加载实体
+		/// </summary>
+		/// <param name="gamePlayData"></param>
+		private void PreloadEntity(GamePlay gamePlayData)
 		{
-			if (string.IsNullOrEmpty(gamePlayData.PreloadAssets))
+			if (gamePlayData.PreloadEntitiesLength == 0)
 			{
 				createGameCompleteCallBack?.Invoke();
 				return;
 			}
 
-			var preloadAssetArray = gamePlayData.PreloadAssets.Split('|');
-			preloadingAssetCount = 0;
-			foreach (var preloadAsset in preloadAssetArray)
-			{
-				GameMain.Resource.LoadAssetAsync<Object>(preloadAsset, loadAssetCallbacks, null);
-				preloadingAssetCount++;
-			}
+			var createEntityFromAddressableSystem = World.DefaultGameObjectInjectionWorld.GetExistingSystem<CreateEntityFromAddressableSystem>();
+			var preloadEntityList = gamePlayData.GetPreloadEntitiesArray();
+			createEntityFromAddressableSystem.PreConvertEntityFromAddressable(preloadEntityList, createGameCompleteCallBack);
 		}
 
-		private void CreatePlayer(GamePlay gamePlayData)
+		/// <summary>
+		/// 加载主角
+		/// </summary>
+		/// <param name="gamePlayData"></param>
+		private void LoadPlayer(GamePlay gamePlayData)
 		{
 			var playerGameObj = GameMain.Resource.InstantiateSync(gamePlayData.PlayerAsset);
 			playerController = playerGameObj.GetComponent<PlayerController>();
 			playerController.transform.position = Vector3.up;
 		}
 
-		private void CreateMapConfig(GamePlay gamePlayData)
+		/// <summary>
+		/// 加载地图寻路网格配置
+		/// </summary>
+		/// <param name="gamePlayData"></param>
+		private void LoadMapConfig(GamePlay gamePlayData)
 		{
 			curMapConfig = GameMain.Resource.LoadAssetSync<MapConfig>(gamePlayData.MapConfig);
 		}

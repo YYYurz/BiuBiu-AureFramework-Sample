@@ -146,8 +146,12 @@ namespace BiuBiu
 				// 5.新场景主界面已经打开，切换场景完成
 				if (curSceneType == SceneType.Battle)
 				{
-					GameMain.GamePlay.CreateGame(curGameId, () => isChangeSceneComplete = true);
-					GameMain.GamePlay.StartGame();
+					// 进入的是游戏场景，需要创建游戏
+					GameMain.GamePlay.CreateGame(curGameId, () =>
+					{
+						isChangeSceneComplete = true;
+						GameMain.GamePlay.StartGame();
+					});
 				}
 				else
 				{

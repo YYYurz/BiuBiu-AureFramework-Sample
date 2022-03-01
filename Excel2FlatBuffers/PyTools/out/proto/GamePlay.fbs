@@ -6,7 +6,7 @@ table GamePlay {
     Id:uint;
     SceneId:uint;
     MapConfig:string;
-    PreloadAssets:string;
+    PreloadEntities:[uint];
     PlayerAsset:string;
 }
 

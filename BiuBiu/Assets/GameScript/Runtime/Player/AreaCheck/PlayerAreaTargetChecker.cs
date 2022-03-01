@@ -22,8 +22,32 @@ namespace BiuBiu
 		private bool isLock;
 		private float lockTimer;
 
-		[SerializeField] private float lockTime;
-		[SerializeField] private float radius;
+		[Tooltip("锁定当前攻击敌人时间")]
+		[SerializeField]
+		private float lockTime;
+		
+		[Tooltip("瞄准锁定范围")]
+		[SerializeField]
+		private float aimRadius;
+		
+		[Tooltip("攻击范围")]
+		[SerializeField] 
+		private float attackRadius;
+
+		/// <summary>
+		/// 获取或设置攻击范围
+		/// </summary>
+		public float AttackRadius
+		{
+			get
+			{
+				return attackRadius;
+			}
+			set
+			{
+				attackRadius = value;
+			}
+		}
 
 		private void Awake()
 		{
@@ -54,7 +78,7 @@ namespace BiuBiu
 		}
 
 		/// <summary>
-		/// 获取范围内最近的目标位置
+		/// 获取瞄准范围内最近的目标位置
 		/// </summary>
 		/// <returns></returns>
 		public bool TryGetAreaNearestTarget(out Vector3 targetPosition)
@@ -65,7 +89,7 @@ namespace BiuBiu
 				if (isLock && entityManager.Exists(curTargetEntity))
 				{
 					var translation = entityManager.GetComponentData<Translation>(curTargetEntity);
-					if (math.distance(translation.Value, transform.position) <= radius)
+					if (math.distance(translation.Value, transform.position) <= aimRadius)
 					{
 						targetPosition = translation.Value;
 						return true;
@@ -91,7 +115,7 @@ namespace BiuBiu
 
 				monsterEntityArray.Dispose();
 
-				if (tempDistance <= radius)
+				if (tempDistance <= aimRadius)
 				{
 					var translation = entityManager.GetComponentData<Translation>(curTargetEntity);
 					targetPosition = translation.Value;
@@ -112,7 +136,7 @@ namespace BiuBiu
 			if (entityManager.Exists(curTargetEntity))
 			{
 				var translation = entityManager.GetComponentData<Translation>(curTargetEntity);
-				if (math.distance(translation.Value, transform.position) <= radius)
+				if (math.distance(translation.Value, transform.position) <= aimRadius)
 				{
 					isLock = true;
 					return;
@@ -134,7 +158,9 @@ namespace BiuBiu
 #if UNITY_EDITOR
 		private void OnDrawGizmos()
 		{
-			Gizmos.DrawWireSphere(transform.position, radius);
+			var position = transform.position;
+			Gizmos.DrawWireSphere(position, aimRadius);
+			Gizmos.DrawWireSphere(position, attackRadius);
 		}
 #endif
 	}

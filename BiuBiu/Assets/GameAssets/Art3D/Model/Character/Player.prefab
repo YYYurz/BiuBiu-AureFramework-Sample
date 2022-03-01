@@ -359,9 +359,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerAreaTargetChecker: {fileID: 3336653347538543515}
   animator: {fileID: 2794418076921571203}
+  damage: 20
+  health: 100
   moveSpeed: 6
   retreatSpeed: 7
-  health: 100
 --- !u!114 &3336653347538543515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -375,7 +376,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lockTime: 2
-  radius: 10
+  aimRadius: 10
+  attackRadius: 3
 --- !u!114 &3248692093213021070
 MonoBehaviour:
   m_ObjectHideFlags: 0

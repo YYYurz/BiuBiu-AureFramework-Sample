@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using AureFramework.Event;
 using AureFramework.Fsm;
+using Unity.Entities;
 using UnityEngine;
 
 namespace BiuBiu
@@ -26,15 +27,16 @@ namespace BiuBiu
 		
 		[SerializeField] private PlayerAreaTargetChecker playerAreaTargetChecker;
 		[SerializeField] private Animator animator;
+		[SerializeField] private float damage;
+		[SerializeField] private float health;
 		[SerializeField] private float moveSpeed;
 		[SerializeField] private float retreatSpeed;
-		[SerializeField] private float health;
 
 		private void Awake()
 		{
 			if (Camera.main != null)
 			{
-				cameraController = Camera.main.GetComponent<CameraController>();
+				cameraController = GameObject.Find("MainCameraController").GetComponent<CameraController>();
 				cameraController.SetFollowTarget(transform);
 			}
 
@@ -215,6 +217,9 @@ namespace BiuBiu
 			var effectName = "Sword Slash " + attackStage;
 			var trans = transform;
 			GameMain.Effect.PlayEffect(effectName, Vector3.up, trans.rotation, trans);
+
+			var damageSystem = World.DefaultGameObjectInjectionWorld.GetExistingSystem<DamageSystem>();
+			damageSystem.CreateDamageTask(trans.position + Vector3.up, playerAreaTargetChecker.AttackRadius, damage);
 		}
 	}
 }

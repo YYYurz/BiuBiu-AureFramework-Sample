@@ -19,7 +19,7 @@ struct GamePlay FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_ID = 4,
     VT_SCENEID = 6,
     VT_MAPCONFIG = 8,
-    VT_PRELOADASSETS = 10,
+    VT_PRELOADENTITIES = 10,
     VT_PLAYERASSET = 12
   };
   uint32_t Id() const {
@@ -31,8 +31,8 @@ struct GamePlay FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   const flatbuffers::String *MapConfig() const {
     return GetPointer<const flatbuffers::String *>(VT_MAPCONFIG);
   }
-  const flatbuffers::String *PreloadAssets() const {
-    return GetPointer<const flatbuffers::String *>(VT_PRELOADASSETS);
+  const flatbuffers::Vector<uint32_t> *PreloadEntities() const {
+    return GetPointer<const flatbuffers::Vector<uint32_t> *>(VT_PRELOADENTITIES);
   }
   const flatbuffers::String *PlayerAsset() const {
     return GetPointer<const flatbuffers::String *>(VT_PLAYERASSET);
@@ -43,8 +43,8 @@ struct GamePlay FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            VerifyField<uint32_t>(verifier, VT_SCENEID) &&
            VerifyOffset(verifier, VT_MAPCONFIG) &&
            verifier.VerifyString(MapConfig()) &&
-           VerifyOffset(verifier, VT_PRELOADASSETS) &&
-           verifier.VerifyString(PreloadAssets()) &&
+           VerifyOffset(verifier, VT_PRELOADENTITIES) &&
+           verifier.VerifyVector(PreloadEntities()) &&
            VerifyOffset(verifier, VT_PLAYERASSET) &&
            verifier.VerifyString(PlayerAsset()) &&
            verifier.EndTable();
@@ -63,8 +63,8 @@ struct GamePlayBuilder {
   void add_MapConfig(flatbuffers::Offset<flatbuffers::String> MapConfig) {
     fbb_.AddOffset(GamePlay::VT_MAPCONFIG, MapConfig);
   }
-  void add_PreloadAssets(flatbuffers::Offset<flatbuffers::String> PreloadAssets) {
-    fbb_.AddOffset(GamePlay::VT_PRELOADASSETS, PreloadAssets);
+  void add_PreloadEntities(flatbuffers::Offset<flatbuffers::Vector<uint32_t>> PreloadEntities) {
+    fbb_.AddOffset(GamePlay::VT_PRELOADENTITIES, PreloadEntities);
   }
   void add_PlayerAsset(flatbuffers::Offset<flatbuffers::String> PlayerAsset) {
     fbb_.AddOffset(GamePlay::VT_PLAYERASSET, PlayerAsset);
@@ -86,11 +86,11 @@ inline flatbuffers::Offset<GamePlay> CreateGamePlay(
     uint32_t Id = 0,
     uint32_t SceneId = 0,
     flatbuffers::Offset<flatbuffers::String> MapConfig = 0,
-    flatbuffers::Offset<flatbuffers::String> PreloadAssets = 0,
+    flatbuffers::Offset<flatbuffers::Vector<uint32_t>> PreloadEntities = 0,
     flatbuffers::Offset<flatbuffers::String> PlayerAsset = 0) {
   GamePlayBuilder builder_(_fbb);
   builder_.add_PlayerAsset(PlayerAsset);
-  builder_.add_PreloadAssets(PreloadAssets);
+  builder_.add_PreloadEntities(PreloadEntities);
   builder_.add_MapConfig(MapConfig);
   builder_.add_SceneId(SceneId);
   builder_.add_Id(Id);
@@ -102,17 +102,17 @@ inline flatbuffers::Offset<GamePlay> CreateGamePlayDirect(
     uint32_t Id = 0,
     uint32_t SceneId = 0,
     const char *MapConfig = nullptr,
-    const char *PreloadAssets = nullptr,
+    const std::vector<uint32_t> *PreloadEntities = nullptr,
     const char *PlayerAsset = nullptr) {
   auto MapConfig__ = MapConfig ? _fbb.CreateString(MapConfig) : 0;
-  auto PreloadAssets__ = PreloadAssets ? _fbb.CreateString(PreloadAssets) : 0;
+  auto PreloadEntities__ = PreloadEntities ? _fbb.CreateVector<uint32_t>(*PreloadEntities) : 0;
   auto PlayerAsset__ = PlayerAsset ? _fbb.CreateString(PlayerAsset) : 0;
   return GameConfig::CreateGamePlay(
       _fbb,
       Id,
       SceneId,
       MapConfig__,
-      PreloadAssets__,
+      PreloadEntities__,
       PlayerAsset__);
 }
 
