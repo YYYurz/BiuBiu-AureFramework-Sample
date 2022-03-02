@@ -20,7 +20,7 @@ namespace BiuBiu
 	/// </summary>
 	public class SpawnMonsterSystem : ComponentSystem
 	{
-		private const int MaxMonsterCount = 500;
+		private const int MaxMonsterCount = 10;
 		private const float SpawnMonsterInterval = 1f;
 		private float spawnTimer;
 
@@ -35,7 +35,6 @@ namespace BiuBiu
 			createEntityFromAddressableSystem = World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<CreateEntityFromAddressableSystem>();
 		}
 
-		private int i = 0;
 		protected override void OnUpdate()
 		{
 			if (!GameMain.GamePlay.IsStart || GameMain.GamePlay.IsPause)

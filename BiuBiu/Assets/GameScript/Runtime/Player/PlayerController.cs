@@ -73,7 +73,7 @@ namespace BiuBiu
 		private void OnDestroy()
 		{
 			GameMain.Fsm.DestroyFsm(this);
-
+			GameMain.Resource.ReleaseAsset(aimingTips);
 			GameMain.Event.Unsubscribe<InputEventArgs>(OnInput);
 		}
 

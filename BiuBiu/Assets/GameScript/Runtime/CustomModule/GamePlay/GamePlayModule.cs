@@ -145,18 +145,18 @@ namespace BiuBiu
 		public void QuitCurrentGame()
 		{
 			isStart = false;
+			World.DefaultGameObjectInjectionWorld.GetExistingSystem<CreateEntityFromAddressableSystem>().ClearAllEntity();
+			GameMain.Effect.ClearAllEffect();
 			GameMain.Entity.DestroyAllCacheEntity();
-			
 			GameMain.Resource.ReleaseAsset(playerController.gameObject);
 			playerController = null;
+			
 			foreach (var asset in cacheAssetList)
 			{
 				GameMain.Resource.ReleaseAsset(asset);
 			}
 			cacheAssetList.Clear();
 			
-			GameMain.Effect.ClearAllEffect();
-			World.DefaultGameObjectInjectionWorld.GetExistingSystem<CreateEntityFromAddressableSystem>().ClearAllEntity();
 		}
 
 		/// <summary>

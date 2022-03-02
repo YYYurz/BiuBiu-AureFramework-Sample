@@ -190,7 +190,7 @@ namespace BiuBiu
 			}
 			
 			var playEffectInfo = (PlayEffectInfo) userData;
-			var effectObject = EffectObject.Create(effectGameObject);
+			var effectObject = EffectObject.Create(effectGameObject, transform);
 			effectObjectPool.Register(effectObject, true, effectAssetName);
 			usingEffectObjectList.Add(effectObject);
 

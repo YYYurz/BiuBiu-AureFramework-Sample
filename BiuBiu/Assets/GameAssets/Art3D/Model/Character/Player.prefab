@@ -300,7 +300,6 @@ GameObject:
   - component: {fileID: 2794418076921571203}
   - component: {fileID: 2350364902848651700}
   - component: {fileID: 3336653347538543515}
-  - component: {fileID: 3248692093213021070}
   - component: {fileID: 3209091975961095042}
   - component: {fileID: 7253746020625541835}
   m_Layer: 0
@@ -378,19 +377,6 @@ MonoBehaviour:
   lockTime: 2
   aimRadius: 10
   attackRadius: 3
---- !u!114 &3248692093213021070
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2794418076912079921}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea7d7495833204790ba1d3a8755397f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ConversionMode: 1
 --- !u!136 &3209091975961095042
 CapsuleCollider:
   m_ObjectHideFlags: 0

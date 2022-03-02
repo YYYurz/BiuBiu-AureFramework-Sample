@@ -21,6 +21,7 @@ namespace BiuBiu
 		private class EffectObject : ObjectBase
 		{
 			private ParticleSystem[] particleSystemList;
+			private Transform effectModuleTransform;
 			
 			/// <summary>
 			/// 特效游戏物体
@@ -82,10 +83,11 @@ namespace BiuBiu
 				}
 			}
 
-			public static EffectObject Create(GameObject effectGameObject)
+			public static EffectObject Create(GameObject effectGameObject, Transform moduleTransform)
 			{
 				var effectObject = GameMain.ReferencePool.Acquire<EffectObject>();
 				effectObject.EffectGameObject = effectGameObject;
+				effectObject.effectModuleTransform = moduleTransform;
 				effectObject.particleSystemList = effectGameObject.GetComponentsInChildren<ParticleSystem>(true);
 				
 				return effectObject;
@@ -113,6 +115,7 @@ namespace BiuBiu
 				}
 				
 				EffectGameObject.SetActive(false);
+				EffectGameObject.transform.SetParent(effectModuleTransform);
 			}
 
 			public override void OnRelease()
@@ -127,6 +130,7 @@ namespace BiuBiu
 				base.Clear();
 
 				EffectGameObject = null;
+				particleSystemList = null;
 			}
 		}
 	}

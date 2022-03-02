@@ -34,9 +34,16 @@ namespace BiuBiu
 		{
 			Entities.ForEach((Entity entity, ref ConvertToEntityTagComponent convertToEntityTagComponent) =>
 			{
-				EntityManager.SetEnabled(entity, false);
 				EntityManager.RemoveComponent<ConvertToEntityTagComponent>(entity);
-
+				
+				// 不需要克隆的物体，只需要缓存一下切场景的时候清掉就好了
+				if (convertToEntityTagComponent.EntityId == 0)
+				{
+					cacheEntityList.Add(entity);
+					return;
+				}
+				
+				EntityManager.SetEnabled(entity, false);
 				var entityData = GameMain.DataTable.GetDataTableReader<EntityTableReader>().GetInfo(convertToEntityTagComponent.EntityId);
 				var assetName = entityData.AssetName;
 				originalEntityDic.Add(assetName, entity);
@@ -56,8 +63,6 @@ namespace BiuBiu
 		/// <param name="callback"> 完成回调 </param>
 		public void PreConvertEntityFromAddressable(IEnumerable<uint> entityIdList, Action callback)
 		{
-			ClearAllEntity();
-
 			preloadOverCallback = callback;
 			foreach (var entityId in entityIdList)
 			{
