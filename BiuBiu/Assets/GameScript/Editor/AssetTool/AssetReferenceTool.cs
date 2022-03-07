@@ -142,11 +142,13 @@ namespace BiuBiu
 		{
 			if (referenceAreaList.Count > 0)
 			{
-				foreach (var areaAssetPath in referenceAreaList)
+				for (var i = referenceAreaList.Count - 1; i >= 0; i--)
 				{
-					if (!referenceList.Contains(areaAssetPath))
+					var path = referenceAreaList[i];
+					if (!referenceList.Contains(path))
 					{
-						AssetDatabase.DeleteAsset(areaAssetPath);
+						AssetDatabase.DeleteAsset(path);
+						referenceAreaList.RemoveAt(i);
 					}
 				}
 			}
