@@ -11,6 +11,7 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
+using UnityEngine;
 
 namespace BiuBiu
 {
@@ -36,7 +37,7 @@ namespace BiuBiu
 				return;
 			}
 
-			var hitMonsterCount = 0;
+			var hitMonsterTranslationList = new NativeList<float3>(Allocator.Temp);
 			Entities.ForEach((Entity monsterEntity, ref MonsterDataComponent monsterDataComponent, ref Translation translation) =>
 			{
 				foreach (var damageTask in damageTaskList)
@@ -45,16 +46,26 @@ namespace BiuBiu
 					{
 						var health = monsterDataComponent.Health - damageTask.Damage;
 						monsterDataComponent.Health = health < 0 ? 0 : health;
-						hitMonsterCount++;
+						hitMonsterTranslationList.Add(translation.Value);
 					}		
 				}
 			});
 
-			if (hitMonsterCount > 0)
+			if (hitMonsterTranslationList.Length > 0)
 			{
-				GameMain.Event.Fire(this, HitMonsterEventArgs.Create(hitMonsterCount));
+				var playerPos = GameMain.GamePlay.PlayerController.transform.position;
+				foreach (var hitPosition in hitMonsterTranslationList)
+				{
+					var direction = (Vector3) hitPosition - playerPos;
+					var rotation = Quaternion.LookRotation(direction);
+					GameMain.Effect.PlayEffect("Hit", hitPosition + new float3(0f, 1.5f, 0f), rotation);
+					GameMain.Sound.PlaySound(1013u, 0.3f);
+				}
+				
+				GameMain.Event.Fire(this, HitMonsterEventArgs.Create(false));
 			}
-			
+
+			hitMonsterTranslationList.Dispose();
 			damageTaskList.Clear();
 		}
 

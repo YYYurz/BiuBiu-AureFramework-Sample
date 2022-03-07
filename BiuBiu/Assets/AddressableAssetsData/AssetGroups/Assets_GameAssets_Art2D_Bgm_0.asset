@@ -15,10 +15,10 @@ MonoBehaviour:
   m_GroupName: Assets_GameAssets_Art2D_Bgm_0
   m_Data:
     m_SerializedData: []
-  m_GUID: 7fd1c670fcdda2f489a4943720945ee7
+  m_GUID: 172aea31d017ec2469234be62274ef59
   m_SerializeEntries:
-  - m_GUID: 7792709c12e3e5f4c96857b2f05242ef
-    m_Address: Assets/GameAssets/Art2D/Bgm/Reverse.mp3
+  - m_GUID: 37cc4dc717812c749b4b657334773126
+    m_Address: Assets/GameAssets/Art2D/Bgm/BattleBgm.wav
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

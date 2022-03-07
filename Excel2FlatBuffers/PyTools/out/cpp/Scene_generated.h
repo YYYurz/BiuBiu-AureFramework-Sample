@@ -19,7 +19,8 @@ struct Scene FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_ID = 4,
     VT_ASSETNAME = 6,
     VT_MAPCONFIG = 8,
-    VT_SCENEWINDOWID = 10
+    VT_SCENEWINDOWID = 10,
+    VT_BGMID = 12
   };
   uint32_t Id() const {
     return GetField<uint32_t>(VT_ID, 0);
@@ -33,6 +34,9 @@ struct Scene FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   uint32_t SceneWindowId() const {
     return GetField<uint32_t>(VT_SCENEWINDOWID, 0);
   }
+  uint32_t BgmId() const {
+    return GetField<uint32_t>(VT_BGMID, 0);
+  }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyField<uint32_t>(verifier, VT_ID) &&
@@ -41,6 +45,7 @@ struct Scene FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            VerifyOffset(verifier, VT_MAPCONFIG) &&
            verifier.VerifyString(MapConfig()) &&
            VerifyField<uint32_t>(verifier, VT_SCENEWINDOWID) &&
+           VerifyField<uint32_t>(verifier, VT_BGMID) &&
            verifier.EndTable();
   }
 };
@@ -60,6 +65,9 @@ struct SceneBuilder {
   void add_SceneWindowId(uint32_t SceneWindowId) {
     fbb_.AddElement<uint32_t>(Scene::VT_SCENEWINDOWID, SceneWindowId, 0);
   }
+  void add_BgmId(uint32_t BgmId) {
+    fbb_.AddElement<uint32_t>(Scene::VT_BGMID, BgmId, 0);
+  }
   explicit SceneBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
@@ -77,8 +85,10 @@ inline flatbuffers::Offset<Scene> CreateScene(
     uint32_t Id = 0,
     flatbuffers::Offset<flatbuffers::String> AssetName = 0,
     flatbuffers::Offset<flatbuffers::String> MapConfig = 0,
-    uint32_t SceneWindowId = 0) {
+    uint32_t SceneWindowId = 0,
+    uint32_t BgmId = 0) {
   SceneBuilder builder_(_fbb);
+  builder_.add_BgmId(BgmId);
   builder_.add_SceneWindowId(SceneWindowId);
   builder_.add_MapConfig(MapConfig);
   builder_.add_AssetName(AssetName);
@@ -91,7 +101,8 @@ inline flatbuffers::Offset<Scene> CreateSceneDirect(
     uint32_t Id = 0,
     const char *AssetName = nullptr,
     const char *MapConfig = nullptr,
-    uint32_t SceneWindowId = 0) {
+    uint32_t SceneWindowId = 0,
+    uint32_t BgmId = 0) {
   auto AssetName__ = AssetName ? _fbb.CreateString(AssetName) : 0;
   auto MapConfig__ = MapConfig ? _fbb.CreateString(MapConfig) : 0;
   return GameConfig::CreateScene(
@@ -99,7 +110,8 @@ inline flatbuffers::Offset<Scene> CreateSceneDirect(
       Id,
       AssetName__,
       MapConfig__,
-      SceneWindowId);
+      SceneWindowId,
+      BgmId);
 }
 
 struct SceneList FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {

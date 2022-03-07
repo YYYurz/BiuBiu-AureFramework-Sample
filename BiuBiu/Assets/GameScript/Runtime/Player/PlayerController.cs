@@ -211,15 +211,5 @@ namespace BiuBiu
 
 			curDirection = args.Direction;
 		}
-		
-		private void OnAttackEvent(int attackStage)
-		{
-			var effectName = "Sword Slash " + attackStage;
-			var trans = transform;
-			GameMain.Effect.PlayEffect(effectName, Vector3.up, trans.rotation, trans);
-
-			var damageSystem = World.DefaultGameObjectInjectionWorld.GetExistingSystem<DamageSystem>();
-			damageSystem.CreateDamageTask(trans.position + Vector3.up, playerAreaTargetChecker.AttackRadius, damage);
-		}
 	}
 }

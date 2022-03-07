@@ -15,7 +15,7 @@ MonoBehaviour:
   m_GroupName: Assets_GameAssets_MapConfig_0
   m_Data:
     m_SerializedData: []
-  m_GUID: 65a1345a283ffb14eafab61ff95a282f
+  m_GUID: c15735d284e090f43a917dce962f43ca
   m_SerializeEntries:
   - m_GUID: 9545da95f29b92b43a8e063e5f682b5d
     m_Address: BattleMapConfig

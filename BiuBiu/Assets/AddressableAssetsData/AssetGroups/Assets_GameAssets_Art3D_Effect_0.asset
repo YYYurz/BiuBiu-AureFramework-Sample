@@ -15,7 +15,7 @@ MonoBehaviour:
   m_GroupName: Assets_GameAssets_Art3D_Effect_0
   m_Data:
     m_SerializedData: []
-  m_GUID: 4123e316410c7e748b3bc5f291d1d90b
+  m_GUID: 6d7619450c8eabb40bb54f412a2c7aeb
   m_SerializeEntries:
   - m_GUID: 2a07241143814744db62adaffd177b20
     m_Address: Crack11bcg
@@ -358,115 +358,27 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 3e04efdf8ee665d48962b33b06e8e3d3
-    m_Address: Prick 1
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 52a726355873f9443b626e837ef94008
-    m_Address: Prick 2
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 09a2baab97fbf474f9499bf610686e4d
-    m_Address: Prick 3
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: fbab27c98b168764eb295cfff1e9f61f
-    m_Address: Spikes attack
+    m_Address: Hit
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 5bea49531fc500c408823a2e2863106f
-    m_Address: Sword Slash 1
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 3e914ef784028124db1daf7002a87cc8
-    m_Address: Sword Slash 10
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: a8a6ba91edbeef2439175ecf0e08e6fb
-    m_Address: Sword Slash 11
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: bf9f848a24682054e9fddc30f1184e46
-    m_Address: Sword Slash 12
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 3f0def245cefa134c838d34a7f6d2556
-    m_Address: Sword Slash 13
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 5153725f7adb4cf47952f6201f4ee095
-    m_Address: Sword Slash 14
+    m_Address: AttackSlash_1
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 5e841c48be9318145af9204a7658cc2e
-    m_Address: Sword Slash 15
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 5ddce4a94a63ce14b9f717142ff9ba41
-    m_Address: Sword Slash 16
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 028b1ae485e846c4688aabad7557e474
-    m_Address: Sword Slash 17
+    m_Address: SkillSlash
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 231e3be01ac50c047bb16d07fd8d2ba5
-    m_Address: Sword Slash 2
+    m_Address: AttackSlash_2
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 3be98662c9e7ef5468cb9c4e11010dc7
-    m_Address: Sword Slash 3
+    m_Address: AttackSlash_3
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: e60d36cff17a1ce4db49ef54f9e72f61
-    m_Address: Sword Slash 4
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: ca63c6ac7458764498741e0306f78528
-    m_Address: Sword Slash 5
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: fb101b1453aec9747a5ed7244075b1a2
-    m_Address: Sword Slash 6
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: bfbc37d0bc0e8ff4082a8b2894b3a486
-    m_Address: Sword Slash 7
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 5e3170c6ef0f014409bd7423e3bb805a
-    m_Address: Sword Slash 8
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: c4d564b5d4682ad46b8621f0fa6f40d9
-    m_Address: Sword Slash 9
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: a51fb9315f1ec6542bde13fa3ecc04a8
-    m_Address: Sword Slash Combo 1
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 6a199701ed4e40c43a219746bf8b0ac7
-    m_Address: Sword Slash Combo 2
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: ba91425caf3aa564ba28090632715dd3
-    m_Address: Sword Slash Combo 3
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 2bed68aa33523d44bb5b6c338443b98b
-    m_Address: Sword Slash Combo 4
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: ed8a7612f6f028e46910f9371ae70bf8
-    m_Address: Sword Slash Combo 5
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 9a4f46efafb833e4185db15f62d96634
-    m_Address: Sword Slash Combo 6
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: c2053024f4730614f871bfcfa823ca86
-    m_Address: Sword Slash Combo 7
+    m_Address: AttackSlash_4
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: bd6af5d577c618947b73aa60db554e51
@@ -823,6 +735,10 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: 27dea7535006c274eb124b806535abc3
     m_Address: Waves23
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 42b5a7c17e87672438c3602c0b701f71
+    m_Address: Explosion
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

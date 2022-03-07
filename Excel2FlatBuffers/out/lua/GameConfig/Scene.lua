@@ -47,11 +47,19 @@ function Scene_mt:SceneWindowId()
     end
     return 0
 end
-function Scene.Start(builder) builder:StartObject(4) end
+function Scene_mt:BgmId()
+    local o = self.view:Offset(12)
+    if o ~= 0 then
+        return self.view:Get(flatbuffers.N.Uint32, o + self.view.pos)
+    end
+    return 0
+end
+function Scene.Start(builder) builder:StartObject(5) end
 function Scene.AddId(builder, Id) builder:PrependUint32Slot(0, Id, 0) end
 function Scene.AddAssetName(builder, AssetName) builder:PrependUOffsetTRelativeSlot(1, AssetName, 0) end
 function Scene.AddMapConfig(builder, MapConfig) builder:PrependUOffsetTRelativeSlot(2, MapConfig, 0) end
 function Scene.AddSceneWindowId(builder, SceneWindowId) builder:PrependUint32Slot(3, SceneWindowId, 0) end
+function Scene.AddBgmId(builder, BgmId) builder:PrependUint32Slot(4, BgmId, 0) end
 function Scene.End(builder) return builder:EndObject() end
 
 return Scene -- return the module

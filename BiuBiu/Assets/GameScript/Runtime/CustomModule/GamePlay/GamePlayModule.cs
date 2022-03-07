@@ -156,7 +156,6 @@ namespace BiuBiu
 				GameMain.Resource.ReleaseAsset(asset);
 			}
 			cacheAssetList.Clear();
-			
 		}
 
 		/// <summary>

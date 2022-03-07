@@ -7,6 +7,7 @@ table Scene {
     AssetName:string;
     MapConfig:string;
     SceneWindowId:uint;
+    BgmId:uint;
 }
 
 table SceneList {

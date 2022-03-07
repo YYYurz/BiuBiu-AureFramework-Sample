@@ -8,6 +8,8 @@
 
 using Unity.Collections;
 using Unity.Entities;
+using Unity.Mathematics;
+using Unity.Transforms;
 
 namespace BiuBiu
 {
@@ -33,21 +35,27 @@ namespace BiuBiu
 			}
 			
 			var deadEntityList = new NativeList<Entity>(Allocator.Temp);
-			
-			Entities.ForEach((Entity monsterEntity, ref MonsterDataComponent monsterDataComponent) =>
+			var translationList = new NativeList<Translation>(Allocator.Temp);
+			Entities.ForEach((Entity monsterEntity, ref MonsterDataComponent monsterDataComponent, ref Translation translation) =>
 			{
 				if (monsterDataComponent.Health <= 0)
 				{
 					deadEntityList.Add(monsterEntity);
+					translationList.Add(translation);
 				}
 			});
 
-			foreach (var entity in deadEntityList)
+			for (var i = 0; i < deadEntityList.Length; i++)
 			{
+				var entity = deadEntityList[i];
+				var translation = translationList[i];
+				GameMain.Sound.PlaySound(1007u, 0f);
+				GameMain.Effect.PlayEffect("Explosion", translation.Value, quaternion.identity);
 				createEntityFromAddressableSystem.DestroyEntity(entity);
 			}
 
 			deadEntityList.Dispose();
+			translationList.Dispose();
 		}
 	}
 }

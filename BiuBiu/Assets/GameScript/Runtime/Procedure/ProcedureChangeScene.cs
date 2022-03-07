@@ -26,6 +26,7 @@ namespace BiuBiu
 		private SceneType curSceneType = SceneType.None;
 		private string lastSceneAssetName;
 		private string curSceneAssetName;
+		private uint curBgmId;
 		private uint curGameId;
 		private uint curSceneId;
 		private uint curSceneWindowId;
@@ -70,8 +71,12 @@ namespace BiuBiu
 			// 获取新场景信息
 			var sceneData = GameMain.DataTable.GetDataTableReader<SceneTableReader>().GetInfo(curSceneId);
 			lastSceneAssetName = curSceneAssetName;
+			curBgmId = sceneData.BgmId;
 			curSceneWindowId = sceneData.SceneWindowId;
 			curSceneAssetName = sceneData.AssetName;
+			
+			GameMain.Sound.StopAllLoadedSound();
+			GameMain.Sound.StopAllLoadingSound();
 
 			// 1.关闭所有UI，打开Loading界面
 			GameMain.UI.CloseAllUI();
@@ -106,6 +111,7 @@ namespace BiuBiu
 		{
 			base.OnExit();
 
+			GameMain.Sound.PlaySound(curBgmId, 0.3f);
 			GameMain.UI.CloseUI(Constant.UIFormId.LoadingWindow);
 			GameMain.Event.Unsubscribe<OpenUISuccessEventArgs>(OnOpenUISuccess);
 			GameMain.Event.Unsubscribe<LoadSceneUpdateEventArgs>(OnLoadSceneUpdate);

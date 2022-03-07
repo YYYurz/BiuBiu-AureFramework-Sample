@@ -16,7 +16,7 @@ namespace BiuBiu
 	/// </summary>
 	public static class SoundModuleExtension
 	{
-		public static int PlaySound(this ISoundModule soundModule, int soundId, float fadeInSeconds, GameObject bindingObject = null)
+		public static int PlaySound(this ISoundModule soundModule, uint soundId, float fadeInSeconds, GameObject bindingObject = null)
 		{
 			var soundInfo = GameMain.DataTable.GetDataTableReader<SoundTableReader>().GetInfo((uint)soundId);
 			var soundParam = SoundParams.Create();

@@ -86,8 +86,7 @@ namespace BiuBiu
 		private void OnHitMonster(object sender, AureEventArgs e)
 		{
 			var args = (HitMonsterEventArgs) e;
-			// StartCoroutine(Shake(1, args.HitMonsterCount));
-			StartCoroutine(Shake(0.15f, 0.4f));
+			StartCoroutine(args.IsStrong ? Shake(0.15f, 0.5f) : Shake(0.15f, 0.2f));
 		}
 	}
 }

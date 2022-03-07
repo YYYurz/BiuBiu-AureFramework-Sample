@@ -15,10 +15,14 @@ MonoBehaviour:
   m_GroupName: Assets_GameAssets_Art3D_Model-Character_01
   m_Data:
     m_SerializedData: []
-  m_GUID: b24959d9eadd0174d95e8632b4f063f9
+  m_GUID: b7cabd73ec36b31409c36076863c5d8a
   m_SerializeEntries:
   - m_GUID: 441435fb1a8fd0f4e82b7be3a5d49696
     m_Address: Player
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 096283e526abb944198d8e7b77c60cb2
+    m_Address: PlayerWIthoutSword
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: ad8c2bee857aaca4dbcf348b7e988a44

@@ -12,7 +12,7 @@ namespace BiuBiu
 {
 	public static partial class LuaHelper
 	{
-		public static int PlaySound(int soundId, float fadeInSeconds = 0f, GameObject bindingObject = null)
+		public static int PlaySound(uint soundId, float fadeInSeconds = 0f, GameObject bindingObject = null)
 		{
 			return GameMain.Sound.PlaySound(soundId, fadeInSeconds, bindingObject);
 		}

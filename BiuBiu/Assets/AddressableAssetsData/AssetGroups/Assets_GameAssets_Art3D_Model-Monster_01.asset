@@ -15,7 +15,7 @@ MonoBehaviour:
   m_GroupName: Assets_GameAssets_Art3D_Model-Monster_01
   m_Data:
     m_SerializedData: []
-  m_GUID: cd776e089a62c964b973c98f7e561378
+  m_GUID: 757dc830160dbc241bedf71b5ded0663
   m_SerializeEntries:
   - m_GUID: 19af243c8d93b7e428adc417d1e7687a
     m_Address: Monster
