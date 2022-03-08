@@ -6,6 +6,7 @@
 // Email: 1228396352@qq.com
 //------------------------------------------------------------
 
+using Unity.Burst;
 using Unity.Entities;
 
 namespace BiuBiu
@@ -13,6 +14,7 @@ namespace BiuBiu
 	/// <summary>
 	/// Addressable加载GameObject时的标记，在转换为Entity后将被移除
 	/// </summary>
+	// [BurstCompile]
 	[GenerateAuthoringComponent]
 	public struct ConvertToEntityTagComponent : IComponentData
 	{

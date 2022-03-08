@@ -108,6 +108,10 @@ namespace BiuBiu
 				return;
 			}
 			
+			GameMain.Effect.PauseAllEffect();
+			GameMain.Sound.PauseAllSound();
+			playerController.Pause();
+			
 			isPause = true;
 		}
 
@@ -121,6 +125,10 @@ namespace BiuBiu
 				return;
 			}
 			
+			GameMain.Effect.ResumeAllEffect();
+			GameMain.Sound.ResumeAllSound();
+			playerController.Resume();
+
 			isPause = false;
 		}
 		

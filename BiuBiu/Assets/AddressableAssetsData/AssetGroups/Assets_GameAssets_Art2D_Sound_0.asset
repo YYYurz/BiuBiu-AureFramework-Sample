@@ -15,7 +15,7 @@ MonoBehaviour:
   m_GroupName: Assets_GameAssets_Art2D_Sound_0
   m_Data:
     m_SerializedData: []
-  m_GUID: f4e7fe105d638de49bfa119c734f08f0
+  m_GUID: e6a87ae19a6ccbd429b20573026d010a
   m_SerializeEntries:
   - m_GUID: 23a0eb44a17bf51438213c6ef60d9fea
     m_Address: Assets/GameAssets/Art2D/Sound/Attack_1.wav

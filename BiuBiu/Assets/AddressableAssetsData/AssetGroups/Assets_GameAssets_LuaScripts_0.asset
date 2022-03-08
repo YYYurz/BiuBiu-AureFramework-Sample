@@ -15,7 +15,7 @@ MonoBehaviour:
   m_GroupName: Assets_GameAssets_LuaScripts_0
   m_Data:
     m_SerializedData: []
-  m_GUID: cbe14e7cf0a4b484daa7896b5c09197b
+  m_GUID: 2e7985baae6265d40b7518679b6728fb
   m_SerializeEntries:
   - m_GUID: 9600271eaded4014cb78010a7613f71e
     m_Address: Assets/GameAssets/LuaScripts/GameMain.lua

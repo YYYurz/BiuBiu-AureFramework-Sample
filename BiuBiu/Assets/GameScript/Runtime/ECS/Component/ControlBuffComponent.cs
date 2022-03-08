@@ -6,10 +6,12 @@
 // Email: 1228396352@qq.com
 //------------------------------------------------------------
 
+using Unity.Burst;
 using Unity.Entities;
 
 namespace BiuBiu
 {
+	[BurstCompile]
 	[GenerateAuthoringComponent]
 	public struct ControlBuffComponent : IComponentData
 	{

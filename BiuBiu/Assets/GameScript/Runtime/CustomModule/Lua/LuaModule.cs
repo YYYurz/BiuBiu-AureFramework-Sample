@@ -200,7 +200,8 @@ namespace BiuBiu
 			}
             
 			var assetName = "Assets/GameAssets/LuaScripts/" + luaPath.Replace(".", "/") + ".lua";
-			var bytes = AssetUtils.LoadBytes(assetName);
+			var luaAsset = GameMain.Resource.LoadAssetSync<LuaAsset>(assetName);
+			var bytes = luaAsset.GetDecodeBytes();
 
 			return bytes;
 		}

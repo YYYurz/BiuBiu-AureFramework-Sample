@@ -6,6 +6,7 @@
 // Email: 1228396352@qq.com
 //------------------------------------------------------------
 
+using Unity.Burst;
 using Unity.Entities;
 
 namespace BiuBiu
@@ -13,6 +14,7 @@ namespace BiuBiu
 	/// <summary>
 	/// 小怪数据（其实是桶子）
 	/// </summary>
+	[BurstCompile]
 	[GenerateAuthoringComponent]
 	public struct MonsterDataComponent : IComponentData
 	{

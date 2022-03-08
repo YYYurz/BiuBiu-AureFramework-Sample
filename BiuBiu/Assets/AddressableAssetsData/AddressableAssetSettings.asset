@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 468a46d0ae32c3544b7d98094e6448a9, type: 3}
   m_Name: AddressableAssetSettings
   m_EditorClassIdentifier: 
-  m_DefaultGroup: de5d95eaa959da8488908ca7c4c30437
+  m_DefaultGroup: 15c5425d8b8eaca4688cf1e343789c87
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 1
   m_BundleLocalCatalog: 0
@@ -38,20 +38,21 @@ MonoBehaviour:
   m_BuildAddressablesWithPlayerBuild: 0
   m_overridePlayerVersion: 
   m_GroupAssets:
+  - {fileID: 11400000, guid: 2facbab840c42b94eb26368746f00905, type: 2}
+  - {fileID: 11400000, guid: dabb8a090aeec8b4d8c194d22cd8375f, type: 2}
+  - {fileID: 11400000, guid: 9bbd2669bad69714d94bc6c0a8099368, type: 2}
   - {fileID: 11400000, guid: b92f94721534c9346851486df6361bf0, type: 2}
   - {fileID: 11400000, guid: 5a1b317778ed62542b265a8086944225, type: 2}
   - {fileID: 11400000, guid: a3d41897a2155e44b89bdccf7cb7db9a, type: 2}
   - {fileID: 11400000, guid: e0d8d938289b3054bbd65835c51e1194, type: 2}
   - {fileID: 11400000, guid: 3134edb8ac0772d45aa722c6ce77b61c, type: 2}
   - {fileID: 11400000, guid: 01ca67da6a0524c46b4b68cd40ff66f1, type: 2}
-  - {fileID: 11400000, guid: 26b0153cd9acbb4439b8810b019de035, type: 2}
-  - {fileID: 11400000, guid: 708658753eb015b40b11c9e339ac6115, type: 2}
-  - {fileID: 11400000, guid: b5d81d14929de524490d17dbb7f89f35, type: 2}
-  - {fileID: 11400000, guid: 924ad63da0eb3294bb0934fba47f6027, type: 2}
-  - {fileID: 11400000, guid: 6a58b9e7b11da184cadda280249f1cb8, type: 2}
-  - {fileID: 11400000, guid: 204ddf0dfdf5c5d44bd7e197496e1dfb, type: 2}
-  - {fileID: 11400000, guid: 68764850b035a634a8587845d501af7f, type: 2}
-  - {fileID: 11400000, guid: 6e823282966f38444a96401429936330, type: 2}
+  - {fileID: 11400000, guid: dcdf29bec088ca94589072fabf25f57b, type: 2}
+  - {fileID: 11400000, guid: 48cfc6fec7db38c4dbe4a94c1bcb8ed0, type: 2}
+  - {fileID: 11400000, guid: 5de634427b16b22448e922bda87d6418, type: 2}
+  - {fileID: 11400000, guid: a35835e1f128bdb48ba8e4501d3936be, type: 2}
+  - {fileID: 11400000, guid: 629e9b562c20c144ea1a976a85b0283b, type: 2}
+  - {fileID: 11400000, guid: fa03e7953e6dc6140b2fa48c77792a6d, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -110,4 +111,5 @@ MonoBehaviour:
     m_HostingServiceInfos: []
     m_Settings: {fileID: 11400000}
     m_NextInstanceId: 0
-    m_RegisteredServiceTypeRefs: []
+    m_RegisteredServiceTypeRefs:
+    - UnityEditor.AddressableAssets.HostingServices.HttpHostingService, Unity.Addressables.Editor

@@ -15,7 +15,7 @@ MonoBehaviour:
   m_GroupName: Assets_GameAssets_Art2D_Bgm_0
   m_Data:
     m_SerializedData: []
-  m_GUID: 172aea31d017ec2469234be62274ef59
+  m_GUID: 089a92c460199364295088025f40ab6e
   m_SerializeEntries:
   - m_GUID: 37cc4dc717812c749b4b657334773126
     m_Address: Assets/GameAssets/Art2D/Bgm/BattleBgm.wav

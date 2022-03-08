@@ -10,7 +10,6 @@ using System;
 using System.Collections.Generic;
 using AureFramework.Event;
 using AureFramework.Fsm;
-using Unity.Entities;
 using UnityEngine;
 
 namespace BiuBiu
@@ -28,6 +27,7 @@ namespace BiuBiu
 		[SerializeField] private PlayerAreaTargetChecker playerAreaTargetChecker;
 		[SerializeField] private Animator animator;
 		[SerializeField] private float damage;
+		[SerializeField] private float skillDamage;
 		[SerializeField] private float health;
 		[SerializeField] private float moveSpeed;
 		[SerializeField] private float retreatSpeed;
@@ -75,6 +75,24 @@ namespace BiuBiu
 			GameMain.Fsm.DestroyFsm(this);
 			GameMain.Resource.ReleaseAsset(aimingTips);
 			GameMain.Event.Unsubscribe<InputEventArgs>(OnInput);
+		}
+
+		/// <summary>
+		/// 暂停
+		/// </summary>
+		public void Pause()
+		{
+			var playerState = (PlayerControllerStateBase) playerFsm.CurrentState;
+			playerState.Pause();
+		}
+
+		/// <summary>
+		/// 恢复
+		/// </summary>
+		public void Resume()
+		{
+			var playerState = (PlayerControllerStateBase) playerFsm.CurrentState;
+			playerState.Resume();
 		}
 
 		/// <summary>

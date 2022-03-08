@@ -45,15 +45,19 @@ namespace BiuBiu
 				}
 			});
 
-			for (var i = 0; i < deadEntityList.Length; i++)
+			if (deadEntityList.Length > 0)
 			{
-				var entity = deadEntityList[i];
-				var translation = translationList[i];
+				for (var i = 0; i < deadEntityList.Length; i++)
+				{
+					var entity = deadEntityList[i];
+					var translation = translationList[i];
+					GameMain.Effect.PlayEffect("Explosion", translation.Value, quaternion.identity);
+					createEntityFromAddressableSystem.DestroyEntity(entity);
+				}
+				
 				GameMain.Sound.PlaySound(1007u, 0f);
-				GameMain.Effect.PlayEffect("Explosion", translation.Value, quaternion.identity);
-				createEntityFromAddressableSystem.DestroyEntity(entity);
 			}
-
+			
 			deadEntityList.Dispose();
 			translationList.Dispose();
 		}

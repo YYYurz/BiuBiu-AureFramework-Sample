@@ -30,6 +30,16 @@ namespace BiuBiu
 				}
 			}
 			
+			public override void Pause()
+			{
+				playerController.animator.speed = 0f;
+			}
+
+			public override void Resume()
+			{
+				playerController.animator.speed = 1f;
+			}
+			
 			public override void OnInit(IFsm fsm, params object[] userData)
 			{
 				base.OnInit(fsm, userData);

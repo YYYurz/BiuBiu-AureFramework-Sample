@@ -168,11 +168,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 267982961198003560, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
       propertyPath: soundGroupList.Array.data[0].soundAgentPoolCapacity
-      value: 500
+      value: 5000
       objectReference: {fileID: 0}
     - target: {fileID: 267982961198003560, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
       propertyPath: soundGroupList.Array.data[0].soundAssetPoolCapacity
-      value: 500
+      value: 5000
       objectReference: {fileID: 0}
     - target: {fileID: 267982961198003560, guid: 2a0adf4cf5f6c5b40a79257c7712911b, type: 3}
       propertyPath: soundGroupList.Array.data[1].soundAgentPoolCapacity

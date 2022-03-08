@@ -26,6 +26,14 @@ namespace BiuBiu
 					return canChange;
 				}
 			}
+			
+			public override void Pause()
+			{
+			}
+
+			public override void Resume()
+			{
+			}
 		}
 	}
 }

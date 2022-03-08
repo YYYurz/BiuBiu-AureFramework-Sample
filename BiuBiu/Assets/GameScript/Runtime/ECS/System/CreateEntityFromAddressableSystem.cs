@@ -32,6 +32,7 @@ namespace BiuBiu
 
 		protected override void OnUpdate()
 		{
+			Debug.LogError("a");
 			Entities.ForEach((Entity entity, ref ConvertToEntityTagComponent convertToEntityTagComponent) =>
 			{
 				EntityManager.RemoveComponent<ConvertToEntityTagComponent>(entity);

@@ -26,15 +26,10 @@ namespace BiuBiu.Editor
 
 		private void OnGUI()
 		{
-			if (GUILayout.Button("Test"))
-			{
-				Test();
-			}
-			
-			if (GUILayout.Button("修改文本文件的编码格式"))
-			{
-				ModifyCodeFormat();
-			}
+			// if (GUILayout.Button("修改文本文件的编码格式"))
+			// {
+			// 	ModifyCodeFormat();
+			// }
 		}
 
 		private struct MyStruct
@@ -42,12 +37,6 @@ namespace BiuBiu.Editor
 			public int a;
 		}
 		
-		private void Test()
-		{
-			// PathfindingUtils.GetWorldPositionByIndex(1, 1, 25, 0);
-			PathfindingUtils.GetIndexByWorldPosition(new float3(26, 0, -26), 1, 25);
-		}
-
 		private void ModifyCodeFormat()
 		{
 			var fileInfoList = Directory.GetFiles("D:\\Study\\UnityProject\\BiuBiu\\BiuBiu\\Assets\\GameAssets\\LuaScripts", "*.lua", SearchOption.AllDirectories);

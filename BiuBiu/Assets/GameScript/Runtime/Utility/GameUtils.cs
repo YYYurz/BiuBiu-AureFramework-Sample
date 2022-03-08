@@ -7,6 +7,8 @@
 //------------------------------------------------------------
 
 using System.Collections.Generic;
+using Unity.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace BiuBiu
@@ -17,29 +19,42 @@ namespace BiuBiu
 	public static class GameUtils
 	{
 		/// <summary>
-		/// 判断点是否在多边形内
+		/// 判断点是否在圆内（三维）
+		/// </summary>
+		/// <returns></returns>
+		public static bool PointInCircle(float3 position, float3 center, float radius)
+		{
+			return math.distance(position, center) <= radius;
+		}
+		
+		/// <summary>
+		/// 判断点是否在多边形内（二维）
 		/// </summary>
 		/// <param name="position"> 当前位置 </param>
-		/// <param name="polygonPointList"> 多边形顶点列表 </param>
+		/// <param name="polygonVertexList"> 多边形顶点列表 </param>
 		/// <returns></returns>
-		public static bool PointInPolygon(Vector3 position, List<Vector3> polygonPointList)
+		public static bool PointInPolygon(float2 position, NativeList<float2> polygonVertexList)
 		{
-			if (polygonPointList == null)
+			if (polygonVertexList.Length < 3)
 			{
 				return false;
 			}
 
-			int j = 0, intersectCount = 0;
-			for (var i = 0; i < polygonPointList.Count; i++)
+			var crossCount = 0;
+			for (var i = 0; i < polygonVertexList.Length; i++)
 			{
-				j = (i == polygonPointList.Count - 1) ? 0 : j + 1;
-				if (!(polygonPointList[i].y.Equals(polygonPointList[j].y))
-				    && (((position.y >= polygonPointList[i].y) && (position.y < polygonPointList[j].y)) 
-				        || ((position.y >= polygonPointList[j].y) && (position.y < polygonPointList[i].y))) 
-				    && (position.x < (polygonPointList[j].x - polygonPointList[i].x) * (position.y - polygonPointList[i].y) / (polygonPointList[j].y - polygonPointList[i].y) + polygonPointList[i].x)) intersectCount++;
+				var v1 = polygonVertexList[i];
+				var v2 = polygonVertexList[i + 1 == polygonVertexList.Length ? 0 : i + 1];
+				if ((v1.y <= position.y && v2.y > position.y) || (v1.y > position.y && v2.y <= position.y)) 
+				{
+					if (position.x > v1.x + (position.y - v1.y) / (v2.y - v1.y) * (v2.x - v1.x))
+					{
+						crossCount++;
+					}					
+				}
 			}
 
-			return intersectCount % 2 > 0;
+			return crossCount % 2 > 0;
 		}
 	}
 }

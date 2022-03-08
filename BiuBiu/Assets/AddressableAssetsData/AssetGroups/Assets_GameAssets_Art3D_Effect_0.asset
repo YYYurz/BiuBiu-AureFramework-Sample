@@ -15,7 +15,7 @@ MonoBehaviour:
   m_GroupName: Assets_GameAssets_Art3D_Effect_0
   m_Data:
     m_SerializedData: []
-  m_GUID: 6d7619450c8eabb40bb54f412a2c7aeb
+  m_GUID: ce7d247030f9db14081b169b7281b925
   m_SerializeEntries:
   - m_GUID: 2a07241143814744db62adaffd177b20
     m_Address: Crack11bcg
@@ -169,16 +169,8 @@ MonoBehaviour:
     m_Address: "\u0421ylindrical\u0421one2"
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 3e04efdf8ee665d48962b33b06e8e3d3
-    m_Address: Hit
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 5bea49531fc500c408823a2e2863106f
     m_Address: AttackSlash_1
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 5e841c48be9318145af9204a7658cc2e
-    m_Address: SkillSlash
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 231e3be01ac50c047bb16d07fd8d2ba5
@@ -191,6 +183,18 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: e60d36cff17a1ce4db49ef54f9e72f61
     m_Address: AttackSlash_4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 42b5a7c17e87672438c3602c0b701f71
+    m_Address: Explosion
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3e04efdf8ee665d48962b33b06e8e3d3
+    m_Address: Hit
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5e841c48be9318145af9204a7658cc2e
+    m_Address: SkillSlash
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: bd6af5d577c618947b73aa60db554e51
@@ -371,10 +375,6 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: b3c5280e694544c4d9f81c8bdca77068
     m_Address: Trail71
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 42b5a7c17e87672438c3602c0b701f71
-    m_Address: Explosion
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

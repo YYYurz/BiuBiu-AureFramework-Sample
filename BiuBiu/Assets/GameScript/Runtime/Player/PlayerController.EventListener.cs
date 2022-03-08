@@ -7,7 +7,9 @@
 //------------------------------------------------------------
 
 using Unity.Entities;
+using Unity.Mathematics;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace BiuBiu
 {
@@ -35,7 +37,7 @@ namespace BiuBiu
 			GameMain.Sound.PlaySound(soundId, 0f);
 			
 			var damageSystem = World.DefaultGameObjectInjectionWorld.GetExistingSystem<DamageSystem>();
-			damageSystem.CreateDamageTask(trans.position + Vector3.up, playerAreaTargetChecker.AttackRadius, damage);
+			damageSystem.CreateCircleDamage(trans.position + Vector3.up, playerAreaTargetChecker.AttackRadius, damage);
 		}
 
 		/// <summary>
@@ -43,7 +45,21 @@ namespace BiuBiu
 		/// </summary>
 		private void OnSkillEvent()
 		{
-			
+			// 长方形打击盒
+			var trans = transform;
+			var forwardPosition = trans.forward;
+			var rightPosition = trans.right;
+			var position = trans.position;
+			var pos1 = position + forwardPosition + rightPosition * 2f;
+			var pos2 = position + forwardPosition * 13f + rightPosition;
+			var pos3 = position + forwardPosition * 13f - rightPosition;
+			var pos4 = position + forwardPosition - rightPosition * 2f;
+			var vertex1 = new float2(pos1.x, pos1.z);
+			var vertex2 = new float2(pos2.x, pos2.z);
+			var vertex3 = new float2(pos3.x, pos3.z);
+			var vertex4 = new float2(pos4.x, pos4.z);
+			var damageSystem = World.DefaultGameObjectInjectionWorld.GetExistingSystem<DamageSystem>();
+			damageSystem.CreateQuadrilateralDamage(vertex1, vertex2, vertex3, vertex4, skillDamage);
 		}
 
 		/// <summary>

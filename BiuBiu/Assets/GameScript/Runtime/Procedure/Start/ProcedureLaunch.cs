@@ -7,6 +7,7 @@
 //------------------------------------------------------------
 
 using AureFramework.Procedure;
+using UnityEngine;
 
 namespace BiuBiu
 {
@@ -14,7 +15,11 @@ namespace BiuBiu
 	{
 		public override void OnEnter(params object[] args)
 		{
-			
+			Screen.orientation = ScreenOrientation.AutoRotation;
+			Screen.autorotateToPortrait = false;
+			Screen.autorotateToPortraitUpsideDown = false;
+			Screen.autorotateToLandscapeLeft = true;
+			Screen.autorotateToLandscapeRight = true;
 		}
 
 		public override void OnUpdate(float elapseTime, float realElapseTime)

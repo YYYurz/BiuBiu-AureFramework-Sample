@@ -359,6 +359,7 @@ MonoBehaviour:
   playerAreaTargetChecker: {fileID: 3336653347538543515}
   animator: {fileID: 2794418076921571203}
   damage: 20
+  skillDamage: 999
   health: 100
   moveSpeed: 6
   retreatSpeed: 7

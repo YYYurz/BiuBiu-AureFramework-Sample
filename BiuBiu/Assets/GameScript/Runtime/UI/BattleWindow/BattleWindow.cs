@@ -57,7 +57,15 @@ namespace BiuBiu
 
 		private static void OnClickQuitGame()
 		{
-			GameMain.Procedure.ChangeProcedure<ProcedureChangeScene>(SceneType.Normal, Constant.SceneId.MainLobby);
+			// GameMain.Procedure.ChangeProcedure<ProcedureChangeScene>(SceneType.Normal, Constant.SceneId.MainLobby);
+			if (!GameMain.GamePlay.IsPause)
+			{
+				GameMain.GamePlay.PauseGame();
+			}
+			else
+			{
+				GameMain.GamePlay.ResumeGame();
+			}
 		}
 	}
 }

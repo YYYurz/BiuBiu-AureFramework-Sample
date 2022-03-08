@@ -107,21 +107,6 @@ namespace BiuBiu
 				RefreshPointList();
 			}
 		}
-		
-		public static MapConfig CreateDefaultConfig(string filePath)
-		{
-			var path = string.IsNullOrEmpty(filePath) ? DefaultMapConfigPath : filePath;
-			if (AssetDatabase.LoadAssetAtPath<MapConfig>(path) != null)
-			{
-				Debug.LogError("MapConfig : Default map config is already exist.");
-				return null;
-			}
-			
-			var mapConfig = CreateInstance<MapConfig>();
-			AssetDatabase.CreateAsset(mapConfig, path);
-
-			return mapConfig;
-		}
 
 		private void RefreshPointList()
 		{
@@ -146,5 +131,22 @@ namespace BiuBiu
 
 			pointArray = newPointArray;
 		}
+
+#if UNITY_EDITOR
+		public static MapConfig CreateDefaultConfig(string filePath)
+		{
+			var path = string.IsNullOrEmpty(filePath) ? DefaultMapConfigPath : filePath;
+			if (AssetDatabase.LoadAssetAtPath<MapConfig>(path) != null)
+			{
+				Debug.LogError("MapConfig : Default map config is already exist.");
+				return null;
+			}
+			
+			var mapConfig = CreateInstance<MapConfig>();
+			AssetDatabase.CreateAsset(mapConfig, path);
+
+			return mapConfig;
+		}
+#endif
 	}
 }

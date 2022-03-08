@@ -113,3 +113,13 @@ MonoBehaviour:
     ergodicLayers: 1
     addressNaming: 1
     maxByte: 2147483647
+  - assetPath: Assets/GameAssets/DataTables
+    filterPrefix: 
+    filterSuffix: 
+    filterString: 
+    filterPrefixMode: 0
+    filterSuffixMode: 0
+    filterStringMode: 0
+    ergodicLayers: 0
+    addressNaming: 0
+    maxByte: 2147483647
