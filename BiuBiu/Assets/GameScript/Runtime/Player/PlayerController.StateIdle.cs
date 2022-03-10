@@ -29,13 +29,17 @@ namespace BiuBiu
 				}
 			}
 			
-			public override void Pause()
+			public override void OnPause()
 			{
+				base.OnPause();
+
 				playerController.animator.speed = 0f;
 			}
 
-			public override void Resume()
+			public override void OnResume()
 			{
+				base.OnResume();
+
 				playerController.animator.speed = 1f;
 			}
 			

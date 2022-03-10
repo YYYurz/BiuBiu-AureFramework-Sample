@@ -18,21 +18,13 @@ namespace BiuBiu
 		private sealed class StateDead : PlayerControllerStateBase
 		{
 			private bool canChange;
-			
+
 			public override bool CanChange
 			{
 				get
 				{
 					return canChange;
 				}
-			}
-			
-			public override void Pause()
-			{
-			}
-
-			public override void Resume()
-			{
 			}
 		}
 	}

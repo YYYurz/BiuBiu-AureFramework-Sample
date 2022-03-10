@@ -82,8 +82,7 @@ namespace BiuBiu
 		/// </summary>
 		public void Pause()
 		{
-			var playerState = (PlayerControllerStateBase) playerFsm.CurrentState;
-			playerState.Pause();
+			playerFsm.Pause();
 		}
 
 		/// <summary>
@@ -91,8 +90,7 @@ namespace BiuBiu
 		/// </summary>
 		public void Resume()
 		{
-			var playerState = (PlayerControllerStateBase) playerFsm.CurrentState;
-			playerState.Resume();
+			playerFsm.Resume();
 		}
 
 		/// <summary>

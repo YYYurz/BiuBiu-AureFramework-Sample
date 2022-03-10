@@ -830,5 +830,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abbe8efcb39d40369e855d4889a5a8de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectObjectPoolCapacity: 500
+  effectObjectPoolCapacity: 1000
   effectObjectPoolExpireTime: 300

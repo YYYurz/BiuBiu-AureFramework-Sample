@@ -14,14 +14,15 @@ using UnityEngine;
 
 namespace BiuBiu
 {
+	[AlwaysUpdateSystem]
 	public class CreateEntityFromAddressableSystem : ComponentSystem
 	{
 		private readonly Dictionary<string, Entity> originalEntityDic = new Dictionary<string, Entity>();
 		private readonly Dictionary<string, int> loadingAssetDic = new Dictionary<string, int>();
 		private readonly List<GameObject> originalGameObjectList = new List<GameObject>();
 		private readonly List<Entity> cacheEntityList = new List<Entity>();
-		private Action preloadOverCallback;
 		private InstantiateGameObjectCallbacks instantiateGameObjectCallbacks;
+		private Action preloadOverCallback;
 
 		protected override void OnCreate()
 		{
@@ -30,31 +31,45 @@ namespace BiuBiu
 			instantiateGameObjectCallbacks = new InstantiateGameObjectCallbacks(OnInstantiateGameObjectBegin, OnInstantiateGameObjectSuccess, null, OnInstantiateGameObjectFailed);
 		}
 
+		// 这里不知为何在Addressable采用AB包打包测试的时候尽管GameObject在EntityDugger里面看到已经转为Entity了
+		// 但是类似Entities.Foreach和自定义的EntityQuery都无法筛选出这个Entity，但是使用EntityManager.GetAllEntities
+		// 确实能获取到这个Entity，所以这里先放弃使用官方的Query，使用EntityManager.GetAllEntities。
 		protected override void OnUpdate()
 		{
-			Debug.LogError("a");
-			Entities.ForEach((Entity entity, ref ConvertToEntityTagComponent convertToEntityTagComponent) =>
+			if (loadingAssetDic.Count == 0)
 			{
-				EntityManager.RemoveComponent<ConvertToEntityTagComponent>(entity);
-				
-				// 不需要克隆的物体，只需要缓存一下切场景的时候清掉就好了
-				if (convertToEntityTagComponent.EntityId == 0)
+				return;
+			}
+			
+			var allEntityArray = EntityManager.GetAllEntities();
+			foreach (var entity in allEntityArray)
+			{
+				if (EntityManager.HasComponent<ConvertToEntityTagComponent>(entity))
 				{
-					cacheEntityList.Add(entity);
-					return;
+					var convertToEntityTagComponent = EntityManager.GetComponentData<ConvertToEntityTagComponent>(entity);
+					EntityManager.RemoveComponent<ConvertToEntityTagComponent>(entity);
+
+					// 不需要克隆的物体，只需要缓存一下切场景的时候清掉就好了
+					if (convertToEntityTagComponent.EntityId == 0)
+					{
+						cacheEntityList.Add(entity);
+						return;
+					}
+
+					EntityManager.SetEnabled(entity, false);
+					var entityData = GameMain.DataTable.GetDataTableReader<EntityTableReader>().GetInfo(convertToEntityTagComponent.EntityId);
+					var assetName = entityData.AssetName;
+					originalEntityDic.Add(assetName, entity);
+					loadingAssetDic.Remove(assetName);
+
+					if (loadingAssetDic.Count == 0)
+					{
+						preloadOverCallback?.Invoke();
+					}
 				}
-				
-				EntityManager.SetEnabled(entity, false);
-				var entityData = GameMain.DataTable.GetDataTableReader<EntityTableReader>().GetInfo(convertToEntityTagComponent.EntityId);
-				var assetName = entityData.AssetName;
-				originalEntityDic.Add(assetName, entity);
-				loadingAssetDic.Remove(assetName);
-				
-				if (loadingAssetDic.Count == 0)
-				{
-					preloadOverCallback?.Invoke();
-				}
-			});			
+			}
+			
+			allEntityArray.Dispose();
 		}
 
 		/// <summary>

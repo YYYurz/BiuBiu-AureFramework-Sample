@@ -7,7 +7,6 @@
 //------------------------------------------------------------
 
 using AureFramework.Fsm;
-using UnityEditor;
 
 namespace BiuBiu
 {
@@ -17,15 +16,5 @@ namespace BiuBiu
 		{
 			get;
 		}
-
-		/// <summary>
-		/// 暂停
-		/// </summary>
-		public abstract void Pause();
-		
-		/// <summary>
-		/// 恢复
-		/// </summary>
-		public abstract void Resume();
 	}
 }
