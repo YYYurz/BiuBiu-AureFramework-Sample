@@ -13,12 +13,19 @@ namespace BiuBiu
 	public static partial class LuaHelper
 	{
 		/// <summary>
-		/// 强制切换切场景流程
+		/// 暂停游戏
 		/// </summary>
-		/// <param name="gameId"> 游戏Id </param>
-		public static void StartGame(uint gameId)
+		public static void PauseGame()
 		{
-			// GameMain.Procedure.ChangeProcedure<ProcedureChangeScene>(sceneId);
+			GameMain.GamePlay.PauseGame();
+		}
+		
+		/// <summary>
+		/// 恢复游戏
+		/// </summary>
+		public static void ResumeGame()
+		{
+			GameMain.GamePlay.ResumeGame();
 		}
 	}
 }

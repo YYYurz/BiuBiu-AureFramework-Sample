@@ -1,13 +1,10 @@
 Id,UIName,UIGroupName,AssetName,LuaFile
 int,string,string,string,string
-"1","UITipsForm","Top","UITipsForm","UIForm/UICommon/UITipsForm"
-"2","UIMessageBoxForm","PopUp","UIMessageBoxForm","UIForm/UICommon/UIMessageBoxForm"
-"4","UICommonMask","PopUp","UICommonMask","UIForm/UICommon/UICommonMaskForm"
-"5","UIReconnectForm","PopUp","UIReconnectForm","UIForm/UICommon/UIReconnectForm"
-"52","UILoginMainForm","Normal","UILoginMainForm","UIForm/UILogin/UILoginMainForm"
 "1001","LoginWindow","Normal","LoginWindow","UIForm/Login/LoginWindow"
 "1002","BattleWindow","Normal","BattleWindow",""
-"1003","SoundWindow","Normal","SoundWindow","UIForm/Sound/SoundWindow"
+"1003","SettingWindow","Normal","SettingWindow","UIForm/Setting/SettingWindow"
+"1004","PauseWindow","Normal","PauseWindow","UIForm/Pause/PauseWindow"
+"1005","HelpWindow","Normal","HelpWindow","UIForm/Help/HelpWindow"
 "3001","LoadingWindow","Top","LoadingWindow","UIForm/Loading/LoadingWindow"
 "","","","",""
 "","","","",""

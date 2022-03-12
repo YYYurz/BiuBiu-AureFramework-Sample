@@ -70,7 +70,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: ceed07fe972da06429f426e1ab96e9cf
-    m_Address: Assets/GameAssets/LuaScripts/Constant/UIFormID.lua
+    m_Address: Assets/GameAssets/LuaScripts/Constant/UIFormId.lua
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 2b53a8f751c4f4840a0f122c052df233
@@ -141,12 +141,28 @@ MonoBehaviour:
     m_Address: Assets/GameAssets/LuaScripts/UIForm/Login/LoginWindow.lua
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: ff356f3a763db144da091bb3edca7cb3
-    m_Address: Assets/GameAssets/LuaScripts/UIForm/Sound/SoundItem.lua
+  - m_GUID: cc901ee595fe2bf43afb56dbbcfb5d07
+    m_Address: Assets/GameAssets/LuaScripts/Constant/SceneId.lua
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 63c5f748e5da40e4a822b918f53ea756
-    m_Address: Assets/GameAssets/LuaScripts/UIForm/Sound/SoundWindow.lua
+  - m_GUID: c2d3252437ddb3949851fee249c4a2c6
+    m_Address: Assets/GameAssets/LuaScripts/Constant/SceneType.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: df316363a563e0c44b55fcc832e02461
+    m_Address: Assets/GameAssets/LuaScripts/UIForm/Help/HelpWindow.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: af9b5049e261d894bae27766373b2542
+    m_Address: Assets/GameAssets/LuaScripts/UIForm/Pause/PauseWindow.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4cd634bfde475da44b6551fb6831771d
+    m_Address: Assets/GameAssets/LuaScripts/UIForm/Setting/SettingWindow.lua
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 7b42883e9c0a1004d915d174561e5dfa
+    m_Address: Assets/GameAssets/LuaScripts/Constant/GameId.lua
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

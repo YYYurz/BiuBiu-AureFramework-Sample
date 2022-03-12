@@ -15,7 +15,7 @@ MonoBehaviour:
   m_GroupName: Assets_GameAssets_Art2D_UI-Loading_0
   m_Data:
     m_SerializedData: []
-  m_GUID: 4ee80b2a7f4d3904995b5ac9a7f92555
+  m_GUID: b2f707baed7c2c2469221d5468922cb5
   m_SerializeEntries:
   - m_GUID: 1ce005a3728dc224caca079ed425c4ce
     m_Address: LoadingWindow

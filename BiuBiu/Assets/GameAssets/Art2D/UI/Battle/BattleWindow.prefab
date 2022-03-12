@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joyStick: {fileID: 647250276237367250}
-  quitGameBtn: {fileID: 4493618102706474504}
+  pauseGameBtn: {fileID: 4493618102706474504}
   attackBtn1: {fileID: 7930923095924157921}
   attackBtn2: {fileID: 4854811932000101973}
   retreatBtn: {fileID: 4676550777694479914}
@@ -348,7 +348,7 @@ GameObject:
   - component: {fileID: 4493618102706474504}
   - component: {fileID: 5214542948199300969}
   m_Layer: 5
-  m_Name: QuitBtn
+  m_Name: BtnPause
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -5,8 +5,12 @@ local LoginWindow = UIBase:New()
 
 function LoginWindow:ManualInit()
 	self.BtnPlay = self:GetChild(self.gameObject, "BtnPlay")
+	self.BtnHelp = self:GetChild(self.gameObject, "BtnHelp")
+	self.BtnSetting = self:GetChild(self.gameObject, "BtnSetting")
 
-	self:AddClickListener(self.BtnPlay, self.OnLogin, self)
+	self:AddClickListener(self.BtnPlay, self.OnClickLogin, self)
+	self:AddClickListener(self.BtnHelp, self.OnClickHelp, self)
+	self:AddClickListener(self.BtnSetting, self.OnClickSetting, self)
 end
 
 function LoginWindow:OnInit()
@@ -28,8 +32,16 @@ function LoginWindow:OnDestroy()
 	LoginWindow = nil
 end
 
-function LoginWindow:OnLogin()
-	LuaHelper.ChangeScene(2, 1)
+function LoginWindow:OnClickLogin()
+	LuaHelper.ChangeScene(SceneType.Battle, GameId.Game_1)
+end
+
+function LoginWindow:OnClickHelp()
+	CF:OpenUI(UIFormId.HelpWindow)
+end
+
+function LoginWindow:OnClickSetting()
+	CF:OpenUI(UIFormId.SettingWindow)
 end
 
 return LoginWindow

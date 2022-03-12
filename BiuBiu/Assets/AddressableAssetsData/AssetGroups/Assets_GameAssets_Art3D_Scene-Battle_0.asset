@@ -15,7 +15,7 @@ MonoBehaviour:
   m_GroupName: Assets_GameAssets_Art3D_Scene-Battle_0
   m_Data:
     m_SerializedData: []
-  m_GUID: 50a97ae05c832d044be9120f411046e5
+  m_GUID: 1e9bcf6cf12fcfe43834c3fdbc9b7fba
   m_SerializeEntries:
   - m_GUID: 5fd73b1f1512b2041ba3c911b3b18d1d
     m_Address: BattleField

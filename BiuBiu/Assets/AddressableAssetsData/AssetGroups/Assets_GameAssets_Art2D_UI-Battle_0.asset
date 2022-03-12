@@ -15,7 +15,7 @@ MonoBehaviour:
   m_GroupName: Assets_GameAssets_Art2D_UI-Battle_0
   m_Data:
     m_SerializedData: []
-  m_GUID: d0f97c3f53a37ca40bbeaed1511f1f8d
+  m_GUID: 38ccc57dc95b26745b7ef2645249ee47
   m_SerializeEntries:
   - m_GUID: f9c2cef11b7587e4f9f31b333b26abfc
     m_Address: BattleWindow

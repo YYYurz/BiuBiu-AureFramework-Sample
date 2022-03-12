@@ -6,7 +6,10 @@ LuaHelper = CS.BiuBiu.LuaHelper
 
 ------------------------- Lua -------------------------
 Utils = require "Common.util"
-UIFormID = require "Constant.UIFormID"
+UIFormId = require "Constant.UIFormId"
+SceneType = require "Constant.SceneType"
+SceneId = require "Constant.SceneId"
+GameId = require "Constant.GameId"
 CF = require "Common.CommonFunction"
 UIEventID = require "Common.EventID"
 TableReader = require "Common.TableReader"

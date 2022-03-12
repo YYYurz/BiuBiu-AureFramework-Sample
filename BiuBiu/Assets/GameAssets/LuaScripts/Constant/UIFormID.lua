@@ -1,14 +1,15 @@
-local UIFormID = {}
+local UIFormId = {}
 -- Normal
-UIFormID.LoginWindow = 1001
-UIFormID.BattleWindow = 1002
-UIFormID.SoundWindow = 1003
+UIFormId.LoginWindow = 1001
+UIFormId.BattleWindow = 1002
+UIFormId.SettingWindow = 1003
+UIFormId.PauseWindow = 1004
+UIFormId.HelpWindow = 1005
 
 -- PopUp
 
-
 -- Top
-UIFormID.LoadingWindow = 3001
+UIFormId.LoadingWindow = 3001
 
 
-return UIFormID
+return UIFormId

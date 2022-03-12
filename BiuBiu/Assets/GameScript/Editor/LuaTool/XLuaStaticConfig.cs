@@ -120,13 +120,14 @@ namespace BiuBiu.Editor
             #region unity
 
             typeof(UnityEngine.Events.UnityAction),
+            typeof(UnityEngine.Events.UnityEvent<int>),
+            typeof(UnityEngine.Events.UnityAction<float>),
             typeof(UnityEngine.Events.UnityAction<LuaTable>),
             typeof(UnityEngine.Events.UnityAction<LuaTable, bool>),
             typeof(UnityEngine.Events.UnityAction<LuaTable, int>),
             typeof(UnityEngine.Events.UnityAction<LuaTable, float>),
             typeof(UnityEngine.Events.UnityAction<UnityEngine.Vector2>),
             typeof(List<UnityEngine.UI.Dropdown.OptionData>),
-            typeof(UnityEngine.Events.UnityEvent<int>),
 
             #endregion
 
