@@ -31,7 +31,7 @@ function SettingWindow:OnClose()
 end
 
 function SettingWindow:OnDestroy()
-    self.SliderSound.onValueChanged:RemoveAllListener()
+    self.SliderSound.onValueChanged:RemoveAllListeners()
 
     UIBase.OnDestroy(self)
     self = nil

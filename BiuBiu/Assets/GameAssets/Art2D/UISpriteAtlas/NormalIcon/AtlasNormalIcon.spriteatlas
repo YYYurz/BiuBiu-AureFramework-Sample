@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: AtlasNormalIcon
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 161e54d14587efa4eb1da56257389230, type: 3}
+    totalSpriteSurfaceArea: 589824
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: cfeb52c1158468445be82e5c877e4f1a, type: 3}
+  - {fileID: 21300000, guid: 547bb804169b8084a8523d172c156a03, type: 3}
+  - {fileID: 21300000, guid: d5cab6940ee892c458dfef5bfaaf7074, type: 3}
+  - {fileID: 21300000, guid: 02b95ae4605dbb948aa440a62175c40e, type: 3}
+  - {fileID: 21300000, guid: 133177f5811aded4995e8f89f46aee00, type: 3}
+  - {fileID: 21300000, guid: 5fc710f713ac1be468e5c8ef2b11239c, type: 3}
+  - {fileID: 21300000, guid: c4e2123aca855c547899d4e1cbd4312b, type: 3}
+  - {fileID: 21300000, guid: 064df71df088bcf4aa33e70a7ebdd421, type: 3}
+  - {fileID: 21300000, guid: dfcc201f2cac247418588a8f8601299a, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Free Flat Music Icon
+  - Free Flat Music No Dashless Icon
+  - Free Flat Chat 2 Question Icon
+  - Free Flat Button Solid Cross Icon
+  - Free Flat Button Solid Right Icon
+  - Free Flat Media Pause Icon
+  - Free Flat Button Solid Circle Icon
+  - Free Flat Gear 2 Icon
+  - Free Flat Button Blank Cross Icon
+  m_RenderDataMap: {}
+  m_Tag: AtlasNormalIcon
+  m_IsVariant: 0

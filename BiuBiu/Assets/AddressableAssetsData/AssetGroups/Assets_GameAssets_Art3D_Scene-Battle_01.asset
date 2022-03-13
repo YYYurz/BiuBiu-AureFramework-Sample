@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Assets_GameAssets_Art3D_Scene-Battle_01
+  m_EditorClassIdentifier: 
+  m_GroupName: Assets_GameAssets_Art3D_Scene-Battle_01
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 4dd5fd5c3efeaf74399ca42392fa2782
+  m_SerializeEntries:
+  - m_GUID: 5fd73b1f1512b2041ba3c911b3b18d1d
+    m_Address: BattleField
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 6798ea86944d6bb4a90f734a49dfafdb, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 57471c0ee994a604e81d15a116f568d8, type: 2}
+    - {fileID: 11400000, guid: 3576f6ed3a89af04e981357f3e1270f0, type: 2}

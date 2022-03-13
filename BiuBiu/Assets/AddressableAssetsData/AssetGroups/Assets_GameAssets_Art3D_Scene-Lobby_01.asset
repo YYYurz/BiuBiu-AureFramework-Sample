@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Assets_GameAssets_Art3D_Scene-Lobby_01
+  m_EditorClassIdentifier: 
+  m_GroupName: Assets_GameAssets_Art3D_Scene-Lobby_01
+  m_Data:
+    m_SerializedData: []
+  m_GUID: c8a2d444925b12648b7063c9551956f5
+  m_SerializeEntries:
+  - m_GUID: 10b7656ab8742f64fa941ed814875999
+    m_Address: MainLobby
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ce6a258e463fd9e44b1c152d46f12928
+    m_Address: PolygonMilitary_Glass_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c89a32ffe794d8746be637e6c01bf520
+    m_Address: SM_Prop_Laundry_Washer_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b888053540a990b44931309790260cbe
+    m_Address: SM_Prop_Laundry_Washer_01_Convex
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 86f203f3aec290842851fc05b8c45bfb
+    m_Address: SM_Prop_Toilet_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 1b200c9b51a0b964fb901132828dcb16
+    m_Address: SM_Prop_Toilet_01_Convex
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6b8e7ff5ed945054092ddfa609863eec
+    m_Address: SM_Prop_Laundry_Washer_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0811bbb510f62c642a0f5ef87c1a9e18
+    m_Address: SM_Prop_Toilet_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 6798ea86944d6bb4a90f734a49dfafdb, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 0f2806ce6d6e42646a1dbb868e778c20, type: 2}
+    - {fileID: 11400000, guid: 024ffec1f8508b342ac748ef829ebe73, type: 2}

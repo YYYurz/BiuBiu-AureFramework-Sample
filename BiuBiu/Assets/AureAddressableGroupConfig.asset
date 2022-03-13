@@ -60,8 +60,8 @@ MonoBehaviour:
     filterPrefixMode: 0
     filterSuffixMode: 0
     filterStringMode: 0
-    ergodicLayers: 0
-    addressNaming: 1
+    ergodicLayers: 1
+    addressNaming: 0
     maxByte: 2147483647
   - assetPath: Assets/GameAssets/MapConfig
     filterPrefix: 
