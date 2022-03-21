@@ -8,13 +8,19 @@ namespace BiuBiu
 	/// </summary>
 	public partial class GameMain : MonoBehaviour
 	{
-		public static IDataTableModule DataTable
+		public static ILuaModule Lua
 		{
 			get;
 			private set;
 		}
-
-		public static ILuaModule Lua
+		
+		public static IEntityModule Entity
+		{
+			get;
+			private set;
+		}
+		
+		public static IEffectModule Effect
 		{
 			get;
 			private set;
@@ -25,14 +31,8 @@ namespace BiuBiu
 			get;
 			private set;
 		}
-
-		public static IEntityModule Entity
-		{
-			get;
-			private set;
-		}
-
-		public static IEffectModule Effect
+		
+		public static IDataTableModule DataTable
 		{
 			get;
 			private set;
@@ -40,11 +40,11 @@ namespace BiuBiu
 
 		private static void InitCustomModules()
 		{
-			DataTable = Aure.GetModule<IDataTableModule>();
 			Lua = Aure.GetModule<ILuaModule>();
-			GamePlay = Aure.GetModule<IGamePlayModule>();
 			Entity = Aure.GetModule<IEntityModule>();
 			Effect = Aure.GetModule<IEffectModule>();
+			GamePlay = Aure.GetModule<IGamePlayModule>();
+			DataTable = Aure.GetModule<IDataTableModule>();
 		}
 	}
 }
