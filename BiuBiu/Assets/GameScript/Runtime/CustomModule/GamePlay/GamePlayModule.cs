@@ -86,7 +86,7 @@ namespace BiuBiu
 
 		public override void Clear()
 		{
-			QuitCurrentGame();
+			
 		}
 
 		/// <summary>

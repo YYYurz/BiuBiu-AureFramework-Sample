@@ -72,7 +72,7 @@ namespace BiuBiu
 		/// </summary>
 		public override void Clear()
 		{
-			DestroyAllCacheEntity();
+			
 		}
 
 		/// <summary>
