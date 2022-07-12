@@ -1,4 +1,6 @@
-﻿using AureFramework;
+﻿using System;
+using System.Collections;
+using AureFramework;
 using UnityEngine;
 using UnityEngine.UI;
 

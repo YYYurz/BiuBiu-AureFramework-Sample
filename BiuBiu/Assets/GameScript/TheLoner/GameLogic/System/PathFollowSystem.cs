@@ -1,0 +1,52 @@
+﻿//------------------------------------------------------------
+// AureFramework
+// Developed By ZhiRui Yu.
+// GitHub: https://github.com/YYYurz
+// Gitee: https://gitee.com/yyyurz
+// Email: 1228396352@qq.com
+//------------------------------------------------------------
+
+using Unity.Entities;
+using Unity.Mathematics;
+using Unity.Transforms;
+
+namespace TheLoner
+{
+	/// <summary>
+	/// 刷新单位位置
+	/// </summary>
+	public class PathFollowSystem : ComponentSystem
+	{
+		protected override void OnUpdate()
+		{
+			if (!GameMain.GamePlay.IsStart || GameMain.GamePlay.IsPause)
+			{
+				return;
+			}
+
+			var mapConfig = GameMain.GamePlay.CurMapConfig;
+			Entities.ForEach((DynamicBuffer<PathPositionBuffer> pathPositionBuffer,ref ControlBuffComponent controlBuffComponent, ref Translation translation, ref PathFollowComponent pathFollowComponent) =>
+			{
+				if (pathFollowComponent.PathIndex >= 0 && controlBuffComponent.BackTime <= 0f)
+				{
+					var mapIndex = pathPositionBuffer[pathFollowComponent.PathIndex].MapPointIndex;
+					var worldPosition = mapConfig.PointArray[mapIndex].worldPos;
+					var direction = math.normalize(worldPosition - translation.Value);
+					var newPos = direction * pathFollowComponent.MoveSpeed * Time.DeltaTime;
+					newPos += translation.Value;
+					var newPosIndex = PathfindingUtils.GetIndexByWorldPosition(newPos, mapConfig.CellSize, mapConfig.MapSize);
+					if (mapConfig.PointArray[newPosIndex].index == 0)
+					{
+						newPos = mapConfig.PointArray[newPosIndex].worldPos;
+					}
+					translation.Value = newPos;
+
+					if (math.distance(translation.Value, worldPosition) < 0.1f)
+					{
+						pathFollowComponent.PathIndex--;
+					}
+				}
+			});
+		}
+	}
+}

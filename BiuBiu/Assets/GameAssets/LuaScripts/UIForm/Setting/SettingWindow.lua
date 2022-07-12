@@ -23,6 +23,10 @@ end
 function SettingWindow:OnOpen()
     UIBase.OnOpen(self)
 
+    local testTable = TableReader:GetTable("Sound")
+    local a = testTable[1]
+    local loop = a:Loop()
+
     self:Refresh()
 end
 

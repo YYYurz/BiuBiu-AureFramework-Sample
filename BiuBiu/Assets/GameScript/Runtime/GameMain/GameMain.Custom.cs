@@ -14,7 +14,7 @@ namespace BiuBiu
 			private set;
 		}
 		
-		public static IEntityModule Entity
+		public static IEcsModule Ecs
 		{
 			get;
 			private set;
@@ -41,7 +41,7 @@ namespace BiuBiu
 		private static void InitCustomModules()
 		{
 			Lua = Aure.GetModule<ILuaModule>();
-			Entity = Aure.GetModule<IEntityModule>();
+			Ecs = Aure.GetModule<IEcsModule>();
 			Effect = Aure.GetModule<IEffectModule>();
 			GamePlay = Aure.GetModule<IGamePlayModule>();
 			DataTable = Aure.GetModule<IDataTableModule>();

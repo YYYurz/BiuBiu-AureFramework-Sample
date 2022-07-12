@@ -18,7 +18,7 @@ using UnityEngine;
 
 namespace BiuBiu.Editor
 {
-	[CustomEditor(typeof(EntityModule))]
+	[CustomEditor(typeof(EcsModule))]
 	public class EntityModuleInspector : AureFrameworkInspector
 	{
 		private SerializedProperty entityPresetList;

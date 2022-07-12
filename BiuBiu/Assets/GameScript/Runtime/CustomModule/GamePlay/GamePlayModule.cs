@@ -148,14 +148,14 @@ namespace BiuBiu
 		}
 
 		/// <summary>
-		/// 推出当前游戏，清除数据
+		/// 退出当前游戏，清除数据
 		/// </summary>
 		public void QuitCurrentGame()
 		{
 			isStart = false;
 			World.DefaultGameObjectInjectionWorld.GetExistingSystem<CreateEntityFromAddressableSystem>().ClearAllEntity();
 			GameMain.Effect.ClearAllEffect();
-			GameMain.Entity.DestroyAllCacheEntity();
+			GameMain.Ecs.DestroyAllEntity();
 			GameMain.Resource.ReleaseAsset(playerController.gameObject);
 			playerController = null;
 			
