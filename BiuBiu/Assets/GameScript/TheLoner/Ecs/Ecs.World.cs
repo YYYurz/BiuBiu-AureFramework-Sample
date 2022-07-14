@@ -16,13 +16,15 @@ namespace TheLoner
 		{
 			private readonly EntityManager entityManager;
 			private readonly SystemManager systemManager;
+			private readonly ManualResetEvent manualResetEvent;
 
 			public World()
 			{
 				entityManager = new EntityManager();
 				systemManager = new SystemManager();
+				manualResetEvent = new ManualResetEvent(true);
 
-				ThreadPool.QueueUserWorkItem(ThreadPro);
+				ThreadPool.QueueUserWorkItem(ThreadProc);
 			}
 			
 			public IEntityManager EntityManager
@@ -41,17 +43,19 @@ namespace TheLoner
 				}
 			}
 
-			private void ThreadPro(object state)
+			private void ThreadProc(object state)
 			{
 				while (true)
 				{
 					systemManager.Update();
+					manualResetEvent.Set();
 					Thread.Sleep(50);
 				}
 			}
 
 			public void Clear()
 			{
+				manualResetEvent.WaitOne();
 				entityManager.DestroyAllEntity();
 				systemManager.DestroyAllSystem();
 			}

@@ -8,29 +8,23 @@
 
 namespace TheLoner
 {
-	public sealed partial class Ecs : IEcs
+	public interface IEntity : IReference
 	{
-		private class EntityManager : IEntityManager
+		int EntityId
 		{
-			public EntityManager()
-			{
-				
-			}
-			
-			public void CreateEntity<T>() where T : IEntityCreator
-			{
-				
-			}
+			get;
+		}
 
-			public void DeleteEntity(int entityId)
-			{
-				
-			}
+		bool Enabled
+		{
+			get;
+			set;
+		}
 
-			public void DestroyAllEntity()
-			{
-				
-			}
+		bool MarkRemove
+		{
+			get;
+			set;
 		}
 	}
 }

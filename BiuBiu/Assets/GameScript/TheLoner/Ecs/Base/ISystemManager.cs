@@ -13,13 +13,13 @@ namespace TheLoner
 		/// <summary>
 		/// 添加系统
 		/// </summary>
-		void AddSystem<T>() where T : ISystem;
+		void AddSystem<T>() where T : AbstractSystem;
 
 		/// <summary>
 		/// 删除系统
 		/// </summary>
 		/// <param name="entityId"></param>
-		void DeleteSystem<T>(int entityId) where T : ISystem;
+		void DeleteSystem<T>(int entityId) where T : AbstractSystem;
 
 		/// <summary>
 		/// 销毁所有系统
