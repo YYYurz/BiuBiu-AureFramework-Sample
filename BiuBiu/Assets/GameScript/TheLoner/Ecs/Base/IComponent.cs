@@ -8,7 +8,7 @@
 
 namespace TheLoner
 {
-	public interface IEntity : IReference
+	public interface IComponent : IReference
 	{
 		int EntityId
 		{

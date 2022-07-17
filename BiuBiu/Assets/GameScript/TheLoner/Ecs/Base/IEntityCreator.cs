@@ -10,6 +10,6 @@ namespace TheLoner
 {
 	public interface IEntityCreator
 	{
-		void OnCreateEntity(ICreateEntityData createEntityData);
+		void OnCreateEntity(int entityId, ICreateEntityData createEntityData);
 	}
 }

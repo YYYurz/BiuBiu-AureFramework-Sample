@@ -16,6 +16,12 @@ namespace TheLoner
 		private class SystemManager : ISystemManager
 		{
 			private readonly LinkedList<AbstractSystem> systemLinked = new LinkedList<AbstractSystem>();
+			private readonly World world;
+
+			public SystemManager(World world)
+			{
+				this.world = world;
+			}
 			
 			public void Update()
 			{
@@ -45,7 +51,7 @@ namespace TheLoner
 				systemLinked.AddLast(system);
 			}
 
-			public void DeleteSystem<T>(int entityId) where T : AbstractSystem
+			public void RemoveSystem<T>(int entityId) where T : AbstractSystem
 			{
 				var curNode = systemLinked.First;
 				while (curNode != null)
@@ -61,7 +67,7 @@ namespace TheLoner
 				}
 			}
 
-			public void DestroyAllSystem()
+			public void RemoveAllSystem()
 			{
 				var curNode = systemLinked.First;
 				while (curNode != null)

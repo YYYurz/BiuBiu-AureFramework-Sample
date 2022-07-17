@@ -16,15 +16,25 @@ namespace TheLoner
 		{
 			private readonly EntityManager entityManager;
 			private readonly SystemManager systemManager;
+			private readonly ReferencePool referencePool;
 			private readonly ManualResetEvent manualResetEvent;
 
 			public World()
 			{
-				entityManager = new EntityManager();
-				systemManager = new SystemManager();
+				referencePool = new ReferencePool();
+				entityManager = new EntityManager(this);
+				systemManager = new SystemManager(this);
 				manualResetEvent = new ManualResetEvent(true);
 
 				ThreadPool.QueueUserWorkItem(ThreadProc);
+			}
+
+			public ReferencePool ReferencePool
+			{
+				get
+				{
+					return referencePool;
+				}
 			}
 			
 			public IEntityManager EntityManager
@@ -48,6 +58,7 @@ namespace TheLoner
 				while (true)
 				{
 					systemManager.Update();
+					entityManager.Update();
 					manualResetEvent.Set();
 					Thread.Sleep(50);
 				}
@@ -56,8 +67,8 @@ namespace TheLoner
 			public void Clear()
 			{
 				manualResetEvent.WaitOne();
-				entityManager.DestroyAllEntity();
-				systemManager.DestroyAllSystem();
+				entityManager.RemoveAllEntity();
+				systemManager.RemoveAllSystem();
 			}
 		}
 	}

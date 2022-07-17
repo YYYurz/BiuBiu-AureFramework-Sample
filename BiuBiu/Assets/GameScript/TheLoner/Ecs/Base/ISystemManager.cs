@@ -19,11 +19,11 @@ namespace TheLoner
 		/// 删除系统
 		/// </summary>
 		/// <param name="entityId"></param>
-		void DeleteSystem<T>(int entityId) where T : AbstractSystem;
+		void RemoveSystem<T>(int entityId) where T : AbstractSystem;
 
 		/// <summary>
 		/// 销毁所有系统
 		/// </summary>
-		void DestroyAllSystem();
+		void RemoveAllSystem();
 	}
 }

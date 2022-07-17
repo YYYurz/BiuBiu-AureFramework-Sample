@@ -10,6 +10,11 @@ namespace TheLoner
 {
 	public interface ISystem
 	{
+		IWorld World
+		{
+			get;
+		}
+		
 		void OnAwake();
 		
 		void OnUpdate();
