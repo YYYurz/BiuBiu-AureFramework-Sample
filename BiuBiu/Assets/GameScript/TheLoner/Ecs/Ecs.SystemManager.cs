@@ -45,7 +45,7 @@ namespace TheLoner
 					curNode = curNode.Next;
 				}
 
-				var system = Activator.CreateInstance<T>();
+				var system = (T)Activator.CreateInstance(typeof(T), this);
 				system.OnAwake();
 
 				systemLinked.AddLast(system);

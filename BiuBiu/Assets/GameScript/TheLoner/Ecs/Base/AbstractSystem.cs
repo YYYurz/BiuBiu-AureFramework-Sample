@@ -10,6 +10,21 @@ namespace TheLoner
 {
 	public abstract class AbstractSystem : ISystem
 	{
+		private readonly IWorld world;
+
+		public AbstractSystem(IWorld world)
+		{
+			this.world = world;
+		}
+		
+		public IWorld World
+		{
+			get
+			{
+				return world;
+			}
+		}
+
 		public virtual void OnAwake()
 		{
 			

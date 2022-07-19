@@ -61,9 +61,11 @@ namespace TheLoner
 
 			public void Update()
 			{
-				
+				ReleaseUsingComponentList();
+				CheckMarkRemoveComponent();
+				CheckCanRemoveEntity();
 			}
-			
+
 			public void CreateEntity<T>(ICreateEntityData createEntityData) where T : IEntityCreator
 			{
 				if (!entityCreatorDic.TryGetValue(typeof(T), out var entityCreator))
@@ -124,35 +126,66 @@ namespace TheLoner
 				componentArray[componentTypeIndex] = component;
 			}
 
-			public List<T> GetComponentList<T>() where T : IComponent
+			public List<IComponent> GetComponentList<T>() where T : class, IComponent
 			{
-				
-				
-				foreach (var VARIABLE in COLLECTION)
+				var componentType = typeof(T);
+				if (!componentTypeIndexDic.TryGetValue(componentType, out var componentTypeIndex))
 				{
-					
+					Logger.LogError("Component type is invalid.");
+					return null;
 				}
+
+				var componentList = GetComponentList();
+				foreach (var entityComponentArray in entityDic)
+				{
+					var component = entityComponentArray.Value[componentTypeIndex];
+					if (component != null)
+					{
+						componentList.Add(component);
+					}
+				}
+
+				return componentList;
 			}
 
-			public T GetComponentByEntityId<T>(int entityId) where T : IComponent
+			public T GetComponentByEntityId<T>(int entityId) where T : class, IComponent
 			{
+				var componentType = typeof(T);
+				if (!componentTypeIndexDic.TryGetValue(componentType, out var componentTypeIndex))
+				{
+					Logger.LogError("Component type is invalid.");
+					return null;
+				}
 				
+				if (entityDic.TryGetValue(entityId, out var entityComponentArray))
+				{
+					return entityComponentArray[componentTypeIndex] as T;
+				}
+
+				return null;
 			}
 
 			private void CheckMarkRemoveComponent()
 			{
-				foreach (var components in entityDic)
+				foreach (var entityComponentArray in entityDic)
 				{
-					
+					for (var i = entityComponentArray.Value.Length - 1; i >= 0; i--)
+					{
+						if (entityComponentArray.Value[i] != null && entityComponentArray.Value[i].MarkRemove)
+						{
+							world.ReferencePool.Release(entityComponentArray.Value[i]);
+							entityComponentArray.Value[i] = null;
+						}
+					}
 				}
 			}
 
 			private void CheckCanRemoveEntity()
 			{
-				foreach (var components in entityDic)
+				foreach (var entityComponentArray in entityDic)
 				{
 					var canRemove = true;
-					foreach (var component in components.Value)
+					foreach (var component in entityComponentArray.Value)
 					{
 						if (component != null)
 						{
@@ -162,14 +195,18 @@ namespace TheLoner
 
 					if (canRemove)
 					{
-						waitingRemoveEntityQueue.TryDequeue()
+						waitingRemoveEntityQueue.Enqueue(entityComponentArray.Key);
 					}
 				}
-			}
 
-			private void ReleaseUsingComponentList()
-			{
-				
+				while (waitingRemoveEntityQueue.Count > 0)
+				{
+					waitingRemoveEntityQueue.TryDequeue(out var removeEntityId);
+					if (entityDic.TryRemove(removeEntityId, out var entityComponentArray))
+					{
+						CacheEntityComponentArray(entityComponentArray);
+					}
+				}
 			}
 
 			private IComponent[] GetEntityComponentArray()
@@ -212,13 +249,21 @@ namespace TheLoner
 
 				return componentList;
 			}
-
-			private void CacheComponentList(List<IComponent> componentList)
-			{
-				componentList.Clear();
-				cacheComponentListQueue.Enqueue(componentList);
-			}
 			
+			private void ReleaseUsingComponentList()
+			{
+				while (usingComponentListQueue.Count > 0)
+				{
+					if (!usingComponentListQueue.TryDequeue(out var componentList))
+					{
+						break;
+					}
+					
+					componentList.Clear();
+					cacheComponentListQueue.Enqueue(componentList);
+				}
+			}
+
 			private int CreateEntityId()
 			{
 				if (entityIdCalculator == int.MaxValue)

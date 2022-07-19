@@ -34,13 +34,13 @@ namespace TheLoner
 		/// <param name="entityId"></param>
 		/// <param name="component"></param>
 		void AddComponent(int entityId, IComponent component);
-
+		
 		/// <summary>
 		/// 按类型获取组件列表
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <returns></returns>
-		List<T> GetComponentList<T>() where T : IComponent;
+		List<IComponent> GetComponentList<T>() where T : class, IComponent;
 		
 		/// <summary>
 		/// 按类型和实体Id获取组件
@@ -48,6 +48,6 @@ namespace TheLoner
 		/// <param name="entityId"></param>
 		/// <typeparam name="T"></typeparam>
 		/// <returns></returns>
-		T GetComponentByEntityId<T>(int entityId) where T : IComponent;
+		T GetComponentByEntityId<T>(int entityId) where T : class, IComponent;
 	}
 }
