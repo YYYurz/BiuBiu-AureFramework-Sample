@@ -13,7 +13,7 @@ using System.Reflection;
 
 namespace TheLoner
 {
-	public sealed partial class Ecs : IEcs
+	public sealed partial class Ecs
 	{
 		private class EntityManager : IEntityManager
 		{
@@ -123,6 +123,7 @@ namespace TheLoner
 					return;
 				}
 
+				component.EntityId = entityId;
 				componentArray[componentTypeIndex] = component;
 			}
 

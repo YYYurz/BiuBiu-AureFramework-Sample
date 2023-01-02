@@ -8,11 +8,11 @@
 
 namespace TheLoner
 {
-	public abstract class AbstractSystem : ISystem
+	public abstract class AbstractSystem
 	{
 		private readonly IWorld world;
 
-		public AbstractSystem(IWorld world)
+		protected AbstractSystem(IWorld world)
 		{
 			this.world = world;
 		}

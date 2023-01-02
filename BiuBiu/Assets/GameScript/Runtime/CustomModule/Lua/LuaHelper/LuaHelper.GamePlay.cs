@@ -17,7 +17,7 @@ namespace BiuBiu
 		/// </summary>
 		public static void PauseGame()
 		{
-			GameMain.GamePlay.PauseGame();
+			// GameMain.LogicWorld.PauseGame();
 		}
 		
 		/// <summary>
@@ -25,7 +25,7 @@ namespace BiuBiu
 		/// </summary>
 		public static void ResumeGame()
 		{
-			GameMain.GamePlay.ResumeGame();
+			// GameMain.LogicWorld.ResumeGame();
 		}
 	}
 }

@@ -10,18 +10,10 @@ using System.Collections.Generic;
 
 namespace TheLoner
 {
-	/// <summary>
-	/// ECS实体模块
-	/// </summary>
-	public sealed partial class Ecs : IEcs
+	public sealed partial class Ecs
 	{
 		private readonly List<World> worldList = new List<World>();
 		
-		public void Init()
-		{
-			
-		}
-
 		public void Clear()
 		{
 			foreach (var world in worldList)
@@ -35,10 +27,11 @@ namespace TheLoner
 		/// <summary>
 		/// 创建世界
 		/// </summary>
+		/// <param name="initData"></param>
 		/// <returns></returns>
-		public IWorld CreateWorld()
+		public IWorld CreateWorld(IInitData initData)
 		{
-			var world = new World();
+			var world = new World(initData);
 			worldList.Add(world);
 
 			return world;

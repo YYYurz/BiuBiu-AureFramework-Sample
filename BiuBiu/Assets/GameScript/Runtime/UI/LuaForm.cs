@@ -17,6 +17,7 @@ namespace BiuBiu
 	/// </summary>
 	public sealed class LuaForm : UIFormBase
 	{
+		[SerializeField] private bool needUpdate = false;
 		private LuaTable luaScriptTable;
 		private UIFormOpenInfo uiFormOpenInfo;
 
@@ -48,6 +49,15 @@ namespace BiuBiu
 			if (luaScriptTable != null)
 			{
 				GameMain.Lua.CallLuaFunction(luaScriptTable, "OnOpen", null, luaScriptTable, uiFormOpenInfo.UserData);
+			}
+		}
+
+		public override void OnUpdate(float elapseTime)
+		{
+			base.OnUpdate(elapseTime);
+			if (luaScriptTable != null && needUpdate)
+			{
+				GameMain.Lua.CallLuaFunction(luaScriptTable, "OnUpdate", null, luaScriptTable, elapseTime);
 			}
 		}
 

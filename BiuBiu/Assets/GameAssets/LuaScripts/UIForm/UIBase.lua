@@ -9,8 +9,12 @@ function UIBase:OnInit()
     self.EventListenerList = {}
 end
 
-function UIBase:OnOpen()
+function UIBase:OnOpen(param)
     openList[self.uiFormId] = self
+end
+
+function UIBase:OnUpdate(elapseTime)
+    
 end
 
 function UIBase:OnDestroy()

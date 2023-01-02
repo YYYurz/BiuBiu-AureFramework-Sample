@@ -15,7 +15,7 @@ MonoBehaviour:
   m_GroupName: Assets_GameAssets_Art2D_UI-Pause_0
   m_Data:
     m_SerializedData: []
-  m_GUID: 66a60ed17412d204b93e66b293ebd247
+  m_GUID: a27527a89d8398f4eb184e29df26d346
   m_SerializeEntries:
   - m_GUID: f90879a7533271d4ea3a4ef0cdcc95c7
     m_Address: PauseWindow

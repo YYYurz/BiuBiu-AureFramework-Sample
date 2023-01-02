@@ -15,7 +15,7 @@ MonoBehaviour:
   m_GroupName: Assets_GameAssets_Art2D_UISpriteAtlas-JoyStick_0
   m_Data:
     m_SerializedData: []
-  m_GUID: 1c0520c6cb39fef488dc3347453c7ece
+  m_GUID: 78705c4bc1003354fa7ce3c934330702
   m_SerializeEntries:
   - m_GUID: fde44e111de825d4db65830c6f0793d2
     m_Address: Assets/GameAssets/Art2D/UISpriteAtlas/JoyStick/AtlasJoyStick.spriteatlas

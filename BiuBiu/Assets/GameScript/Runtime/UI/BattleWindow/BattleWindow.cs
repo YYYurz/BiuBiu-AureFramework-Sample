@@ -42,17 +42,17 @@ namespace BiuBiu
 
 		private void OnClickAttack1()
 		{
-			GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Attack, joyStick.Direction));
+			// GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Attack, joyStick.Direction));
 		}
 		
 		private void OnClickAttack2()
 		{
-			GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Skill, joyStick.Direction));
+			// GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Skill, joyStick.Direction));
 		}
 		
 		private void OnClickRetreat()
 		{
-			GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Retreat, joyStick.Direction));
+			// GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Retreat, joyStick.Direction));
 		}
 
 		private static void OnClickPauseGame()

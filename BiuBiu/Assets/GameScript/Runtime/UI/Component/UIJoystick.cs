@@ -55,24 +55,24 @@ namespace BiuBiu
 
 			if (v.Equals(0f) && h.Equals(0f))
 			{
-				GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.None, direction.normalized));
+				// GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.None, direction.normalized));
 			}
 			else
 			{
-				GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Direction, direction.normalized));
+				// GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Direction, direction.normalized));
 			}
 			
 			if(Input.GetKeyDown(KeyCode.Joystick1Button0) || Input.GetKey(KeyCode.Joystick1Button0))
 			{
-				GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Attack, direction.normalized));
+				// GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Attack, direction.normalized));
 			}
 			else if(Input.GetKeyDown(KeyCode.Joystick1Button1))
 			{
-				GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Retreat, direction.normalized));
+				// GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Retreat, direction.normalized));
 			}
 			else if(Input.GetKeyDown(KeyCode.Joystick1Button2))
 			{
-				GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Skill, direction.normalized));
+				// GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Skill, direction.normalized));
 			}
 		}
 #endif
@@ -117,19 +117,19 @@ namespace BiuBiu
 				direction = offset.normalized;
 				var handlePos = direction * 100f;
 				dragHandleRectTransform.anchoredPosition = handlePos + originPos;
-				GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Direction, direction));
+				// GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.Direction, direction));
 			}
 			else
 			{
 				dragHandleRectTransform.anchoredPosition = offset;
-				GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.None, direction));
+				// GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.None, direction));
 			}
 		}
 
 		private void ResetHandle()
 		{
 			dragHandleRectTransform.anchoredPosition = originPos;
-			GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.None, direction));
+			// GameMain.Event.Fire(this, InputEventArgs.Create(ECSConstant.InputType.None, direction));
 		}
 	}
 }

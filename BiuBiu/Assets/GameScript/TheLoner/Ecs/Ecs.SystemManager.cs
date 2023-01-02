@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 namespace TheLoner
 {
-	public sealed partial class Ecs : IEcs
+	public sealed partial class Ecs
 	{
 		private class SystemManager : ISystemManager
 		{
@@ -30,6 +30,14 @@ namespace TheLoner
 					system.OnUpdate();
 				}
 			}
+
+			public void AwakeAllSystem()
+			{
+				foreach (var system in systemLinked)
+				{
+					system.OnAwake();
+				}
+			}
 			
 			public void AddSystem<T>() where T : AbstractSystem
 			{
@@ -45,9 +53,7 @@ namespace TheLoner
 					curNode = curNode.Next;
 				}
 
-				var system = (T)Activator.CreateInstance(typeof(T), this);
-				system.OnAwake();
-
+				var system = (T) Activator.CreateInstance(typeof(T), world);
 				systemLinked.AddLast(system);
 			}
 

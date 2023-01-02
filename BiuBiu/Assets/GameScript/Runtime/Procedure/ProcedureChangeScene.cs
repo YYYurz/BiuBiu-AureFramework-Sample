@@ -40,11 +40,6 @@ namespace BiuBiu
 			GameMain.Event.Subscribe<LoadSceneUpdateEventArgs>(OnLoadSceneUpdate);
 			GameMain.Event.Subscribe<LoadSceneSuccessEventArgs>(OnLoadSceneSuccess);
 			GameMain.Event.Subscribe<UnloadSceneSuccessEventArgs>(OnUnloadSceneSuccess);
-
-			if (curSceneType == SceneType.Battle)
-			{
-				GameMain.GamePlay.QuitCurrentGame();
-			}
 			
 			isChangeSceneComplete = false;
 			curSceneType = (SceneType) args[0];
@@ -149,20 +144,22 @@ namespace BiuBiu
 		{
 			if (GameMain.UI.IsUIOpen(curSceneWindowId))
 			{
-				// 5.新场景主界面已经打开，切换场景完成
-				if (curSceneType == SceneType.Battle)
-				{
-					// 进入的是游戏场景，需要创建游戏
-					GameMain.GamePlay.CreateGame(curGameId, () =>
-					{
-						isChangeSceneComplete = true;
-						GameMain.GamePlay.StartGame();
-					});
-				}
-				else
-				{
-					isChangeSceneComplete = true;
-				}
+				// // 5.新场景主界面已经打开，切换场景完成
+				// if (curSceneType == SceneType.Battle)
+				// {
+				// 	// 进入的是游戏场景，需要创建游戏
+				// 	GameMain.LogicWorld.CreateWorld(curGameId, () =>
+				// 	{
+				// 		isChangeSceneComplete = true;
+				// 		GameMain.LogicWorld.StartGame();
+				// 	});
+				// }
+				// else
+				// {
+				// 	isChangeSceneComplete = true;
+				// }
+				
+				isChangeSceneComplete = true;
 			}
 			else if (GameMain.UI.IsUIOpen(Constant.UIFormId.LoadingWindow))
 			{

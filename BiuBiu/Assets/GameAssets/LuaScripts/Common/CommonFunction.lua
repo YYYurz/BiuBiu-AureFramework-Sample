@@ -7,8 +7,12 @@ function CommonFunction:IsUIOpen(uiFormID)
 	LuaHelper.IsUIOpen(uiFormID)
 end
 
-function CommonFunction:OpenUI(uiFormID)
-	LuaHelper.OpenUI(uiFormID)
+function CommonFunction:OpenUI(uiFormID, param)
+	if param then
+		LuaHelper.OpenUI(uiFormID, param)
+	else
+		LuaHelper.OpenUI(uiFormID)
+	end
 end
 
 function CommonFunction:CloseUI(uiFormID)

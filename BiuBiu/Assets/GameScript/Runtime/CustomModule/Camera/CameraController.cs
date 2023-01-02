@@ -26,7 +26,7 @@ namespace BiuBiu
 		{
 			cameraTrans = GetComponentInChildren<Camera>().transform;
 			
-			GameMain.Event.Subscribe<HitMonsterEventArgs>(OnHitMonster);
+			// GameMain.Event.Subscribe<HitMonsterEventArgs>(OnHitMonster);
 		}
 
 		private void LateUpdate()
@@ -42,7 +42,7 @@ namespace BiuBiu
 
 		private void OnDestroy()
 		{
-			GameMain.Event.Unsubscribe<HitMonsterEventArgs>(OnHitMonster);
+			// GameMain.Event.Unsubscribe<HitMonsterEventArgs>(OnHitMonster);
 		}
 
 		/// <summary>
@@ -85,8 +85,8 @@ namespace BiuBiu
 		
 		private void OnHitMonster(object sender, AureEventArgs e)
 		{
-			var args = (HitMonsterEventArgs) e;
-			StartCoroutine(args.IsStrong ? Shake(0.15f, 0.5f) : Shake(0.15f, 0.2f));
+			// var args = (HitMonsterEventArgs) e;
+			// StartCoroutine(args.IsStrong ? Shake(0.15f, 0.5f) : Shake(0.15f, 0.2f));
 		}
 	}
 }

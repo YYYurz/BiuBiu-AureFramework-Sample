@@ -6,8 +6,10 @@
 // Email: 1228396352@qq.com
 //------------------------------------------------------------
 
-using AureFramework.Sound;
+using System;
+using AureFramework.Resource;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace BiuBiu
 {
@@ -22,11 +24,30 @@ namespace BiuBiu
 		{
 			if (string.IsNullOrEmpty(filePath))
 			{
-				Debug.LogError("LuaCallStatic : File path is null.");
+				Debug.LogError("LuaHelper : File path is null.");
 				return null;
 			}
 
 			return AssetUtils.LoadBytes(filePath);
+		}
+		
+		public static void LoadAsset(string assetPath, Action<Object> assetAction)
+		{
+			var mAtlasCallBack = new LoadAssetCallbacks(null, LuaLoadAssetCallback.LoadSuccessCallback, null, LuaLoadAssetCallback.LoadFailureCallback);
+			var userData = GameMain.ReferencePool.Acquire<LuaLoadAssetCallback>();
+			userData.Fill(assetAction);
+			GameMain.Resource.LoadAssetAsync<Object>(assetPath, mAtlasCallBack, userData);
+		}
+
+		public static void LoadDialogue(string filePath, Action<Object> callBack)
+		{
+			if (string.IsNullOrEmpty(filePath))
+			{
+				Debug.LogError("LuaHelper : File path is null.");
+				return;
+			}
+
+			LoadAsset(filePath, callBack);
 		}
 	}
 }

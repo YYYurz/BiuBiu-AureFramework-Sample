@@ -14,19 +14,19 @@ namespace BiuBiu
 			private set;
 		}
 		
-		public static IEcsModule Ecs
-		{
-			get;
-			private set;
-		}
-		
 		public static IEffectModule Effect
 		{
 			get;
 			private set;
 		}
 
-		public static IGamePlayModule GamePlay
+		public static ILogicWorldModule LogicWorld
+		{
+			get;
+			private set;
+		}
+
+		public static IViewWorldModule ViewWorld
 		{
 			get;
 			private set;
@@ -41,9 +41,9 @@ namespace BiuBiu
 		private static void InitCustomModules()
 		{
 			Lua = Aure.GetModule<ILuaModule>();
-			Ecs = Aure.GetModule<IEcsModule>();
 			Effect = Aure.GetModule<IEffectModule>();
-			GamePlay = Aure.GetModule<IGamePlayModule>();
+			LogicWorld = Aure.GetModule<ILogicWorldModule>();
+			ViewWorld = Aure.GetModule<IViewWorldModule>();
 			DataTable = Aure.GetModule<IDataTableModule>();
 		}
 	}

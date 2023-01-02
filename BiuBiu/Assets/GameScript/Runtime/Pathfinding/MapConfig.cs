@@ -14,7 +14,6 @@ using UnityEngine;
 
 namespace BiuBiu
 {
-	[BurstCompile]
 	[Serializable]
 	public struct MapPoint
 	{

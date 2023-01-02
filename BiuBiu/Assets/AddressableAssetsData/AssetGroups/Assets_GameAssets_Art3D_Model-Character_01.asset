@@ -15,7 +15,7 @@ MonoBehaviour:
   m_GroupName: Assets_GameAssets_Art3D_Model-Character_01
   m_Data:
     m_SerializedData: []
-  m_GUID: 672308ccad746834fb183223c6c8b5bd
+  m_GUID: 2a221a02e963b2e4cb95c9b3ba527c93
   m_SerializeEntries:
   - m_GUID: 441435fb1a8fd0f4e82b7be3a5d49696
     m_Address: Player

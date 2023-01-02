@@ -26,6 +26,10 @@ function LuaBehaviour:GetText(obj, path)
 	return LuaHelper.GetText(obj, path)
 end
 
+function LuaBehaviour:GetTextPro(obj, path)
+	return LuaHelper.GetTextPro(obj, path)
+end
+
 function LuaBehaviour:GetImage(obj, path)
 	return LuaHelper.GetImage(obj, path)
 end
@@ -48,6 +52,10 @@ end
 
 function LuaBehaviour:GetSpriteLoader(obj, path)
 	return LuaHelper.GetSpriteLoader(obj, path)
+end
+
+function LuaBehaviour:LoadDialogue(filePath, callBack)
+	LuaHelper.LoadDialogue(filePath, callBack)
 end
 
 return LuaBehaviour

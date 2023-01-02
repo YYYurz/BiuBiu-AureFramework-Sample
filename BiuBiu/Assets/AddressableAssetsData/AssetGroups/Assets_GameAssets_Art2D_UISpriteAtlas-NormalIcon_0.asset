@@ -15,7 +15,7 @@ MonoBehaviour:
   m_GroupName: Assets_GameAssets_Art2D_UISpriteAtlas-NormalIcon_0
   m_Data:
     m_SerializedData: []
-  m_GUID: a2da660f9387dd04da02fa39fa9851d7
+  m_GUID: d483e3487a9faf14ca810fb15ae276e1
   m_SerializeEntries:
   - m_GUID: dba0680ee76e07843a46e162c1d480c5
     m_Address: Assets/GameAssets/Art2D/UISpriteAtlas/NormalIcon/AtlasNormalIcon.spriteatlas

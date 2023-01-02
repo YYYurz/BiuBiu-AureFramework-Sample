@@ -15,7 +15,7 @@ MonoBehaviour:
   m_GroupName: Assets_GameAssets_Art2D_UI-Help_0
   m_Data:
     m_SerializedData: []
-  m_GUID: dbe83304d9eb1ad42ad3c12a92ddec0c
+  m_GUID: e0e4df85b237df945a1022b2c83403b5
   m_SerializeEntries:
   - m_GUID: 2d80aa0ea028aa44aa2fd1fe6bb146f8
     m_Address: HelpWindow

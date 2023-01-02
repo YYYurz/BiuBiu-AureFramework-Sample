@@ -6,6 +6,7 @@
 // Email: 1228396352@qq.com
 //------------------------------------------------------------
 
+using System;
 using System.Threading;
 
 namespace TheLoner
@@ -16,16 +17,19 @@ namespace TheLoner
 		{
 			private readonly EntityManager entityManager;
 			private readonly SystemManager systemManager;
+			private readonly UtilityManager utilityManager;
 			private readonly ReferencePool referencePool;
-			private readonly ManualResetEvent manualResetEvent;
+			private readonly IInitData initData;
+			private bool isRunning;
 
-			public World()
+			public World(IInitData initData)
 			{
+				this.initData = initData;
 				referencePool = new ReferencePool();
 				entityManager = new EntityManager(this);
 				systemManager = new SystemManager(this);
-				manualResetEvent = new ManualResetEvent(true);
-
+				utilityManager = new UtilityManager(this);
+				isRunning = true;
 				ThreadPool.QueueUserWorkItem(ThreadProc);
 			}
 
@@ -53,20 +57,57 @@ namespace TheLoner
 				}
 			}
 
+			public IUtilityManager UtilityManager
+			{
+				get
+				{
+					return utilityManager;
+				}
+			}
+
+			public object InitData
+			{
+				get
+				{
+					return initData;
+				}
+			}
+
+			public void Start()
+			{
+				isRunning = true;
+				try
+				{
+					utilityManager.AwakeAllUtility();
+					systemManager.AwakeAllSystem();
+				}
+				catch (Exception e)
+				{
+					Logger.LogError(e.Message);
+				}
+			}
+			
 			private void ThreadProc(object state)
 			{
-				while (true)
+				while (isRunning)
 				{
-					systemManager.Update();
-					entityManager.Update();
-					manualResetEvent.Set();
 					Thread.Sleep(50);
+					
+					try
+					{
+						systemManager.Update();
+						entityManager.Update();
+					}
+					catch (Exception e)
+					{
+						Logger.LogError(e.Message);
+					}
 				}
 			}
 
 			public void Clear()
 			{
-				manualResetEvent.WaitOne();
+				isRunning = false;
 				entityManager.RemoveAllEntity();
 				systemManager.RemoveAllSystem();
 			}

@@ -1,4 +1,5 @@
 ﻿using AureFramework.Procedure;
+using TheLoner;
 
 namespace BiuBiu
 {
@@ -8,7 +9,8 @@ namespace BiuBiu
 		{
 			base.OnEnter(args);
 			
-			// GameMain.GamePlay.CreateGame(1);
+			GameMain.LogicWorld.CreateWorld(1, new BattleInitData());
+			GameMain.LogicWorld.CreateWorld(1, new BattleInitData());
 		}
 
 		public override void OnUpdate(float elapseTime, float realElapseTime)

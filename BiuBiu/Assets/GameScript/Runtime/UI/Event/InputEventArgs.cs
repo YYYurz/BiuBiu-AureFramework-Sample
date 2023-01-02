@@ -19,11 +19,11 @@ namespace BiuBiu
 		/// <summary>
 		/// 输入类型
 		/// </summary>
-		public ECSConstant.InputType InputType
-		{
-			get;
-			private set;
-		}
+		// public ECSConstant.InputType InputType
+		// {
+		// 	get;
+		// 	private set;
+		// }
 
 		/// <summary>
 		/// 方向
@@ -34,18 +34,18 @@ namespace BiuBiu
 			private set;
 		} 
 
-		public static InputEventArgs Create(ECSConstant.InputType inputType, float2 direction)
-		{
-			var inputEventArgs = GameMain.ReferencePool.Acquire<InputEventArgs>();
-			inputEventArgs.InputType = inputType;
-			inputEventArgs.Direction = direction;
-
-			return inputEventArgs;
-		}
+		// public static InputEventArgs Create(ECSConstant.InputType inputType, float2 direction)
+		// {
+		// 	var inputEventArgs = GameMain.ReferencePool.Acquire<InputEventArgs>();
+		// 	inputEventArgs.InputType = inputType;
+		// 	inputEventArgs.Direction = direction;
+		//
+		// 	return inputEventArgs;
+		// }
 		
 		public override void Clear()
 		{
-			InputType = ECSConstant.InputType.None;
+			// InputType = ECSConstant.InputType.None;
 			Direction = float2.zero;
 		}
 	}

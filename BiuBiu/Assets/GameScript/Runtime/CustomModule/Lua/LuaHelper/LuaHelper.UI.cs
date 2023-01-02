@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using AureFramework;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -38,6 +39,11 @@ namespace BiuBiu
 
         public static Text GetText(GameObject obj, string path) {
             return GetChild<Text>(obj, path);
+        }
+
+        public static TextMeshProUGUI GetTextPro(GameObject obj, string path)
+        {
+            return GetChild<TextMeshProUGUI>(obj, path);
         }
 
         public static Image GetImage(GameObject obj, string path) {

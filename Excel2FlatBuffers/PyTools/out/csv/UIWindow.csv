@@ -5,6 +5,7 @@ int,string,string,string,string
 "1003","SettingWindow","Normal","SettingWindow","UIForm/Setting/SettingWindow"
 "1004","PauseWindow","Normal","PauseWindow","UIForm/Pause/PauseWindow"
 "1005","HelpWindow","Normal","HelpWindow","UIForm/Help/HelpWindow"
+"1006","DialogueWindow","Normal","DialogueWindow","UIForm/Dialogue/DialogueWindow"
 "3001","LoadingWindow","Top","LoadingWindow","UIForm/Loading/LoadingWindow"
 "","","","",""
 "","","","",""

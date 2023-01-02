@@ -37,7 +37,8 @@ function LoginWindow:OnClickLogin()
 end
 
 function LoginWindow:OnClickHelp()
-	CF:OpenUI(UIFormId.HelpWindow)
+	--CF:OpenUI(UIFormId.HelpWindow)
+	CF:OpenUI(UIFormId.DialogueWindow, "Haha")
 end
 
 function LoginWindow:OnClickSetting()
