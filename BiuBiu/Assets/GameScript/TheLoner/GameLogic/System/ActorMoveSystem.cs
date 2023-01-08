@@ -12,6 +12,21 @@ namespace TheLoner
 	{
 		public ActorMoveSystem(IWorld world) : base(world)
 		{
+			
+		}
+
+		public override void OnAwake()
+		{
+			base.OnAwake();
+			
+			Logger.LogError("Actor Move System Awake!!!");
+		}
+
+		public override void OnUpdate()
+		{
+			base.OnUpdate();
+			
+			Logger.LogError("Actor Move System OnUpdate");
 		}
 	}
 }

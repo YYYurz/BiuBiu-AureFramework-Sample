@@ -12,6 +12,11 @@ namespace TheLoner
 	{
 		private static ILogger logger;
 
+		public static void SetLogger(ILogger loggerProxy)
+		{
+			logger = loggerProxy;
+		}
+
 		public static void Log(string content)
 		{
 			logger?.Log(content);

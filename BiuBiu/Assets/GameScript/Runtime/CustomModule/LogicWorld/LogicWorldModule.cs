@@ -20,7 +20,7 @@ namespace BiuBiu
 		
 		public override void Init()
 		{
-			
+			TheLoner.Logger.SetLogger(new Logger());
 		}
 
 		public override void Tick(float elapseTime, float realElapseTime)
