@@ -16,11 +16,9 @@ namespace BiuBiu
 	/// </summary>
 	public sealed class LogicWorldModule : AureFrameworkModule, ILogicWorldModule
 	{
-		private readonly Ecs ecs = new Ecs();
-		
 		public override void Init()
 		{
-			TheLoner.Logger.SetLogger(new Logger());
+			// TheLoner.Logger.SetLogger(new Logger());
 		}
 
 		public override void Tick(float elapseTime, float realElapseTime)
@@ -30,26 +28,7 @@ namespace BiuBiu
 
 		public override void Clear()
 		{
-			ecs.Clear();
-		}
-		
-		/// <summary>
-		/// 创建游戏
-		/// </summary>
-		/// <param name="gameId"> 游戏Id </param>
-		/// <param name="battleInitData"> 战斗初始化数据 </param>
-		public IWorld CreateWorld(uint gameId, BattleInitData battleInitData)
-		{
-			return ecs.CreateWorld(battleInitData);
-		}
-
-		/// <summary>
-		/// 销毁逻辑世界
-		/// </summary>
-		/// <param name="world"></param>
-		public void DestroyWorld(IWorld world)
-		{
-			ecs.DestroyWorld(world);
+			
 		}
 	}
 }

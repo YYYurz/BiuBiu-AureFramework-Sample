@@ -1,12 +1,11 @@
 ﻿using AureFramework.Procedure;
 using TheLoner;
-using UnityEngine;
 
 namespace BiuBiu
 {
 	public class ProcedureBattle : ProcedureBase
 	{
-		private IWorld logicWorld;
+		// private IWorld logicWorld;
 		
 		public override void OnEnter(params object[] args)
 		{
@@ -24,15 +23,12 @@ namespace BiuBiu
 
 		private void CreateLogicWorld()
 		{
-			logicWorld = GameMain.LogicWorld.CreateWorld(1, new BattleInitData());
-			InitSystem();
-			InitUtility();
-			logicWorld.Start();
+			
 		}
 
 		private void InitSystem()
 		{
-			logicWorld.SystemManager.AddSystem<ActorMoveSystem>();
+			
 		}
 
 		private void InitUtility()
@@ -42,7 +38,7 @@ namespace BiuBiu
 
 		private void DestroyLogicWorld()
 		{
-			GameMain.LogicWorld.DestroyWorld(logicWorld);
+			
 		}
 	}
 }

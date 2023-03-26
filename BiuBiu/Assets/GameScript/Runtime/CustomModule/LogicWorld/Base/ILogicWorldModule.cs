@@ -20,12 +20,12 @@ namespace BiuBiu
 		/// </summary>
 		/// <param name="gameId"> 游戏Id </param>
 		/// <param name="battleInitData"> 战斗初始化数据 </param>
-		IWorld CreateWorld(uint gameId, BattleInitData battleInitData);
+		// IWorld CreateWorld(uint gameId, BattleInitData battleInitData);
 		
 		/// <summary>
 		/// 销毁逻辑世界
 		/// </summary>
 		/// <param name="world"></param>
-		void DestroyWorld(IWorld world);
+		// void DestroyWorld(IWorld world);
 	}
 }
