@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
-// AureFramework
-// Developed By ZhiRui Yu.
+// Drunk Fish Demo
+// Developed By YYYurz.
 // GitHub: https://github.com/YYYurz
 // Gitee: https://gitee.com/yyyurz
 // Email: 1228396352@qq.com
@@ -19,7 +19,7 @@ using AureFramework.Procedure;
 using AureFramework.ObjectPool;
 using AureFramework.ReferencePool;
 
-namespace BiuBiu
+namespace DrunkFish
 {
 	/// <summary>
 	/// 框架模块集合

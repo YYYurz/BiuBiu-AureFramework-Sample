@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
-// AureFramework
-// Developed By ZhiRui Yu.
+// Drunk Fish Demo
+// Developed By YYYurz.
 // GitHub: https://github.com/YYYurz
 // Gitee: https://gitee.com/yyyurz
 // Email: 1228396352@qq.com
@@ -8,7 +8,7 @@
 
 using System.Collections.Generic;
 using AureFramework.Resource;
-using BiuBiu;
+using DrunkFish;
 using UnityEngine;
 using UnityEngine.U2D;
 using UnityEngine.UI;

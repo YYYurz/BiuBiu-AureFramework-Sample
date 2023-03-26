@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
-// AureFramework
-// Developed By ZhiRui Yu.
+// Drunk Fish Demo
+// Developed By YYYurz.
 // GitHub: https://github.com/YYYurz
 // Gitee: https://gitee.com/yyyurz
 // Email: 1228396352@qq.com
@@ -13,7 +13,7 @@ using UnityEditor;
 using System.Diagnostics;
 using Debug = UnityEngine.Debug;
 
-namespace BiuBiu.Editor
+namespace DrunkFish.Editor
 {
 	public class Excel2FlatBuffersTool : EditorWindow
 	{

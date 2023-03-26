@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
-// AureFramework
-// Developed By ZhiRui Yu.
+// Drunk Fish Demo
+// Developed By YYYurz.
 // GitHub: https://github.com/YYYurz
 // Gitee: https://gitee.com/yyyurz
 // Email: 1228396352@qq.com
@@ -10,7 +10,7 @@ using AureFramework;
 using AureFramework.ReferencePool;
 using UnityEngine;
 
-namespace BiuBiu
+namespace DrunkFish
 {
 	public sealed partial class EffectModule : AureFrameworkModule, IEffectModule
 	{

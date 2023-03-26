@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-namespace BiuBiu
+namespace DrunkFish
 {
     public partial class GameMain : MonoBehaviour
     {

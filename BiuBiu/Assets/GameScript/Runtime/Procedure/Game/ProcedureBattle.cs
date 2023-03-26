@@ -1,7 +1,7 @@
 ﻿using AureFramework.Procedure;
 using TheLoner;
 
-namespace BiuBiu
+namespace DrunkFish
 {
 	public class ProcedureBattle : ProcedureBase
 	{

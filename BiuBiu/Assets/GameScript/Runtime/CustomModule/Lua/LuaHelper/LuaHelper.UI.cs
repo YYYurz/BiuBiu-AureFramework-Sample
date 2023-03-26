@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace BiuBiu
+namespace DrunkFish
 {
     public static partial class LuaHelper
     {

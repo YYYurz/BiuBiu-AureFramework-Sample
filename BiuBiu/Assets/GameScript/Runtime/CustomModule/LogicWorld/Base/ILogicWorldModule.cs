@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
-// AureFramework
-// Developed By ZhiRui Yu.
+// Drunk Fish Demo
+// Developed By YYYurz.
 // GitHub: https://github.com/YYYurz
 // Gitee: https://gitee.com/yyyurz
 // Email: 1228396352@qq.com
@@ -8,7 +8,7 @@
 
 using TheLoner;
 
-namespace BiuBiu
+namespace DrunkFish
 {
 	/// <summary>
 	/// 游戏模块接口

@@ -1,7 +1,7 @@
 ﻿using AureFramework;
 using UnityEngine;
 
-namespace BiuBiu
+namespace DrunkFish
 {
 	/// <summary>
 	/// 框架模块集合

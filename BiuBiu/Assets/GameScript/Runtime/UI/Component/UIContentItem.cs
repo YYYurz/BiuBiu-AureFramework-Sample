@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
-// AureFramework
-// Developed By ZhiRui Yu.
+// Drunk Fish Demo
+// Developed By YYYurz.
 // GitHub: https://github.com/YYYurz
 // Gitee: https://gitee.com/yyyurz
 // Email: 1228396352@qq.com
@@ -10,7 +10,7 @@ using AureFramework.ObjectPool;
 using UnityEngine;
 using XLua;
 
-namespace BiuBiu
+namespace DrunkFish
 {
 	/// <summary>
 	/// 滚动列表Item

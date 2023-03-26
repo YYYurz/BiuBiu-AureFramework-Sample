@@ -7,7 +7,7 @@ using UnityEditor;
 /// <summary>
 /// XLua静态Wrap配置类
 /// </summary>
-namespace BiuBiu.Editor
+namespace DrunkFish.Editor
 {
     public static class XLuaStaticConfig
     {
