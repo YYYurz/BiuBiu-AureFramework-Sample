@@ -1,3 +1,6 @@
 [submodule "BiuBiu/Assets/Plugins/AureFramework"]
 	path = BiuBiu/Assets/Plugins/AureFramework
 	url = https://gitee.com/yyyurz/Aure-Framework.git
+[submodule "ProtoBuf"]
+	path = ProtoBuf
+	url = https://gitee.com/yyyurz/biu-biu.-proto.git
