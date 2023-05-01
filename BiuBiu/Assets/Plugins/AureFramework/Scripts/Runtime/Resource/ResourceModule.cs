@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // AureFramework
-// Developed By YYYurz
+// Developed By ZhiRui Yu.
 // GitHub: https://github.com/YYYurz
 // Gitee: https://gitee.com/yyyurz
 // Email: 1228396352@qq.com
@@ -252,8 +252,8 @@ namespace AureFramework.Resource
 					Addressables.Release(handle);
 				}
 
-				loadingAssetDic.Remove(taskId);
 				sceneCallbackDic.Remove(taskId);
+				instantiateCallbackDic.Remove(taskId);
 			}
 		}
 
@@ -263,15 +263,7 @@ namespace AureFramework.Resource
 		/// <param name="asset"> 要卸载的资源 </param>
 		public void ReleaseAsset(Object asset)
 		{
-			try
-			{
-				Addressables.Release(asset);
-			}
-			catch (Exception e)
-			{
-				Debug.LogError(e.Message);
-				throw;
-			}
+			Addressables.Release(asset);
 		}
 
 		/// <summary>

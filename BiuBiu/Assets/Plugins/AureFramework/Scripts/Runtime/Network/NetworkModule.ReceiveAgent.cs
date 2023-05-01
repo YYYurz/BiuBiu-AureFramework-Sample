@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // AureFramework
-// Developed By YYYurz
+// Developed By ZhiRui Yu.
 // GitHub: https://github.com/YYYurz
 // Gitee: https://gitee.com/yyyurz
 // Email: 1228396352@qq.com
@@ -10,6 +10,8 @@ using System;
 using System.IO;
 using System.Net.Sockets;
 using AureFramework.Event;
+using BiuBiu;
+using UnityEngine;
 
 namespace AureFramework.Network
 {

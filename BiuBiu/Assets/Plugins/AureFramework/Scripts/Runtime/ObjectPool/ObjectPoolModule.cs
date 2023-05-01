@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // AureFramework
-// Developed By YYYurz
+// Developed By ZhiRui Yu.
 // GitHub: https://github.com/YYYurz
 // Gitee: https://gitee.com/yyyurz
 // Email: 1228396352@qq.com
@@ -144,12 +144,12 @@ namespace AureFramework.ObjectPool
 
 		private void InternalDestroyAllObjectPool()
 		{
-			foreach (var objectPoolBase in ObjectPoolList)
+			for (var i = 0; i < Count; i++)
 			{
-				objectPoolBase.ShutDown();
+				var objectPool = ObjectPoolList[i];
+				objectPool.ShutDown();
+				ObjectPoolList.Remove(objectPool);
 			}
-			
-			ObjectPoolList.Clear();
 		}
 
 		private static bool TryGetObjectPool<T>(string poolName, out ObjectPoolBase objectPool) where T : ObjectBase
