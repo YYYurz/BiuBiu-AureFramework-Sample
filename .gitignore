@@ -19,4 +19,5 @@
 *.csproj
 *.user
 *.sln
+*.log
 

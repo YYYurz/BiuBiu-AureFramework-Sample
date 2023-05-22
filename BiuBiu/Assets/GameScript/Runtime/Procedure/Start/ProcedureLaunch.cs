@@ -11,6 +11,7 @@ using AureFramework.Event;
 using AureFramework.Network;
 using AureFramework.Procedure;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace DrunkFish
 {
@@ -49,7 +50,7 @@ namespace DrunkFish
 		
 		public override void OnEnter(params object[] args)
 		{
-			GameMain.Event.Subscribe<NetworkConnectedEventArgs>(OnNetworkConnected);
+			// GameMain.Event.Subscribe<NetworkConnectedEventArgs>(OnNetworkConnected);
 
 			// networkChannel = GameMain.Network.CreateNetworkChannel("DefaultNetworkChannel", new TestNetworkHelper());
 			// networkChannel.Connect(IPAddress.Parse("192.168.3.90"), 23321);
@@ -95,7 +96,7 @@ namespace DrunkFish
 		{
 			base.OnExit();
 			
-			GameMain.Event.Unsubscribe<NetworkConnectedEventArgs>(OnNetworkConnected);
+			// GameMain.Event.Unsubscribe<NetworkConnectedEventArgs>(OnNetworkConnected);
 		}
 		
 		private void OnNetworkConnected(object sender, AureEventArgs e)
